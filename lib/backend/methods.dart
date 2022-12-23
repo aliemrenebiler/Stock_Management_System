@@ -36,7 +36,7 @@ class SharedPrefsService {
   }
 }
 
-class SQLiteServices {
+class DatabaseService {
   Future<Database> copyAndOpenDB(String dbName) async {
     var databasesPath = await getDatabasesPath();
     var path = join(databasesPath, dbName);
@@ -64,202 +64,344 @@ class SQLiteServices {
     return size;
   }
 
-  Future<Product> getProduct(String id) async {
-    var newProduct =
-        await database!.rawQuery('SELECT * FROM stok WHERE urunKodu = $id');
-
-    return Product(
-      id: id,
-      name: newProduct[0]["urunAd"] as String,
-      brand: (newProduct[0]["marka"] == null)
-          ? null
-          : newProduct[0]["makra"] as String,
-      color: (newProduct[0]["renk"] == null)
-          ? null
-          : newProduct[0]["renk"] as String,
-      size: (newProduct[0]["boyut"] == null)
-          ? null
-          : newProduct[0]["boyut"] as String,
-      sizeType: (newProduct[0]["boyutTur"] == null)
-          ? null
-          : newProduct[0]["boyutTur"] as String,
-      category: newProduct[0]["kategori"] as String,
-      amount: newProduct[0]["adet"] as String,
-      price: newProduct[0]["adetSatisFiyat"] as double,
+  createProducts() async {
+    await db.execute(
+      'CREATE TABLE ${Product().tableName}(${Product().id} TEXT not null,${Product().name} TEXT not null,${Product().brand} TEXT,${Product().category} TEXT,${Product().color} TEXT,${Product().size} TEXT,${Product().sizeType} TEXT,${Product().amount} INTEGER,${Product().price} REAL,primary key (${Product().id}),)',
     );
   }
 
-  insertProduct(Product product) async {
-    int id = await database!.rawInsert(
-      'INSERT INTO stok(urunKodu,urunAd,marka,kategori,renk,boyut,boyutTur,adet,adetSatisFiyat) VALUES(?,?,?,?,?,?,?,?,?)',
+  Future<List<Map<dynamic, dynamic>>> getProducts(
+    String? id,
+    String? name,
+    String? brand,
+    String? category,
+    String? color,
+    double? size,
+    String? sizeType,
+  ) async {
+    String query = 'SELECT * FROM ${Product().tableName}';
+    bool isSearching = false;
+
+    if (id != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      }
+      query += ' ${Product().id}="$id"';
+    }
+    if (name != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' AND';
+      }
+      query += ' ${Product().name}="$name"';
+    }
+    if (brand != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' AND';
+      }
+      query += ' ${Product().brand}="$brand"';
+    }
+    if (category != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' AND';
+      }
+      query += ' ${Product().category}="$category"';
+    }
+    if (color != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' AND';
+      }
+      query += ' ${Product().color}="$color"';
+    }
+    if (size != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' AND';
+      }
+      query += ' ${Product().size}=$size';
+    }
+    if (sizeType != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' AND';
+      }
+      query += ' ${Product().sizeType}="$sizeType"';
+    }
+
+    var products = await database!.rawQuery(query);
+
+    return products;
+  }
+
+  insertProduct(Map<dynamic, dynamic> product) async {
+    await database!.rawInsert(
+      'INSERT INTO product(id,name,brand,category,color,size,sizeType,amount,price) VALUES(?,?,?,?,?,?,?,?,?)',
       [
-        product.id,
-        product.name,
-        product.brand,
-        product.category,
-        product.color,
-        product.size,
-        product.sizeType,
-        product.amount,
-        product.price,
+        product["id"] as String,
+        product["name"] as String,
+        product["brand"] as String,
+        product["category"] as String,
+        product["color"] as String,
+        product["size"] as double,
+        product["sizeType"] as String,
+        product["amount"] as int,
+        product["price"] as double,
       ],
     );
   }
 
-  updateProduct(Product product) async {
-    int id = await database!.rawUpdate(
-      'UPDATE stok SET urunAd=?,marka=?,kategori=?,renk=?,boyut=?,boyutTur=?,adet=?,adetSatisFiyat=? WHERE urunKodu=?',
+  updateProduct(Map<dynamic, dynamic> product) async {
+    await database!.rawUpdate(
+      'UPDATE ${Product().tableName} SET ${Product().name}=?,${Product().brand}=?,${Product().category}=?,${Product().color}=?,${Product().size}=?,${Product().sizeType}=?,${Product().amount}=?,${Product().price}=? WHERE ${Product().id}=?',
       [
-        product.name,
-        product.brand,
-        product.category,
-        product.color,
-        product.size,
-        product.sizeType,
-        product.amount,
-        product.price,
-        product.id,
+        product[Product().name] as String,
+        product[Product().brand] as String,
+        product[Product().category] as String,
+        product[Product().color] as String,
+        product[Product().size] as double,
+        product[Product().sizeType] as String,
+        product[Product().amount] as int,
+        product[Product().price] as double,
+        product[Product().id] as String,
       ],
     );
   }
 
   deleteProduct(String id) async {
-    await database!.rawDelete('DELETE FROM stok WHERE urunKodu=$id');
+    await database!.rawDelete(
+        'DELETE FROM ${Product().tableName} WHERE ${Product().id}=$id');
   }
 
-  Future<Supplier> getSupplier(String id) async {
-    var newSupplier = await database!
-        .rawQuery('SELECT * FROM tedarikci WHERE firmaKodu = $id');
-
-    return Supplier(
-      id: id,
-      name: newSupplier[0]["firmaAd"] as String,
-      phone: (newSupplier[0]["telefonNo"] == null)
-          ? null
-          : newSupplier[0]["telefonNo"] as String,
-      address: (newSupplier[0]["adres"] == null)
-          ? null
-          : newSupplier[0]["adres"] as String,
+  createSuppliers() async {
+    await db.execute(
+      'CREATE TABLE ${Supplier().tableName}(${Supplier().id} TEXT not null, ${Supplier().name} TEXT not null, ${Supplier().phone} TEXT,${Supplier().address} TEXT,primary key (${Supplier().id}),)',
     );
   }
 
-  insertSupplier(Supplier supplier) async {
-    int id = await database!.rawInsert(
-      'INSERT INTO tedarikci(firmaKodu,firmaAd,telefonNo,adres) VALUES(?,?,?,?)',
+  Future<List<Map<dynamic, dynamic>>> getSuppliers(
+    String? id,
+    String? name,
+    String? phone,
+  ) async {
+    String query = 'SELECT * FROM ${Supplier().tableName}';
+    bool isSearching = false;
+    if (id != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      }
+      query += ' ${Supplier().id}="$id"';
+    }
+    if (name != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' AND';
+      }
+      query += ' ${Supplier().name}="$name"';
+    }
+    if (phone != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' AND';
+      }
+      query += ' ${Supplier().phone}="$phone"';
+    }
+
+    var suppliers = await database!.rawQuery(query);
+
+    return suppliers;
+  }
+
+  insertSupplier(Map<dynamic, dynamic> supplier) async {
+    await database!.rawInsert(
+      'INSERT INTO ${Supplier().tableName}(${Supplier().id},${Supplier().name},${Supplier().phone},${Supplier().address}) VALUES(?,?,?,?)',
       [
-        supplier.id,
-        supplier.name,
-        supplier.phone,
-        supplier.address,
+        supplier[Supplier().id],
+        supplier[Supplier().name],
+        supplier[Supplier().phone],
+        supplier[Supplier().address],
       ],
     );
   }
 
-  updateSupplier(Supplier supplier) async {
-    int id = await database!.rawUpdate(
-      'UPDATE tedarikci SET firmaAd=?,telefonNo=?,adres=? WHERE firmaKodu=?',
+  updateSupplier(Map<dynamic, dynamic> supplier) async {
+    await database!.rawUpdate(
+      'UPDATE ${Supplier().tableName} SET ${Supplier().name}=?,${Supplier().phone}=?,${Supplier().address}=? WHERE ${Supplier().id}=?',
       [
-        supplier.name,
-        supplier.phone,
-        supplier.address,
-        supplier.id,
+        supplier[Supplier().name],
+        supplier[Supplier().phone],
+        supplier[Supplier().address],
+        supplier[Supplier().id],
       ],
     );
   }
 
   deleteSupplier(String id) async {
-    await database!.rawDelete('DELETE FROM tedarikci WHERE firmaKodu=$id');
+    await database!.rawDelete(
+        'DELETE FROM ${Supplier().tableName} WHERE ${Supplier().id}=$id');
   }
 
-  Future<Purchase> getPurchase(String id) async {
-    var newPurchase = await database!
-        .rawQuery('SELECT * FROM satinAlimKayit WHERE alimKodu = $id');
-
-    return Purchase(
-      id: id,
-      productID: newPurchase[0]["alinanUrunKodu"] as String,
-      supplierID: (newPurchase[0]["tedarikciKodu"] == null)
-          ? null
-          : newPurchase[0]["tedarikciKodu"] as String,
-      amount: newPurchase[0]["urunAdet"] as int,
-      price: newPurchase[0]["alimFiyat"] as double,
-      date: newPurchase[0]["alimTarih"] as String,
+  createPurchases() async {
+    await db.execute(
+      'CREATE TABLE ${Purchase().tableName}(${Purchase().id} TEXT not null,${Purchase().supplierID} TEXT,${Purchase().productID} TEXT not null,${Purchase().amount} INTEGER,${Purchase().price} REAL,${Purchase().date} DATE,primary key (${Purchase().id}),foreign key (${Purchase().supplierID}) references ${Supplier().tableName}(${Supplier().id}),foreign key (${Purchase().productID}) references ${Product().tableName}(${Product().id}),)',
     );
   }
 
-  insertPurchase(Purchase purchase) async {
-    int id = await database!.rawInsert(
-      'INSERT INTO satinAlimKayit(alimKodu,tedarikciKodu,alinanUrunKodu,urunAdet,alimFiyat,alimTarih) VALUES(?,?,?,?,?,?)',
+  Future<List<Map<dynamic, dynamic>>> getPurchases(
+    String? id,
+    String? supplierID,
+    String? productID,
+  ) async {
+    String query = 'SELECT * FROM ${Purchase().tableName}';
+    bool isSearching = false;
+
+    if (id != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      }
+      query += ' ${Purchase().id}="$id"';
+    }
+    if (supplierID != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' AND';
+      }
+      query += ' ${Purchase().supplierID}="$supplierID"';
+    }
+    if (productID != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' AND';
+      }
+      query += ' ${Purchase().productID}="$productID"';
+    }
+
+    var purchases = await database!.rawQuery(query);
+
+    return purchases;
+  }
+
+  insertPurchase(Map<dynamic, dynamic> purchase) async {
+    await database!.rawInsert(
+      'INSERT INTO ${Purchase().tableName}(${Purchase().id},${Purchase().supplierID},${Purchase().productID},${Purchase().amount},${Purchase().price},${Purchase().date}) VALUES(?,?,?,?,?,?)',
       [
-        purchase.id,
-        purchase.supplierID,
-        purchase.productID,
-        purchase.amount,
-        purchase.price,
-        purchase.date,
+        purchase[Purchase().id],
+        purchase[Purchase().supplierID],
+        purchase[Purchase().productID],
+        purchase[Purchase().amount],
+        purchase[Purchase().price],
+        purchase[Purchase().date],
       ],
     );
   }
 
-  updatePurchase(Purchase purchase) async {
-    int id = await database!.rawUpdate(
-      'UPDATE satinAlimKayit SET tedarikciKodu=?,alinanUrunKodu=?,urunAdet=?,alimFiyat=?,alimTarih=? WHERE alimKodu=?',
+  updatePurchase(Map<dynamic, dynamic> purchase) async {
+    await database!.rawUpdate(
+      'UPDATE ${Purchase().tableName} SET ${Purchase().supplierID}=?,${Purchase().productID}=?,${Purchase().amount}=?,${Purchase().price}=?,${Purchase().date}=? WHERE ${Purchase().id}=?',
       [
-        purchase.supplierID,
-        purchase.productID,
-        purchase.amount,
-        purchase.price,
-        purchase.date,
-        purchase.id,
+        purchase[Purchase().supplierID],
+        purchase[Purchase().productID],
+        purchase[Purchase().amount],
+        purchase[Purchase().price],
+        purchase[Purchase().date],
+        purchase[Purchase().id],
       ],
     );
   }
 
   deletePurchase(String id) async {
-    await database!.rawDelete('DELETE FROM satinAlimKayit WHERE alimKodu=$id');
+    await database!.rawDelete(
+        'DELETE FROM ${Purchase().tableName} WHERE ${Purchase().id}=$id');
   }
 
-  Future<Sale> getSale(String id) async {
-    var newSale = await database!
-        .rawQuery('SELECT * FROM satisKayit WHERE satisKodu = $id');
-
-    return Sale(
-      id: id,
-      productID: newSale[0]["satilanUrunKodu"] as String,
-      amount: newSale[0]["urunAdet"] as int,
-      price: newSale[0]["satisFiyat"] as double,
-      date: newSale[0]["satisTarih"] as String,
+  createSales() async {
+    await db.execute(
+      'CREATE TABLE ${Sale().tableName}(${Purchase().id} TEXT not null,${Sale().productID} TEXT not null,${Sale().amount} INTEGER,${Sale().price} REAL,${Sale().date} DATE,primary key (${Sale().id}),foreign key (${Sale().productID}) references ${Product().tableName}(${Product().id}),)',
     );
   }
 
-  insertSale(Sale sale) async {
-    int id = await database!.rawInsert(
-      'INSERT INTO satisKayit(satisKodu,satilanUrunKodu,urunAdet,satisFiyat,satisTarih) VALUES(?,?,?,?,?)',
+  Future<List<Map<dynamic, dynamic>>> getSales(
+    String? id,
+    String? productID,
+  ) async {
+    String query = 'SELECT * FROM ${Sale().tableName}';
+    bool isSearching = false;
+
+    if (id != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      }
+      query += ' ${Sale().id}="$id"';
+    }
+    if (productID != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' AND';
+      }
+      query += ' ${Sale().productID}="$productID"';
+    }
+    var sales = await database!.rawQuery(query);
+
+    return sales;
+  }
+
+  insertSale(Map<dynamic, dynamic> sale) async {
+    await database!.rawInsert(
+      'INSERT INTO ${Sale().tableName}(${Sale().id},${Sale().productID},${Sale().amount},${Sale().price},${Sale().date}) VALUES(?,?,?,?,?)',
       [
-        sale.id,
-        sale.productID,
-        sale.amount,
-        sale.price,
-        sale.date,
+        sale[Sale().id],
+        sale[Sale().productID],
+        sale[Sale().amount],
+        sale[Sale().price],
+        sale[Sale().date],
       ],
     );
   }
 
-  updateSale(Sale sale) async {
-    int id = await database!.rawUpdate(
-      'UPDATE satisKayit SET satilanUrunKodu=?,urunAdet=?,satisFiyat=?,satisTarih=? WHERE satisKodu=?',
+  updateSale(Map<dynamic, dynamic> sale) async {
+    await database!.rawUpdate(
+      'UPDATE ${Sale().tableName} SET ${Sale().productID}=?,${Sale().amount}=?,${Sale().price}=?,${Sale().date}=? WHERE ${Sale().id}=?',
       [
-        sale.productID,
-        sale.amount,
-        sale.price,
-        sale.date,
-        sale.id,
+        sale[Sale().productID],
+        sale[Sale().amount],
+        sale[Sale().price],
+        sale[Sale().date],
+        sale[Sale().id],
       ],
     );
   }
 
   deleteSale(String id) async {
-    await database!.rawDelete('DELETE FROM satisKayit WHERE satisKodu=$id');
+    await database!
+        .rawDelete('DELETE FROM ${Sale().tableName} WHERE ${Sale().id}=$id');
   }
 }
 
@@ -334,8 +476,8 @@ barcode(PostgreSQLConnection conn, String selectedVal) async {
   // listKategori = [];
   listBarcode = [];
   try {
-    var results = await conn.query(
-        "SELECT barkod FROM urunler where (isim = \'" + selectedVal + "\');");
+    var results = await conn
+        .query("SELECT barkod FROM urunler where (isim = '$selectedVal');");
     for (final i in results) {
       // print();
       var str = i[0].toString();
