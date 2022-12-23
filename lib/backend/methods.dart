@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -109,8 +107,8 @@ class SQLiteServices {
   }
 
   updateProduct(Product product) async {
-    int id = await database!.rawInsert(
-      'UPDATE urunAd=?,marka=?,kategori=?,renk=?,boyut=?,boyutTur=?,adet=?,adetSatisFiyat=? WHERE urunKodu=?',
+    int id = await database!.rawUpdate(
+      'UPDATE stok SET urunAd=?,marka=?,kategori=?,renk=?,boyut=?,boyutTur=?,adet=?,adetSatisFiyat=? WHERE urunKodu=?',
       [
         product.name,
         product.brand,
@@ -123,6 +121,10 @@ class SQLiteServices {
         product.id,
       ],
     );
+  }
+
+  deleteProduct(String id) async {
+    await database!.rawDelete('DELETE FROM stok WHERE urunKodu=$id');
   }
 
   Future<Supplier> getSupplier(String id) async {
@@ -141,7 +143,33 @@ class SQLiteServices {
     );
   }
 
-  // TODO: insert, update
+  insertSupplier(Supplier supplier) async {
+    int id = await database!.rawInsert(
+      'INSERT INTO tedarikci(firmaKodu,firmaAd,telefonNo,adres) VALUES(?,?,?,?)',
+      [
+        supplier.id,
+        supplier.name,
+        supplier.phone,
+        supplier.address,
+      ],
+    );
+  }
+
+  updateSupplier(Supplier supplier) async {
+    int id = await database!.rawUpdate(
+      'UPDATE tedarikci SET firmaAd=?,telefonNo=?,adres=? WHERE firmaKodu=?',
+      [
+        supplier.name,
+        supplier.phone,
+        supplier.address,
+        supplier.id,
+      ],
+    );
+  }
+
+  deleteSupplier(String id) async {
+    await database!.rawDelete('DELETE FROM tedarikci WHERE firmaKodu=$id');
+  }
 
   Future<Purchase> getPurchase(String id) async {
     var newPurchase = await database!
@@ -159,7 +187,37 @@ class SQLiteServices {
     );
   }
 
-  // TODO: insert, update
+  insertPurchase(Purchase purchase) async {
+    int id = await database!.rawInsert(
+      'INSERT INTO satinAlimKayit(alimKodu,tedarikciKodu,alinanUrunKodu,urunAdet,alimFiyat,alimTarih) VALUES(?,?,?,?,?,?)',
+      [
+        purchase.id,
+        purchase.supplierID,
+        purchase.productID,
+        purchase.amount,
+        purchase.price,
+        purchase.date,
+      ],
+    );
+  }
+
+  updatePurchase(Purchase purchase) async {
+    int id = await database!.rawUpdate(
+      'UPDATE satinAlimKayit SET tedarikciKodu=?,alinanUrunKodu=?,urunAdet=?,alimFiyat=?,alimTarih=? WHERE alimKodu=?',
+      [
+        purchase.supplierID,
+        purchase.productID,
+        purchase.amount,
+        purchase.price,
+        purchase.date,
+        purchase.id,
+      ],
+    );
+  }
+
+  deletePurchase(String id) async {
+    await database!.rawDelete('DELETE FROM satinAlimKayit WHERE alimKodu=$id');
+  }
 
   Future<Sale> getSale(String id) async {
     var newSale = await database!
@@ -174,8 +232,35 @@ class SQLiteServices {
     );
   }
 
-  // TODO: insert, update
+  insertSale(Sale sale) async {
+    int id = await database!.rawInsert(
+      'INSERT INTO satisKayit(satisKodu,satilanUrunKodu,urunAdet,satisFiyat,satisTarih) VALUES(?,?,?,?,?)',
+      [
+        sale.id,
+        sale.productID,
+        sale.amount,
+        sale.price,
+        sale.date,
+      ],
+    );
+  }
 
+  updateSale(Sale sale) async {
+    int id = await database!.rawUpdate(
+      'UPDATE satisKayit SET satilanUrunKodu=?,urunAdet=?,satisFiyat=?,satisTarih=? WHERE satisKodu=?',
+      [
+        sale.productID,
+        sale.amount,
+        sale.price,
+        sale.date,
+        sale.id,
+      ],
+    );
+  }
+
+  deleteSale(String id) async {
+    await database!.rawDelete('DELETE FROM satisKayit WHERE satisKodu=$id');
+  }
 }
 
 bool signIn(input) {

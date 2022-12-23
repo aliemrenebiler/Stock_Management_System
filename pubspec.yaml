@@ -33,6 +33,7 @@ dependencies:
   flutter:
     sdk: flutter
   page_transition: ^2.0.9
+  path: ^1.8.3
   postgres: ^2.5.2
   shared_preferences: ^2.0.15
   sqflite: ^2.2.2
