@@ -77,7 +77,7 @@ class MyApp extends StatelessWidget {
           //   );
           default:
             return PageTransition(
-              child: const LoginScreen(),
+              child: const ListProductScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );

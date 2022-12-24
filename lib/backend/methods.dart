@@ -1,12 +1,7 @@
 import 'dart:async';
-import 'dart:io';
-import 'package:flutter/services.dart';
-import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sqflite/sqflite.dart';
-
+import 'package:sqlite3/sqlite3.dart';
 import 'package:postgres/postgres.dart';
-import 'package:sqflite/utils/utils.dart';
 
 import 'classes.dart';
 
@@ -37,30 +32,8 @@ class SharedPrefsService {
 }
 
 class DatabaseService {
-  Future<Database> copyAndOpenDB(String dbName) async {
-    var databasesPath = await getDatabasesPath();
-    var path = join(databasesPath, dbName);
-
-    try {
-      await Directory(dirname(path)).create(recursive: true);
-    } catch (_) {}
-
-    // Copy from asset
-    ByteData data = await rootBundle.load(join("assets", "database", dbName));
-    List<int> bytes =
-        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-
-    // Write and flush the bytes written
-    await File(path).writeAsBytes(bytes, flush: true);
-
-    // open the database
-    Database db = await openDatabase(path);
-    return db;
-  }
-
   Future<int> getDBSize(String dbName) async {
-    int size = firstIntValue(
-        await database!.rawQuery('SELECT COUNT(*) FROM $dbName'))!;
+    int size = database!.select('SELECT COUNT(*) FROM $dbName')[0][0];
     return size;
   }
 
@@ -144,13 +117,13 @@ class DatabaseService {
       query += ' ${Product().sizeType}="$sizeType"';
     }
 
-    var products = await database!.rawQuery(query);
+    var products = database!.select(query);
 
     return products;
   }
 
   insertProduct(Map<dynamic, dynamic> product) async {
-    await database!.rawInsert(
+    database!.execute(
       'INSERT INTO product(id,name,brand,category,color,size,sizeType,amount,price) VALUES(?,?,?,?,?,?,?,?,?)',
       [
         product["id"] as String,
@@ -167,7 +140,7 @@ class DatabaseService {
   }
 
   updateProduct(Map<dynamic, dynamic> product) async {
-    await database!.rawUpdate(
+    database!.execute(
       'UPDATE ${Product().tableName} SET ${Product().name}=?,${Product().brand}=?,${Product().category}=?,${Product().color}=?,${Product().size}=?,${Product().sizeType}=?,${Product().amount}=?,${Product().price}=? WHERE ${Product().id}=?',
       [
         product[Product().name] as String,
@@ -184,7 +157,7 @@ class DatabaseService {
   }
 
   deleteProduct(String id) async {
-    await database!.rawDelete(
+    database!.execute(
         'DELETE FROM ${Product().tableName} WHERE ${Product().id}=$id');
   }
 
@@ -227,13 +200,13 @@ class DatabaseService {
       query += ' ${Supplier().phone}="$phone"';
     }
 
-    var suppliers = await database!.rawQuery(query);
+    var suppliers = await database!.select(query);
 
     return suppliers;
   }
 
   insertSupplier(Map<dynamic, dynamic> supplier) async {
-    await database!.rawInsert(
+    database!.execute(
       'INSERT INTO ${Supplier().tableName}(${Supplier().id},${Supplier().name},${Supplier().phone},${Supplier().address}) VALUES(?,?,?,?)',
       [
         supplier[Supplier().id],
@@ -245,7 +218,7 @@ class DatabaseService {
   }
 
   updateSupplier(Map<dynamic, dynamic> supplier) async {
-    await database!.rawUpdate(
+    database!.execute(
       'UPDATE ${Supplier().tableName} SET ${Supplier().name}=?,${Supplier().phone}=?,${Supplier().address}=? WHERE ${Supplier().id}=?',
       [
         supplier[Supplier().name],
@@ -257,7 +230,7 @@ class DatabaseService {
   }
 
   deleteSupplier(String id) async {
-    await database!.rawDelete(
+    database!.execute(
         'DELETE FROM ${Supplier().tableName} WHERE ${Supplier().id}=$id');
   }
 
@@ -301,13 +274,13 @@ class DatabaseService {
       query += ' ${Purchase().productID}="$productID"';
     }
 
-    var purchases = await database!.rawQuery(query);
+    var purchases = database!.select(query);
 
     return purchases;
   }
 
   insertPurchase(Map<dynamic, dynamic> purchase) async {
-    await database!.rawInsert(
+    database!.execute(
       'INSERT INTO ${Purchase().tableName}(${Purchase().id},${Purchase().supplierID},${Purchase().productID},${Purchase().amount},${Purchase().price},${Purchase().date}) VALUES(?,?,?,?,?,?)',
       [
         purchase[Purchase().id],
@@ -321,7 +294,7 @@ class DatabaseService {
   }
 
   updatePurchase(Map<dynamic, dynamic> purchase) async {
-    await database!.rawUpdate(
+    database!.execute(
       'UPDATE ${Purchase().tableName} SET ${Purchase().supplierID}=?,${Purchase().productID}=?,${Purchase().amount}=?,${Purchase().price}=?,${Purchase().date}=? WHERE ${Purchase().id}=?',
       [
         purchase[Purchase().supplierID],
@@ -335,7 +308,7 @@ class DatabaseService {
   }
 
   deletePurchase(String id) async {
-    await database!.rawDelete(
+    database!.execute(
         'DELETE FROM ${Purchase().tableName} WHERE ${Purchase().id}=$id');
   }
 
@@ -368,13 +341,13 @@ class DatabaseService {
       }
       query += ' ${Sale().productID}="$productID"';
     }
-    var sales = await database!.rawQuery(query);
+    var sales = database!.select(query);
 
     return sales;
   }
 
   insertSale(Map<dynamic, dynamic> sale) async {
-    await database!.rawInsert(
+    database!.execute(
       'INSERT INTO ${Sale().tableName}(${Sale().id},${Sale().productID},${Sale().amount},${Sale().price},${Sale().date}) VALUES(?,?,?,?,?)',
       [
         sale[Sale().id],
@@ -387,7 +360,7 @@ class DatabaseService {
   }
 
   updateSale(Map<dynamic, dynamic> sale) async {
-    await database!.rawUpdate(
+    database!.execute(
       'UPDATE ${Sale().tableName} SET ${Sale().productID}=?,${Sale().amount}=?,${Sale().price}=?,${Sale().date}=? WHERE ${Sale().id}=?',
       [
         sale[Sale().productID],
@@ -400,8 +373,7 @@ class DatabaseService {
   }
 
   deleteSale(String id) async {
-    await database!
-        .rawDelete('DELETE FROM ${Sale().tableName} WHERE ${Sale().id}=$id');
+    database!.execute('DELETE FROM ${Sale().tableName} WHERE ${Sale().id}=$id');
   }
 }
 
