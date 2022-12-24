@@ -197,15 +197,15 @@ List<String> listKategori2 = [];
 List<String> listBarcode = [];
 // List<String> listBarcode2 = [];
 
-connect() async {
-  try {
-    // print("bağlandı");
-    await db.open().timeout(const Duration(seconds: 5));
-    // return AnaSayfa();
-  } catch (e) {
-    throw Exception(e);
-  }
-}
+// connect() async {
+//   try {
+//     // print("bağlandı");
+//     await db.open().timeout(const Duration(seconds: 5));
+//     // return AnaSayfa();
+//   } catch (e) {
+//     throw Exception(e);
+//   }
+// }
 
 item(PostgreSQLConnection conn) async {
   urunler = [];

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:yildiz_motor_v2/screens/add_product_screen.dart';
+import 'package:yildiz_motor_v2/screens/add_supplier_screen.dart';
 import 'package:yildiz_motor_v2/screens/edit_product_screen.dart';
 import 'package:yildiz_motor_v2/screens/list_product_screen.dart';
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (loginFlag == false) {
-      connect();
+      //connect();
       loginFlag = true;
     }
     return MaterialApp(
@@ -77,7 +78,7 @@ class MyApp extends StatelessWidget {
           //   );
           default:
             return PageTransition(
-              child: const LoginScreen(),
+              child: const AddSupplierScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );
