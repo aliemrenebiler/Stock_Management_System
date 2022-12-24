@@ -413,7 +413,9 @@ bool signIn(input) {
   }
 }
 
+//------------------------------------------------------------------------------
 // AŞAĞIDAKİLER ESKİ FONKSİYONLAR
+//------------------------------------------------------------------------------
 
 var db = PostgreSQLConnection("localhost", 5432, "invman",
     username: "postgres", password: "123456");
