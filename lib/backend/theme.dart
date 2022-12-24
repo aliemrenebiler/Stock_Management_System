@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 
 class YMColors {
-  Color white = const Color(0xFFFFFFFF);
-  Color gray = const Color(0xFFe0e0e0);
-  Color black = const Color(0xFF000000);
-  Color lightBlue = const Color(0xFF07cff6);
-  Color blue = const Color(0xFF194162);
-  Color darkBlue = const Color(0xFF0d2534);
-  Color lightRed = const Color(0xFFff5b5b);
-  Color red = const Color(0xFFe20000);
-  Color darkRed = const Color(0xFFcb0000);
+  Color white = Colors.white;
+  Color lightGrey = Colors.grey.shade200;
+  Color grey = Colors.grey.shade400;
+  Color black = Colors.black;
+  Color lightBlue = Colors.blueAccent.shade100;
+  Color blue = Colors.blueAccent;
+  Color darkBlue = Colors.blueAccent.shade700;
+  Color lightRed = Colors.red.shade200;
+  Color red = Colors.red;
+  Color darkRed = Colors.red.shade900;
 }
 
 class YMSizes {
-  double fontSize = 20;
+  double fontSizeSmall = 15;
+  double fontSizeMedium = 20;
+  double fontSizeLarge = 25;
 }

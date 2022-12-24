@@ -3,32 +3,51 @@ import 'package:flutter/material.dart';
 import '../backend/theme.dart';
 
 class TextFieldComponent extends StatelessWidget {
+  final String? Function(String?)? validator;
+  final String? hintText;
+  final TextEditingController? controller;
+  final TextInputType? keyboardType;
+  final double? height;
+  final double? width;
   const TextFieldComponent({
     super.key,
     this.keyboardType,
     this.controller,
     this.hintText,
     this.validator,
+    this.height,
+    this.width,
   });
-  final String? Function(String?)? validator;
-  final String? hintText;
-  final TextEditingController? controller;
-  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: width ?? 320,
+      height: height,
+      alignment: Alignment.center,
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
+        color: YMColors().white,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: YMColors().black),
+        border: Border.all(
+          color: YMColors().grey,
+          width: 2,
+        ),
       ),
-      width: 320,
       child: TextFormField(
-        cursorColor: YMColors().black,
+        textAlign: TextAlign.left,
+        style: TextStyle(
+          color: YMColors().black,
+          fontSize: YMSizes().fontSizeSmall,
+        ),
+        cursorColor: YMColors().darkBlue,
         autofocus: false,
         decoration: InputDecoration(
           hintText: hintText,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 15),
+          hintStyle: TextStyle(
+            color: YMColors().grey,
+            fontSize: YMSizes().fontSizeSmall,
+          ),
           border: InputBorder.none,
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,

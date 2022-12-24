@@ -5,7 +5,9 @@ import 'package:yildiz_motor_v2/screens/add_supplier_screen.dart';
 import 'package:yildiz_motor_v2/screens/edit_product_screen.dart';
 import 'package:yildiz_motor_v2/screens/list_product_screen.dart';
 
-import 'backend/methods.dart';
+import 'screens/add_product_screen.dart';
+import 'screens/edit_product_screen.dart';
+import 'screens/list_product_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/set_password_screen.dart';
 import 'screens/home_screen.dart';
@@ -21,10 +23,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (loginFlag == false) {
-      //connect();
-      loginFlag = true;
-    }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -78,7 +76,7 @@ class MyApp extends StatelessWidget {
           //   );
           default:
             return PageTransition(
-              child: const AddSupplierScreen(),
+              child: const ListProductScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );
