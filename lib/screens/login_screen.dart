@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: YMColors().black,
-                  fontSize: YMSizes().fontSize,
+                  fontSize: YMSizes().fontSizeMedium,
                 ),
               ),
             );
@@ -53,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: YMColors().black,
-                  fontSize: YMSizes().fontSize,
+                  fontSize: YMSizes().fontSizeMedium,
                 ),
               ),
             );
@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: YMColors().black,
-                        fontSize: YMSizes().fontSize,
+                        fontSize: YMSizes().fontSizeMedium,
                       ),
                     ),
                   );

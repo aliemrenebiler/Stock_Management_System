@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqlite3/sqlite3.dart';
-import 'package:postgres/postgres.dart';
 
 import 'classes.dart';
 
@@ -38,7 +37,7 @@ class DatabaseService {
   }
 
   createProducts() async {
-    await db.execute(
+    database!.execute(
       'CREATE TABLE ${Product().tableName}(${Product().id} TEXT not null,${Product().name} TEXT not null,${Product().brand} TEXT,${Product().category} TEXT,${Product().color} TEXT,${Product().size} TEXT,${Product().sizeType} TEXT,${Product().amount} INTEGER,${Product().price} REAL,primary key (${Product().id}),)',
     );
   }
@@ -162,7 +161,7 @@ class DatabaseService {
   }
 
   createSuppliers() async {
-    await db.execute(
+    database!.execute(
       'CREATE TABLE ${Supplier().tableName}(${Supplier().id} TEXT not null, ${Supplier().name} TEXT not null, ${Supplier().phone} TEXT,${Supplier().address} TEXT,primary key (${Supplier().id}),)',
     );
   }
@@ -200,7 +199,7 @@ class DatabaseService {
       query += ' ${Supplier().phone}="$phone"';
     }
 
-    var suppliers = await database!.select(query);
+    var suppliers = database!.select(query);
 
     return suppliers;
   }
@@ -235,7 +234,7 @@ class DatabaseService {
   }
 
   createPurchases() async {
-    await db.execute(
+    database!.execute(
       'CREATE TABLE ${Purchase().tableName}(${Purchase().id} TEXT not null,${Purchase().supplierID} TEXT,${Purchase().productID} TEXT not null,${Purchase().amount} INTEGER,${Purchase().price} REAL,${Purchase().date} DATE,primary key (${Purchase().id}),foreign key (${Purchase().supplierID}) references ${Supplier().tableName}(${Supplier().id}),foreign key (${Purchase().productID}) references ${Product().tableName}(${Product().id}),)',
     );
   }
@@ -313,7 +312,7 @@ class DatabaseService {
   }
 
   createSales() async {
-    await db.execute(
+    database!.execute(
       'CREATE TABLE ${Sale().tableName}(${Purchase().id} TEXT not null,${Sale().productID} TEXT not null,${Sale().amount} INTEGER,${Sale().price} REAL,${Sale().date} DATE,primary key (${Sale().id}),foreign key (${Sale().productID}) references ${Product().tableName}(${Product().id}),)',
     );
   }
@@ -382,86 +381,5 @@ bool signIn(input) {
     return true;
   } else {
     return false;
-  }
-}
-
-//------------------------------------------------------------------------------
-// AŞAĞIDAKİLER ESKİ FONKSİYONLAR
-//------------------------------------------------------------------------------
-
-var db = PostgreSQLConnection("localhost", 5432, "invman",
-    username: "postgres", password: "123456");
-List<String> urunler = [];
-List<String> listUrunler = [];
-List<String> listKategori = ["emre"];
-List<String> listKategori2 = [];
-List<String> listBarcode = [];
-// List<String> listBarcode2 = [];
-
-connect() async {
-  try {
-    // print("bağlandı");
-    await db.open().timeout(const Duration(seconds: 5));
-    // return AnaSayfa();
-  } catch (e) {
-    throw Exception(e);
-  }
-}
-
-item(PostgreSQLConnection conn) async {
-  urunler = [];
-  listUrunler = ["Hepsi"];
-  try {
-    var results = await conn.query("SELECT DISTINCT isim FROM urunler");
-    for (final i in results) {
-      // print();
-      var str = i[0].toString();
-      urunler.add(str);
-      listUrunler.add(str);
-    }
-    // for (final i in urunler){
-    //   print(i);
-    // }
-  } catch (e) {
-    throw Exception(e);
-  }
-}
-
-kategori(PostgreSQLConnection conn) async {
-  // listKategori = [];
-  listKategori2 = [];
-  try {
-    var results = await conn.query("SELECT isim FROM kategori");
-    for (final i in results) {
-      // print();
-      var str = i[0].toString();
-      listKategori2.add(str);
-    }
-    listKategori = listKategori2;
-    // for (final i in urunler){
-    //   print(i);
-    // }
-  } catch (e) {
-    throw Exception(e);
-  }
-}
-
-barcode(PostgreSQLConnection conn, String selectedVal) async {
-  // listKategori = [];
-  listBarcode = [];
-  try {
-    var results = await conn
-        .query("SELECT barkod FROM urunler where (isim = '$selectedVal');");
-    for (final i in results) {
-      // print();
-      var str = i[0].toString();
-      listBarcode.add(str);
-    }
-    // listBarcode = listBarcode2;
-    // for (final i in urunler){
-    //   print(i);
-    // }
-  } catch (e) {
-    throw Exception(e);
   }
 }
