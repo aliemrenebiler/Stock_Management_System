@@ -5,19 +5,21 @@ import 'package:yildiz_motor_v2/screens/edit_product_screen.dart';
 import 'package:yildiz_motor_v2/screens/sell_product_screen.dart';
 import 'package:yildiz_motor_v2/widgets/custom_text_field.dart';
 
+import '../backend/classes.dart';
+import '../widgets/custom_text_field.dart';
 import '../backend/theme.dart';
 import '../widgets/list_table.dart';
 import '../widgets/menu_button.dart';
 import '../widgets/top_bar.dart';
 
-class ListProductScreen extends StatefulWidget {
-  const ListProductScreen({super.key});
+class ListProductsScreen extends StatefulWidget {
+  const ListProductsScreen({Key? key}) : super(key: key);
 
   @override
-  State<ListProductScreen> createState() => _ListProductScreenState();
+  State<ListProductsScreen> createState() => _ListProductsScreenState();
 }
 
-class _ListProductScreenState extends State<ListProductScreen> {
+class _ListProductsScreenState extends State<ListProductsScreen> {
   @override
   void initState() {
     super.initState();
@@ -74,145 +76,20 @@ class _ListProductScreenState extends State<ListProductScreen> {
                 children: const [
                   Padding(
                     padding: EdgeInsets.all(10),
-                    child: ProductListSearchBar(),
+                    child: ProductsListSearchBar(),
                   ),
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.only(top: 10, left: 10, right: 10),
                       child: ListTable(
-                        titlesBar: ProductListTitlesBar(),
+                        titlesBar: ProductsListTitlesBar(),
                         items: [
-                          ProductListItem(
+                          ProductsListItem(
                             product: {
                               "id": 1,
-                              "name": "Kask",
-                              "category": "Baş",
-                              "brand": "Nike",
-                              "color": "Kırmızı",
-                              "size": "M",
-                              "sizeType": "Beden",
-                              "amount": 2,
-                              "price": 200,
                             },
                           ),
-                          ProductListItem(
-                            product: {
-                              "id": 1,
-                              "name": "Kask",
-                              "category": "Baş",
-                              "brand": "Nike",
-                              "color": "Kırmızı",
-                              "size": "M",
-                              "sizeType": "Beden",
-                              "amount": 2,
-                              "price": 200,
-                            },
-                          ),
-                          ProductListItem(
-                            product: {
-                              "id": 1,
-                              "name": "Kask",
-                              "category": "Baş",
-                              "brand": "Nike",
-                              "color": "Kırmızı",
-                              "size": "M",
-                              "sizeType": "Beden",
-                              "amount": 2,
-                              "price": 200,
-                            },
-                          ),
-                          ProductListItem(
-                            product: {
-                              "id": 1,
-                              "name": "Kask",
-                              "category": "Baş",
-                              "brand": "Nike",
-                              "color": "Kırmızı",
-                              "size": "M",
-                              "sizeType": "Beden",
-                              "amount": 2,
-                              "price": 200,
-                            },
-                          ),
-                          ProductListItem(
-                            product: {
-                              "id": 1,
-                              "name": "Kask",
-                              "category": "Baş",
-                              "brand": "Nike",
-                              "color": "Kırmızı",
-                              "size": "M",
-                              "sizeType": "Beden",
-                              "amount": 2,
-                              "price": 200,
-                            },
-                          ),
-                          ProductListItem(
-                            product: {
-                              "id": 1,
-                              "name": "Kask",
-                              "category": "Baş",
-                              "brand": "Nike",
-                              "color": "Kırmızı",
-                              "size": "M",
-                              "sizeType": "Beden",
-                              "amount": 2,
-                              "price": 200,
-                            },
-                          ),
-                          ProductListItem(
-                            product: {
-                              "id": 1,
-                              "name": "Kask",
-                              "category": "Baş",
-                              "brand": "Nike",
-                              "color": "Kırmızı",
-                              "size": "M",
-                              "sizeType": "Beden",
-                              "amount": 2,
-                              "price": 200,
-                            },
-                          ),
-                          ProductListItem(
-                            product: {
-                              "id": 1,
-                              "name": "Kask",
-                              "category": "Baş",
-                              "brand": "Nike",
-                              "color": "Kırmızı",
-                              "size": "M",
-                              "sizeType": "Beden",
-                              "amount": 2,
-                              "price": 200,
-                            },
-                          ),
-                          ProductListItem(
-                            product: {
-                              "id": 1,
-                              "name": "Kask",
-                              "category": "Baş",
-                              "brand": "Nike",
-                              "color": "Kırmızı",
-                              "size": "M",
-                              "sizeType": "Beden",
-                              "amount": 2,
-                              "price": 200,
-                            },
-                          ),
-                          ProductListItem(
-                            product: {
-                              "id": 1,
-                              "name": "Kask",
-                              "category": "Baş",
-                              "brand": "Nike",
-                              "color": "Kırmızı",
-                              "size": "M",
-                              "sizeType": "Beden",
-                              "amount": 2,
-                              "price": 200,
-                            },
-                          ),
-                          ProductListItem(
+                          ProductsListItem(
                             product: {
                               "id": 1,
                               "name": "Kask",
@@ -239,8 +116,8 @@ class _ListProductScreenState extends State<ListProductScreen> {
   }
 }
 
-class ProductListSearchBar extends StatelessWidget {
-  const ProductListSearchBar({super.key});
+class ProductsListSearchBar extends StatelessWidget {
+  const ProductsListSearchBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -278,7 +155,7 @@ class ProductListSearchBar extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.all(5),
                         child: TextFieldComponent(
-                          hintText: "İsim veya ID",
+                          hintText: "İsim",
                           height: 40,
                         ),
                       ),
@@ -383,8 +260,8 @@ class ProductListSearchBar extends StatelessWidget {
   }
 }
 
-class ProductListTitlesBar extends StatelessWidget {
-  const ProductListTitlesBar({super.key});
+class ProductsListTitlesBar extends StatelessWidget {
+  const ProductsListTitlesBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -452,9 +329,9 @@ class ProductListTitlesBar extends StatelessWidget {
   }
 }
 
-class ProductListItem extends StatelessWidget {
+class ProductsListItem extends StatelessWidget {
   final Map<dynamic, dynamic> product;
-  const ProductListItem({
+  const ProductsListItem({
     super.key,
     required this.product,
   });
@@ -472,145 +349,92 @@ class ProductListItem extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Expanded(
+                ListTableItemPart(
+                  value: (product[Product().id] != null)
+                      ? product[Product().id].toString()
+                      : null,
                   flex: 1,
-                  child: Text(
-                    product[Product().id].toString(),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: YMColors().grey,
-                      fontSize: YMSizes().fontSizeMedium,
-                    ),
-                  ),
+                  textColor: YMColors().grey,
                 ),
                 ListTableVerticalSeperator(
                   color: YMColors().lightGrey,
                   space: 10,
                 ),
-                Expanded(
+                ListTableItemPart(
+                  value: (product[Product().name] != null)
+                      ? product[Product().name].toString()
+                      : null,
                   flex: 2,
-                  child: Text(
-                    product[Product().name].toString(),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: YMColors().black,
-                      fontSize: YMSizes().fontSizeMedium,
-                    ),
-                  ),
                 ),
                 ListTableVerticalSeperator(
                   color: YMColors().lightGrey,
                   space: 10,
                 ),
-                Expanded(
+                ListTableItemPart(
+                  value: (product[Product().brand] != null)
+                      ? product[Product().brand].toString()
+                      : null,
                   flex: 2,
-                  child: Text(
-                    product[Product().brand].toString(),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: YMColors().black,
-                      fontSize: YMSizes().fontSizeMedium,
-                    ),
-                  ),
                 ),
                 ListTableVerticalSeperator(
                   color: YMColors().lightGrey,
                   space: 10,
                 ),
-                Expanded(
+                ListTableItemPart(
+                  value: (product[Product().category] != null)
+                      ? product[Product().category].toString()
+                      : null,
                   flex: 2,
-                  child: Text(
-                    product[Product().category].toString(),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: YMColors().black,
-                      fontSize: YMSizes().fontSizeMedium,
-                    ),
-                  ),
                 ),
                 ListTableVerticalSeperator(
                   color: YMColors().lightGrey,
                   space: 10,
                 ),
-                Expanded(
+                ListTableItemPart(
+                  value: (product[Product().color] != null)
+                      ? product[Product().color].toString()
+                      : null,
                   flex: 2,
-                  child: Text(
-                    product[Product().color].toString(),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: YMColors().black,
-                      fontSize: YMSizes().fontSizeMedium,
-                    ),
-                  ),
                 ),
                 ListTableVerticalSeperator(
                   color: YMColors().lightGrey,
                   space: 10,
                 ),
-                Expanded(
+                ListTableItemPart(
+                  value: (product[Product().size] != null)
+                      ? product[Product().size].toString()
+                      : null,
                   flex: 2,
-                  child: Text(
-                    product[Product().size].toString(),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: YMColors().black,
-                      fontSize: YMSizes().fontSizeMedium,
-                    ),
-                  ),
                 ),
                 ListTableVerticalSeperator(
                   color: YMColors().lightGrey,
                   space: 10,
                 ),
-                Expanded(
+                ListTableItemPart(
+                  value: (product[Product().sizeType] != null)
+                      ? product[Product().sizeType].toString()
+                      : null,
                   flex: 2,
-                  child: Text(
-                    product[Product().sizeType].toString(),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: YMColors().black,
-                      fontSize: YMSizes().fontSizeMedium,
-                    ),
-                  ),
                 ),
                 ListTableVerticalSeperator(
                   color: YMColors().lightGrey,
                   space: 10,
                 ),
-                Expanded(
+                ListTableItemPart(
+                  value: (product[Product().price] != null)
+                      ? product[Product().price].toString()
+                      : null,
                   flex: 2,
-                  child: Text(
-                    product[Product().price].toString(),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: YMColors().black,
-                      fontSize: YMSizes().fontSizeMedium,
-                    ),
-                  ),
                 ),
                 ListTableVerticalSeperator(
                   color: YMColors().lightGrey,
                   space: 10,
                 ),
-                Expanded(
+                ListTableItemPart(
+                  value: (product[Product().amount] != null)
+                      ? product[Product().amount].toString()
+                      : null,
                   flex: 2,
-                  child: Text(
-                    product[Product().amount].toString(),
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: YMColors().black,
-                      fontSize: YMSizes().fontSizeMedium,
-                    ),
-                  ),
                 ),
                 ListTableVerticalSeperator(
                   color: YMColors().lightGrey,

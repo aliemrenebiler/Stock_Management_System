@@ -1,13 +1,18 @@
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:yildiz_motor_v2/screens/add_product_screen.dart';
-import 'package:yildiz_motor_v2/screens/edit_product_screen.dart';
-import 'package:yildiz_motor_v2/screens/list_product_screen.dart';
+
+import 'screens/add_product_screen.dart';
+import 'screens/edit_product_screen.dart';
+import 'screens/list_product_screen.dart';
+import 'screens/list_supplier_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/set_password_screen.dart';
 import 'screens/home_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await DesktopWindow.setMinWindowSize(const Size(300, 300));
   runApp(const MyApp());
 }
 
@@ -45,7 +50,7 @@ class MyApp extends StatelessWidget {
               type: PageTransitionType.fade,
               settings: settings,
             );
-          case '/list_product':
+          case '/list_products':
             return PageTransition(
               child: const ListProductScreen(),
               type: PageTransitionType.fade,
@@ -63,15 +68,15 @@ class MyApp extends StatelessWidget {
               type: PageTransitionType.fade,
               settings: settings,
             );
-          // case '/sell_buy':
-          //   return PageTransition(
-          //     child: const AddProductScreen(),
-          //     type: PageTransitionType.fade,
-          //     settings: settings,
-          //   );
+          case '/list_suppliers':
+            return PageTransition(
+              child: const ListSuppliersScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
           default:
             return PageTransition(
-              child: const HomeScreen(),
+              child: const ListProductScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );
