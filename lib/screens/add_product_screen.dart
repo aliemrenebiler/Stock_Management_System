@@ -176,6 +176,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         bgColor: YMColors().red,
                         textColor: YMColors().white,
                         height: 40,
+                        width: double.infinity,
                       )
                     ],
                   ),

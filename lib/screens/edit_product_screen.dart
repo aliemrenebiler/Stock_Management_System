@@ -217,6 +217,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         bgColor: YMColors().red,
                         textColor: YMColors().white,
                         height: 40,
+                        width: double.infinity,
                       )
                     ],
                   ),

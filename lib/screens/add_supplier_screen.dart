@@ -127,6 +127,7 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
                         bgColor: YMColors().red,
                         textColor: YMColors().white,
                         height: 40,
+                        width: double.infinity,
                       )
                     ],
                   ),

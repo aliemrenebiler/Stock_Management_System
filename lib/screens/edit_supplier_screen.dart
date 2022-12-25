@@ -127,6 +127,7 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                         bgColor: YMColors().red,
                         textColor: YMColors().white,
                         height: 40,
+                        width: double.infinity,
                       )
                     ],
                   ),
