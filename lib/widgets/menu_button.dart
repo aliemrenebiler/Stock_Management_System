@@ -38,6 +38,7 @@ class MenuButton extends StatelessWidget {
           style: TextStyle(
             color: textColor,
             fontSize: YMSizes().fontSizeMedium,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
