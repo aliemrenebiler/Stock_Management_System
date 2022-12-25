@@ -1,6 +1,9 @@
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:yildiz_motor_v2/screens/add_supplier_screen.dart';
+import 'package:yildiz_motor_v2/screens/buy_product_screen.dart';
+import 'package:yildiz_motor_v2/screens/sell_product_screen.dart';
 
 import 'screens/add_product_screen.dart';
 import 'screens/edit_product_screen.dart';
@@ -52,13 +55,31 @@ class MyApp extends StatelessWidget {
             );
           case '/list_products':
             return PageTransition(
-              child: const ListProductScreen(),
+              child: const ListProductsScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );
           case '/add_product':
             return PageTransition(
               child: const AddProductScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/add_supplier':
+            return PageTransition(
+              child: const AddSupplierScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/buy_product':
+            return PageTransition(
+              child: const BuyProductScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/sell_product':
+            return PageTransition(
+              child: const SellProductScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );
@@ -76,7 +97,7 @@ class MyApp extends StatelessWidget {
             );
           default:
             return PageTransition(
-              child: const ListProductScreen(),
+              child: const HomeScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );

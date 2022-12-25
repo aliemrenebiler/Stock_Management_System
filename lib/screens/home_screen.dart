@@ -57,12 +57,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     MenuButton(
                       text: "ÜRÜNLERİ LİSTELE",
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ListProductScreen(),
-                          ),
-                        );
+                        Navigator.pushReplacementNamed(
+                            context, '/list_products');
                       },
                       width: 320,
                       height: 50,
@@ -75,10 +71,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     MenuButton(
                       text: "TEDARİKÇİ LİSTELE",
                       onPressed: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => const ListSupplierScreen()));
+                        Navigator.pushReplacementNamed(
+                            context, '/list_suppliers');
                       },
                       bgColor: YMColors().red,
                       textColor: YMColors().white,
@@ -91,11 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     MenuButton(
                       text: "ÜRÜN EKLE",
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const AddProductScreen()));
+                        Navigator.pushReplacementNamed(context, '/add_product');
                       },
                       bgColor: YMColors().red,
                       textColor: YMColors().white,
@@ -108,11 +98,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     MenuButton(
                       text: "TEDARİKÇİ EKLE",
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const AddSupplierScreen()));
+                        Navigator.pushReplacementNamed(
+                            context, '/add_supplier');
                       },
                       bgColor: YMColors().red,
                       textColor: YMColors().white,

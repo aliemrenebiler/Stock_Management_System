@@ -456,13 +456,8 @@ class ProductsListItem extends StatelessWidget {
                               bgColor: YMColors().grey,
                               textColor: YMColors().white,
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const EditProductScreen(),
-                                  ),
-                                );
+                                Navigator.pushReplacementNamed(
+                                    context, '/edit_product');
                               },
                               height: 40,
                               width: 100,
@@ -478,13 +473,8 @@ class ProductsListItem extends StatelessWidget {
                               bgColor: YMColors().blue,
                               textColor: YMColors().white,
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const BuyProductScreen(),
-                                  ),
-                                );
+                                Navigator.pushReplacementNamed(
+                                    context, '/buy_product');
                               },
                               height: 40,
                               width: 120,
@@ -500,13 +490,8 @@ class ProductsListItem extends StatelessWidget {
                               bgColor: YMColors().red,
                               textColor: YMColors().white,
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SellProductScreen(),
-                                  ),
-                                );
+                                Navigator.pushReplacementNamed(
+                                    context, '/sell_product');
                               },
                               height: 40,
                               width: 120,

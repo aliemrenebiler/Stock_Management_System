@@ -78,15 +78,6 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
                       height: 36,
                     ),
                     Text(
-                      "SOYAD:",
-                      style: TextStyle(
-                        fontSize: YMSizes().fontSizeMedium,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 36,
-                    ),
-                    Text(
                       "TELEFON:",
                       style: TextStyle(
                         fontSize: YMSizes().fontSizeMedium,
@@ -96,16 +87,7 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
                       height: 36,
                     ),
                     Text(
-                      "E-MAIL:",
-                      style: TextStyle(
-                        fontSize: YMSizes().fontSizeMedium,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 36,
-                    ),
-                    Text(
-                      "ŞİRKET:",
+                      "ADRES:",
                       style: TextStyle(
                         fontSize: YMSizes().fontSizeMedium,
                       ),
@@ -126,13 +108,6 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
                         height: 20,
                       ),
                       const TextFieldComponent(
-                        hintText: "SOYAD",
-                        height: 40,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const TextFieldComponent(
                         hintText: "TELEFON",
                         height: 40,
                       ),
@@ -140,14 +115,7 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
                         height: 20,
                       ),
                       const TextFieldComponent(
-                        hintText: "E-MAIL",
-                        height: 40,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const TextFieldComponent(
-                        hintText: "ŞİRKET",
+                        hintText: "ADRES",
                         height: 40,
                       ),
                       const SizedBox(

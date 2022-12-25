@@ -26,7 +26,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                   bgColor: YMColors().red,
                   textColor: YMColors().white,
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/list_product');
+                    Navigator.pushReplacementNamed(context, '/list_products');
                   },
                   height: 40,
                 ),
