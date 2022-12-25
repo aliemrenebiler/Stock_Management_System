@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:yildiz_motor_v2/backend/theme.dart';
-import 'package:yildiz_motor_v2/screens/add_product_screen.dart';
-import 'package:yildiz_motor_v2/screens/add_supplier_screen.dart';
-import 'package:yildiz_motor_v2/screens/list_product_screen.dart';
 import 'package:yildiz_motor_v2/widgets/menu_button.dart';
 
 class HomeScreen extends StatefulWidget {

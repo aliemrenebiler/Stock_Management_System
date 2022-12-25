@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:yildiz_motor_v2/screens/add_supplier_screen.dart';
 import 'package:yildiz_motor_v2/screens/buy_product_screen.dart';
+import 'package:yildiz_motor_v2/screens/edit_supplier_screen.dart';
 import 'package:yildiz_motor_v2/screens/sell_product_screen.dart';
 
 import 'screens/add_product_screen.dart';
@@ -68,6 +69,12 @@ class MyApp extends StatelessWidget {
           case '/add_supplier':
             return PageTransition(
               child: const AddSupplierScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/edit_supplier':
+            return PageTransition(
+              child: const EditSupplierScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );

@@ -281,7 +281,10 @@ class SuppliersListItem extends StatelessWidget {
                       text: "Düzenle",
                       bgColor: YMColors().grey,
                       textColor: YMColors().white,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                            context, '/edit_supplier');
+                      },
                       height: 40,
                       width: 100,
                     ),

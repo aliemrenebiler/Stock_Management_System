@@ -79,7 +79,52 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       height: 8,
                     ),
                     Text(
-                      "AD:",
+                      "İSİM:",
+                      style: TextStyle(
+                        fontSize: YMSizes().fontSizeMedium,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 36,
+                    ),
+                    Text(
+                      "MARKA:",
+                      style: TextStyle(
+                        fontSize: YMSizes().fontSizeMedium,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 36,
+                    ),
+                    Text(
+                      "KATEGORİ:",
+                      style: TextStyle(
+                        fontSize: YMSizes().fontSizeMedium,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 36,
+                    ),
+                    Text(
+                      "RENK:",
+                      style: TextStyle(
+                        fontSize: YMSizes().fontSizeMedium,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 36,
+                    ),
+                    Text(
+                      "BOYUT:",
+                      style: TextStyle(
+                        fontSize: YMSizes().fontSizeMedium,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 36,
+                    ),
+                    Text(
+                      "BİRİM:",
                       style: TextStyle(
                         fontSize: YMSizes().fontSizeMedium,
                       ),
@@ -102,33 +147,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         fontSize: YMSizes().fontSizeMedium,
                       ),
                     ),
-                    const SizedBox(
-                      height: 36,
-                    ),
-                    Text(
-                      "RENK:",
-                      style: TextStyle(
-                        fontSize: YMSizes().fontSizeMedium,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 36,
-                    ),
-                    Text(
-                      "BEDEN:",
-                      style: TextStyle(
-                        fontSize: YMSizes().fontSizeMedium,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 36,
-                    ),
-                    Text(
-                      "MARKA:",
-                      style: TextStyle(
-                        fontSize: YMSizes().fontSizeMedium,
-                      ),
-                    ),
                   ],
                 ),
                 const SizedBox(
@@ -138,7 +156,42 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   child: Column(
                     children: [
                       const TextFieldComponent(
-                        hintText: "AD",
+                        hintText: "İSİM",
+                        height: 40,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const TextFieldComponent(
+                        hintText: "MARKA",
+                        height: 40,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const TextFieldComponent(
+                        hintText: "KATEGORİ",
+                        height: 40,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const TextFieldComponent(
+                        hintText: "RENK",
+                        height: 40,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const TextFieldComponent(
+                        hintText: "BOYUT",
+                        height: 40,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const TextFieldComponent(
+                        hintText: "BİRİM",
                         height: 40,
                       ),
                       const SizedBox(
@@ -153,27 +206,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       ),
                       const TextFieldComponent(
                         hintText: "ADET",
-                        height: 40,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const TextFieldComponent(
-                        hintText: "RENK",
-                        height: 40,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const TextFieldComponent(
-                        hintText: "BEDEN",
-                        height: 40,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const TextFieldComponent(
-                        hintText: "MARKA",
                         height: 40,
                       ),
                       const SizedBox(
