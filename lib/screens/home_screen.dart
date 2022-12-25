@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:yildiz_motor_v2/backend/theme.dart';
+import 'package:yildiz_motor_v2/screens/add_product_screen.dart';
+import 'package:yildiz_motor_v2/screens/add_supplier_screen.dart';
+import 'package:yildiz_motor_v2/screens/list_product_screen.dart';
 import 'package:yildiz_motor_v2/widgets/menu_button.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -33,46 +36,67 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 MenuButton(
-                  text: "text",
-                  onPressed: () {},
-                  bgColor: YMColors().darkBlue,
+                  text: "ÜRÜNLERİ LİSTELE",
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ListProductScreen(),
+                      ),
+                    );
+                  },
+                  width: 320,
+                  height: 50,
+                  bgColor: YMColors().red,
                   textColor: YMColors().white,
                 ),
                 const SizedBox(
                   height: 25,
                 ),
                 MenuButton(
-                  text: "text",
-                  onPressed: () {},
-                  bgColor: YMColors().darkBlue,
+                  text: "TEDARİKÇİ LİSTELE",
+                  onPressed: () {
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => const ListSupplierScreen()));
+                  },
+                  bgColor: YMColors().red,
                   textColor: YMColors().white,
+                  width: 320,
+                  height: 50,
                 ),
                 const SizedBox(
                   height: 25,
                 ),
                 MenuButton(
-                  text: "text",
-                  onPressed: () {},
-                  bgColor: YMColors().darkBlue,
+                  text: "ÜRÜN EKLE",
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AddProductScreen()));
+                  },
+                  bgColor: YMColors().red,
                   textColor: YMColors().white,
+                  width: 320,
+                  height: 50,
                 ),
                 const SizedBox(
                   height: 25,
                 ),
                 MenuButton(
-                  text: "text",
-                  onPressed: () {},
-                  bgColor: YMColors().darkBlue,
+                  text: "TEDARİKÇİ EKLE",
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AddSupplierScreen()));
+                  },
+                  bgColor: YMColors().red,
                   textColor: YMColors().white,
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                MenuButton(
-                  text: "text",
-                  onPressed: () {},
-                  bgColor: YMColors().darkBlue,
-                  textColor: YMColors().white,
+                  width: 320,
+                  height: 50,
                 ),
               ],
             ),
