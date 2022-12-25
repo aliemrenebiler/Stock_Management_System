@@ -54,70 +54,141 @@ class _AddProductScreenState extends State<AddProductScreen> {
           const SizedBox(
             height: 24,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                children: [
-                  const TextFieldComponent(
-                    height: 50,
-                    width: 320,
-                    hintText: "AD",
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      Container(),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 24,
+                ),
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      "AD:",
+                      style: TextStyle(
+                        fontSize: YMSizes().fontSizeMedium,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 36,
+                    ),
+                    Text(
+                      "FİYAT:",
+                      style: TextStyle(
+                        fontSize: YMSizes().fontSizeMedium,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 36,
+                    ),
+                    Text(
+                      "ADET:",
+                      style: TextStyle(
+                        fontSize: YMSizes().fontSizeMedium,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 36,
+                    ),
+                    Text(
+                      "RENK:",
+                      style: TextStyle(
+                        fontSize: YMSizes().fontSizeMedium,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 36,
+                    ),
+                    Text(
+                      "BEDEN:",
+                      style: TextStyle(
+                        fontSize: YMSizes().fontSizeMedium,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 36,
+                    ),
+                    Text(
+                      "MARKA:",
+                      style: TextStyle(
+                        fontSize: YMSizes().fontSizeMedium,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      const TextFieldComponent(
+                        hintText: "AD",
+                        height: 40,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const TextFieldComponent(
+                        hintText: "FİYAT",
+                        height: 40,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const TextFieldComponent(
+                        hintText: "ADET",
+                        height: 40,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const TextFieldComponent(
+                        hintText: "RENK",
+                        height: 40,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const TextFieldComponent(
+                        hintText: "BEDEN",
+                        height: 40,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const TextFieldComponent(
+                        hintText: "MARKA",
+                        height: 40,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      MenuButton(
+                        text: "ÜRÜN EKLE",
+                        onPressed: () {},
+                        bgColor: YMColors().red,
+                        textColor: YMColors().white,
+                        height: 40,
+                      )
+                    ],
                   ),
-                  const TextFieldComponent(
-                    height: 50,
-                    width: 320,
-                    hintText: "FİYAT",
+                ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Container(),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  const TextFieldComponent(
-                    height: 50,
-                    width: 320,
-                    hintText: "ADET",
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  const TextFieldComponent(
-                    height: 50,
-                    width: 320,
-                    hintText: "RENK",
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  const TextFieldComponent(
-                    height: 50,
-                    width: 320,
-                    hintText: "BEDEN",
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  const TextFieldComponent(
-                    height: 50,
-                    width: 320,
-                    hintText: "MARKA",
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  MenuButton(
-                    text: "TEDARİKÇİ EKLE",
-                    onPressed: () {},
-                    width: 320,
-                    height: 50,
-                    bgColor: YMColors().red,
-                    textColor: YMColors().white,
-                  )
-                ],
-              ),
-            ],
+                )
+              ],
+            ),
           ),
         ],
       ),

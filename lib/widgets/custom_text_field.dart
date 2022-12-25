@@ -22,7 +22,7 @@ class TextFieldComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width ?? 320,
+      width: width,
       height: height,
       alignment: Alignment.center,
       padding: const EdgeInsets.all(10),

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:yildiz_motor_v2/backend/classes.dart';
+import 'package:yildiz_motor_v2/screens/buy_product_screen.dart';
+import 'package:yildiz_motor_v2/screens/edit_product_screen.dart';
+import 'package:yildiz_motor_v2/screens/sell_product_screen.dart';
 import 'package:yildiz_motor_v2/widgets/custom_text_field.dart';
 
 import '../backend/theme.dart';
@@ -628,7 +631,15 @@ class ProductListItem extends StatelessWidget {
                               text: "Düzenle",
                               bgColor: YMColors().grey,
                               textColor: YMColors().white,
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const EditProductScreen(),
+                                  ),
+                                );
+                              },
                               height: 40,
                               width: 100,
                             ),
@@ -642,7 +653,15 @@ class ProductListItem extends StatelessWidget {
                               text: "Alış Ekle",
                               bgColor: YMColors().blue,
                               textColor: YMColors().white,
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const BuyProductScreen(),
+                                  ),
+                                );
+                              },
                               height: 40,
                               width: 120,
                             ),
@@ -656,7 +675,15 @@ class ProductListItem extends StatelessWidget {
                               text: "Satış Yap",
                               bgColor: YMColors().red,
                               textColor: YMColors().white,
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const SellProductScreen(),
+                                  ),
+                                );
+                              },
                               height: 40,
                               width: 120,
                             ),

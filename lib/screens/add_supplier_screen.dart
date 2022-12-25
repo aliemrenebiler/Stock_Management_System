@@ -53,62 +53,125 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
           const SizedBox(
             height: 24,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                children: [
-                  const TextFieldComponent(
-                    height: 50,
-                    width: 320,
-                    hintText: "AD",
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      Container(),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 24,
+                ),
+                Column(
+                  children: [
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      "AD:",
+                      style: TextStyle(
+                        fontSize: YMSizes().fontSizeMedium,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 36,
+                    ),
+                    Text(
+                      "SOYAD:",
+                      style: TextStyle(
+                        fontSize: YMSizes().fontSizeMedium,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 36,
+                    ),
+                    Text(
+                      "TELEFON:",
+                      style: TextStyle(
+                        fontSize: YMSizes().fontSizeMedium,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 36,
+                    ),
+                    Text(
+                      "E-MAIL:",
+                      style: TextStyle(
+                        fontSize: YMSizes().fontSizeMedium,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 36,
+                    ),
+                    Text(
+                      "ŞİRKET:",
+                      style: TextStyle(
+                        fontSize: YMSizes().fontSizeMedium,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      const TextFieldComponent(
+                        hintText: "AD",
+                        height: 40,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const TextFieldComponent(
+                        hintText: "SOYAD",
+                        height: 40,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const TextFieldComponent(
+                        hintText: "TELEFON",
+                        height: 40,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const TextFieldComponent(
+                        hintText: "E-MAIL",
+                        height: 40,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const TextFieldComponent(
+                        hintText: "ŞİRKET",
+                        height: 40,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      MenuButton(
+                        text: "TEDARİKÇİ EKLE",
+                        onPressed: () {},
+                        bgColor: YMColors().red,
+                        textColor: YMColors().white,
+                        height: 40,
+                      )
+                    ],
                   ),
-                  const TextFieldComponent(
-                    height: 50,
-                    width: 320,
-                    hintText: "SOYAD",
+                ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Container(),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  const TextFieldComponent(
-                    height: 50,
-                    width: 320,
-                    hintText: "TELEFON",
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  const TextFieldComponent(
-                    height: 50,
-                    width: 320,
-                    hintText: "E-MAIL",
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  const TextFieldComponent(
-                    height: 50,
-                    width: 320,
-                    hintText: "ŞİRKET",
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  MenuButton(
-                    text: "TEDARİKÇİ EKLE",
-                    onPressed: () {},
-                    width: 320,
-                    height: 50,
-                    bgColor: YMColors().red,
-                    textColor: YMColors().white,
-                  )
-                ],
-              ),
-            ],
+                )
+              ],
+            ),
           ),
         ],
       ),
