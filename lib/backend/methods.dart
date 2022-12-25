@@ -43,13 +43,13 @@ class DatabaseService {
   }
 
   Future<List<Map<dynamic, dynamic>>> getProducts(
-    String? id,
+    int? id,
     String? name,
-    String? brand,
-    String? category,
-    String? color,
-    double? size,
-    String? sizeType,
+    String? spec,
+    double? minPrice,
+    double? maxPrice,
+    double? minAmount,
+    double? maxAmount,
   ) async {
     String query = 'SELECT * FROM ${Product().tableName}';
     bool isSearching = false;
@@ -59,7 +59,7 @@ class DatabaseService {
         isSearching = true;
         query += ' WHERE';
       }
-      query += ' ${Product().id}="$id"';
+      query += ' ${Product().id}=$id';
     }
     if (name != null) {
       if (!isSearching) {
@@ -70,50 +70,49 @@ class DatabaseService {
       }
       query += ' ${Product().name}="$name"';
     }
-    if (brand != null) {
+    if (spec != null) {
       if (!isSearching) {
         isSearching = true;
         query += ' WHERE';
       } else {
-        query += ' AND';
+        query += ' INTERSECT SELECT * FROM ${Product().tableName} WHERE';
       }
-      query += ' ${Product().brand}="$brand"';
+      query +=
+          ' ${Product().brand}="$spec" OR ${Product().category}="$spec" OR ${Product().color}="$spec" OR ${Product().size}="$spec" OR ${Product().sizeType}="$spec"';
     }
-    if (category != null) {
+    if (minPrice != null || maxPrice != null) {
       if (!isSearching) {
         isSearching = true;
         query += ' WHERE';
       } else {
-        query += ' AND';
+        query += ' INTERSECT SELECT * FROM ${Product().tableName} WHERE';
       }
-      query += ' ${Product().category}="$category"';
+      if (minPrice != null) {
+        query += ' ${Product().price}>=$minPrice';
+      }
+      if (maxPrice != null) {
+        if (minPrice != null) {
+          query += ' AND';
+        }
+        query += ' ${Product().price}<=$maxPrice';
+      }
     }
-    if (color != null) {
+    if (minAmount != null || maxAmount != null) {
       if (!isSearching) {
         isSearching = true;
         query += ' WHERE';
       } else {
-        query += ' AND';
+        query += ' INTERSECT SELECT * FROM ${Product().tableName} WHERE';
       }
-      query += ' ${Product().color}="$color"';
-    }
-    if (size != null) {
-      if (!isSearching) {
-        isSearching = true;
-        query += ' WHERE';
-      } else {
-        query += ' AND';
+      if (minAmount != null) {
+        query += ' ${Product().amount}>=$minAmount';
       }
-      query += ' ${Product().size}=$size';
-    }
-    if (sizeType != null) {
-      if (!isSearching) {
-        isSearching = true;
-        query += ' WHERE';
-      } else {
-        query += ' AND';
+      if (maxAmount != null) {
+        if (minAmount != null) {
+          query += ' AND';
+        }
+        query += ' ${Product().amount}<=$maxAmount';
       }
-      query += ' ${Product().sizeType}="$sizeType"';
     }
 
     var products = database!.select(query);
@@ -168,8 +167,7 @@ class DatabaseService {
 
   Future<List<Map<dynamic, dynamic>>> getSuppliers(
     String? id,
-    String? name,
-    String? phone,
+    String? info,
   ) async {
     String query = 'SELECT * FROM ${Supplier().tableName}';
     bool isSearching = false;
@@ -180,23 +178,16 @@ class DatabaseService {
       }
       query += ' ${Supplier().id}="$id"';
     }
-    if (name != null) {
+
+    if (info != null) {
       if (!isSearching) {
         isSearching = true;
         query += ' WHERE';
       } else {
-        query += ' AND';
+        query += ' INTERSECT SELECT * FROM ${Supplier().tableName} WHERE';
       }
-      query += ' ${Supplier().name}="$name"';
-    }
-    if (phone != null) {
-      if (!isSearching) {
-        isSearching = true;
-        query += ' WHERE';
-      } else {
-        query += ' AND';
-      }
-      query += ' ${Supplier().phone}="$phone"';
+      query +=
+          ' ${Supplier().name}="$info" OR ${Supplier().phone}="$info" OR ${Supplier().address}="$info"';
     }
 
     var suppliers = database!.select(query);
