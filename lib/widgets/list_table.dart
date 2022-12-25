@@ -48,7 +48,7 @@ class ListTableTitlesBarItem extends StatelessWidget {
     return Expanded(
       flex: flex,
       child: Container(
-        height: 60,
+        height: 70,
         alignment: Alignment.center,
         child: Text(
           text,

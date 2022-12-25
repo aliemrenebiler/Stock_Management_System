@@ -16,6 +16,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: YMColors().white,
       body: Column(
         children: [
           TopBar(
@@ -29,7 +30,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   onPressed: () {
                     Navigator.pushReplacementNamed(context, '/home');
                   },
-                  height: 40,
+                  height: 50,
                 ),
               ),
               Expanded(
@@ -51,144 +52,366 @@ class _AddProductScreenState extends State<AddProductScreen> {
               ),
             ],
           ),
-          const SizedBox(
-            height: 24,
-          ),
           Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      Container(),
-                    ],
-                  ),
-                ),
-                Column(
+            child: Center(
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Row(
                   children: [
-                    SizedBox(
-                      height: 8,
+                    Expanded(
+                      child: Container(),
                     ),
-                    Text(
-                      "AD:",
-                      style: TextStyle(
-                        fontSize: YMSizes().fontSizeMedium,
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: YMColors().lightGrey,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10)),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(5),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  child: Text(
+                                                    "İsim",
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      fontSize: YMSizes()
+                                                          .fontSizeMedium,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 2,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  child: MenuButton(
+                                                    text: "Otomatik Doldur",
+                                                    onPressed: () {},
+                                                    bgColor: YMColors().red,
+                                                    textColor: YMColors().white,
+                                                    height: 50,
+                                                    width: double.infinity,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          const Padding(
+                                            padding: EdgeInsets.all(5),
+                                            child: TextFieldComponent(
+                                              height: 50,
+                                              hintText:
+                                                  '(Zorunlu) "Otomatik Doldur" ile diğer alanları doldurun!',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Divider(
+                                      indent: 10,
+                                      endIndent: 10,
+                                      height: 2,
+                                      thickness: 2,
+                                      color: YMColors().grey,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(5),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  child: Text(
+                                                    "Marka",
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.right,
+                                                    style: TextStyle(
+                                                      fontSize: YMSizes()
+                                                          .fontSizeMedium,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              const Expanded(
+                                                flex: 2,
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(5),
+                                                  child: TextFieldComponent(
+                                                    height: 50,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  child: Text(
+                                                    "Kategori",
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.right,
+                                                    style: TextStyle(
+                                                      fontSize: YMSizes()
+                                                          .fontSizeMedium,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              const Expanded(
+                                                flex: 2,
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(5),
+                                                  child: TextFieldComponent(
+                                                    height: 50,
+                                                    hintText: "(Zorunlu)",
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  child: Text(
+                                                    "Renk",
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.right,
+                                                    style: TextStyle(
+                                                      fontSize: YMSizes()
+                                                          .fontSizeMedium,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              const Expanded(
+                                                flex: 2,
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(5),
+                                                  child: TextFieldComponent(
+                                                    height: 50,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  child: Text(
+                                                    "Boyut",
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.right,
+                                                    style: TextStyle(
+                                                      fontSize: YMSizes()
+                                                          .fontSizeMedium,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              const Expanded(
+                                                flex: 2,
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(5),
+                                                  child: TextFieldComponent(
+                                                    height: 50,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  child: Text(
+                                                    "Birim",
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.right,
+                                                    style: TextStyle(
+                                                      fontSize: YMSizes()
+                                                          .fontSizeMedium,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              const Expanded(
+                                                flex: 2,
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(5),
+                                                  child: TextFieldComponent(
+                                                    height: 50,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  child: Text(
+                                                    "Fiyat",
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.right,
+                                                    style: TextStyle(
+                                                      fontSize: YMSizes()
+                                                          .fontSizeMedium,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              const Expanded(
+                                                flex: 2,
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(5),
+                                                  child: TextFieldComponent(
+                                                    height: 50,
+                                                    hintText: "(Zorunlu)",
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  child: Text(
+                                                    "Adet",
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.right,
+                                                    style: TextStyle(
+                                                      fontSize: YMSizes()
+                                                          .fontSizeMedium,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              const Expanded(
+                                                flex: 2,
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(5),
+                                                  child: TextFieldComponent(
+                                                    height: 50,
+                                                    hintText: "(Zorunlu)",
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: MenuButton(
+                                      text: "İptal",
+                                      onPressed: () {},
+                                      bgColor: YMColors().grey,
+                                      textColor: YMColors().white,
+                                      height: 50,
+                                      width: double.infinity,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: MenuButton(
+                                      text: "Kaydet",
+                                      onPressed: () {},
+                                      bgColor: YMColors().blue,
+                                      textColor: YMColors().white,
+                                      height: 50,
+                                      width: double.infinity,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 36,
-                    ),
-                    Text(
-                      "FİYAT:",
-                      style: TextStyle(
-                        fontSize: YMSizes().fontSizeMedium,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 36,
-                    ),
-                    Text(
-                      "ADET:",
-                      style: TextStyle(
-                        fontSize: YMSizes().fontSizeMedium,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 36,
-                    ),
-                    Text(
-                      "RENK:",
-                      style: TextStyle(
-                        fontSize: YMSizes().fontSizeMedium,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 36,
-                    ),
-                    Text(
-                      "BEDEN:",
-                      style: TextStyle(
-                        fontSize: YMSizes().fontSizeMedium,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 36,
-                    ),
-                    Text(
-                      "MARKA:",
-                      style: TextStyle(
-                        fontSize: YMSizes().fontSizeMedium,
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Container(),
+                        ],
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(
-                  width: 8,
-                ),
-                Expanded(
-                  child: Column(
-                    children: [
-                      const TextFieldComponent(
-                        hintText: "AD",
-                        height: 40,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const TextFieldComponent(
-                        hintText: "FİYAT",
-                        height: 40,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const TextFieldComponent(
-                        hintText: "ADET",
-                        height: 40,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const TextFieldComponent(
-                        hintText: "RENK",
-                        height: 40,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const TextFieldComponent(
-                        hintText: "BEDEN",
-                        height: 40,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const TextFieldComponent(
-                        hintText: "MARKA",
-                        height: 40,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      MenuButton(
-                        text: "ÜRÜN EKLE",
-                        onPressed: () {},
-                        bgColor: YMColors().red,
-                        textColor: YMColors().white,
-                        height: 40,
-                        width: double.infinity,
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Container(),
-                    ],
-                  ),
-                )
-              ],
+              ),
             ),
           ),
         ],

@@ -83,7 +83,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.all(30.0),
                           child: Image.asset(
                             'assets/images/yildiz_motor_logo.png',
-                            height: MediaQuery.of(context).size.height / 3,
                           ),
                         ),
                         Container(

@@ -27,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: YMColors().white,
       body: Center(
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Row(
             children: [
               Expanded(
@@ -53,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         bgColor: YMColors().red,
                         textColor: YMColors().white,
                         width: double.infinity,
-                        height: 40,
+                        height: 50,
                       ),
                     ),
                     Padding(
@@ -67,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         bgColor: YMColors().red,
                         textColor: YMColors().white,
                         width: double.infinity,
-                        height: 40,
+                        height: 50,
                       ),
                     ),
                     Padding(
@@ -81,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         bgColor: YMColors().red,
                         textColor: YMColors().white,
                         width: double.infinity,
-                        height: 40,
+                        height: 50,
                       ),
                     ),
                     Padding(
@@ -95,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         bgColor: YMColors().red,
                         textColor: YMColors().white,
                         width: double.infinity,
-                        height: 40,
+                        height: 50,
                       ),
                     ),
                   ],

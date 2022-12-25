@@ -42,7 +42,7 @@ class _ListSuppliersScreenState extends State<ListSuppliersScreen> {
                   onPressed: () {
                     Navigator.pushReplacementNamed(context, '/home');
                   },
-                  height: 40,
+                  height: 50,
                 ),
               ),
               Expanded(
@@ -125,7 +125,7 @@ class SuppliersListSearchBar extends StatelessWidget {
                 child: MenuButton(
                   text: "Temizle",
                   onPressed: () {},
-                  height: 40,
+                  height: 50,
                   textColor: YMColors().white,
                   bgColor: YMColors().grey,
                 ),
@@ -141,7 +141,7 @@ class SuppliersListSearchBar extends StatelessWidget {
                 padding: EdgeInsets.all(10),
                 child: TextFieldComponent(
                   hintText: "İsim, Telefon Numarası veya Adres",
-                  height: 40,
+                  height: 50,
                 ),
               ),
             ),
@@ -155,7 +155,7 @@ class SuppliersListSearchBar extends StatelessWidget {
                 child: MenuButton(
                   text: "Ara",
                   onPressed: () {},
-                  height: 40,
+                  height: 50,
                   textColor: YMColors().white,
                   bgColor: YMColors().red,
                 ),
@@ -226,7 +226,7 @@ class SuppliersListItem extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: 60,
+            height: 70,
             decoration: BoxDecoration(
               color: YMColors().white,
             ),
@@ -285,8 +285,7 @@ class SuppliersListItem extends StatelessWidget {
                         Navigator.pushReplacementNamed(
                             context, '/edit_supplier');
                       },
-                      height: 40,
-                      width: 100,
+                      height: 50,
                     ),
                   ),
                 ),

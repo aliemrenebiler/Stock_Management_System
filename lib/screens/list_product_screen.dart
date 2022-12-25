@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yildiz_motor_v2/backend/classes.dart';
-import 'package:yildiz_motor_v2/screens/buy_product_screen.dart';
-import 'package:yildiz_motor_v2/screens/edit_product_screen.dart';
-import 'package:yildiz_motor_v2/screens/sell_product_screen.dart';
 import 'package:yildiz_motor_v2/widgets/custom_text_field.dart';
 
-import '../backend/classes.dart';
-import '../widgets/custom_text_field.dart';
 import '../backend/theme.dart';
 import '../widgets/list_table.dart';
 import '../widgets/menu_button.dart';
@@ -47,7 +42,7 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
                   onPressed: () {
                     Navigator.pushReplacementNamed(context, '/home');
                   },
-                  height: 40,
+                  height: 50,
                 ),
               ),
               Expanded(
@@ -135,7 +130,7 @@ class ProductsListSearchBar extends StatelessWidget {
                 child: MenuButton(
                   text: "Temizle",
                   onPressed: () {},
-                  height: 40,
+                  height: 50,
                   textColor: YMColors().white,
                   bgColor: YMColors().grey,
                 ),
@@ -156,7 +151,7 @@ class ProductsListSearchBar extends StatelessWidget {
                         padding: EdgeInsets.all(5),
                         child: TextFieldComponent(
                           hintText: "İsim",
-                          height: 40,
+                          height: 50,
                         ),
                       ),
                     ),
@@ -165,7 +160,7 @@ class ProductsListSearchBar extends StatelessWidget {
                         padding: EdgeInsets.all(5),
                         child: TextFieldComponent(
                           hintText: "Özellik",
-                          height: 40,
+                          height: 50,
                         ),
                       ),
                     ),
@@ -188,7 +183,7 @@ class ProductsListSearchBar extends StatelessWidget {
                         padding: EdgeInsets.all(5),
                         child: TextFieldComponent(
                           hintText: "Fiyat (En Az)",
-                          height: 40,
+                          height: 50,
                         ),
                       ),
                     ),
@@ -197,7 +192,7 @@ class ProductsListSearchBar extends StatelessWidget {
                         padding: EdgeInsets.all(5),
                         child: TextFieldComponent(
                           hintText: "Fiyat (En Fazla)",
-                          height: 40,
+                          height: 50,
                         ),
                       ),
                     ),
@@ -220,7 +215,7 @@ class ProductsListSearchBar extends StatelessWidget {
                         padding: EdgeInsets.all(5),
                         child: TextFieldComponent(
                           hintText: "Adet (En Az)",
-                          height: 40,
+                          height: 50,
                         ),
                       ),
                     ),
@@ -229,7 +224,7 @@ class ProductsListSearchBar extends StatelessWidget {
                         padding: EdgeInsets.all(5),
                         child: TextFieldComponent(
                           hintText: "Adet (En Fazla)",
-                          height: 40,
+                          height: 50,
                         ),
                       ),
                     ),
@@ -247,7 +242,7 @@ class ProductsListSearchBar extends StatelessWidget {
                 child: MenuButton(
                   text: "Ara",
                   onPressed: () {},
-                  height: 40,
+                  height: 50,
                   textColor: YMColors().white,
                   bgColor: YMColors().red,
                 ),
@@ -343,7 +338,7 @@ class ProductsListItem extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: 60,
+            height: 70,
             decoration: BoxDecoration(
               color: YMColors().white,
             ),
@@ -459,8 +454,7 @@ class ProductsListItem extends StatelessWidget {
                                 Navigator.pushReplacementNamed(
                                     context, '/edit_product');
                               },
-                              height: 40,
-                              width: 100,
+                              height: 50,
                             ),
                           ),
                         ),
@@ -469,15 +463,14 @@ class ProductsListItem extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(5),
                             child: MenuButton(
-                              text: "Alış Ekle",
+                              text: "Satın Alım",
                               bgColor: YMColors().blue,
                               textColor: YMColors().white,
                               onPressed: () {
                                 Navigator.pushReplacementNamed(
                                     context, '/buy_product');
                               },
-                              height: 40,
-                              width: 120,
+                              height: 50,
                             ),
                           ),
                         ),
@@ -493,8 +486,7 @@ class ProductsListItem extends StatelessWidget {
                                 Navigator.pushReplacementNamed(
                                     context, '/sell_product');
                               },
-                              height: 40,
-                              width: 120,
+                              height: 50,
                             ),
                           ),
                         ),

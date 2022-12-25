@@ -25,7 +25,7 @@ class TextFieldComponent extends StatelessWidget {
       width: width,
       height: height,
       alignment: Alignment.center,
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         color: YMColors().white,
         borderRadius: BorderRadius.circular(10),
