@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../backend/theme.dart';
 import '../widgets/menu_button.dart';
 
@@ -34,15 +35,11 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(5),
-                      child: Container(
-                        decoration: const BoxDecoration(),
-                        child: Image.asset(
-                          "assets/images/ym_logo.jpeg",
-                        ),
+                      child: Image.asset(
+                        "assets/images/yildiz_motor_logo.png",
                       ),
                     ),
                     Padding(
