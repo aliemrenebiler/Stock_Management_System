@@ -64,6 +64,34 @@ class ListTableTitlesBarItem extends StatelessWidget {
   }
 }
 
+class ListTableItemPart extends StatelessWidget {
+  final String? value;
+  final int flex;
+  final Color? textColor;
+  const ListTableItemPart({
+    super.key,
+    required this.value,
+    required this.flex,
+    this.textColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      flex: flex,
+      child: Text(
+        value ?? "-",
+        textAlign: TextAlign.center,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(
+          color: textColor ?? YMColors().black,
+          fontSize: YMSizes().fontSizeMedium,
+        ),
+      ),
+    );
+  }
+}
+
 class ListTableVerticalSeperator extends StatelessWidget {
   final Color color;
   final double space;

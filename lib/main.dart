@@ -5,6 +5,7 @@ import 'package:page_transition/page_transition.dart';
 import 'screens/add_product_screen.dart';
 import 'screens/edit_product_screen.dart';
 import 'screens/list_product_screen.dart';
+import 'screens/list_supplier_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/set_password_screen.dart';
 import 'screens/home_screen.dart';
@@ -49,9 +50,9 @@ class MyApp extends StatelessWidget {
               type: PageTransitionType.fade,
               settings: settings,
             );
-          case '/list_product':
+          case '/list_products':
             return PageTransition(
-              child: const ListProductScreen(),
+              child: const ListProductsScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );
@@ -67,15 +68,15 @@ class MyApp extends StatelessWidget {
               type: PageTransitionType.fade,
               settings: settings,
             );
-          // case '/sell_buy':
-          //   return PageTransition(
-          //     child: const AddProductScreen(),
-          //     type: PageTransitionType.fade,
-          //     settings: settings,
-          //   );
+          case '/list_suppliers':
+            return PageTransition(
+              child: const ListSuppliersScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
           default:
             return PageTransition(
-              child: const ListProductScreen(),
+              child: const ListProductsScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );
