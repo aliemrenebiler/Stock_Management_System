@@ -35,6 +35,7 @@ class TextFieldComponent extends StatelessWidget {
         ),
       ),
       child: TextFormField(
+        controller: controller,
         textAlign: TextAlign.left,
         style: TextStyle(
           color: YMColors().black,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yildiz_motor_v2/backend/classes.dart';
+import 'package:yildiz_motor_v2/backend/methods.dart';
 import 'package:yildiz_motor_v2/widgets/custom_text_field.dart';
 
 import '../backend/theme.dart';
@@ -15,8 +16,14 @@ class ListProductsScreen extends StatefulWidget {
 }
 
 class _ListProductsScreenState extends State<ListProductsScreen> {
+  refresh() {
+    setState(() {});
+  }
+
   @override
   void initState() {
+    listedItems =
+        DatabaseService().getProducts(null, null, null, null, null, null, null);
     super.initState();
   }
 
@@ -68,35 +75,22 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
             child: Padding(
               padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
               child: Column(
-                children: const [
+                children: [
                   Padding(
-                    padding: EdgeInsets.all(10),
-                    child: ProductsListSearchBar(),
+                    padding: const EdgeInsets.all(10),
+                    child: ProductsListSearchBar(notifyParent: refresh),
                   ),
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                      padding:
+                          const EdgeInsets.only(top: 10, left: 10, right: 10),
                       child: ListTable(
-                        titlesBar: ProductsListTitlesBar(),
+                        titlesBar: const ProductsListTitlesBar(),
                         items: [
-                          ProductsListItem(
-                            product: {
-                              "id": 1,
-                            },
-                          ),
-                          ProductsListItem(
-                            product: {
-                              "id": 1,
-                              "name": "Kask",
-                              "category": "Baş",
-                              "brand": "Nike",
-                              "color": "Kırmızı",
-                              "size": "M",
-                              "sizeType": "Beden",
-                              "amount": 2,
-                              "price": 200,
-                            },
-                          ),
+                          for (int i = 0; i < listedItems.length; i++)
+                            ProductsListItem(
+                              product: listedItems[i],
+                            ),
                         ],
                       ),
                     ),
@@ -112,10 +106,17 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
 }
 
 class ProductsListSearchBar extends StatelessWidget {
-  const ProductsListSearchBar({super.key});
+  final Function() notifyParent;
+  const ProductsListSearchBar({super.key, required this.notifyParent});
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController nameController = TextEditingController();
+    TextEditingController specController = TextEditingController();
+    TextEditingController minAmountController = TextEditingController();
+    TextEditingController maxAmountController = TextEditingController();
+    TextEditingController minPriceController = TextEditingController();
+    TextEditingController maxPriceController = TextEditingController();
     return Container(
       decoration: BoxDecoration(
         color: YMColors().lightGrey,
@@ -129,7 +130,11 @@ class ProductsListSearchBar extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 child: MenuButton(
                   text: "Temizle",
-                  onPressed: () {},
+                  onPressed: () {
+                    listedItems = DatabaseService()
+                        .getProducts(null, null, null, null, null, null, null);
+                    notifyParent();
+                  },
                   height: 50,
                   textColor: YMColors().white,
                   bgColor: YMColors().grey,
@@ -145,22 +150,24 @@ class ProductsListSearchBar extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(5),
                 child: Row(
-                  children: const [
+                  children: [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(5),
                         child: TextFieldComponent(
                           hintText: "İsim",
                           height: 50,
+                          controller: nameController,
                         ),
                       ),
                     ),
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(5),
                         child: TextFieldComponent(
                           hintText: "Özellik",
                           height: 50,
+                          controller: specController,
                         ),
                       ),
                     ),
@@ -177,22 +184,24 @@ class ProductsListSearchBar extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(5),
                 child: Row(
-                  children: const [
+                  children: [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(5),
                         child: TextFieldComponent(
                           hintText: "Fiyat (En Az)",
                           height: 50,
+                          controller: minPriceController,
                         ),
                       ),
                     ),
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(5),
                         child: TextFieldComponent(
                           hintText: "Fiyat (En Fazla)",
                           height: 50,
+                          controller: maxPriceController,
                         ),
                       ),
                     ),
@@ -209,22 +218,24 @@ class ProductsListSearchBar extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(5),
                 child: Row(
-                  children: const [
+                  children: [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(5),
                         child: TextFieldComponent(
                           hintText: "Adet (En Az)",
                           height: 50,
+                          controller: minAmountController,
                         ),
                       ),
                     ),
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(5),
                         child: TextFieldComponent(
                           hintText: "Adet (En Fazla)",
                           height: 50,
+                          controller: maxAmountController,
                         ),
                       ),
                     ),
@@ -241,7 +252,30 @@ class ProductsListSearchBar extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 child: MenuButton(
                   text: "Ara",
-                  onPressed: () {},
+                  onPressed: () {
+                    listedItems = DatabaseService().getProducts(
+                      null,
+                      (nameController.text.isEmpty)
+                          ? null
+                          : nameController.text,
+                      (specController.text.isEmpty)
+                          ? null
+                          : specController.text,
+                      (minPriceController.text.isEmpty)
+                          ? null
+                          : double.parse(minPriceController.text),
+                      (maxPriceController.text.isEmpty)
+                          ? null
+                          : double.parse(maxPriceController.text),
+                      (minAmountController.text.isEmpty)
+                          ? null
+                          : int.parse(minAmountController.text),
+                      (maxAmountController.text.isEmpty)
+                          ? null
+                          : int.parse(maxAmountController.text),
+                    );
+                    notifyParent();
+                  },
                   height: 50,
                   textColor: YMColors().white,
                   bgColor: YMColors().red,
@@ -451,6 +485,7 @@ class ProductsListItem extends StatelessWidget {
                               bgColor: YMColors().grey,
                               textColor: YMColors().white,
                               onPressed: () {
+                                editedItem = product;
                                 Navigator.pushReplacementNamed(
                                     context, '/edit_product');
                               },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../backend/classes.dart';
+import '../backend/methods.dart';
 import '../widgets/custom_text_field.dart';
 import '../backend/theme.dart';
 import '../widgets/list_table.dart';
@@ -17,6 +18,7 @@ class ListSuppliersScreen extends StatefulWidget {
 class _ListSuppliersScreenState extends State<ListSuppliersScreen> {
   @override
   void initState() {
+    listedItems = DatabaseService().getSuppliers(null, null);
     super.initState();
   }
 
@@ -68,30 +70,22 @@ class _ListSuppliersScreenState extends State<ListSuppliersScreen> {
             child: Padding(
               padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
               child: Column(
-                children: const [
-                  Padding(
+                children: [
+                  const Padding(
                     padding: EdgeInsets.all(10),
                     child: SuppliersListSearchBar(),
                   ),
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+                      padding:
+                          const EdgeInsets.only(top: 10, left: 10, right: 10),
                       child: ListTable(
-                        titlesBar: SuppliersListTitlesBar(),
+                        titlesBar: const SuppliersListTitlesBar(),
                         items: [
-                          SuppliersListItem(
-                            supplier: {
-                              "id": 1,
-                            },
-                          ),
-                          SuppliersListItem(
-                            supplier: {
-                              "id": 1,
-                              "name": "Satıcı",
-                              "phone": "05xxx xxx xxxx",
-                              "address": "Şişli",
-                            },
-                          ),
+                          for (int i = 0; i < listedItems.length; i++)
+                            SuppliersListItem(
+                              supplier: listedItems[i],
+                            ),
                         ],
                       ),
                     ),

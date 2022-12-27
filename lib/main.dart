@@ -20,8 +20,6 @@ void main() async {
   runApp(const MyApp());
 }
 
-bool loginFlag = false;
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 

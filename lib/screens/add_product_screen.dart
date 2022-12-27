@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:yildiz_motor_v2/backend/classes.dart';
+import 'package:yildiz_motor_v2/backend/methods.dart';
 import 'package:yildiz_motor_v2/backend/theme.dart';
 import 'package:yildiz_motor_v2/widgets/menu_button.dart';
 import 'package:yildiz_motor_v2/widgets/top_bar.dart';
@@ -15,6 +17,14 @@ class AddProductScreen extends StatefulWidget {
 class _AddProductScreenState extends State<AddProductScreen> {
   @override
   Widget build(BuildContext context) {
+    TextEditingController nameController = TextEditingController();
+    TextEditingController brandController = TextEditingController();
+    TextEditingController categoryController = TextEditingController();
+    TextEditingController colorController = TextEditingController();
+    TextEditingController sizeController = TextEditingController();
+    TextEditingController sizeTypeController = TextEditingController();
+    TextEditingController priceController = TextEditingController();
+    TextEditingController amountController = TextEditingController();
     return Scaffold(
       backgroundColor: YMColors().white,
       body: Column(
@@ -118,10 +128,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                               ),
                                             ],
                                           ),
-                                          const Padding(
-                                            padding: EdgeInsets.all(5),
+                                          Padding(
+                                            padding: const EdgeInsets.all(5),
                                             child: TextFieldComponent(
                                               height: 50,
+                                              controller: nameController,
                                               hintText:
                                                   '(Zorunlu) "Otomatik Doldur" ile diğer alanları doldurun!',
                                             ),
@@ -160,12 +171,14 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                   ),
                                                 ),
                                               ),
-                                              const Expanded(
+                                              Expanded(
                                                 flex: 2,
                                                 child: Padding(
-                                                  padding: EdgeInsets.all(5),
+                                                  padding:
+                                                      const EdgeInsets.all(5),
                                                   child: TextFieldComponent(
                                                     height: 50,
+                                                    controller: brandController,
                                                   ),
                                                 ),
                                               ),
@@ -191,13 +204,16 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                   ),
                                                 ),
                                               ),
-                                              const Expanded(
+                                              Expanded(
                                                 flex: 2,
                                                 child: Padding(
-                                                  padding: EdgeInsets.all(5),
+                                                  padding:
+                                                      const EdgeInsets.all(5),
                                                   child: TextFieldComponent(
                                                     height: 50,
                                                     hintText: "(Zorunlu)",
+                                                    controller:
+                                                        categoryController,
                                                   ),
                                                 ),
                                               ),
@@ -223,12 +239,14 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                   ),
                                                 ),
                                               ),
-                                              const Expanded(
+                                              Expanded(
                                                 flex: 2,
                                                 child: Padding(
-                                                  padding: EdgeInsets.all(5),
+                                                  padding:
+                                                      const EdgeInsets.all(5),
                                                   child: TextFieldComponent(
                                                     height: 50,
+                                                    controller: colorController,
                                                   ),
                                                 ),
                                               ),
@@ -254,12 +272,14 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                   ),
                                                 ),
                                               ),
-                                              const Expanded(
+                                              Expanded(
                                                 flex: 2,
                                                 child: Padding(
-                                                  padding: EdgeInsets.all(5),
+                                                  padding:
+                                                      const EdgeInsets.all(5),
                                                   child: TextFieldComponent(
                                                     height: 50,
+                                                    controller: sizeController,
                                                   ),
                                                 ),
                                               ),
@@ -285,12 +305,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                   ),
                                                 ),
                                               ),
-                                              const Expanded(
+                                              Expanded(
                                                 flex: 2,
                                                 child: Padding(
-                                                  padding: EdgeInsets.all(5),
+                                                  padding:
+                                                      const EdgeInsets.all(5),
                                                   child: TextFieldComponent(
                                                     height: 50,
+                                                    controller:
+                                                        sizeTypeController,
                                                   ),
                                                 ),
                                               ),
@@ -316,13 +339,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                   ),
                                                 ),
                                               ),
-                                              const Expanded(
+                                              Expanded(
                                                 flex: 2,
                                                 child: Padding(
-                                                  padding: EdgeInsets.all(5),
+                                                  padding:
+                                                      const EdgeInsets.all(5),
                                                   child: TextFieldComponent(
                                                     height: 50,
                                                     hintText: "(Zorunlu)",
+                                                    controller: priceController,
                                                   ),
                                                 ),
                                               ),
@@ -348,13 +373,16 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                   ),
                                                 ),
                                               ),
-                                              const Expanded(
+                                              Expanded(
                                                 flex: 2,
                                                 child: Padding(
-                                                  padding: EdgeInsets.all(5),
+                                                  padding:
+                                                      const EdgeInsets.all(5),
                                                   child: TextFieldComponent(
                                                     height: 50,
                                                     hintText: "(Zorunlu)",
+                                                    controller:
+                                                        amountController,
                                                   ),
                                                 ),
                                               ),
@@ -388,7 +416,31 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                     padding: const EdgeInsets.all(5),
                                     child: MenuButton(
                                       text: "Kaydet",
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        DatabaseService().insertProduct({
+                                          Product().id: null,
+                                          Product().name: nameController.text,
+                                          Product().brand: brandController.text,
+                                          Product().category:
+                                              categoryController.text,
+                                          Product().color: colorController.text,
+                                          Product().size: sizeController.text,
+                                          Product().sizeType:
+                                              sizeTypeController.text,
+                                          Product().price: double.parse(
+                                              priceController.text),
+                                          Product().amount:
+                                              int.parse(amountController.text),
+                                        });
+                                        nameController.clear();
+                                        brandController.clear();
+                                        categoryController.clear();
+                                        colorController.clear();
+                                        sizeController.clear();
+                                        sizeTypeController.clear();
+                                        priceController.clear();
+                                        amountController.clear();
+                                      },
                                       bgColor: YMColors().blue,
                                       textColor: YMColors().white,
                                       height: 50,

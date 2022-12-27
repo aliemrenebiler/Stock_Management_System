@@ -6,7 +6,11 @@ import 'classes.dart';
 
 String? password;
 
-Database? database;
+String dbName = "yildiz_motor_db.db";
+
+List<Map<dynamic, dynamic>> listedItems = [];
+
+Map<dynamic, dynamic> editedItem = {};
 
 class SharedPrefsService {
   Future<bool> get passwordExists async {
@@ -31,26 +35,54 @@ class SharedPrefsService {
 }
 
 class DatabaseService {
-  Future<int> getDBSize(String dbName) async {
-    int size = database!.select('SELECT COUNT(*) FROM $dbName')[0][0];
+  getDBSize(String dbName) {
+    Database database = sqlite3.open(dbName);
+    int size = database.select('SELECT COUNT(*) FROM $dbName')[0][0];
+    database.dispose();
     return size;
   }
 
-  createProducts() async {
-    database!.execute(
-      'CREATE TABLE ${Product().tableName}(${Product().id} TEXT not null,${Product().name} TEXT not null,${Product().brand} TEXT,${Product().category} TEXT,${Product().color} TEXT,${Product().size} TEXT,${Product().sizeType} TEXT,${Product().amount} INTEGER,${Product().price} REAL,primary key (${Product().id}),)',
+  createProducts() {
+    Database database = sqlite3.open(dbName);
+    database.execute(
+      'CREATE TABLE ${Product().tableName}(${Product().id} INTEGER PRIMARY KEY,${Product().name} TEXT not null,${Product().brand} TEXT,${Product().category} TEXT,${Product().color} TEXT,${Product().size} TEXT,${Product().sizeType} TEXT,${Product().amount} INTEGER,${Product().price} REAL)',
     );
+    database.dispose();
   }
 
-  Future<List<Map<dynamic, dynamic>>> getProducts(
+  createSuppliers() {
+    Database database = sqlite3.open(dbName);
+    database.execute(
+      'CREATE TABLE ${Supplier().tableName}(${Supplier().id} INTEGER PRIMARY KEY, ${Supplier().name} TEXT not null, ${Supplier().phone} TEXT,${Supplier().address} TEXT)',
+    );
+    database.dispose();
+  }
+
+  createPurchases() {
+    Database database = sqlite3.open(dbName);
+    database.execute(
+      'CREATE TABLE ${Purchase().tableName}(${Purchase().id} INTEGER PRIMARY KEY,${Purchase().supplierID} INTEGER,${Purchase().productID} INTEGER not null,${Purchase().amount} INTEGER,${Purchase().price} REAL,${Purchase().date} TEXT,CONSTRAINT fk_tedarikci FOREIGN KEY (${Purchase().supplierID}) REFERENCES ${Supplier().tableName}(${Supplier().id}) ON DELETE SET NULL, CONSTRAINT fk_tedarikci FOREIGN KEY (${Purchase().productID}) REFERENCES ${Purchase().tableName}(${Product().id}) ON DELETE SET NULL)',
+    );
+    database.dispose();
+  }
+
+  createSales() {
+    Database database = sqlite3.open(dbName);
+    database.execute(
+      'CREATE TABLE ${Sale().tableName}(${Purchase().id} INTEGER PRIMARY KEY,${Sale().productID} INTEGER not null,${Sale().amount} INTEGER,${Sale().price} REAL,${Sale().date} TEXT,CONSTRAINT fk_tedarikci FOREIGN KEY (${Sale().productID}) REFERENCES ${Product().tableName}(${Product().id}) ON DELETE SET NULL)',
+    );
+    database.dispose();
+  }
+
+  getProducts(
     int? id,
     String? name,
     String? spec,
     double? minPrice,
     double? maxPrice,
-    double? minAmount,
-    double? maxAmount,
-  ) async {
+    int? minAmount,
+    int? maxAmount,
+  ) {
     String query = 'SELECT * FROM ${Product().tableName}';
     bool isSearching = false;
 
@@ -115,60 +147,62 @@ class DatabaseService {
       }
     }
 
-    var products = database!.select(query);
+    Database database = sqlite3.open(dbName);
+    var products = database.select(query);
+    database.dispose();
 
     return products;
   }
 
-  insertProduct(Map<dynamic, dynamic> product) async {
-    database!.execute(
-      'INSERT INTO product(id,name,brand,category,color,size,sizeType,amount,price) VALUES(?,?,?,?,?,?,?,?,?)',
+  insertProduct(Map<dynamic, dynamic> product) {
+    Database database = sqlite3.open(dbName);
+    database.execute(
+      'INSERT INTO ${Product().tableName}(${Product().id},${Product().name},${Product().brand},${Product().category},${Product().color},${Product().size},${Product().sizeType},${Product().amount},${Product().price}) VALUES(?,?,?,?,?,?,?,?,?)',
       [
-        product["id"] as String,
-        product["name"] as String,
-        product["brand"] as String,
-        product["category"] as String,
-        product["color"] as String,
-        product["size"] as double,
-        product["sizeType"] as String,
-        product["amount"] as int,
-        product["price"] as double,
+        product[Product().id] as int,
+        product[Product().name] as String,
+        product[Product().brand] as String,
+        product[Product().category] as String,
+        product[Product().color] as String,
+        product[Product().size] as String,
+        product[Product().sizeType] as String,
+        product[Product().amount] as int,
+        product[Product().price] as double,
       ],
     );
+    database.dispose();
   }
 
-  updateProduct(Map<dynamic, dynamic> product) async {
-    database!.execute(
+  updateProduct(Map<dynamic, dynamic> product) {
+    Database database = sqlite3.open(dbName);
+    database.execute(
       'UPDATE ${Product().tableName} SET ${Product().name}=?,${Product().brand}=?,${Product().category}=?,${Product().color}=?,${Product().size}=?,${Product().sizeType}=?,${Product().amount}=?,${Product().price}=? WHERE ${Product().id}=?',
       [
         product[Product().name] as String,
         product[Product().brand] as String,
         product[Product().category] as String,
         product[Product().color] as String,
-        product[Product().size] as double,
+        product[Product().size] as String,
         product[Product().sizeType] as String,
         product[Product().amount] as int,
         product[Product().price] as double,
-        product[Product().id] as String,
+        product[Product().id] as int,
       ],
     );
+    database.dispose();
   }
 
-  deleteProduct(String id) async {
-    database!.execute(
+  deleteProduct(int id) {
+    Database database = sqlite3.open(dbName);
+    database.execute(
         'DELETE FROM ${Product().tableName} WHERE ${Product().id}=$id');
+    database.dispose();
   }
 
-  createSuppliers() async {
-    database!.execute(
-      'CREATE TABLE ${Supplier().tableName}(${Supplier().id} TEXT not null, ${Supplier().name} TEXT not null, ${Supplier().phone} TEXT,${Supplier().address} TEXT,primary key (${Supplier().id}),)',
-    );
-  }
-
-  Future<List<Map<dynamic, dynamic>>> getSuppliers(
+  getSuppliers(
     String? id,
     String? info,
-  ) async {
+  ) {
     String query = 'SELECT * FROM ${Supplier().tableName}';
     bool isSearching = false;
     if (id != null) {
@@ -190,13 +224,16 @@ class DatabaseService {
           ' ${Supplier().name}="$info" OR ${Supplier().phone}="$info" OR ${Supplier().address}="$info"';
     }
 
-    var suppliers = database!.select(query);
+    Database database = sqlite3.open(dbName);
+    var suppliers = database.select(query);
+    database.dispose();
 
     return suppliers;
   }
 
-  insertSupplier(Map<dynamic, dynamic> supplier) async {
-    database!.execute(
+  insertSupplier(Map<dynamic, dynamic> supplier) {
+    Database database = sqlite3.open(dbName);
+    database.execute(
       'INSERT INTO ${Supplier().tableName}(${Supplier().id},${Supplier().name},${Supplier().phone},${Supplier().address}) VALUES(?,?,?,?)',
       [
         supplier[Supplier().id],
@@ -205,10 +242,12 @@ class DatabaseService {
         supplier[Supplier().address],
       ],
     );
+    database.dispose();
   }
 
-  updateSupplier(Map<dynamic, dynamic> supplier) async {
-    database!.execute(
+  updateSupplier(Map<dynamic, dynamic> supplier) {
+    Database database = sqlite3.open(dbName);
+    database.execute(
       'UPDATE ${Supplier().tableName} SET ${Supplier().name}=?,${Supplier().phone}=?,${Supplier().address}=? WHERE ${Supplier().id}=?',
       [
         supplier[Supplier().name],
@@ -217,24 +256,21 @@ class DatabaseService {
         supplier[Supplier().id],
       ],
     );
+    database.dispose();
   }
 
-  deleteSupplier(String id) async {
-    database!.execute(
+  deleteSupplier(int id) {
+    Database database = sqlite3.open(dbName);
+    database.execute(
         'DELETE FROM ${Supplier().tableName} WHERE ${Supplier().id}=$id');
+    database.dispose();
   }
 
-  createPurchases() async {
-    database!.execute(
-      'CREATE TABLE ${Purchase().tableName}(${Purchase().id} TEXT not null,${Purchase().supplierID} TEXT,${Purchase().productID} TEXT not null,${Purchase().amount} INTEGER,${Purchase().price} REAL,${Purchase().date} DATE,primary key (${Purchase().id}),foreign key (${Purchase().supplierID}) references ${Supplier().tableName}(${Supplier().id}),foreign key (${Purchase().productID}) references ${Product().tableName}(${Product().id}),)',
-    );
-  }
-
-  Future<List<Map<dynamic, dynamic>>> getPurchases(
+  getPurchases(
     String? id,
     String? supplierID,
     String? productID,
-  ) async {
+  ) {
     String query = 'SELECT * FROM ${Purchase().tableName}';
     bool isSearching = false;
 
@@ -264,13 +300,16 @@ class DatabaseService {
       query += ' ${Purchase().productID}="$productID"';
     }
 
-    var purchases = database!.select(query);
+    Database database = sqlite3.open(dbName);
+    var purchases = database.select(query);
+    database.dispose();
 
     return purchases;
   }
 
-  insertPurchase(Map<dynamic, dynamic> purchase) async {
-    database!.execute(
+  insertPurchase(Map<dynamic, dynamic> purchase) {
+    Database database = sqlite3.open(dbName);
+    database.execute(
       'INSERT INTO ${Purchase().tableName}(${Purchase().id},${Purchase().supplierID},${Purchase().productID},${Purchase().amount},${Purchase().price},${Purchase().date}) VALUES(?,?,?,?,?,?)',
       [
         purchase[Purchase().id],
@@ -281,10 +320,12 @@ class DatabaseService {
         purchase[Purchase().date],
       ],
     );
+    database.dispose();
   }
 
-  updatePurchase(Map<dynamic, dynamic> purchase) async {
-    database!.execute(
+  updatePurchase(Map<dynamic, dynamic> purchase) {
+    Database database = sqlite3.open(dbName);
+    database.execute(
       'UPDATE ${Purchase().tableName} SET ${Purchase().supplierID}=?,${Purchase().productID}=?,${Purchase().amount}=?,${Purchase().price}=?,${Purchase().date}=? WHERE ${Purchase().id}=?',
       [
         purchase[Purchase().supplierID],
@@ -295,23 +336,20 @@ class DatabaseService {
         purchase[Purchase().id],
       ],
     );
+    database.dispose();
   }
 
-  deletePurchase(String id) async {
-    database!.execute(
+  deletePurchase(int id) {
+    Database database = sqlite3.open(dbName);
+    database.execute(
         'DELETE FROM ${Purchase().tableName} WHERE ${Purchase().id}=$id');
+    database.dispose();
   }
 
-  createSales() async {
-    database!.execute(
-      'CREATE TABLE ${Sale().tableName}(${Purchase().id} TEXT not null,${Sale().productID} TEXT not null,${Sale().amount} INTEGER,${Sale().price} REAL,${Sale().date} DATE,primary key (${Sale().id}),foreign key (${Sale().productID}) references ${Product().tableName}(${Product().id}),)',
-    );
-  }
-
-  Future<List<Map<dynamic, dynamic>>> getSales(
+  getSales(
     String? id,
     String? productID,
-  ) async {
+  ) {
     String query = 'SELECT * FROM ${Sale().tableName}';
     bool isSearching = false;
 
@@ -331,13 +369,17 @@ class DatabaseService {
       }
       query += ' ${Sale().productID}="$productID"';
     }
-    var sales = database!.select(query);
+
+    Database database = sqlite3.open(dbName);
+    var sales = database.select(query);
+    database.dispose();
 
     return sales;
   }
 
-  insertSale(Map<dynamic, dynamic> sale) async {
-    database!.execute(
+  insertSale(Map<dynamic, dynamic> sale) {
+    Database database = sqlite3.open(dbName);
+    database.execute(
       'INSERT INTO ${Sale().tableName}(${Sale().id},${Sale().productID},${Sale().amount},${Sale().price},${Sale().date}) VALUES(?,?,?,?,?)',
       [
         sale[Sale().id],
@@ -347,10 +389,12 @@ class DatabaseService {
         sale[Sale().date],
       ],
     );
+    database.dispose();
   }
 
-  updateSale(Map<dynamic, dynamic> sale) async {
-    database!.execute(
+  updateSale(Map<dynamic, dynamic> sale) {
+    Database database = sqlite3.open(dbName);
+    database.execute(
       'UPDATE ${Sale().tableName} SET ${Sale().productID}=?,${Sale().amount}=?,${Sale().price}=?,${Sale().date}=? WHERE ${Sale().id}=?',
       [
         sale[Sale().productID],
@@ -360,10 +404,13 @@ class DatabaseService {
         sale[Sale().id],
       ],
     );
+    database.dispose();
   }
 
-  deleteSale(String id) async {
-    database!.execute('DELETE FROM ${Sale().tableName} WHERE ${Sale().id}=$id');
+  deleteSale(int id) {
+    Database database = sqlite3.open(dbName);
+    database.execute('DELETE FROM ${Sale().tableName} WHERE ${Sale().id}=$id');
+    database.dispose();
   }
 }
 
@@ -373,4 +420,9 @@ bool signIn(input) {
   } else {
     return false;
   }
+}
+
+autoFill(String name) {
+  //RegExp exp = RegExp(r'(\w+)');
+  //TODO: DO THIS
 }

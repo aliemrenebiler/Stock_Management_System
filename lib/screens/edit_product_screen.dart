@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:yildiz_motor_v2/backend/classes.dart';
+import 'package:yildiz_motor_v2/backend/methods.dart';
 import '../backend/theme.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/menu_button.dart';
@@ -12,8 +14,24 @@ class EditProductScreen extends StatefulWidget {
 }
 
 class _EditProductScreenState extends State<EditProductScreen> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController brandController = TextEditingController();
+  TextEditingController categoryController = TextEditingController();
+  TextEditingController colorController = TextEditingController();
+  TextEditingController sizeController = TextEditingController();
+  TextEditingController sizeTypeController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  TextEditingController amountController = TextEditingController();
   @override
   void initState() {
+    nameController.text = editedItem[Product().name];
+    brandController.text = editedItem[Product().brand];
+    categoryController.text = editedItem[Product().category];
+    colorController.text = editedItem[Product().color];
+    sizeController.text = editedItem[Product().size];
+    sizeTypeController.text = editedItem[Product().sizeType];
+    priceController.text = editedItem[Product().price].toString();
+    amountController.text = editedItem[Product().amount].toString();
     super.initState();
   }
 
@@ -105,13 +123,14 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                               ),
                                             ),
                                           ),
-                                          const Expanded(
+                                          Expanded(
                                             flex: 2,
                                             child: Padding(
-                                              padding: EdgeInsets.all(5),
+                                              padding: const EdgeInsets.all(5),
                                               child: TextFieldComponent(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
+                                                controller: nameController,
                                               ),
                                             ),
                                           ),
@@ -134,12 +153,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                               ),
                                             ),
                                           ),
-                                          const Expanded(
+                                          Expanded(
                                             flex: 2,
                                             child: Padding(
-                                              padding: EdgeInsets.all(5),
+                                              padding: const EdgeInsets.all(5),
                                               child: TextFieldComponent(
                                                 height: 50,
+                                                controller: brandController,
                                               ),
                                             ),
                                           ),
@@ -162,13 +182,14 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                               ),
                                             ),
                                           ),
-                                          const Expanded(
+                                          Expanded(
                                             flex: 2,
                                             child: Padding(
-                                              padding: EdgeInsets.all(5),
+                                              padding: const EdgeInsets.all(5),
                                               child: TextFieldComponent(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
+                                                controller: categoryController,
                                               ),
                                             ),
                                           ),
@@ -191,12 +212,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                               ),
                                             ),
                                           ),
-                                          const Expanded(
+                                          Expanded(
                                             flex: 2,
                                             child: Padding(
-                                              padding: EdgeInsets.all(5),
+                                              padding: const EdgeInsets.all(5),
                                               child: TextFieldComponent(
                                                 height: 50,
+                                                controller: colorController,
                                               ),
                                             ),
                                           ),
@@ -219,12 +241,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                               ),
                                             ),
                                           ),
-                                          const Expanded(
+                                          Expanded(
                                             flex: 2,
                                             child: Padding(
-                                              padding: EdgeInsets.all(5),
+                                              padding: const EdgeInsets.all(5),
                                               child: TextFieldComponent(
                                                 height: 50,
+                                                controller: sizeController,
                                               ),
                                             ),
                                           ),
@@ -247,12 +270,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                               ),
                                             ),
                                           ),
-                                          const Expanded(
+                                          Expanded(
                                             flex: 2,
                                             child: Padding(
-                                              padding: EdgeInsets.all(5),
+                                              padding: const EdgeInsets.all(5),
                                               child: TextFieldComponent(
                                                 height: 50,
+                                                controller: sizeTypeController,
                                               ),
                                             ),
                                           ),
@@ -275,13 +299,14 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                               ),
                                             ),
                                           ),
-                                          const Expanded(
+                                          Expanded(
                                             flex: 2,
                                             child: Padding(
-                                              padding: EdgeInsets.all(5),
+                                              padding: const EdgeInsets.all(5),
                                               child: TextFieldComponent(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
+                                                controller: priceController,
                                               ),
                                             ),
                                           ),
@@ -304,13 +329,14 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                               ),
                                             ),
                                           ),
-                                          const Expanded(
+                                          Expanded(
                                             flex: 2,
                                             child: Padding(
-                                              padding: EdgeInsets.all(5),
+                                              padding: const EdgeInsets.all(5),
                                               child: TextFieldComponent(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
+                                                controller: amountController,
                                               ),
                                             ),
                                           ),
@@ -328,7 +354,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                     padding: const EdgeInsets.all(5),
                                     child: MenuButton(
                                       text: "Sil",
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        DatabaseService().deleteProduct(
+                                            editedItem[Product().id]);
+                                        Navigator.pushReplacementNamed(
+                                            context, "/list_products");
+                                      },
                                       bgColor: YMColors().red,
                                       textColor: YMColors().white,
                                       height: 50,
@@ -342,7 +373,56 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                     padding: const EdgeInsets.all(5),
                                     child: MenuButton(
                                       text: "Kaydet",
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        DatabaseService().updateProduct({
+                                          Product().id:
+                                              editedItem[Product().id],
+                                          Product().name:
+                                              (nameController.text.isEmpty)
+                                                  ? null
+                                                  : nameController.text,
+                                          Product().brand:
+                                              (brandController.text.isEmpty)
+                                                  ? null
+                                                  : brandController.text,
+                                          Product().category:
+                                              (categoryController.text.isEmpty)
+                                                  ? null
+                                                  : categoryController.text,
+                                          Product().color:
+                                              (colorController.text.isEmpty)
+                                                  ? null
+                                                  : colorController.text,
+                                          Product().size:
+                                              (sizeController.text.isEmpty)
+                                                  ? null
+                                                  : sizeController.text,
+                                          Product().sizeType:
+                                              (sizeTypeController.text.isEmpty)
+                                                  ? null
+                                                  : sizeTypeController.text,
+                                          Product().price:
+                                              (priceController.text.isEmpty)
+                                                  ? null
+                                                  : double.parse(
+                                                      priceController.text),
+                                          Product().amount:
+                                              (amountController.text.isEmpty)
+                                                  ? null
+                                                  : int.parse(
+                                                      amountController.text),
+                                        });
+                                        nameController.clear();
+                                        brandController.clear();
+                                        categoryController.clear();
+                                        colorController.clear();
+                                        sizeController.clear();
+                                        sizeTypeController.clear();
+                                        priceController.clear();
+                                        amountController.clear();
+                                        Navigator.pushReplacementNamed(
+                                            context, "/list_products");
+                                      },
                                       bgColor: YMColors().blue,
                                       textColor: YMColors().white,
                                       height: 50,
