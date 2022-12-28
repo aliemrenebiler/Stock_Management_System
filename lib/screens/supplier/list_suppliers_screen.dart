@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../backend/classes.dart';
-import '../backend/methods.dart';
-import '../widgets/custom_text_field.dart';
-import '../backend/theme.dart';
-import '../widgets/list_table.dart';
-import '../widgets/menu_button.dart';
-import '../widgets/top_bar.dart';
+import '../../backend/classes.dart';
+import '../../backend/methods.dart';
+import '../../widgets/custom_text_field.dart';
+import '../../backend/theme.dart';
+import '../../widgets/list_table.dart';
+import '../../widgets/menu_button.dart';
+import '../../widgets/top_bar.dart';
+
+List<Map<dynamic, dynamic>> listedSuppliers = [];
 
 class ListSuppliersScreen extends StatefulWidget {
   const ListSuppliersScreen({Key? key}) : super(key: key);
@@ -16,9 +18,13 @@ class ListSuppliersScreen extends StatefulWidget {
 }
 
 class _ListSuppliersScreenState extends State<ListSuppliersScreen> {
+  refresh() {
+    setState(() {});
+  }
+
   @override
   void initState() {
-    listedItems = DatabaseService().getSuppliers(null, null);
+    listedSuppliers = DatabaseService().getSuppliers(null, null);
     super.initState();
   }
 
@@ -71,9 +77,11 @@ class _ListSuppliersScreenState extends State<ListSuppliersScreen> {
               padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
               child: Column(
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(10),
-                    child: SuppliersListSearchBar(),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: SuppliersListSearchBar(
+                      notifyParent: refresh,
+                    ),
                   ),
                   Expanded(
                     child: Padding(
@@ -82,9 +90,9 @@ class _ListSuppliersScreenState extends State<ListSuppliersScreen> {
                       child: ListTable(
                         titlesBar: const SuppliersListTitlesBar(),
                         items: [
-                          for (int i = 0; i < listedItems.length; i++)
+                          for (int i = 0; i < listedSuppliers.length; i++)
                             SuppliersListItem(
-                              supplier: listedItems[i],
+                              supplier: listedSuppliers[i],
                             ),
                         ],
                       ),
@@ -101,10 +109,12 @@ class _ListSuppliersScreenState extends State<ListSuppliersScreen> {
 }
 
 class SuppliersListSearchBar extends StatelessWidget {
-  const SuppliersListSearchBar({super.key});
+  final Function() notifyParent;
+  const SuppliersListSearchBar({super.key, required this.notifyParent});
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController infoController = TextEditingController();
     return Container(
       decoration: BoxDecoration(
         color: YMColors().lightGrey,
@@ -118,7 +128,11 @@ class SuppliersListSearchBar extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 child: MenuButton(
                   text: "Temizle",
-                  onPressed: () {},
+                  onPressed: () {
+                    listedSuppliers =
+                        DatabaseService().getSuppliers(null, null);
+                    notifyParent();
+                  },
                   height: 50,
                   textColor: YMColors().white,
                   bgColor: YMColors().grey,
@@ -129,13 +143,14 @@ class SuppliersListSearchBar extends StatelessWidget {
               color: YMColors().grey,
               space: 10,
             ),
-            const Expanded(
+            Expanded(
               flex: 5,
               child: Padding(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: TextFieldComponent(
                   hintText: "İsim, Telefon Numarası veya Adres",
                   height: 50,
+                  controller: infoController,
                 ),
               ),
             ),
@@ -148,7 +163,15 @@ class SuppliersListSearchBar extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 child: MenuButton(
                   text: "Ara",
-                  onPressed: () {},
+                  onPressed: () {
+                    listedSuppliers = DatabaseService().getSuppliers(
+                      null,
+                      (infoController.text.isEmpty)
+                          ? null
+                          : infoController.text,
+                    );
+                    notifyParent();
+                  },
                   height: 50,
                   textColor: YMColors().white,
                   bgColor: YMColors().red,
@@ -276,6 +299,7 @@ class SuppliersListItem extends StatelessWidget {
                       bgColor: YMColors().grey,
                       textColor: YMColors().white,
                       onPressed: () {
+                        editedItem = supplier;
                         Navigator.pushReplacementNamed(
                             context, '/edit_supplier');
                       },

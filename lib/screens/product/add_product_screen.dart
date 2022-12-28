@@ -5,7 +5,7 @@ import 'package:yildiz_motor_v2/backend/theme.dart';
 import 'package:yildiz_motor_v2/widgets/menu_button.dart';
 import 'package:yildiz_motor_v2/widgets/top_bar.dart';
 
-import '../widgets/custom_text_field.dart';
+import '../../widgets/custom_text_field.dart';
 
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({super.key});
@@ -468,21 +468,39 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                     child: MenuButton(
                                       text: "Kaydet",
                                       onPressed: () {
-                                        DatabaseService().insertProduct({
-                                          Product().id: null,
-                                          Product().name: nameController.text,
-                                          Product().brand: brandController.text,
-                                          Product().category:
-                                              categoryController.text,
-                                          Product().color: colorController.text,
-                                          Product().size: sizeController.text,
-                                          Product().sizeType:
-                                              sizeTypeController.text,
-                                          Product().price: double.parse(
-                                              priceController.text),
-                                          Product().amount:
-                                              int.parse(amountController.text),
-                                        });
+                                        if (nameController.text.isNotEmpty &&
+                                            categoryController
+                                                .text.isNotEmpty &&
+                                            priceController.text.isNotEmpty &&
+                                            amountController.text.isNotEmpty) {
+                                          DatabaseService().insertProduct({
+                                            Product().id: null,
+                                            Product().name: nameController.text,
+                                            Product().brand:
+                                                (brandController.text.isEmpty)
+                                                    ? null
+                                                    : brandController.text,
+                                            Product().category:
+                                                categoryController.text,
+                                            Product().color:
+                                                (colorController.text.isEmpty)
+                                                    ? null
+                                                    : colorController.text,
+                                            Product().size:
+                                                (sizeController.text.isEmpty)
+                                                    ? null
+                                                    : sizeController.text,
+                                            Product().sizeType:
+                                                (sizeTypeController
+                                                        .text.isEmpty)
+                                                    ? null
+                                                    : sizeTypeController.text,
+                                            Product().price: double.parse(
+                                                priceController.text),
+                                            Product().amount: int.parse(
+                                                amountController.text),
+                                          });
+                                        }
                                       },
                                       bgColor: YMColors().blue,
                                       textColor: YMColors().white,

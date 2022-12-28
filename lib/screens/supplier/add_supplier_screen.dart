@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 
-import '../backend/theme.dart';
-import '../widgets/custom_text_field.dart';
-import '../widgets/menu_button.dart';
-import '../widgets/top_bar.dart';
+import '../../backend/classes.dart';
+import '../../backend/methods.dart';
+import '../../widgets/top_bar.dart';
+import '../../backend/theme.dart';
+import '../../widgets/custom_text_field.dart';
+import '../../widgets/menu_button.dart';
 
-class SellProductScreen extends StatefulWidget {
-  const SellProductScreen({super.key});
+class AddSupplierScreen extends StatefulWidget {
+  const AddSupplierScreen({super.key});
 
   @override
-  State<SellProductScreen> createState() => _SellProductScreenState();
+  State<AddSupplierScreen> createState() => _AddSupplierScreenState();
 }
 
-class _SellProductScreenState extends State<SellProductScreen> {
+class _AddSupplierScreenState extends State<AddSupplierScreen> {
   @override
   Widget build(BuildContext context) {
+    TextEditingController nameController = TextEditingController();
+    TextEditingController phoneController = TextEditingController();
+    TextEditingController addressController = TextEditingController();
     return Scaffold(
       backgroundColor: YMColors().white,
       body: Column(
@@ -28,7 +33,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                   bgColor: YMColors().red,
                   textColor: YMColors().white,
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/list_products');
+                    Navigator.pushReplacementNamed(context, '/home');
                   },
                   height: 50,
                 ),
@@ -36,7 +41,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
               Expanded(
                 flex: 10,
                 child: Text(
-                  "Satış Yap",
+                  "Tedarikçi Ekle",
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -79,25 +84,13 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                   padding: const EdgeInsets.all(5),
                                   child: Column(
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(5),
-                                        child: Text(
-                                          "ID: ... | İsim ...",
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontSize: YMSizes().fontSizeMedium,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
                                       Row(
                                         children: [
                                           Expanded(
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
                                               child: Text(
-                                                "Fiyat",
+                                                "İsim",
                                                 overflow: TextOverflow.ellipsis,
                                                 textAlign: TextAlign.right,
                                                 style: TextStyle(
@@ -108,13 +101,14 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                               ),
                                             ),
                                           ),
-                                          const Expanded(
+                                          Expanded(
                                             flex: 2,
                                             child: Padding(
-                                              padding: EdgeInsets.all(5),
+                                              padding: const EdgeInsets.all(5),
                                               child: TextFieldComponent(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
+                                                controller: nameController,
                                               ),
                                             ),
                                           ),
@@ -126,7 +120,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
                                               child: Text(
-                                                "Adet",
+                                                "Telefon",
                                                 overflow: TextOverflow.ellipsis,
                                                 textAlign: TextAlign.right,
                                                 style: TextStyle(
@@ -137,14 +131,42 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                               ),
                                             ),
                                           ),
-                                          const Expanded(
+                                          Expanded(
                                             flex: 2,
                                             child: Padding(
-                                              padding: EdgeInsets.all(5),
+                                              padding: const EdgeInsets.all(5),
                                               child: TextFieldComponent(
                                                 height: 50,
-                                                hintText:
-                                                    "(Zorunlu) Güncel Adet: ...",
+                                                controller: phoneController,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(5),
+                                              child: Text(
+                                                "Adres",
+                                                overflow: TextOverflow.ellipsis,
+                                                textAlign: TextAlign.right,
+                                                style: TextStyle(
+                                                  fontSize:
+                                                      YMSizes().fontSizeMedium,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 2,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(5),
+                                              child: TextFieldComponent(
+                                                height: 50,
+                                                controller: addressController,
                                               ),
                                             ),
                                           ),
@@ -161,8 +183,12 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(5),
                                     child: MenuButton(
-                                      text: "İptal Et",
-                                      onPressed: () {},
+                                      text: "Temizle",
+                                      onPressed: () {
+                                        nameController.clear();
+                                        phoneController.clear();
+                                        addressController.clear();
+                                      },
                                       bgColor: YMColors().grey,
                                       textColor: YMColors().white,
                                       height: 50,
@@ -175,8 +201,24 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(5),
                                     child: MenuButton(
-                                      text: "Ekle",
-                                      onPressed: () {},
+                                      text: "Kaydet",
+                                      onPressed: () {
+                                        if (nameController.text.isNotEmpty) {
+                                          DatabaseService().insertSupplier({
+                                            Supplier().id: null,
+                                            Supplier().name:
+                                                nameController.text,
+                                            Supplier().phone:
+                                                (phoneController.text.isEmpty)
+                                                    ? null
+                                                    : phoneController.text,
+                                            Supplier().address:
+                                                (addressController.text.isEmpty)
+                                                    ? null
+                                                    : addressController.text,
+                                          });
+                                        }
+                                      },
                                       bgColor: YMColors().blue,
                                       textColor: YMColors().white,
                                       height: 50,

@@ -4,6 +4,9 @@ import 'package:yildiz_motor_v2/widgets/custom_text_field.dart';
 import 'package:yildiz_motor_v2/widgets/menu_button.dart';
 import 'package:yildiz_motor_v2/widgets/top_bar.dart';
 
+import '../../backend/classes.dart';
+import '../../backend/methods.dart';
+
 class EditSupplierScreen extends StatefulWidget {
   const EditSupplierScreen({super.key});
 
@@ -12,6 +15,17 @@ class EditSupplierScreen extends StatefulWidget {
 }
 
 class _EditSupplierScreenState extends State<EditSupplierScreen> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  @override
+  void initState() {
+    nameController.text = editedItem[Supplier().name];
+    phoneController.text = editedItem[Supplier().phone];
+    addressController.text = editedItem[Supplier().address];
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,13 +109,14 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                                               ),
                                             ),
                                           ),
-                                          const Expanded(
+                                          Expanded(
                                             flex: 2,
                                             child: Padding(
-                                              padding: EdgeInsets.all(5),
+                                              padding: const EdgeInsets.all(5),
                                               child: TextFieldComponent(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
+                                                controller: nameController,
                                               ),
                                             ),
                                           ),
@@ -124,12 +139,13 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                                               ),
                                             ),
                                           ),
-                                          const Expanded(
+                                          Expanded(
                                             flex: 2,
                                             child: Padding(
-                                              padding: EdgeInsets.all(5),
+                                              padding: const EdgeInsets.all(5),
                                               child: TextFieldComponent(
                                                 height: 50,
+                                                controller: phoneController,
                                               ),
                                             ),
                                           ),
@@ -152,12 +168,13 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                                               ),
                                             ),
                                           ),
-                                          const Expanded(
+                                          Expanded(
                                             flex: 2,
                                             child: Padding(
-                                              padding: EdgeInsets.all(5),
+                                              padding: const EdgeInsets.all(5),
                                               child: TextFieldComponent(
                                                 height: 50,
+                                                controller: addressController,
                                               ),
                                             ),
                                           ),
@@ -175,7 +192,12 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                                     padding: const EdgeInsets.all(5),
                                     child: MenuButton(
                                       text: "Sil",
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        DatabaseService().deleteSupplier(
+                                            editedItem[Supplier().id]);
+                                        Navigator.pushReplacementNamed(
+                                            context, "/list_suppliers");
+                                      },
                                       bgColor: YMColors().red,
                                       textColor: YMColors().white,
                                       height: 50,
@@ -189,7 +211,28 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                                     padding: const EdgeInsets.all(5),
                                     child: MenuButton(
                                       text: "Kaydet",
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        if (nameController.text.isNotEmpty) {
+                                          DatabaseService().updateSupplier({
+                                            Supplier().id:
+                                                editedItem[Supplier().id],
+                                            Supplier().name:
+                                                (nameController.text.isEmpty)
+                                                    ? null
+                                                    : nameController.text,
+                                            Supplier().phone:
+                                                (phoneController.text.isEmpty)
+                                                    ? null
+                                                    : phoneController.text,
+                                            Supplier().address:
+                                                (addressController.text.isEmpty)
+                                                    ? null
+                                                    : addressController.text,
+                                          });
+                                          Navigator.pushReplacementNamed(
+                                              context, "/list_suppliers");
+                                        }
+                                      },
                                       bgColor: YMColors().blue,
                                       textColor: YMColors().white,
                                       height: 50,

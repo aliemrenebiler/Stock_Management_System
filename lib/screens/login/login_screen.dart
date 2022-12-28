@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../backend/theme.dart';
-import '../backend/methods.dart';
+import '../../backend/theme.dart';
+import '../../backend/methods.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

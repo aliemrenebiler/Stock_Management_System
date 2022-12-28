@@ -99,6 +99,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 50,
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: MenuButton(
+                        text: "Gelir Gider Listele",
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(
+                              context, '/list_financials');
+                        },
+                        bgColor: YMColors().red,
+                        textColor: YMColors().white,
+                        width: double.infinity,
+                        height: 50,
+                      ),
+                    ),
                   ],
                 ),
               ),

@@ -1,17 +1,18 @@
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:yildiz_motor_v2/screens/add_supplier_screen.dart';
-import 'package:yildiz_motor_v2/screens/buy_product_screen.dart';
-import 'package:yildiz_motor_v2/screens/edit_supplier_screen.dart';
-import 'package:yildiz_motor_v2/screens/sell_product_screen.dart';
+import 'package:yildiz_motor_v2/screens/financial/list_financials_screen.dart';
+import 'package:yildiz_motor_v2/screens/supplier/add_supplier_screen.dart';
+import 'package:yildiz_motor_v2/screens/product/buy_product_screen.dart';
+import 'package:yildiz_motor_v2/screens/supplier/edit_supplier_screen.dart';
+import 'package:yildiz_motor_v2/screens/product/sell_product_screen.dart';
 
-import 'screens/add_product_screen.dart';
-import 'screens/edit_product_screen.dart';
-import 'screens/list_product_screen.dart';
-import 'screens/list_supplier_screen.dart';
-import 'screens/login_screen.dart';
-import 'screens/set_password_screen.dart';
+import 'screens/product/add_product_screen.dart';
+import 'screens/product/edit_product_screen.dart';
+import 'screens/product/list_products_screen.dart';
+import 'screens/supplier/list_suppliers_screen.dart';
+import 'screens/login/login_screen.dart';
+import 'screens/login/set_password_screen.dart';
 import 'screens/home_screen.dart';
 
 void main() async {
@@ -64,6 +65,18 @@ class MyApp extends StatelessWidget {
               type: PageTransitionType.fade,
               settings: settings,
             );
+          case '/edit_product':
+            return PageTransition(
+              child: const EditProductScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/list_suppliers':
+            return PageTransition(
+              child: const ListSuppliersScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
           case '/add_supplier':
             return PageTransition(
               child: const AddSupplierScreen(),
@@ -76,6 +89,12 @@ class MyApp extends StatelessWidget {
               type: PageTransitionType.fade,
               settings: settings,
             );
+          case '/list_financials':
+            return PageTransition(
+              child: const ListFinancialsScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
           case '/buy_product':
             return PageTransition(
               child: const BuyProductScreen(),
@@ -85,18 +104,6 @@ class MyApp extends StatelessWidget {
           case '/sell_product':
             return PageTransition(
               child: const SellProductScreen(),
-              type: PageTransitionType.fade,
-              settings: settings,
-            );
-          case '/edit_product':
-            return PageTransition(
-              child: const EditProductScreen(),
-              type: PageTransitionType.fade,
-              settings: settings,
-            );
-          case '/list_suppliers':
-            return PageTransition(
-              child: const ListSuppliersScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );

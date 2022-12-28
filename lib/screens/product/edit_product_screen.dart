@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:yildiz_motor_v2/backend/classes.dart';
 import 'package:yildiz_motor_v2/backend/methods.dart';
-import '../backend/theme.dart';
-import '../widgets/custom_text_field.dart';
-import '../widgets/menu_button.dart';
-import '../widgets/top_bar.dart';
+import '../../backend/theme.dart';
+import '../../widgets/custom_text_field.dart';
+import '../../widgets/menu_button.dart';
+import '../../widgets/top_bar.dart';
 
 class EditProductScreen extends StatefulWidget {
   const EditProductScreen({super.key});
@@ -22,6 +22,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   TextEditingController sizeTypeController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController amountController = TextEditingController();
+
   @override
   void initState() {
     nameController.text = editedItem[Product().name];
@@ -374,54 +375,54 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                     child: MenuButton(
                                       text: "Kaydet",
                                       onPressed: () {
-                                        DatabaseService().updateProduct({
-                                          Product().id:
-                                              editedItem[Product().id],
-                                          Product().name:
-                                              (nameController.text.isEmpty)
-                                                  ? null
-                                                  : nameController.text,
-                                          Product().brand:
-                                              (brandController.text.isEmpty)
-                                                  ? null
-                                                  : brandController.text,
-                                          Product().category:
-                                              (categoryController.text.isEmpty)
-                                                  ? null
-                                                  : categoryController.text,
-                                          Product().color:
-                                              (colorController.text.isEmpty)
-                                                  ? null
-                                                  : colorController.text,
-                                          Product().size:
-                                              (sizeController.text.isEmpty)
-                                                  ? null
-                                                  : sizeController.text,
-                                          Product().sizeType:
-                                              (sizeTypeController.text.isEmpty)
-                                                  ? null
-                                                  : sizeTypeController.text,
-                                          Product().price:
-                                              (priceController.text.isEmpty)
-                                                  ? null
-                                                  : double.parse(
-                                                      priceController.text),
-                                          Product().amount:
-                                              (amountController.text.isEmpty)
-                                                  ? null
-                                                  : int.parse(
-                                                      amountController.text),
-                                        });
-                                        nameController.clear();
-                                        brandController.clear();
-                                        categoryController.clear();
-                                        colorController.clear();
-                                        sizeController.clear();
-                                        sizeTypeController.clear();
-                                        priceController.clear();
-                                        amountController.clear();
-                                        Navigator.pushReplacementNamed(
-                                            context, "/list_products");
+                                        if (nameController.text.isNotEmpty &&
+                                            categoryController
+                                                .text.isNotEmpty &&
+                                            priceController.text.isNotEmpty &&
+                                            priceController.text.isNotEmpty) {
+                                          DatabaseService().updateProduct({
+                                            Product().id:
+                                                editedItem[Product().id],
+                                            Product().name:
+                                                (nameController.text.isEmpty)
+                                                    ? null
+                                                    : nameController.text,
+                                            Product().brand:
+                                                (brandController.text.isEmpty)
+                                                    ? null
+                                                    : brandController.text,
+                                            Product().category:
+                                                (categoryController
+                                                        .text.isEmpty)
+                                                    ? null
+                                                    : categoryController.text,
+                                            Product().color:
+                                                (colorController.text.isEmpty)
+                                                    ? null
+                                                    : colorController.text,
+                                            Product().size:
+                                                (sizeController.text.isEmpty)
+                                                    ? null
+                                                    : sizeController.text,
+                                            Product().sizeType:
+                                                (sizeTypeController
+                                                        .text.isEmpty)
+                                                    ? null
+                                                    : sizeTypeController.text,
+                                            Product().price:
+                                                (priceController.text.isEmpty)
+                                                    ? null
+                                                    : double.parse(
+                                                        priceController.text),
+                                            Product().amount:
+                                                (amountController.text.isEmpty)
+                                                    ? null
+                                                    : int.parse(
+                                                        amountController.text),
+                                          });
+                                          Navigator.pushReplacementNamed(
+                                              context, "/list_products");
+                                        }
                                       },
                                       bgColor: YMColors().blue,
                                       textColor: YMColors().white,

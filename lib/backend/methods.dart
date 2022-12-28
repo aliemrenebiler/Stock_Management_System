@@ -8,8 +8,6 @@ String? password;
 
 String dbName = "yildiz_motor_db.db";
 
-List<Map<dynamic, dynamic>> listedItems = [];
-
 Map<dynamic, dynamic> editedItem = {};
 
 class SharedPrefsService {
@@ -441,7 +439,7 @@ autoFill(String name) {
   );
 
   RegExp sizeExp = RegExp(
-    r'((\s|\b)[\wİıĞğÇçŞşÜüÖö.\-\/]+(\s)+(beden|l[İi]tre|L|sant[İi]mere|metre|cm|m)(\s|\b))',
+    r'((\s|\b)[\wİıĞğÇçŞşÜüÖö.\-\/]+(\s)+(beden|boy(ut)?|l([İi]tre)?|sant[İi]mere|m(etre)?|cm)(\s|\b))',
     caseSensitive: false,
   );
 

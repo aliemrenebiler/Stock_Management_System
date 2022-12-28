@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:yildiz_motor_v2/widgets/top_bar.dart';
-import '../backend/theme.dart';
-import '../widgets/custom_text_field.dart';
-import '../widgets/menu_button.dart';
 
-class AddSupplierScreen extends StatefulWidget {
-  const AddSupplierScreen({super.key});
+import '../../backend/theme.dart';
+import '../../widgets/custom_text_field.dart';
+import '../../widgets/menu_button.dart';
+import '../../widgets/top_bar.dart';
+
+class SellProductScreen extends StatefulWidget {
+  const SellProductScreen({super.key});
 
   @override
-  State<AddSupplierScreen> createState() => _AddSupplierScreenState();
+  State<SellProductScreen> createState() => _SellProductScreenState();
 }
 
-class _AddSupplierScreenState extends State<AddSupplierScreen> {
+class _SellProductScreenState extends State<SellProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +28,7 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
                   bgColor: YMColors().red,
                   textColor: YMColors().white,
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/home');
+                    Navigator.pushReplacementNamed(context, '/list_products');
                   },
                   height: 50,
                 ),
@@ -35,7 +36,7 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
               Expanded(
                 flex: 10,
                 child: Text(
-                  "Tedarikçi Ekle",
+                  "Satış Yap",
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -78,13 +79,25 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
                                   padding: const EdgeInsets.all(5),
                                   child: Column(
                                     children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(5),
+                                        child: Text(
+                                          "ID: ... | İsim ...",
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: YMSizes().fontSizeMedium,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
                                       Row(
                                         children: [
                                           Expanded(
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
                                               child: Text(
-                                                "İsim",
+                                                "Fiyat",
                                                 overflow: TextOverflow.ellipsis,
                                                 textAlign: TextAlign.right,
                                                 style: TextStyle(
@@ -113,7 +126,7 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
                                               child: Text(
-                                                "Telefon",
+                                                "Adet",
                                                 overflow: TextOverflow.ellipsis,
                                                 textAlign: TextAlign.right,
                                                 style: TextStyle(
@@ -130,34 +143,8 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
                                               padding: EdgeInsets.all(5),
                                               child: TextFieldComponent(
                                                 height: 50,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: Text(
-                                                "Adres",
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      YMSizes().fontSizeMedium,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          const Expanded(
-                                            flex: 2,
-                                            child: Padding(
-                                              padding: EdgeInsets.all(5),
-                                              child: TextFieldComponent(
-                                                height: 50,
+                                                hintText:
+                                                    "(Zorunlu) Güncel Adet: ...",
                                               ),
                                             ),
                                           ),
@@ -174,7 +161,7 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(5),
                                     child: MenuButton(
-                                      text: "İptal",
+                                      text: "İptal Et",
                                       onPressed: () {},
                                       bgColor: YMColors().grey,
                                       textColor: YMColors().white,
@@ -188,7 +175,7 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(5),
                                     child: MenuButton(
-                                      text: "Kaydet",
+                                      text: "Ekle",
                                       onPressed: () {},
                                       bgColor: YMColors().blue,
                                       textColor: YMColors().white,

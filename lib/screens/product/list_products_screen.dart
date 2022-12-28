@@ -3,10 +3,12 @@ import 'package:yildiz_motor_v2/backend/classes.dart';
 import 'package:yildiz_motor_v2/backend/methods.dart';
 import 'package:yildiz_motor_v2/widgets/custom_text_field.dart';
 
-import '../backend/theme.dart';
-import '../widgets/list_table.dart';
-import '../widgets/menu_button.dart';
-import '../widgets/top_bar.dart';
+import '../../backend/theme.dart';
+import '../../widgets/list_table.dart';
+import '../../widgets/menu_button.dart';
+import '../../widgets/top_bar.dart';
+
+List<Map<dynamic, dynamic>> listedProducts = [];
 
 class ListProductsScreen extends StatefulWidget {
   const ListProductsScreen({Key? key}) : super(key: key);
@@ -22,7 +24,7 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
 
   @override
   void initState() {
-    listedItems =
+    listedProducts =
         DatabaseService().getProducts(null, null, null, null, null, null, null);
     super.initState();
   }
@@ -87,9 +89,9 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
                       child: ListTable(
                         titlesBar: const ProductsListTitlesBar(),
                         items: [
-                          for (int i = 0; i < listedItems.length; i++)
+                          for (int i = 0; i < listedProducts.length; i++)
                             ProductsListItem(
-                              product: listedItems[i],
+                              product: listedProducts[i],
                             ),
                         ],
                       ),
@@ -131,7 +133,7 @@ class ProductsListSearchBar extends StatelessWidget {
                 child: MenuButton(
                   text: "Temizle",
                   onPressed: () {
-                    listedItems = DatabaseService()
+                    listedProducts = DatabaseService()
                         .getProducts(null, null, null, null, null, null, null);
                     notifyParent();
                   },
@@ -253,7 +255,7 @@ class ProductsListSearchBar extends StatelessWidget {
                 child: MenuButton(
                   text: "Ara",
                   onPressed: () {
-                    listedItems = DatabaseService().getProducts(
+                    listedProducts = DatabaseService().getProducts(
                       null,
                       (nameController.text.isEmpty)
                           ? null
