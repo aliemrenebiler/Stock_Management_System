@@ -500,10 +500,11 @@ class ProductsListItem extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(5),
                             child: MenuButton(
-                              text: "Satın Alım",
+                              text: "Alım Yap",
                               bgColor: YMColors().blue,
                               textColor: YMColors().white,
                               onPressed: () {
+                                editedItem = product;
                                 Navigator.pushReplacementNamed(
                                     context, '/buy_product');
                               },
@@ -520,6 +521,7 @@ class ProductsListItem extends StatelessWidget {
                               bgColor: YMColors().red,
                               textColor: YMColors().white,
                               onPressed: () {
+                                editedItem = product;
                                 Navigator.pushReplacementNamed(
                                     context, '/sell_product');
                               },

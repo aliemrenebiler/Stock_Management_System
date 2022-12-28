@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:yildiz_motor_v2/backend/theme.dart';
-import 'package:yildiz_motor_v2/widgets/custom_text_field.dart';
-import 'package:yildiz_motor_v2/widgets/menu_button.dart';
-import 'package:yildiz_motor_v2/widgets/top_bar.dart';
+
+import '../../backend/theme.dart';
+import '../../widgets/custom_text_field.dart';
+import '../../widgets/menu_button.dart';
+import '../../widgets/top_bar.dart';
+import '../../backend/classes.dart';
+import '../../backend/methods.dart';
 
 class BuyProductScreen extends StatefulWidget {
   const BuyProductScreen({super.key});
@@ -14,6 +17,9 @@ class BuyProductScreen extends StatefulWidget {
 class _BuyProductScreenState extends State<BuyProductScreen> {
   @override
   Widget build(BuildContext context) {
+    TextEditingController priceController = TextEditingController();
+    TextEditingController amountController = TextEditingController();
+    TextEditingController dateController = TextEditingController();
     return Scaffold(
       backgroundColor: YMColors().white,
       body: Column(
@@ -35,7 +41,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
               Expanded(
                 flex: 10,
                 child: Text(
-                  "Satın Alım Ekle",
+                  "Alım Yap",
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -81,7 +87,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                       Padding(
                                         padding: const EdgeInsets.all(5),
                                         child: Text(
-                                          "ID: ... | İsim ...",
+                                          "Ürün ID: ${editedItem[Product().id]} | İsim: ${editedItem[Product().name]}",
                                           overflow: TextOverflow.ellipsis,
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
@@ -107,13 +113,14 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                               ),
                                             ),
                                           ),
-                                          const Expanded(
+                                          Expanded(
                                             flex: 2,
                                             child: Padding(
-                                              padding: EdgeInsets.all(5),
+                                              padding: const EdgeInsets.all(5),
                                               child: TextFieldComponent(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
+                                                controller: priceController,
                                               ),
                                             ),
                                           ),
@@ -136,13 +143,14 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                               ),
                                             ),
                                           ),
-                                          const Expanded(
+                                          Expanded(
                                             flex: 2,
                                             child: Padding(
-                                              padding: EdgeInsets.all(5),
+                                              padding: const EdgeInsets.all(5),
                                               child: TextFieldComponent(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
+                                                controller: amountController,
                                               ),
                                             ),
                                           ),
@@ -154,7 +162,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
                                               child: Text(
-                                                "Tedarikçi ID",
+                                                "Tarih",
                                                 overflow: TextOverflow.ellipsis,
                                                 textAlign: TextAlign.right,
                                                 style: TextStyle(
@@ -165,12 +173,14 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                               ),
                                             ),
                                           ),
-                                          const Expanded(
+                                          Expanded(
                                             flex: 2,
                                             child: Padding(
-                                              padding: EdgeInsets.all(5),
+                                              padding: const EdgeInsets.all(5),
                                               child: TextFieldComponent(
                                                 height: 50,
+                                                hintText: "(Zorunlu)",
+                                                controller: dateController,
                                               ),
                                             ),
                                           ),
@@ -187,8 +197,12 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(5),
                                     child: MenuButton(
-                                      text: "İptal Et",
-                                      onPressed: () {},
+                                      text: "Temizle",
+                                      onPressed: () {
+                                        priceController.clear();
+                                        amountController.clear();
+                                        dateController.clear();
+                                      },
                                       bgColor: YMColors().grey,
                                       textColor: YMColors().white,
                                       height: 50,
@@ -202,7 +216,52 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                     padding: const EdgeInsets.all(5),
                                     child: MenuButton(
                                       text: "Ekle",
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        if (priceController.text.isNotEmpty &&
+                                            amountController.text.isNotEmpty &&
+                                            dateController.text.isNotEmpty) {
+                                          DatabaseService().insertPurchase(
+                                            {
+                                              Purchase().id: null,
+                                              Purchase().supplierID: null,
+                                              Purchase().productID:
+                                                  editedItem[Product().id],
+                                              Purchase().price: double.parse(
+                                                  priceController.text),
+                                              Purchase().amount: int.parse(
+                                                  amountController.text),
+                                              Purchase().date:
+                                                  dateController.text,
+                                            },
+                                          );
+                                          DatabaseService().updateProduct(
+                                            {
+                                              Product().id:
+                                                  editedItem[Product().id],
+                                              Product().name:
+                                                  editedItem[Product().name],
+                                              Product().brand:
+                                                  editedItem[Product().brand],
+                                              Product().category: editedItem[
+                                                  Product().category],
+                                              Product().color:
+                                                  editedItem[Product().color],
+                                              Product().size:
+                                                  editedItem[Product().size],
+                                              Product().sizeType: editedItem[
+                                                  Product().sizeType],
+                                              Product().price:
+                                                  editedItem[Product().price],
+                                              Product().amount:
+                                                  editedItem[Product().amount] +
+                                                      int.parse(amountController
+                                                          .text),
+                                            },
+                                          );
+                                          Navigator.pushReplacementNamed(
+                                              context, "/list_products");
+                                        }
+                                      },
                                       bgColor: YMColors().blue,
                                       textColor: YMColors().white,
                                       height: 50,

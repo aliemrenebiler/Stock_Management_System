@@ -67,7 +67,7 @@ class DatabaseService {
   createSales() {
     Database database = sqlite3.open(dbName);
     database.execute(
-      'CREATE TABLE ${Sale().tableName}(${Purchase().id} INTEGER PRIMARY KEY,${Sale().productID} INTEGER not null,${Sale().amount} INTEGER,${Sale().price} REAL,${Sale().date} TEXT,CONSTRAINT fk_tedarikci FOREIGN KEY (${Sale().productID}) REFERENCES ${Product().tableName}(${Product().id}) ON DELETE SET NULL)',
+      'CREATE TABLE ${Sale().tableName}(${Sale().id} INTEGER PRIMARY KEY,${Sale().productID} INTEGER not null,${Sale().amount} INTEGER,${Sale().price} REAL,${Sale().date} TEXT,CONSTRAINT fk_tedarikci FOREIGN KEY (${Sale().productID}) REFERENCES ${Product().tableName}(${Product().id}) ON DELETE SET NULL)',
     );
     database.dispose();
   }
@@ -98,7 +98,7 @@ class DatabaseService {
       } else {
         query += ' AND';
       }
-      query += ' ${Product().name}="$name"';
+      query += ' ${Product().name} LIKE "%$name%"';
     }
     if (spec != null) {
       if (!isSearching) {
@@ -108,7 +108,7 @@ class DatabaseService {
         query += ' INTERSECT SELECT * FROM ${Product().tableName} WHERE';
       }
       query +=
-          ' ${Product().brand}="$spec" OR ${Product().category}="$spec" OR ${Product().color}="$spec" OR ${Product().size}="$spec" OR ${Product().sizeType}="$spec"';
+          ' ${Product().brand} LIKE "%$spec%" OR ${Product().category} LIKE "%$spec%" OR ${Product().color} LIKE "%$spec%" OR ${Product().size} LIKE "%$spec%" OR ${Product().sizeType} LIKE "%$spec%"';
     }
     if (minPrice != null || maxPrice != null) {
       if (!isSearching) {
@@ -198,7 +198,7 @@ class DatabaseService {
   }
 
   getSuppliers(
-    String? id,
+    int? id,
     String? info,
   ) {
     String query = 'SELECT * FROM ${Supplier().tableName}';
@@ -208,7 +208,7 @@ class DatabaseService {
         isSearching = true;
         query += ' WHERE';
       }
-      query += ' ${Supplier().id}="$id"';
+      query += ' ${Supplier().id}=$id';
     }
 
     if (info != null) {
@@ -219,7 +219,7 @@ class DatabaseService {
         query += ' INTERSECT SELECT * FROM ${Supplier().tableName} WHERE';
       }
       query +=
-          ' ${Supplier().name}="$info" OR ${Supplier().phone}="$info" OR ${Supplier().address}="$info"';
+          ' ${Supplier().name} LIKE "%$info%" OR ${Supplier().phone} LIKE "%$info%" OR ${Supplier().address} LIKE "%$info%"';
     }
 
     Database database = sqlite3.open(dbName);
@@ -265,9 +265,12 @@ class DatabaseService {
   }
 
   getPurchases(
-    String? id,
-    String? supplierID,
-    String? productID,
+    int? id,
+    String? date,
+    double? minPrice,
+    double? maxPrice,
+    int? minAmount,
+    int? maxAmount,
   ) {
     String query = 'SELECT * FROM ${Purchase().tableName}';
     bool isSearching = false;
@@ -279,23 +282,48 @@ class DatabaseService {
       }
       query += ' ${Purchase().id}="$id"';
     }
-    if (supplierID != null) {
+    if (date != null) {
       if (!isSearching) {
         isSearching = true;
         query += ' WHERE';
       } else {
         query += ' AND';
       }
-      query += ' ${Purchase().supplierID}="$supplierID"';
+      query += ' ${Purchase().date} LIKE "%$date%"';
     }
-    if (productID != null) {
+    if (minPrice != null || maxPrice != null) {
       if (!isSearching) {
         isSearching = true;
         query += ' WHERE';
       } else {
-        query += ' AND';
+        query += ' INTERSECT SELECT * FROM ${Purchase().tableName} WHERE';
       }
-      query += ' ${Purchase().productID}="$productID"';
+      if (minPrice != null) {
+        query += ' ${Purchase().price}>=$minPrice';
+      }
+      if (maxPrice != null) {
+        if (minPrice != null) {
+          query += ' AND';
+        }
+        query += ' ${Purchase().price}<=$maxPrice';
+      }
+    }
+    if (minAmount != null || maxAmount != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' INTERSECT SELECT * FROM ${Purchase().tableName} WHERE';
+      }
+      if (minAmount != null) {
+        query += ' ${Purchase().amount}>=$minAmount';
+      }
+      if (maxAmount != null) {
+        if (minAmount != null) {
+          query += ' AND';
+        }
+        query += ' ${Purchase().amount}<=$maxAmount';
+      }
     }
 
     Database database = sqlite3.open(dbName);
@@ -346,7 +374,11 @@ class DatabaseService {
 
   getSales(
     String? id,
-    String? productID,
+    String? date,
+    double? minPrice,
+    double? maxPrice,
+    int? minAmount,
+    int? maxAmount,
   ) {
     String query = 'SELECT * FROM ${Sale().tableName}';
     bool isSearching = false;
@@ -358,14 +390,48 @@ class DatabaseService {
       }
       query += ' ${Sale().id}="$id"';
     }
-    if (productID != null) {
+    if (date != null) {
       if (!isSearching) {
         isSearching = true;
         query += ' WHERE';
       } else {
         query += ' AND';
       }
-      query += ' ${Sale().productID}="$productID"';
+      query += ' ${Sale().date} LIKE "%$date%"';
+    }
+    if (minPrice != null || maxPrice != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' INTERSECT SELECT * FROM ${Sale().tableName} WHERE';
+      }
+      if (minPrice != null) {
+        query += ' ${Sale().price}>=$minPrice';
+      }
+      if (maxPrice != null) {
+        if (minPrice != null) {
+          query += ' AND';
+        }
+        query += ' ${Sale().price}<=$maxPrice';
+      }
+    }
+    if (minAmount != null || maxAmount != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' INTERSECT SELECT * FROM ${Sale().tableName} WHERE';
+      }
+      if (minAmount != null) {
+        query += ' ${Sale().amount}>=$minAmount';
+      }
+      if (maxAmount != null) {
+        if (minAmount != null) {
+          query += ' AND';
+        }
+        query += ' ${Sale().amount}<=$maxAmount';
+      }
     }
 
     Database database = sqlite3.open(dbName);
@@ -429,17 +495,17 @@ autoFill(String name) {
   };
 
   RegExp brandExp = RegExp(
-    r'((\s|\b)[\wİıĞğÇçŞşÜüÖö.\-\/]+(\s)+marka(\s|\b))',
+    r'([\wİıĞğÇçŞşÜüÖö]+(\s)+marka\b)',
     caseSensitive: false,
   );
 
   RegExp colorExp = RegExp(
-    r'((\s|\b)[\wİıĞğÇçŞşÜüÖö.\-\/]+(\s)+renk(\s|\b))',
+    r'([\wİıĞğÇçŞşÜüÖö]+(\s)+renk\b)',
     caseSensitive: false,
   );
 
   RegExp sizeExp = RegExp(
-    r'((\s|\b)[\wİıĞğÇçŞşÜüÖö.\-\/]+(\s)+(beden|boy(ut)?|l([İi]tre)?|sant[İi]mere|m(etre)?|cm)(\s|\b))',
+    r'([\wİıĞğÇçŞşÜüÖö]+(\s)+(beden|boy(ut)?|l([İi]tre)?|sant[İi]mere|m(etre)?|cm)\b)',
     caseSensitive: false,
   );
 

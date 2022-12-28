@@ -1,12 +1,14 @@
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:yildiz_motor_v2/screens/financial/list_financials_screen.dart';
-import 'package:yildiz_motor_v2/screens/supplier/add_supplier_screen.dart';
-import 'package:yildiz_motor_v2/screens/product/buy_product_screen.dart';
-import 'package:yildiz_motor_v2/screens/supplier/edit_supplier_screen.dart';
-import 'package:yildiz_motor_v2/screens/product/sell_product_screen.dart';
 
+import 'screens/purchase/edit_purchase_screen.dart';
+import 'screens/purchase/list_purchases_screen.dart';
+import 'screens/sale/list_sales_screen.dart';
+import 'screens/supplier/add_supplier_screen.dart';
+import 'screens/product/buy_product_screen.dart';
+import 'screens/supplier/edit_supplier_screen.dart';
+import 'screens/product/sell_product_screen.dart';
 import 'screens/product/add_product_screen.dart';
 import 'screens/product/edit_product_screen.dart';
 import 'screens/product/list_products_screen.dart';
@@ -89,12 +91,6 @@ class MyApp extends StatelessWidget {
               type: PageTransitionType.fade,
               settings: settings,
             );
-          case '/list_financials':
-            return PageTransition(
-              child: const ListFinancialsScreen(),
-              type: PageTransitionType.fade,
-              settings: settings,
-            );
           case '/buy_product':
             return PageTransition(
               child: const BuyProductScreen(),
@@ -104,6 +100,24 @@ class MyApp extends StatelessWidget {
           case '/sell_product':
             return PageTransition(
               child: const SellProductScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/list_purchases':
+            return PageTransition(
+              child: const ListPurchasesScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/edit_purchase':
+            return PageTransition(
+              child: const EditPurchaseScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/list_sales':
+            return PageTransition(
+              child: const ListSalesScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );

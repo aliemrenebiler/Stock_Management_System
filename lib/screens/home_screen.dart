@@ -102,10 +102,24 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: const EdgeInsets.all(5),
                       child: MenuButton(
-                        text: "Gelir Gider Listele",
+                        text: "Alımları Listele",
                         onPressed: () {
                           Navigator.pushReplacementNamed(
-                              context, '/list_financials');
+                              context, '/list_purchases');
+                        },
+                        bgColor: YMColors().red,
+                        textColor: YMColors().white,
+                        width: double.infinity,
+                        height: 50,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: MenuButton(
+                        text: "Satışları Listele",
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(
+                              context, '/list_sales');
                         },
                         bgColor: YMColors().red,
                         textColor: YMColors().white,
