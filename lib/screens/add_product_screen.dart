@@ -118,7 +118,49 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                       const EdgeInsets.all(5),
                                                   child: MenuButton(
                                                     text: "Otomatik Doldur",
-                                                    onPressed: () {},
+                                                    onPressed: () {
+                                                      Map<dynamic, dynamic>
+                                                          autoProduct =
+                                                          autoFill(
+                                                              nameController
+                                                                  .text);
+
+                                                      if (autoProduct[Product()
+                                                              .brand] !=
+                                                          null) {
+                                                        brandController.text =
+                                                            autoProduct[
+                                                                Product()
+                                                                    .brand];
+                                                      }
+
+                                                      if (autoProduct[Product()
+                                                              .color] !=
+                                                          null) {
+                                                        colorController.text =
+                                                            autoProduct[
+                                                                Product()
+                                                                    .color];
+                                                      }
+
+                                                      if (autoProduct[
+                                                              Product().size] !=
+                                                          null) {
+                                                        sizeController.text =
+                                                            autoProduct[
+                                                                Product().size];
+                                                      }
+
+                                                      if (autoProduct[Product()
+                                                              .sizeType] !=
+                                                          null) {
+                                                        sizeTypeController
+                                                                .text =
+                                                            autoProduct[
+                                                                Product()
+                                                                    .sizeType];
+                                                      }
+                                                    },
                                                     bgColor: YMColors().red,
                                                     textColor: YMColors().white,
                                                     height: 50,
@@ -401,8 +443,17 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(5),
                                     child: MenuButton(
-                                      text: "İptal",
-                                      onPressed: () {},
+                                      text: "Temizle",
+                                      onPressed: () {
+                                        nameController.clear();
+                                        brandController.clear();
+                                        categoryController.clear();
+                                        colorController.clear();
+                                        sizeController.clear();
+                                        sizeTypeController.clear();
+                                        priceController.clear();
+                                        amountController.clear();
+                                      },
                                       bgColor: YMColors().grey,
                                       textColor: YMColors().white,
                                       height: 50,
@@ -432,14 +483,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                           Product().amount:
                                               int.parse(amountController.text),
                                         });
-                                        nameController.clear();
-                                        brandController.clear();
-                                        categoryController.clear();
-                                        colorController.clear();
-                                        sizeController.clear();
-                                        sizeTypeController.clear();
-                                        priceController.clear();
-                                        amountController.clear();
                                       },
                                       bgColor: YMColors().blue,
                                       textColor: YMColors().white,

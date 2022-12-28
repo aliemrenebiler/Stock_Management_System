@@ -423,6 +423,51 @@ bool signIn(input) {
 }
 
 autoFill(String name) {
-  //RegExp exp = RegExp(r'(\w+)');
-  //TODO: DO THIS
+  Map<dynamic, dynamic> product = {
+    Product().brand: null,
+    Product().color: null,
+    Product().size: null,
+    Product().sizeType: null,
+  };
+
+  RegExp brandExp = RegExp(
+    r'((\s|\b)[\wİıĞğÇçŞşÜüÖö.\-\/]+(\s)+marka(\s|\b))',
+    caseSensitive: false,
+  );
+
+  RegExp colorExp = RegExp(
+    r'((\s|\b)[\wİıĞğÇçŞşÜüÖö.\-\/]+(\s)+renk(\s|\b))',
+    caseSensitive: false,
+  );
+
+  RegExp sizeExp = RegExp(
+    r'((\s|\b)[\wİıĞğÇçŞşÜüÖö.\-\/]+(\s)+(beden|l[İi]tre|L|sant[İi]mere|metre|cm|m)(\s|\b))',
+    caseSensitive: false,
+  );
+
+  RegExpMatch? match;
+
+  match = brandExp.firstMatch(name);
+  if (match != null) {
+    String brand = match[0]!.trim();
+    brand = brand.split(" ")[0];
+    product[Product().brand] = brand;
+  }
+
+  match = colorExp.firstMatch(name);
+  if (match != null) {
+    String color = match[0]!.trim();
+    color = color.split(" ")[0];
+    product[Product().color] = color;
+  }
+
+  match = sizeExp.firstMatch(name);
+  if (match != null) {
+    String fullSize = match[0]!.trim();
+    List<String> splittedSize = fullSize.split(" ");
+    product[Product().size] = splittedSize[0];
+    product[Product().sizeType] = splittedSize[1];
+  }
+
+  return product;
 }
