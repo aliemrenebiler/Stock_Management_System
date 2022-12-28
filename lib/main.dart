@@ -4,6 +4,7 @@ import 'package:page_transition/page_transition.dart';
 
 import 'screens/purchase/edit_purchase_screen.dart';
 import 'screens/purchase/list_purchases_screen.dart';
+import 'screens/sale/edit_sale_screen.dart';
 import 'screens/sale/list_sales_screen.dart';
 import 'screens/supplier/add_supplier_screen.dart';
 import 'screens/product/buy_product_screen.dart';
@@ -118,6 +119,12 @@ class MyApp extends StatelessWidget {
           case '/list_sales':
             return PageTransition(
               child: const ListSalesScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/edit_sale':
+            return PageTransition(
+              child: const EditSaleScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );

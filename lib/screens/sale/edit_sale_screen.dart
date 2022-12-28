@@ -6,15 +6,14 @@ import '../../widgets/custom_text_field.dart';
 import '../../widgets/menu_button.dart';
 import '../../widgets/top_bar.dart';
 
-class EditPurchaseScreen extends StatefulWidget {
-  const EditPurchaseScreen({super.key});
+class EditSaleScreen extends StatefulWidget {
+  const EditSaleScreen({super.key});
 
   @override
-  State<EditPurchaseScreen> createState() => _EditPurchaseScreenState();
+  State<EditSaleScreen> createState() => _EditSaleScreenState();
 }
 
-class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
-  TextEditingController supplierController = TextEditingController();
+class _EditSaleScreenState extends State<EditSaleScreen> {
   TextEditingController productController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController amountController = TextEditingController();
@@ -22,13 +21,10 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
 
   @override
   void initState() {
-    if (editedItem[Purchase().supplierID] != null) {
-      supplierController.text = editedItem[Purchase().supplierID].toString();
-    }
-    productController.text = editedItem[Purchase().productID].toString();
-    priceController.text = editedItem[Purchase().price].toString();
-    amountController.text = editedItem[Purchase().amount].toString();
-    dateController.text = editedItem[Purchase().date];
+    productController.text = editedItem[Sale().productID].toString();
+    priceController.text = editedItem[Sale().price].toString();
+    amountController.text = editedItem[Sale().amount].toString();
+    dateController.text = editedItem[Sale().date];
     super.initState();
   }
 
@@ -52,7 +48,7 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                   bgColor: YMColors().red,
                   textColor: YMColors().white,
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/list_purchases');
+                    Navigator.pushReplacementNamed(context, '/list_sales');
                   },
                   height: 50,
                 ),
@@ -60,7 +56,7 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
               Expanded(
                 flex: 10,
                 child: Text(
-                  "Alım Düzenle",
+                  "Satış Düzenle",
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -103,35 +99,6 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                                   padding: const EdgeInsets.all(5),
                                   child: Column(
                                     children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: Text(
-                                                "Tedarikçi ID",
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      YMSizes().fontSizeMedium,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: TextFieldComponent(
-                                                height: 50,
-                                                controller: supplierController,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
                                       Row(
                                         children: [
                                           Expanded(
@@ -265,10 +232,10 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                                     child: MenuButton(
                                       text: "Sil",
                                       onPressed: () {
-                                        DatabaseService().deletePurchase(
-                                            editedItem[Purchase().id]);
+                                        DatabaseService()
+                                            .deleteSale(editedItem[Sale().id]);
                                         Navigator.pushReplacementNamed(
-                                            context, "/list_purchases");
+                                            context, "/list_sales");
                                       },
                                       bgColor: YMColors().red,
                                       textColor: YMColors().white,
@@ -288,26 +255,20 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                                             dateController.text.isNotEmpty &&
                                             priceController.text.isNotEmpty &&
                                             amountController.text.isNotEmpty) {
-                                          DatabaseService().updatePurchase({
-                                            Purchase().id:
-                                                editedItem[Purchase().id],
-                                            Purchase()
-                                                .supplierID: (supplierController
-                                                    .text.isEmpty)
-                                                ? null
-                                                : int.parse(
-                                                    supplierController.text),
-                                            Purchase().productID: int.parse(
-                                                productController.text),
-                                            Purchase().date:
-                                                dateController.text,
-                                            Purchase().price: double.parse(
-                                                priceController.text),
-                                            Purchase().amount: int.parse(
-                                                amountController.text),
-                                          });
+                                          DatabaseService().updateSale(
+                                            {
+                                              Sale().id: editedItem[Sale().id],
+                                              Sale().productID: int.parse(
+                                                  productController.text),
+                                              Sale().date: dateController.text,
+                                              Sale().price: double.parse(
+                                                  priceController.text),
+                                              Sale().amount: int.parse(
+                                                  amountController.text),
+                                            },
+                                          );
                                           Navigator.pushReplacementNamed(
-                                              context, "/list_purchases");
+                                              context, "/list_sales");
                                         }
                                       },
                                       bgColor: YMColors().blue,
