@@ -102,7 +102,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
                                               child: Text(
-                                                "Fiyat",
+                                                "Alım Fiyatı",
                                                 overflow: TextOverflow.ellipsis,
                                                 textAlign: TextAlign.right,
                                                 style: TextStyle(
