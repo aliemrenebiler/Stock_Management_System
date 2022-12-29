@@ -127,7 +127,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                               child: TextFieldComponent(
                                                 height: 50,
                                                 hintText:
-                                                    "(Zorunlu) Güncel Adet: ${editedItem[Product().price]}",
+                                                    "(Zorunlu) Güncel Fiyat: ${editedItem[Product().price]}",
                                                 controller: priceController,
                                               ),
                                             ),
