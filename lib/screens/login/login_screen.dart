@@ -29,6 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Text(
                 'Yükleniyor...',
                 textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   color: YMColors().black,
                   fontWeight: FontWeight.bold,

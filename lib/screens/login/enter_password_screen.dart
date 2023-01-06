@@ -43,23 +43,21 @@ class EnterPasswordScreen extends StatelessWidget {
                     width: MediaQuery.of(context).size.width / 3,
                     child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: YMColors().lightGrey,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10)),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: CustomTextField(
-                                height: 50,
-                                hideText: true,
-                                hintText: "Lütfen şifre giriniz.",
-                                controller: passwordController,
-                              ),
+                        Container(
+                          margin: const EdgeInsets.all(5),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: YMColors().lightGrey,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: CustomTextField(
+                              height: 50,
+                              hideText: true,
+                              hintText: "Lütfen şifre giriniz.",
+                              controller: passwordController,
                             ),
                           ),
                         ),

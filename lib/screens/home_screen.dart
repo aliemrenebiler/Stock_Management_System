@@ -28,125 +28,117 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Center(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: Row(
-            children: [
-              Expanded(
-                child: Container(),
+          child: Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width / 3,
+              margin: const EdgeInsets.all(5),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Image.asset(
+                      "assets/images/yildiz_motor_logo.png",
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: MenuButton(
+                      text: "Ürünleri Listele",
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                            context, '/list_products');
+                      },
+                      bgColor: YMColors().red,
+                      textColor: YMColors().white,
+                      width: double.infinity,
+                      height: 50,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: MenuButton(
+                      text: "Tedarikçi Listele",
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                            context, '/list_suppliers');
+                      },
+                      bgColor: YMColors().red,
+                      textColor: YMColors().white,
+                      width: double.infinity,
+                      height: 50,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: MenuButton(
+                      text: "Ürün Ekle",
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/add_product');
+                      },
+                      bgColor: YMColors().red,
+                      textColor: YMColors().white,
+                      width: double.infinity,
+                      height: 50,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: MenuButton(
+                      text: "Tedarikçi Ekle",
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                            context, '/add_supplier');
+                      },
+                      bgColor: YMColors().red,
+                      textColor: YMColors().white,
+                      width: double.infinity,
+                      height: 50,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: MenuButton(
+                      text: "Alımları Listele",
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                            context, '/list_purchases');
+                      },
+                      bgColor: YMColors().red,
+                      textColor: YMColors().white,
+                      width: double.infinity,
+                      height: 50,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: MenuButton(
+                      text: "Satışları Listele",
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/list_sales');
+                      },
+                      bgColor: YMColors().red,
+                      textColor: YMColors().white,
+                      width: double.infinity,
+                      height: 50,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: MenuButton(
+                      text: "Çıkış Yap",
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/login');
+                      },
+                      bgColor: YMColors().red,
+                      textColor: YMColors().white,
+                      width: double.infinity,
+                      height: 50,
+                    ),
+                  ),
+                ],
               ),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: Image.asset(
-                        "assets/images/yildiz_motor_logo.png",
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: MenuButton(
-                        text: "Ürünleri Listele",
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(
-                              context, '/list_products');
-                        },
-                        bgColor: YMColors().red,
-                        textColor: YMColors().white,
-                        width: double.infinity,
-                        height: 50,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: MenuButton(
-                        text: "Tedarikçi Listele",
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(
-                              context, '/list_suppliers');
-                        },
-                        bgColor: YMColors().red,
-                        textColor: YMColors().white,
-                        width: double.infinity,
-                        height: 50,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: MenuButton(
-                        text: "Ürün Ekle",
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(
-                              context, '/add_product');
-                        },
-                        bgColor: YMColors().red,
-                        textColor: YMColors().white,
-                        width: double.infinity,
-                        height: 50,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: MenuButton(
-                        text: "Tedarikçi Ekle",
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(
-                              context, '/add_supplier');
-                        },
-                        bgColor: YMColors().red,
-                        textColor: YMColors().white,
-                        width: double.infinity,
-                        height: 50,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: MenuButton(
-                        text: "Alımları Listele",
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(
-                              context, '/list_purchases');
-                        },
-                        bgColor: YMColors().red,
-                        textColor: YMColors().white,
-                        width: double.infinity,
-                        height: 50,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: MenuButton(
-                        text: "Satışları Listele",
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(
-                              context, '/list_sales');
-                        },
-                        bgColor: YMColors().red,
-                        textColor: YMColors().white,
-                        width: double.infinity,
-                        height: 50,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: MenuButton(
-                        text: "Çıkış Yap",
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(context, '/login');
-                        },
-                        bgColor: YMColors().red,
-                        textColor: YMColors().white,
-                        width: double.infinity,
-                        height: 50,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Container(),
-              ),
-            ],
+            ),
           ),
         ),
       ),

@@ -61,185 +61,171 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
             child: Center(
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Container(),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Column(
-                          children: [
-                            Padding(
+                child: Center(
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    width: MediaQuery.of(context).size.width / 3,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: Container(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: YMColors().lightGrey,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: Padding(
                               padding: const EdgeInsets.all(5),
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: YMColors().lightGrey,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5),
-                                  child: Column(
+                              child: Column(
+                                children: [
+                                  Row(
                                     children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: Text(
-                                                "İsim",
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      YMSizes().fontSizeMedium,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text(
+                                            "İsim",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  YMSizes().fontSizeMedium,
+                                              fontWeight: FontWeight.bold,
                                             ),
                                           ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: CustomTextField(
-                                                height: 50,
-                                                hintText: "(Zorunlu)",
-                                                controller: nameController,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                        ),
                                       ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: Text(
-                                                "Telefon",
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      YMSizes().fontSizeMedium,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: CustomTextField(
+                                            height: 50,
+                                            hintText: "(Zorunlu)",
+                                            controller: nameController,
                                           ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: CustomTextField(
-                                                height: 50,
-                                                controller: phoneController,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: Text(
-                                                "Adres",
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      YMSizes().fontSizeMedium,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: CustomTextField(
-                                                height: 50,
-                                                controller: addressController,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                        ),
                                       ),
                                     ],
                                   ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text(
+                                            "Telefon",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  YMSizes().fontSizeMedium,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: CustomTextField(
+                                            height: 50,
+                                            controller: phoneController,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text(
+                                            "Adres",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  YMSizes().fontSizeMedium,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: CustomTextField(
+                                            height: 50,
+                                            controller: addressController,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: MenuButton(
+                                  text: "Temizle",
+                                  onPressed: () {
+                                    nameController.clear();
+                                    phoneController.clear();
+                                    addressController.clear();
+                                  },
+                                  bgColor: YMColors().grey,
+                                  textColor: YMColors().white,
+                                  height: 50,
+                                  width: double.infinity,
                                 ),
                               ),
                             ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: MenuButton(
-                                      text: "Temizle",
-                                      onPressed: () {
-                                        nameController.clear();
-                                        phoneController.clear();
-                                        addressController.clear();
-                                      },
-                                      bgColor: YMColors().grey,
-                                      textColor: YMColors().white,
-                                      height: 50,
-                                      width: double.infinity,
-                                    ),
-                                  ),
+                            Expanded(
+                              flex: 2,
+                              child: Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: MenuButton(
+                                  text: "Kaydet",
+                                  onPressed: () {
+                                    if (nameController.text.isNotEmpty) {
+                                      DatabaseService().insertSupplier({
+                                        Supplier().id: null,
+                                        Supplier().name: nameController.text,
+                                        Supplier().phone:
+                                            (phoneController.text.isEmpty)
+                                                ? null
+                                                : phoneController.text,
+                                        Supplier().address:
+                                            (addressController.text.isEmpty)
+                                                ? null
+                                                : addressController.text,
+                                      });
+                                    }
+                                  },
+                                  bgColor: YMColors().blue,
+                                  textColor: YMColors().white,
+                                  height: 50,
+                                  width: double.infinity,
                                 ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: MenuButton(
-                                      text: "Kaydet",
-                                      onPressed: () {
-                                        if (nameController.text.isNotEmpty) {
-                                          DatabaseService().insertSupplier({
-                                            Supplier().id: null,
-                                            Supplier().name:
-                                                nameController.text,
-                                            Supplier().phone:
-                                                (phoneController.text.isEmpty)
-                                                    ? null
-                                                    : phoneController.text,
-                                            Supplier().address:
-                                                (addressController.text.isEmpty)
-                                                    ? null
-                                                    : addressController.text,
-                                          });
-                                        }
-                                      },
-                                      bgColor: YMColors().blue,
-                                      textColor: YMColors().white,
-                                      height: 50,
-                                      width: double.infinity,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )
+                              ),
+                            ),
                           ],
-                        ),
-                      ),
+                        )
+                      ],
                     ),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Container(),
-                        ],
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),

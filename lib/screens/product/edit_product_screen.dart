@@ -84,367 +84,349 @@ class _EditProductScreenState extends State<EditProductScreen> {
             child: Center(
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Container(),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Column(
-                          children: [
-                            Padding(
+                child: Center(
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    width: MediaQuery.of(context).size.width / 3,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: Container(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: YMColors().lightGrey,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: Padding(
                               padding: const EdgeInsets.all(5),
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: YMColors().lightGrey,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5),
-                                  child: Column(
+                              child: Column(
+                                children: [
+                                  Row(
                                     children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: Text(
-                                                "İsim",
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      YMSizes().fontSizeMedium,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text(
+                                            "İsim",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  YMSizes().fontSizeMedium,
+                                              fontWeight: FontWeight.bold,
                                             ),
                                           ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: CustomTextField(
-                                                height: 50,
-                                                hintText: "(Zorunlu)",
-                                                controller: nameController,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                        ),
                                       ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: Text(
-                                                "Marka",
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      YMSizes().fontSizeMedium,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: CustomTextField(
+                                            height: 50,
+                                            hintText: "(Zorunlu)",
+                                            controller: nameController,
                                           ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: CustomTextField(
-                                                height: 50,
-                                                controller: brandController,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: Text(
-                                                "Kategori",
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      YMSizes().fontSizeMedium,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: CustomTextField(
-                                                height: 50,
-                                                hintText: "(Zorunlu)",
-                                                controller: categoryController,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: Text(
-                                                "Renk",
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      YMSizes().fontSizeMedium,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: CustomTextField(
-                                                height: 50,
-                                                controller: colorController,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: Text(
-                                                "Boyut",
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      YMSizes().fontSizeMedium,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: CustomTextField(
-                                                height: 50,
-                                                controller: sizeController,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: Text(
-                                                "Birim",
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      YMSizes().fontSizeMedium,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: CustomTextField(
-                                                height: 50,
-                                                controller: sizeTypeController,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: Text(
-                                                "Fiyat",
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      YMSizes().fontSizeMedium,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: CustomTextField(
-                                                height: 50,
-                                                hintText: "(Zorunlu)",
-                                                controller: priceController,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: Text(
-                                                "Adet",
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      YMSizes().fontSizeMedium,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: CustomTextField(
-                                                height: 50,
-                                                hintText: "(Zorunlu)",
-                                                controller: amountController,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                        ),
                                       ),
                                     ],
                                   ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text(
+                                            "Marka",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  YMSizes().fontSizeMedium,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: CustomTextField(
+                                            height: 50,
+                                            controller: brandController,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text(
+                                            "Kategori",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  YMSizes().fontSizeMedium,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: CustomTextField(
+                                            height: 50,
+                                            hintText: "(Zorunlu)",
+                                            controller: categoryController,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text(
+                                            "Renk",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  YMSizes().fontSizeMedium,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: CustomTextField(
+                                            height: 50,
+                                            controller: colorController,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text(
+                                            "Boyut",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  YMSizes().fontSizeMedium,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: CustomTextField(
+                                            height: 50,
+                                            controller: sizeController,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text(
+                                            "Birim",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  YMSizes().fontSizeMedium,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: CustomTextField(
+                                            height: 50,
+                                            controller: sizeTypeController,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text(
+                                            "Fiyat",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  YMSizes().fontSizeMedium,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: CustomTextField(
+                                            height: 50,
+                                            hintText: "(Zorunlu)",
+                                            controller: priceController,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text(
+                                            "Adet",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  YMSizes().fontSizeMedium,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: CustomTextField(
+                                            height: 50,
+                                            hintText: "(Zorunlu)",
+                                            controller: amountController,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: MenuButton(
+                                  text: "Sil",
+                                  onPressed: () {
+                                    DatabaseService().deleteProduct(
+                                        editedItem[Product().id]);
+                                    Navigator.pushReplacementNamed(
+                                        context, "/list_products");
+                                  },
+                                  bgColor: YMColors().red,
+                                  textColor: YMColors().white,
+                                  height: 50,
+                                  width: double.infinity,
                                 ),
                               ),
                             ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: MenuButton(
-                                      text: "Sil",
-                                      onPressed: () {
-                                        DatabaseService().deleteProduct(
-                                            editedItem[Product().id]);
-                                        Navigator.pushReplacementNamed(
-                                            context, "/list_products");
-                                      },
-                                      bgColor: YMColors().red,
-                                      textColor: YMColors().white,
-                                      height: 50,
-                                      width: double.infinity,
-                                    ),
-                                  ),
+                            Expanded(
+                              flex: 2,
+                              child: Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: MenuButton(
+                                  text: "Kaydet",
+                                  onPressed: () {
+                                    if (nameController.text.isNotEmpty &&
+                                        categoryController.text.isNotEmpty &&
+                                        priceController.text.isNotEmpty &&
+                                        priceController.text.isNotEmpty) {
+                                      DatabaseService().updateProduct({
+                                        Product().id: editedItem[Product().id],
+                                        Product().name:
+                                            (nameController.text.isEmpty)
+                                                ? null
+                                                : nameController.text,
+                                        Product().brand:
+                                            (brandController.text.isEmpty)
+                                                ? null
+                                                : brandController.text,
+                                        Product().category:
+                                            (categoryController.text.isEmpty)
+                                                ? null
+                                                : categoryController.text,
+                                        Product().color:
+                                            (colorController.text.isEmpty)
+                                                ? null
+                                                : colorController.text,
+                                        Product().size:
+                                            (sizeController.text.isEmpty)
+                                                ? null
+                                                : sizeController.text,
+                                        Product().sizeType:
+                                            (sizeTypeController.text.isEmpty)
+                                                ? null
+                                                : sizeTypeController.text,
+                                        Product().price:
+                                            (priceController.text.isEmpty)
+                                                ? null
+                                                : double.parse(
+                                                    priceController.text),
+                                        Product().amount: (amountController
+                                                .text.isEmpty)
+                                            ? null
+                                            : int.parse(amountController.text),
+                                      });
+                                      Navigator.pushReplacementNamed(
+                                          context, "/list_products");
+                                    }
+                                  },
+                                  bgColor: YMColors().blue,
+                                  textColor: YMColors().white,
+                                  height: 50,
+                                  width: double.infinity,
                                 ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: MenuButton(
-                                      text: "Kaydet",
-                                      onPressed: () {
-                                        if (nameController.text.isNotEmpty &&
-                                            categoryController
-                                                .text.isNotEmpty &&
-                                            priceController.text.isNotEmpty &&
-                                            priceController.text.isNotEmpty) {
-                                          DatabaseService().updateProduct({
-                                            Product().id:
-                                                editedItem[Product().id],
-                                            Product().name:
-                                                (nameController.text.isEmpty)
-                                                    ? null
-                                                    : nameController.text,
-                                            Product().brand:
-                                                (brandController.text.isEmpty)
-                                                    ? null
-                                                    : brandController.text,
-                                            Product().category:
-                                                (categoryController
-                                                        .text.isEmpty)
-                                                    ? null
-                                                    : categoryController.text,
-                                            Product().color:
-                                                (colorController.text.isEmpty)
-                                                    ? null
-                                                    : colorController.text,
-                                            Product().size:
-                                                (sizeController.text.isEmpty)
-                                                    ? null
-                                                    : sizeController.text,
-                                            Product().sizeType:
-                                                (sizeTypeController
-                                                        .text.isEmpty)
-                                                    ? null
-                                                    : sizeTypeController.text,
-                                            Product().price:
-                                                (priceController.text.isEmpty)
-                                                    ? null
-                                                    : double.parse(
-                                                        priceController.text),
-                                            Product().amount:
-                                                (amountController.text.isEmpty)
-                                                    ? null
-                                                    : int.parse(
-                                                        amountController.text),
-                                          });
-                                          Navigator.pushReplacementNamed(
-                                              context, "/list_products");
-                                        }
-                                      },
-                                      bgColor: YMColors().blue,
-                                      textColor: YMColors().white,
-                                      height: 50,
-                                      width: double.infinity,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )
+                              ),
+                            ),
                           ],
-                        ),
-                      ),
+                        )
+                      ],
                     ),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Container(),
-                        ],
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
