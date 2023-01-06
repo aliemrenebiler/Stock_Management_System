@@ -120,7 +120,7 @@ class _EditSaleScreenState extends State<EditSaleScreen> {
                                             flex: 2,
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
-                                              child: TextFieldComponent(
+                                              child: CustomTextField(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
                                                 controller: productController,
@@ -150,7 +150,7 @@ class _EditSaleScreenState extends State<EditSaleScreen> {
                                             flex: 2,
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
-                                              child: TextFieldComponent(
+                                              child: CustomTextField(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
                                                 controller: priceController,
@@ -180,7 +180,7 @@ class _EditSaleScreenState extends State<EditSaleScreen> {
                                             flex: 2,
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
-                                              child: TextFieldComponent(
+                                              child: CustomTextField(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
                                                 controller: amountController,
@@ -210,7 +210,7 @@ class _EditSaleScreenState extends State<EditSaleScreen> {
                                             flex: 2,
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
-                                              child: TextFieldComponent(
+                                              child: CustomTextField(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
                                                 controller: dateController,

@@ -117,7 +117,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                             flex: 2,
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
-                                              child: TextFieldComponent(
+                                              child: CustomTextField(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
                                                 controller: priceController,
@@ -147,7 +147,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                             flex: 2,
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
-                                              child: TextFieldComponent(
+                                              child: CustomTextField(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
                                                 controller: amountController,
@@ -177,7 +177,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                             flex: 2,
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
-                                              child: TextFieldComponent(
+                                              child: CustomTextField(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
                                                 controller: dateController,

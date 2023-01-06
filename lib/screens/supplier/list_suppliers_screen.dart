@@ -147,7 +147,7 @@ class SuppliersListSearchBar extends StatelessWidget {
               flex: 5,
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: TextFieldComponent(
+                child: CustomTextField(
                   hintText: "İsim, Telefon Numarası veya Adres",
                   height: 50,
                   controller: infoController,

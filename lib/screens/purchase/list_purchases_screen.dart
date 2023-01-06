@@ -150,7 +150,7 @@ class PurchasesListSearchBar extends StatelessWidget {
               flex: 2,
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: TextFieldComponent(
+                child: CustomTextField(
                   hintText: "Tarih",
                   height: 50,
                   controller: dateController,
@@ -170,7 +170,7 @@ class PurchasesListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: TextFieldComponent(
+                        child: CustomTextField(
                           hintText: "Fiyat (En Az)",
                           height: 50,
                           controller: minPriceController,
@@ -180,7 +180,7 @@ class PurchasesListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: TextFieldComponent(
+                        child: CustomTextField(
                           hintText: "Fiyat (En Fazla)",
                           height: 50,
                           controller: maxPriceController,
@@ -204,7 +204,7 @@ class PurchasesListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: TextFieldComponent(
+                        child: CustomTextField(
                           hintText: "Adet (En Az)",
                           height: 50,
                           controller: minAmountController,
@@ -214,7 +214,7 @@ class PurchasesListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: TextFieldComponent(
+                        child: CustomTextField(
                           hintText: "Adet (En Fazla)",
                           height: 50,
                           controller: maxAmountController,

@@ -172,7 +172,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.all(5),
-                                            child: TextFieldComponent(
+                                            child: CustomTextField(
                                               height: 50,
                                               controller: nameController,
                                               hintText:
@@ -218,7 +218,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                 child: Padding(
                                                   padding:
                                                       const EdgeInsets.all(5),
-                                                  child: TextFieldComponent(
+                                                  child: CustomTextField(
                                                     height: 50,
                                                     controller: brandController,
                                                   ),
@@ -251,7 +251,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                 child: Padding(
                                                   padding:
                                                       const EdgeInsets.all(5),
-                                                  child: TextFieldComponent(
+                                                  child: CustomTextField(
                                                     height: 50,
                                                     hintText: "(Zorunlu)",
                                                     controller:
@@ -286,7 +286,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                 child: Padding(
                                                   padding:
                                                       const EdgeInsets.all(5),
-                                                  child: TextFieldComponent(
+                                                  child: CustomTextField(
                                                     height: 50,
                                                     controller: colorController,
                                                   ),
@@ -319,7 +319,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                 child: Padding(
                                                   padding:
                                                       const EdgeInsets.all(5),
-                                                  child: TextFieldComponent(
+                                                  child: CustomTextField(
                                                     height: 50,
                                                     controller: sizeController,
                                                   ),
@@ -352,7 +352,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                 child: Padding(
                                                   padding:
                                                       const EdgeInsets.all(5),
-                                                  child: TextFieldComponent(
+                                                  child: CustomTextField(
                                                     height: 50,
                                                     controller:
                                                         sizeTypeController,
@@ -386,7 +386,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                 child: Padding(
                                                   padding:
                                                       const EdgeInsets.all(5),
-                                                  child: TextFieldComponent(
+                                                  child: CustomTextField(
                                                     height: 50,
                                                     hintText: "(Zorunlu)",
                                                     controller: priceController,
@@ -420,7 +420,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                 child: Padding(
                                                   padding:
                                                       const EdgeInsets.all(5),
-                                                  child: TextFieldComponent(
+                                                  child: CustomTextField(
                                                     height: 50,
                                                     hintText: "(Zorunlu)",
                                                     controller:

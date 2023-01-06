@@ -105,7 +105,7 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
                                             flex: 2,
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
-                                              child: TextFieldComponent(
+                                              child: CustomTextField(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
                                                 controller: nameController,
@@ -135,7 +135,7 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
                                             flex: 2,
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
-                                              child: TextFieldComponent(
+                                              child: CustomTextField(
                                                 height: 50,
                                                 controller: phoneController,
                                               ),
@@ -164,7 +164,7 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
                                             flex: 2,
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
-                                              child: TextFieldComponent(
+                                              child: CustomTextField(
                                                 height: 50,
                                                 controller: addressController,
                                               ),

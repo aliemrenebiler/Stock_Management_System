@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 
 import '../backend/theme.dart';
 
-class TextFieldComponent extends StatelessWidget {
+class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final String? hintText;
+  final bool? hideText;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final double? height;
   final double? width;
-  const TextFieldComponent({
+  const CustomTextField({
     super.key,
     this.keyboardType,
     this.controller,
     this.hintText,
+    this.hideText,
     this.validator,
     this.height,
     this.width,
@@ -35,6 +37,7 @@ class TextFieldComponent extends StatelessWidget {
         ),
       ),
       child: TextFormField(
+        obscureText: hideText ?? false,
         controller: controller,
         textAlign: TextAlign.left,
         style: TextStyle(

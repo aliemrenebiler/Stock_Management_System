@@ -113,7 +113,7 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                                             flex: 2,
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
-                                              child: TextFieldComponent(
+                                              child: CustomTextField(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
                                                 controller: nameController,
@@ -143,7 +143,7 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                                             flex: 2,
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
-                                              child: TextFieldComponent(
+                                              child: CustomTextField(
                                                 height: 50,
                                                 controller: phoneController,
                                               ),
@@ -172,7 +172,7 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                                             flex: 2,
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
-                                              child: TextFieldComponent(
+                                              child: CustomTextField(
                                                 height: 50,
                                                 controller: addressController,
                                               ),

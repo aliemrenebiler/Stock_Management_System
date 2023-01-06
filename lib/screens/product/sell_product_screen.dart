@@ -124,7 +124,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                             flex: 2,
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
-                                              child: TextFieldComponent(
+                                              child: CustomTextField(
                                                 height: 50,
                                                 hintText:
                                                     "(Zorunlu) Güncel Fiyat: ${editedItem[Product().price]}",
@@ -155,7 +155,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                             flex: 2,
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
-                                              child: TextFieldComponent(
+                                              child: CustomTextField(
                                                 height: 50,
                                                 hintText:
                                                     "(Zorunlu) Güncel Adet: ${editedItem[Product().amount]}",
@@ -186,7 +186,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                             flex: 2,
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
-                                              child: TextFieldComponent(
+                                              child: CustomTextField(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
                                                 controller: dateController,

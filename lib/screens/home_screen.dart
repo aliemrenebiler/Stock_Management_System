@@ -127,6 +127,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 50,
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: MenuButton(
+                        text: "Çıkış Yap",
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(context, '/login');
+                        },
+                        bgColor: YMColors().red,
+                        textColor: YMColors().white,
+                        width: double.infinity,
+                        height: 50,
+                      ),
+                    ),
                   ],
                 ),
               ),

@@ -11,7 +11,7 @@ String dbName = "yildiz_motor_db.db";
 Map<dynamic, dynamic> editedItem = {};
 
 class SharedPrefsService {
-  Future<bool> get passwordExists async {
+  Future<bool> get isPasswordExists async {
     final prefs = await SharedPreferences.getInstance();
     password = prefs.getString('password');
     if (password == null) {
@@ -21,9 +21,14 @@ class SharedPrefsService {
     }
   }
 
-  Future<String> getPassword() async {
+  Future<Object> getPassword() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('password')!;
+    password = prefs.getString('password');
+    if (password == null) {
+      return false;
+    } else {
+      return prefs.getString('password')!;
+    }
   }
 
   setPassword(password) async {

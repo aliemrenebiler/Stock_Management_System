@@ -15,7 +15,6 @@ import 'screens/product/edit_product_screen.dart';
 import 'screens/product/list_products_screen.dart';
 import 'screens/supplier/list_suppliers_screen.dart';
 import 'screens/login/login_screen.dart';
-import 'screens/login/set_password_screen.dart';
 import 'screens/home_screen.dart';
 
 void main() async {
@@ -41,12 +40,6 @@ class MyApp extends StatelessWidget {
           case '/login':
             return PageTransition(
               child: const LoginScreen(),
-              type: PageTransitionType.fade,
-              settings: settings,
-            );
-          case '/set_password':
-            return PageTransition(
-              child: const SetPasswordScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );
@@ -130,7 +123,7 @@ class MyApp extends StatelessWidget {
             );
           default:
             return PageTransition(
-              child: const HomeScreen(),
+              child: const LoginScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );

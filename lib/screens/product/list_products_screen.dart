@@ -156,7 +156,7 @@ class ProductsListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: TextFieldComponent(
+                        child: CustomTextField(
                           hintText: "İsim",
                           height: 50,
                           controller: nameController,
@@ -166,7 +166,7 @@ class ProductsListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: TextFieldComponent(
+                        child: CustomTextField(
                           hintText: "Özellik",
                           height: 50,
                           controller: specController,
@@ -190,7 +190,7 @@ class ProductsListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: TextFieldComponent(
+                        child: CustomTextField(
                           hintText: "Fiyat (En Az)",
                           height: 50,
                           controller: minPriceController,
@@ -200,7 +200,7 @@ class ProductsListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: TextFieldComponent(
+                        child: CustomTextField(
                           hintText: "Fiyat (En Fazla)",
                           height: 50,
                           controller: maxPriceController,
@@ -224,7 +224,7 @@ class ProductsListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: TextFieldComponent(
+                        child: CustomTextField(
                           hintText: "Adet (En Az)",
                           height: 50,
                           controller: minAmountController,
@@ -234,7 +234,7 @@ class ProductsListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: TextFieldComponent(
+                        child: CustomTextField(
                           hintText: "Adet (En Fazla)",
                           height: 50,
                           controller: maxAmountController,
