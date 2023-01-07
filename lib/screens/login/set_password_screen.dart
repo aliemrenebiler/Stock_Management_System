@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yildiz_motor_v2/backend/methods.dart';
 
 import '../../backend/theme.dart';
+import '../../widgets/custom_snack_bar.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/menu_button.dart';
 import '../../widgets/top_bar.dart';
@@ -150,13 +151,21 @@ class SetPasswordScreen extends StatelessWidget {
                                   onPressed: () {
                                     if (password1Controller.text.isEmpty ||
                                         password2Controller.text.isEmpty) {
-                                      print(
-                                          "Can't be empty."); // TODO: Visual Warning
+                                      showCustomSnackBar(
+                                        context,
+                                        "Lütfen zorunlu alanları doldurunuz.",
+                                        YMColors().white,
+                                        YMColors().red,
+                                      );
                                     } else {
                                       if (password1Controller.text !=
                                           password2Controller.text) {
-                                        print(
-                                            "Passwords are not matching."); // TODO: Visual Warning
+                                        showCustomSnackBar(
+                                          context,
+                                          "Şifreler eşleşmiyor.",
+                                          YMColors().white,
+                                          YMColors().red,
+                                        );
                                       } else {
                                         SharedPrefsService().setPassword(
                                             password2Controller.text);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yildiz_motor_v2/backend/methods.dart';
+import 'package:yildiz_motor_v2/widgets/custom_snack_bar.dart';
 
 import '../../backend/theme.dart';
 import '../../widgets/custom_text_field.dart';
@@ -68,8 +69,12 @@ class EnterPasswordScreen extends StatelessWidget {
                             onPressed: () {
                               if (password != passwordController.text) {
                                 passwordController.clear();
-                                print(
-                                    "Password is wrong."); // TODO: Visual Warning
+                                showCustomSnackBar(
+                                  context,
+                                  "Şifre hatalı.",
+                                  YMColors().white,
+                                  YMColors().red,
+                                );
                               } else {
                                 passwordController.clear();
                                 Navigator.pushReplacementNamed(
