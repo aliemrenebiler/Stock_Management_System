@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Padding(
                     padding: const EdgeInsets.all(5),
                     child: MenuButton(
-                      text: "Ürünleri Listele",
+                      text: "Ürünler",
                       onPressed: () {
                         Navigator.pushReplacementNamed(
                             context, '/list_products');
@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Padding(
                     padding: const EdgeInsets.all(5),
                     child: MenuButton(
-                      text: "Tedarikçi Listele",
+                      text: "Tedarikçiler",
                       onPressed: () {
                         Navigator.pushReplacementNamed(
                             context, '/list_suppliers');
@@ -72,34 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Padding(
                     padding: const EdgeInsets.all(5),
                     child: MenuButton(
-                      text: "Ürün Ekle",
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/add_product');
-                      },
-                      bgColor: YMColors().red,
-                      textColor: YMColors().white,
-                      width: double.infinity,
-                      height: 50,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: MenuButton(
-                      text: "Tedarikçi Ekle",
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(
-                            context, '/add_supplier');
-                      },
-                      bgColor: YMColors().red,
-                      textColor: YMColors().white,
-                      width: double.infinity,
-                      height: 50,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: MenuButton(
-                      text: "Alımları Listele",
+                      text: "Alımlar",
                       onPressed: () {
                         Navigator.pushReplacementNamed(
                             context, '/list_purchases');
@@ -113,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Padding(
                     padding: const EdgeInsets.all(5),
                     child: MenuButton(
-                      text: "Satışları Listele",
+                      text: "Satışlar",
                       onPressed: () {
                         Navigator.pushReplacementNamed(context, '/list_sales');
                       },

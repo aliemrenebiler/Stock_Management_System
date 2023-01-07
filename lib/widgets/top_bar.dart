@@ -13,19 +13,17 @@ class TopBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 70,
+      padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         color: YMColors().darkRed,
       ),
       child: (widgets != null || widgets!.isNotEmpty)
-          ? Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  for (int i = 0; i < widgets!.length; i++) widgets![i],
-                ],
-              ),
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                for (int i = 0; i < widgets!.length; i++) widgets![i],
+              ],
             )
           : null,
     );
