@@ -132,6 +132,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                             hintText:
                                                 "(Zorunlu) Güncel Fiyat: ${editedItem[Product().price]}",
                                             controller: priceController,
+                                            inputType: double,
                                           ),
                                         ),
                                       ),
@@ -163,6 +164,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                             hintText:
                                                 "(Zorunlu) Güncel Adet: ${editedItem[Product().amount]}",
                                             controller: amountController,
+                                            inputType: int,
                                           ),
                                         ),
                                       ),
