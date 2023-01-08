@@ -8,14 +8,11 @@ import 'screens/purchase/edit_purchase_screen.dart';
 import 'screens/purchase/list_purchases_screen.dart';
 import 'screens/sale/edit_sale_screen.dart';
 import 'screens/sale/list_sales_screen.dart';
-import 'screens/supplier/add_supplier_screen.dart';
 import 'screens/product/buy_product_screen.dart';
-import 'screens/supplier/edit_supplier_screen.dart';
 import 'screens/product/sell_product_screen.dart';
 import 'screens/product/add_product_screen.dart';
 import 'screens/product/edit_product_screen.dart';
 import 'screens/product/list_products_screen.dart';
-import 'screens/supplier/list_suppliers_screen.dart';
 import 'screens/password/login_screen.dart';
 import 'screens/home_screen.dart';
 
@@ -66,24 +63,6 @@ class MyApp extends StatelessWidget {
           case '/edit_product':
             return PageTransition(
               child: const EditProductScreen(),
-              type: PageTransitionType.fade,
-              settings: settings,
-            );
-          case '/list_suppliers':
-            return PageTransition(
-              child: const ListSuppliersScreen(),
-              type: PageTransitionType.fade,
-              settings: settings,
-            );
-          case '/add_supplier':
-            return PageTransition(
-              child: const AddSupplierScreen(),
-              type: PageTransitionType.fade,
-              settings: settings,
-            );
-          case '/edit_supplier':
-            return PageTransition(
-              child: const EditSupplierScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );

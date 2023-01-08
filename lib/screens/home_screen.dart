@@ -58,20 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   Padding(
                     padding: const EdgeInsets.all(5),
                     child: MenuButton(
-                      text: "Tedarikçiler",
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(
-                            context, '/list_suppliers');
-                      },
-                      bgColor: YMColors().red,
-                      textColor: YMColors().white,
-                      width: double.infinity,
-                      height: 50,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: MenuButton(
                       text: "Alımlar",
                       onPressed: () {
                         Navigator.pushReplacementNamed(
