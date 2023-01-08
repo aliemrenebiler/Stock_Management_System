@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yildiz_motor_v2/screens/login/enter_password_screen.dart';
+import 'package:yildiz_motor_v2/screens/password/enter_password_screen.dart';
 
 import 'set_password_screen.dart';
 import '../../backend/theme.dart';
@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: YMColors().white,
       body: FutureBuilder<Object>(
-        future: SharedPrefsService().getPassword(),
+        future: SharedPrefsService().isPasswordExists,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(
@@ -42,7 +42,6 @@ class _LoginScreenState extends State<LoginScreen> {
               notifyParent: refresh,
             );
           } else {
-            password = snapshot.data.toString();
             return const EnterPasswordScreen();
           }
         },

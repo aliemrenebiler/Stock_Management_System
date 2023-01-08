@@ -99,6 +99,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   Padding(
                     padding: const EdgeInsets.all(5),
                     child: MenuButton(
+                      text: "Ayarlar",
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/settings');
+                      },
+                      bgColor: YMColors().red,
+                      textColor: YMColors().white,
+                      width: double.infinity,
+                      height: 50,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: MenuButton(
                       text: "Çıkış Yap",
                       onPressed: () {
                         Navigator.pushReplacementNamed(context, '/login');

@@ -4,31 +4,23 @@ import 'package:sqlite3/sqlite3.dart';
 
 import 'classes.dart';
 
-String? password;
-
 String dbName = "yildiz_motor_db.db";
 
 Map<dynamic, dynamic> editedItem = {};
 
 class SharedPrefsService {
-  Future<bool> get isPasswordExists async {
+  get isPasswordExists async {
     final prefs = await SharedPreferences.getInstance();
-    password = prefs.getString('password');
-    if (password == null) {
+    if (prefs.getString('password') == null) {
       return false;
     } else {
       return true;
     }
   }
 
-  Future<Object> getPassword() async {
+  Future<String?> getPassword() async {
     final prefs = await SharedPreferences.getInstance();
-    password = prefs.getString('password');
-    if (password == null) {
-      return false;
-    } else {
-      return prefs.getString('password')!;
-    }
+    return prefs.getString('password');
   }
 
   setPassword(password) async {
@@ -53,6 +45,14 @@ class DatabaseService {
     database.dispose();
   }
 
+  deleteProducts() {
+    Database database = sqlite3.open(dbName);
+    database.execute(
+      ' DROP TABLE [IF EXISTS] ${Product().tableName}',
+    );
+    database.dispose();
+  }
+
   createSuppliers() {
     Database database = sqlite3.open(dbName);
     database.execute(
@@ -61,10 +61,26 @@ class DatabaseService {
     database.dispose();
   }
 
+  deleteSuppliers() {
+    Database database = sqlite3.open(dbName);
+    database.execute(
+      ' DROP TABLE [IF EXISTS] ${Supplier().tableName}',
+    );
+    database.dispose();
+  }
+
   createPurchases() {
     Database database = sqlite3.open(dbName);
     database.execute(
-      'CREATE TABLE ${Purchase().tableName}(${Purchase().id} INTEGER PRIMARY KEY,${Purchase().supplierID} INTEGER,${Purchase().productID} INTEGER not null,${Purchase().amount} INTEGER,${Purchase().price} REAL,${Purchase().date} TEXT,CONSTRAINT fk_tedarikci FOREIGN KEY (${Purchase().supplierID}) REFERENCES ${Supplier().tableName}(${Supplier().id}) ON DELETE SET NULL, CONSTRAINT fk_tedarikci FOREIGN KEY (${Purchase().productID}) REFERENCES ${Purchase().tableName}(${Product().id}) ON DELETE SET NULL)',
+      'CREATE TABLE ${Purchase().tableName}(${Purchase().id} INTEGER PRIMARY KEY,${Purchase().supplierID} INTEGER,${Purchase().productID} INTEGER,${Purchase().amount} INTEGER,${Purchase().price} REAL,${Purchase().date} TEXT,CONSTRAINT fk_tedarikci FOREIGN KEY (${Purchase().supplierID}) REFERENCES ${Supplier().tableName}(${Supplier().id}) ON DELETE SET NULL, CONSTRAINT fk_tedarikci FOREIGN KEY (${Purchase().productID}) REFERENCES ${Purchase().tableName}(${Product().id}) ON DELETE SET NULL)',
+    );
+    database.dispose();
+  }
+
+  deletePurchases() {
+    Database database = sqlite3.open(dbName);
+    database.execute(
+      ' DROP TABLE [IF EXISTS] ${Purchase().tableName}',
     );
     database.dispose();
   }
@@ -72,7 +88,15 @@ class DatabaseService {
   createSales() {
     Database database = sqlite3.open(dbName);
     database.execute(
-      'CREATE TABLE ${Sale().tableName}(${Sale().id} INTEGER PRIMARY KEY,${Sale().productID} INTEGER not null,${Sale().amount} INTEGER,${Sale().price} REAL,${Sale().date} TEXT,CONSTRAINT fk_tedarikci FOREIGN KEY (${Sale().productID}) REFERENCES ${Product().tableName}(${Product().id}) ON DELETE SET NULL)',
+      'CREATE TABLE ${Sale().tableName}(${Sale().id} INTEGER PRIMARY KEY,${Sale().productID} INTEGER,${Sale().amount} INTEGER,${Sale().price} REAL,${Sale().date} TEXT,CONSTRAINT fk_tedarikci FOREIGN KEY (${Sale().productID}) REFERENCES ${Product().tableName}(${Product().id}) ON DELETE SET NULL)',
+    );
+    database.dispose();
+  }
+
+  deleteSales() {
+    Database database = sqlite3.open(dbName);
+    database.execute(
+      ' DROP TABLE [IF EXISTS] ${Sale().tableName}',
     );
     database.dispose();
   }
@@ -480,14 +504,6 @@ class DatabaseService {
     Database database = sqlite3.open(dbName);
     database.execute('DELETE FROM ${Sale().tableName} WHERE ${Sale().id}=$id');
     database.dispose();
-  }
-}
-
-bool signIn(input) {
-  if (input == password) {
-    return true;
-  } else {
-    return false;
   }
 }
 

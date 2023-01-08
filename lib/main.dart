@@ -2,6 +2,8 @@ import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
+import 'screens/password/change_password_screen.dart';
+import 'screens/settings_screen.dart';
 import 'screens/purchase/edit_purchase_screen.dart';
 import 'screens/purchase/list_purchases_screen.dart';
 import 'screens/sale/edit_sale_screen.dart';
@@ -14,7 +16,7 @@ import 'screens/product/add_product_screen.dart';
 import 'screens/product/edit_product_screen.dart';
 import 'screens/product/list_products_screen.dart';
 import 'screens/supplier/list_suppliers_screen.dart';
-import 'screens/login/login_screen.dart';
+import 'screens/password/login_screen.dart';
 import 'screens/home_screen.dart';
 
 void main() async {
@@ -118,6 +120,18 @@ class MyApp extends StatelessWidget {
           case '/edit_sale':
             return PageTransition(
               child: const EditSaleScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/settings':
+            return PageTransition(
+              child: const SettingsScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/change_password':
+            return PageTransition(
+              child: const ChangePasswordScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );

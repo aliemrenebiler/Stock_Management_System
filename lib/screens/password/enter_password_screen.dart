@@ -68,9 +68,9 @@ class EnterPasswordScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(5),
                           child: MenuButton(
                             text: "Giriş Yap",
-                            onPressed: () {
-                              if (password != passwordController.text) {
-                                passwordController.clear();
+                            onPressed: () async {
+                              if (passwordController.text !=
+                                  await SharedPrefsService().getPassword()) {
                                 showCustomSnackBar(
                                   context,
                                   "Şifre hatalı.",
