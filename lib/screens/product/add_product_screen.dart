@@ -5,6 +5,7 @@ import 'package:yildiz_motor_v2/backend/theme.dart';
 import 'package:yildiz_motor_v2/widgets/menu_button.dart';
 import 'package:yildiz_motor_v2/widgets/top_bar.dart';
 
+import '../../widgets/custom_snack_bar.dart';
 import '../../widgets/custom_text_field.dart';
 
 class AddProductScreen extends StatefulWidget {
@@ -40,7 +41,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     bgColor: YMColors().red,
                     textColor: YMColors().white,
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/home');
+                      Navigator.pushReplacementNamed(context, '/list_products');
                     },
                     height: 50,
                   ),
@@ -427,10 +428,17 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                 child: MenuButton(
                                   text: "Kaydet",
                                   onPressed: () {
-                                    if (nameController.text.isNotEmpty &&
-                                        categoryController.text.isNotEmpty &&
-                                        priceController.text.isNotEmpty &&
-                                        amountController.text.isNotEmpty) {
+                                    if (nameController.text.isEmpty ||
+                                        categoryController.text.isEmpty ||
+                                        priceController.text.isEmpty ||
+                                        amountController.text.isEmpty) {
+                                      showCustomSnackBar(
+                                        context,
+                                        "Lütfen zorunlu alanları doldurunuz.",
+                                        YMColors().white,
+                                        YMColors().red,
+                                      );
+                                    } else {
                                       DatabaseService().insertProduct({
                                         Product().id: null,
                                         Product().name: nameController.text,
@@ -457,6 +465,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                         Product().amount:
                                             int.parse(amountController.text),
                                       });
+                                      showCustomSnackBar(
+                                        context,
+                                        "Yeni ürün eklendi.",
+                                        YMColors().white,
+                                        YMColors().blue,
+                                      );
                                     }
                                   },
                                   bgColor: YMColors().blue,

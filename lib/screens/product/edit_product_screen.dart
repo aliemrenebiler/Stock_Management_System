@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yildiz_motor_v2/backend/classes.dart';
 import 'package:yildiz_motor_v2/backend/methods.dart';
 import '../../backend/theme.dart';
+import '../../widgets/custom_snack_bar.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/menu_button.dart';
 import '../../widgets/top_bar.dart';
@@ -377,10 +378,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                 child: MenuButton(
                                   text: "Kaydet",
                                   onPressed: () {
-                                    if (nameController.text.isNotEmpty &&
-                                        categoryController.text.isNotEmpty &&
-                                        priceController.text.isNotEmpty &&
-                                        priceController.text.isNotEmpty) {
+                                    if (nameController.text.isEmpty ||
+                                        categoryController.text.isEmpty ||
+                                        priceController.text.isEmpty ||
+                                        amountController.text.isEmpty) {
+                                      showCustomSnackBar(
+                                        context,
+                                        "Lütfen zorunlu alanları doldurunuz.",
+                                        YMColors().white,
+                                        YMColors().red,
+                                      );
+                                    } else {
                                       DatabaseService().updateProduct({
                                         Product().id: editedItem[Product().id],
                                         Product().name:
@@ -417,8 +425,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                             ? null
                                             : int.parse(amountController.text),
                                       });
-                                      Navigator.pushReplacementNamed(
-                                          context, "/list_products");
+                                      showCustomSnackBar(
+                                        context,
+                                        "Ürün güncellendi.",
+                                        YMColors().white,
+                                        YMColors().blue,
+                                      );
                                     }
                                   },
                                   bgColor: YMColors().blue,

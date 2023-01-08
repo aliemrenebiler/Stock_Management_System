@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../backend/theme.dart';
+import '../../widgets/custom_snack_bar.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/menu_button.dart';
 import '../../widgets/top_bar.dart';
@@ -219,9 +220,16 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                 child: MenuButton(
                                   text: "Ekle",
                                   onPressed: () {
-                                    if (priceController.text.isNotEmpty &&
-                                        amountController.text.isNotEmpty &&
-                                        dateController.text.isNotEmpty) {
+                                    if (priceController.text.isEmpty ||
+                                        amountController.text.isEmpty ||
+                                        dateController.text.isEmpty) {
+                                      showCustomSnackBar(
+                                        context,
+                                        "Lütfen zorunlu alanları doldurunuz.",
+                                        YMColors().white,
+                                        YMColors().red,
+                                      );
+                                    } else {
                                       DatabaseService().insertPurchase(
                                         {
                                           Purchase().id: null,
@@ -258,8 +266,12 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                               int.parse(amountController.text),
                                         },
                                       );
-                                      Navigator.pushReplacementNamed(
-                                          context, "/list_products");
+                                      showCustomSnackBar(
+                                        context,
+                                        "Alım işlemi başarılı.",
+                                        YMColors().white,
+                                        YMColors().blue,
+                                      );
                                     }
                                   },
                                   bgColor: YMColors().blue,

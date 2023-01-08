@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../backend/theme.dart';
+import '../../widgets/custom_snack_bar.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/menu_button.dart';
 import '../../widgets/top_bar.dart';
@@ -228,53 +229,65 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                 child: MenuButton(
                                   text: "Ekle",
                                   onPressed: () {
-                                    if (priceController.text.isNotEmpty &&
-                                        amountController.text.isNotEmpty &&
-                                        dateController.text.isNotEmpty) {
-                                      if (editedItem[Product().amount] -
-                                              int.parse(amountController.text) <
-                                          0) {
-                                        amountController.clear();
-                                      } else {
-                                        DatabaseService().insertSale(
-                                          {
-                                            Sale().id: null,
-                                            Sale().productID:
-                                                editedItem[Product().id],
-                                            Sale().price: double.parse(
-                                                priceController.text),
-                                            Sale().amount: int.parse(
-                                                amountController.text),
-                                            Sale().date: dateController.text,
-                                          },
-                                        );
-                                        DatabaseService().updateProduct(
-                                          {
-                                            Product().id:
-                                                editedItem[Product().id],
-                                            Product().name:
-                                                editedItem[Product().name],
-                                            Product().brand:
-                                                editedItem[Product().brand],
-                                            Product().category:
-                                                editedItem[Product().category],
-                                            Product().color:
-                                                editedItem[Product().color],
-                                            Product().size:
-                                                editedItem[Product().size],
-                                            Product().sizeType:
-                                                editedItem[Product().sizeType],
-                                            Product().price:
-                                                editedItem[Product().price],
-                                            Product().amount:
-                                                editedItem[Product().amount] -
-                                                    int.parse(
-                                                        amountController.text),
-                                          },
-                                        );
-                                        Navigator.pushReplacementNamed(
-                                            context, "/list_products");
-                                      }
+                                    if (priceController.text.isEmpty ||
+                                        amountController.text.isEmpty ||
+                                        dateController.text.isEmpty) {
+                                      showCustomSnackBar(
+                                        context,
+                                        "Lütfen zorunlu alanları doldurunuz.",
+                                        YMColors().white,
+                                        YMColors().red,
+                                      );
+                                    } else if (editedItem[Product().amount] <
+                                        int.parse(amountController.text)) {
+                                      showCustomSnackBar(
+                                        context,
+                                        "Adet yeterli değil.",
+                                        YMColors().white,
+                                        YMColors().red,
+                                      );
+                                    } else {
+                                      DatabaseService().insertSale(
+                                        {
+                                          Sale().id: null,
+                                          Sale().productID:
+                                              editedItem[Product().id],
+                                          Sale().price: double.parse(
+                                              priceController.text),
+                                          Sale().amount:
+                                              int.parse(amountController.text),
+                                          Sale().date: dateController.text,
+                                        },
+                                      );
+                                      DatabaseService().updateProduct(
+                                        {
+                                          Product().id:
+                                              editedItem[Product().id],
+                                          Product().name:
+                                              editedItem[Product().name],
+                                          Product().brand:
+                                              editedItem[Product().brand],
+                                          Product().category:
+                                              editedItem[Product().category],
+                                          Product().color:
+                                              editedItem[Product().color],
+                                          Product().size:
+                                              editedItem[Product().size],
+                                          Product().sizeType:
+                                              editedItem[Product().sizeType],
+                                          Product().price:
+                                              editedItem[Product().price],
+                                          Product().amount: editedItem[
+                                                  Product().amount] -
+                                              int.parse(amountController.text),
+                                        },
+                                      );
+                                      showCustomSnackBar(
+                                        context,
+                                        "Satış işlemi başarılı.",
+                                        YMColors().white,
+                                        YMColors().blue,
+                                      );
                                     }
                                   },
                                   bgColor: YMColors().blue,
