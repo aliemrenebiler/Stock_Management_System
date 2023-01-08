@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../backend/theme.dart';
 
@@ -8,11 +9,13 @@ class CustomTextField extends StatelessWidget {
   final bool? hideText;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
+  final Type? inputType;
   final double? height;
   final double? width;
   const CustomTextField({
     super.key,
     this.keyboardType,
+    this.inputType,
     this.controller,
     this.hintText,
     this.hideText,
@@ -23,6 +26,22 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<FilteringTextInputFormatter>? formatter;
+    if (inputType == int) {
+      formatter = [
+        FilteringTextInputFormatter.allow(
+          RegExp(r'[0-9]+'),
+        ),
+      ];
+    } else if (inputType == double) {
+      formatter = [
+        FilteringTextInputFormatter.allow(
+          RegExp(r'[0-9]+[.]{0,1}[0-9]*'),
+        ),
+      ];
+    } else {
+      formatter = null;
+    }
     return Container(
       width: width,
       height: height,
@@ -46,6 +65,7 @@ class CustomTextField extends StatelessWidget {
         ),
         cursorColor: YMColors().darkBlue,
         autofocus: false,
+        inputFormatters: formatter,
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: TextStyle(
