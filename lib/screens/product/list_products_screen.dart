@@ -372,7 +372,7 @@ class ProductsListTitlesBar extends StatelessWidget {
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ListTableTitlesBarItem(text: "İşlemler", flex: 8),
+              const ListTableTitlesBarItem(text: "İşlemler", flex: 6),
             ],
           ),
         ),
@@ -493,14 +493,13 @@ class ProductsListItem extends StatelessWidget {
                   space: 10,
                 ),
                 Expanded(
-                  flex: 8,
+                  flex: 6,
                   child: Padding(
                     padding: const EdgeInsets.all(5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
-                          flex: 3,
                           child: Padding(
                             padding: const EdgeInsets.all(5),
                             child: MenuButton(
@@ -517,11 +516,10 @@ class ProductsListItem extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          flex: 4,
                           child: Padding(
                             padding: const EdgeInsets.all(5),
                             child: MenuButton(
-                              text: "Alım Yap",
+                              text: "Alım",
                               bgColor: YMColors().blue,
                               textColor: YMColors().white,
                               onPressed: () {
@@ -534,11 +532,10 @@ class ProductsListItem extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          flex: 4,
                           child: Padding(
                             padding: const EdgeInsets.all(5),
                             child: MenuButton(
-                              text: "Satış Yap",
+                              text: "Satış",
                               bgColor: YMColors().red,
                               textColor: YMColors().white,
                               onPressed: () {
