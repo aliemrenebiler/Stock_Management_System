@@ -46,11 +46,12 @@ class _ListSuppliersScreenState extends State<ListSuppliersScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(5),
                   child: MenuButton(
-                    text: "Ana Sayfa",
+                    text: "Geri",
                     bgColor: YMColors().red,
                     textColor: YMColors().white,
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/home');
+                      Navigator.pushReplacementNamed(
+                          context, '/list_purchases');
                     },
                     height: 50,
                   ),
