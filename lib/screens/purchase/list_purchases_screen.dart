@@ -105,7 +105,7 @@ class _ListPurchasesScreenState extends State<ListPurchasesScreen> {
                       padding:
                           const EdgeInsets.only(top: 10, left: 10, right: 10),
                       child: ListTable(
-                        titlesBar: const PurchasesTitlesBar(),
+                        titlesBar: const PurchasesListTitlesBar(),
                         items: [
                           for (int i = 0; i < listedPurchases.length; i++)
                             PurchasesListItem(
@@ -286,8 +286,8 @@ class PurchasesListSearchBar extends StatelessWidget {
   }
 }
 
-class PurchasesTitlesBar extends StatelessWidget {
-  const PurchasesTitlesBar({super.key});
+class PurchasesListTitlesBar extends StatelessWidget {
+  const PurchasesListTitlesBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -306,22 +306,22 @@ class PurchasesTitlesBar extends StatelessWidget {
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ListTableTitlesBarItem(text: "Tedarikçi ID", flex: 2),
+              const ListTableTitlesBarItem(text: "Tedarikçi", flex: 3),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ListTableTitlesBarItem(text: "Ürün ID", flex: 2),
+              const ListTableTitlesBarItem(text: "Ürün", flex: 8),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ListTableTitlesBarItem(text: "Fiyat", flex: 3),
+              const ListTableTitlesBarItem(text: "Fiyat", flex: 2),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ListTableTitlesBarItem(text: "Adet", flex: 3),
+              const ListTableTitlesBarItem(text: "Adet", flex: 2),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
@@ -349,6 +349,55 @@ class PurchasesListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map<dynamic, dynamic>? product;
+    Map<dynamic, dynamic>? supplier;
+    String productInfo = "-";
+    String supplierInfo = "-";
+
+    if (purchase[Purchase().supplierID] != null) {
+      try {
+        supplier = DatabaseService().getSuppliers(
+          purchase[Purchase().supplierID],
+          null,
+        )[0];
+      } catch (_) {
+        supplier = null;
+      }
+
+      if (supplier != null) {
+        supplierInfo = supplier[Supplier().name];
+      }
+    }
+
+    try {
+      product = DatabaseService().getProducts(
+        purchase[Purchase().productID],
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+      )[0];
+    } catch (_) {
+      product = null;
+    }
+
+    if (product != null) {
+      productInfo = "${product[Product().name]}";
+
+      if (product[Product().brand] != null) {
+        productInfo += " - ${product[Product().brand]} Marka";
+      }
+      if (product[Product().color] != null) {
+        productInfo += " - ${product[Product().color]} Renk";
+      }
+      if (product[Product().color] != null) {
+        productInfo +=
+            " - ${product[Product().size]} ${product[Product().sizeType]}";
+      }
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
@@ -372,20 +421,16 @@ class PurchasesListItem extends StatelessWidget {
                   space: 10,
                 ),
                 ListTableItemPart(
-                  value: (purchase[Purchase().supplierID] != null)
-                      ? purchase[Purchase().supplierID].toString()
-                      : null,
-                  flex: 2,
+                  value: supplierInfo,
+                  flex: 3,
                 ),
                 ListTableVerticalSeperator(
                   color: YMColors().lightGrey,
                   space: 10,
                 ),
                 ListTableItemPart(
-                  value: (purchase[Purchase().productID] != null)
-                      ? purchase[Purchase().productID].toString()
-                      : null,
-                  flex: 2,
+                  value: productInfo,
+                  flex: 8,
                 ),
                 ListTableVerticalSeperator(
                   color: YMColors().lightGrey,
@@ -395,7 +440,7 @@ class PurchasesListItem extends StatelessWidget {
                   value: (purchase[Purchase().price] != null)
                       ? purchase[Purchase().price].toString()
                       : null,
-                  flex: 3,
+                  flex: 2,
                 ),
                 ListTableVerticalSeperator(
                   color: YMColors().lightGrey,
@@ -405,7 +450,7 @@ class PurchasesListItem extends StatelessWidget {
                   value: (purchase[Purchase().amount] != null)
                       ? purchase[Purchase().amount].toString()
                       : null,
-                  flex: 3,
+                  flex: 2,
                 ),
                 ListTableVerticalSeperator(
                   color: YMColors().lightGrey,

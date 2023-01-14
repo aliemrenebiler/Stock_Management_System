@@ -93,7 +93,7 @@ class _ListSalesScreenState extends State<ListSalesScreen> {
                       padding:
                           const EdgeInsets.only(top: 10, left: 10, right: 10),
                       child: ListTable(
-                        titlesBar: const SalesTitlesBar(),
+                        titlesBar: const SalesListTitlesBar(),
                         items: [
                           for (int i = 0; i < listedSales.length; i++)
                             SalesListItem(
@@ -274,8 +274,8 @@ class SalesListSearchBar extends StatelessWidget {
   }
 }
 
-class SalesTitlesBar extends StatelessWidget {
-  const SalesTitlesBar({super.key});
+class SalesListTitlesBar extends StatelessWidget {
+  const SalesListTitlesBar({super.key});
 
   @override
   Widget build(BuildContext context) {
