@@ -75,7 +75,19 @@ class _ListPurchasesScreenState extends State<ListPurchasesScreen> {
               ),
               Expanded(
                 flex: 2,
-                child: Container(),
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: MenuButton(
+                    text: "Tedarikçiler",
+                    bgColor: YMColors().red,
+                    textColor: YMColors().white,
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(
+                          context, '/list_suppliers');
+                    },
+                    height: 50,
+                  ),
+                ),
               ),
             ],
           ),

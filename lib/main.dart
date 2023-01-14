@@ -1,6 +1,7 @@
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:yildiz_motor_v2/screens/supplier/list_suppliers_screen.dart';
 
 import 'screens/password/change_password_screen.dart';
 import 'screens/settings_screen.dart';
@@ -99,6 +100,12 @@ class MyApp extends StatelessWidget {
           case '/edit_sale':
             return PageTransition(
               child: const EditSaleScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/list_suppliers':
+            return PageTransition(
+              child: const ListSuppliersScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );
