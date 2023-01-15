@@ -61,6 +61,7 @@ class EnterPasswordScreen extends StatelessWidget {
                               hideText: true,
                               hintText: "Lütfen şifre giriniz.",
                               controller: passwordController,
+                              action: TextInputAction.next,
                             ),
                           ),
                         ),

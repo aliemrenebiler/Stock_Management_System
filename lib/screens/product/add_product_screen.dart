@@ -169,6 +169,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                         controller: nameController,
                                         hintText:
                                             '(Zorunlu) "Otomatik Doldur" ile diğer alanları doldurun!',
+                                        action: TextInputAction.next,
                                       ),
                                     ),
                                   ],
@@ -209,6 +210,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                             child: CustomTextField(
                                               height: 50,
                                               controller: brandController,
+                                              action: TextInputAction.next,
                                             ),
                                           ),
                                         ),
@@ -239,6 +241,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                               height: 50,
                                               hintText: "(Zorunlu)",
                                               controller: categoryController,
+                                              action: TextInputAction.next,
                                             ),
                                           ),
                                         ),
@@ -268,6 +271,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                             child: CustomTextField(
                                               height: 50,
                                               controller: colorController,
+                                              action: TextInputAction.next,
                                             ),
                                           ),
                                         ),
@@ -297,6 +301,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                             child: CustomTextField(
                                               height: 50,
                                               controller: sizeController,
+                                              action: TextInputAction.next,
                                             ),
                                           ),
                                         ),
@@ -326,6 +331,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                             child: CustomTextField(
                                               height: 50,
                                               controller: sizeTypeController,
+                                              action: TextInputAction.next,
                                             ),
                                           ),
                                         ),
@@ -357,6 +363,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                               hintText: "(Zorunlu)",
                                               controller: priceController,
                                               inputType: double,
+                                              action: TextInputAction.next,
                                             ),
                                           ),
                                         ),

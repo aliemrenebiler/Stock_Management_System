@@ -135,6 +135,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                             height: 50,
                                             hintText: "(Zorunlu)",
                                             controller: nameController,
+                                            action: TextInputAction.next,
                                           ),
                                         ),
                                       ),
@@ -164,6 +165,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                           child: CustomTextField(
                                             height: 50,
                                             controller: brandController,
+                                            action: TextInputAction.next,
                                           ),
                                         ),
                                       ),
@@ -194,6 +196,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                             height: 50,
                                             hintText: "(Zorunlu)",
                                             controller: categoryController,
+                                            action: TextInputAction.next,
                                           ),
                                         ),
                                       ),
@@ -223,6 +226,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                           child: CustomTextField(
                                             height: 50,
                                             controller: colorController,
+                                            action: TextInputAction.next,
                                           ),
                                         ),
                                       ),
@@ -252,6 +256,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                           child: CustomTextField(
                                             height: 50,
                                             controller: sizeController,
+                                            action: TextInputAction.next,
                                           ),
                                         ),
                                       ),
@@ -281,6 +286,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                           child: CustomTextField(
                                             height: 50,
                                             controller: sizeTypeController,
+                                            action: TextInputAction.next,
                                           ),
                                         ),
                                       ),
@@ -312,6 +318,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                             hintText: "(Zorunlu)",
                                             controller: priceController,
                                             inputType: double,
+                                            action: TextInputAction.next,
                                           ),
                                         ),
                                       ),

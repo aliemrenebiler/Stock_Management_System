@@ -169,6 +169,7 @@ class SuppliersListSearchBar extends StatelessWidget {
                   hintText: "İsim, Telefon Numarası veya Adres",
                   height: 50,
                   controller: infoController,
+                  action: TextInputAction.send,
                 ),
               ),
             ),

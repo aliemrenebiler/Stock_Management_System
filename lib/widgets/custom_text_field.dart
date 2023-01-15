@@ -10,38 +10,51 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final Type? inputType;
+  final int? maxInputLength;
   final double? height;
   final double? width;
+  final TextInputAction? action;
   const CustomTextField({
     super.key,
     this.keyboardType,
     this.inputType,
+    this.maxInputLength,
     this.controller,
     this.hintText,
     this.hideText,
     this.validator,
     this.height,
     this.width,
+    this.action,
   });
 
   @override
   Widget build(BuildContext context) {
-    List<FilteringTextInputFormatter>? formatter;
+    List<TextInputFormatter>? formatter = [];
     if (inputType == int) {
-      formatter = [
+      formatter.add(
         FilteringTextInputFormatter.allow(
           RegExp(r'[0-9]+'),
         ),
-      ];
+      );
     } else if (inputType == double) {
-      formatter = [
+      formatter.add(
         FilteringTextInputFormatter.allow(
           RegExp(r'[0-9]+[.]{0,1}[0-9]*'),
         ),
-      ];
-    } else {
+      );
+    }
+
+    if (maxInputLength != null) {
+      formatter.add(
+        LengthLimitingTextInputFormatter(maxInputLength),
+      );
+    }
+
+    if (formatter.isEmpty) {
       formatter = null;
     }
+
     return Container(
       width: width,
       height: height,
@@ -66,6 +79,7 @@ class CustomTextField extends StatelessWidget {
         cursorColor: YMColors().darkBlue,
         autofocus: false,
         inputFormatters: formatter,
+        textInputAction: action ?? TextInputAction.done,
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: TextStyle(

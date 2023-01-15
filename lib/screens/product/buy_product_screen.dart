@@ -20,7 +20,9 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
   Widget build(BuildContext context) {
     TextEditingController priceController = TextEditingController();
     TextEditingController amountController = TextEditingController();
-    TextEditingController dateController = TextEditingController();
+    TextEditingController dayController = TextEditingController();
+    TextEditingController monthController = TextEditingController();
+    TextEditingController yearController = TextEditingController();
     return Scaffold(
       backgroundColor: YMColors().white,
       body: Column(
@@ -125,6 +127,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                             hintText: "(Zorunlu)",
                                             controller: priceController,
                                             inputType: double,
+                                            action: TextInputAction.next,
                                           ),
                                         ),
                                       ),
@@ -156,6 +159,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                             hintText: "(Zorunlu)",
                                             controller: amountController,
                                             inputType: int,
+                                            action: TextInputAction.next,
                                           ),
                                         ),
                                       ),
@@ -180,13 +184,53 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                       ),
                                       Expanded(
                                         flex: 2,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
-                                            height: 50,
-                                            hintText: "(Zorunlu)",
-                                            controller: dateController,
-                                          ),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 2,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(5),
+                                                child: CustomTextField(
+                                                  height: 50,
+                                                  hintText: "(Gün)",
+                                                  controller: dayController,
+                                                  inputType: int,
+                                                  maxInputLength: 2,
+                                                  action: TextInputAction.next,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 2,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(5),
+                                                child: CustomTextField(
+                                                  height: 50,
+                                                  hintText: "(Ay)",
+                                                  controller: monthController,
+                                                  inputType: int,
+                                                  maxInputLength: 2,
+                                                  action: TextInputAction.next,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 3,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(5),
+                                                child: CustomTextField(
+                                                  height: 50,
+                                                  hintText: "(Yıl)",
+                                                  controller: yearController,
+                                                  inputType: int,
+                                                  maxInputLength: 4,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
@@ -206,7 +250,9 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                   onPressed: () {
                                     priceController.clear();
                                     amountController.clear();
-                                    dateController.clear();
+                                    dayController.clear();
+                                    monthController.clear();
+                                    yearController.clear();
                                   },
                                   bgColor: YMColors().grey,
                                   textColor: YMColors().white,
@@ -224,14 +270,30 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                   onPressed: () {
                                     if (priceController.text.isEmpty ||
                                         amountController.text.isEmpty ||
-                                        dateController.text.isEmpty) {
+                                        dayController.text.isEmpty ||
+                                        monthController.text.isEmpty ||
+                                        yearController.text.isEmpty) {
                                       showCustomSnackBar(
                                         context,
                                         "Lütfen zorunlu alanları doldurunuz.",
                                         YMColors().white,
                                         YMColors().red,
                                       );
+                                    } else if (int.parse(dayController.text) >
+                                            31 ||
+                                        int.parse(dayController.text) < 1 ||
+                                        int.parse(monthController.text) > 12 ||
+                                        int.parse(monthController.text) < 1 ||
+                                        yearController.text.length < 4) {
+                                      showCustomSnackBar(
+                                        context,
+                                        "Lütfen geçerli bir tarih giriniz.",
+                                        YMColors().white,
+                                        YMColors().red,
+                                      );
                                     } else {
+                                      String date =
+                                          "${dayController.text.padLeft(2, "0")}.${monthController.text.padLeft(2, "0")}.${yearController.text}";
                                       DatabaseService().insertPurchase(
                                         {
                                           Purchase().id: null,
@@ -242,7 +304,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                               priceController.text),
                                           Purchase().amount:
                                               int.parse(amountController.text),
-                                          Purchase().date: dateController.text,
+                                          Purchase().date: date,
                                         },
                                       );
                                       DatabaseService().updateProduct(

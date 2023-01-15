@@ -120,6 +120,7 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                                             height: 50,
                                             hintText: "(Zorunlu)",
                                             controller: nameController,
+                                            action: TextInputAction.next,
                                           ),
                                         ),
                                       ),
@@ -149,6 +150,7 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                                           child: CustomTextField(
                                             height: 50,
                                             controller: phoneController,
+                                            action: TextInputAction.next,
                                           ),
                                         ),
                                       ),
