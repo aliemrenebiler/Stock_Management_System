@@ -27,6 +27,7 @@ class MenuButton extends StatelessWidget {
       child: TextButton(
         style: TextButton.styleFrom(
           backgroundColor: bgColor,
+          foregroundColor: YMColors().black,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
