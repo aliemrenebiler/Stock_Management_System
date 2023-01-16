@@ -9,6 +9,7 @@ import '../../widgets/menu_button.dart';
 import '../../widgets/top_bar.dart';
 
 List<Map<dynamic, dynamic>> listedProducts = [];
+bool showDeletedItems = false;
 
 class ListProductsScreen extends StatefulWidget {
   const ListProductsScreen({Key? key}) : super(key: key);
@@ -58,6 +59,10 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
                 ),
               ),
               Expanded(
+                flex: 2,
+                child: Container(),
+              ),
+              Expanded(
                 flex: 15,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
@@ -70,6 +75,24 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
                       fontSize: YMSizes().fontSizeLarge,
                       fontWeight: FontWeight.bold,
                     ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: MenuButton(
+                    text: showDeletedItems ? "Geri" : "Silinenler",
+                    onPressed: () {
+                      listedProducts = DatabaseService().getProducts(null, null,
+                          null, null, null, null, null, showDeletedItems);
+                      showDeletedItems = !showDeletedItems;
+                      refresh();
+                    },
+                    height: 50,
+                    textColor: YMColors().white,
+                    bgColor: YMColors().red,
                   ),
                 ),
               ),
@@ -97,7 +120,9 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(10),
-                    child: ProductsListSearchBar(notifyParent: refresh),
+                    child: ProductsListSearchBar(
+                      notifyParent: refresh,
+                    ),
                   ),
                   Expanded(
                     child: Padding(

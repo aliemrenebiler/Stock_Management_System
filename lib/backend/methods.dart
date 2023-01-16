@@ -277,7 +277,7 @@ class DatabaseService {
         product[Product().sizeType] as String,
         product[Product().amount] as int,
         product[Product().price] as double,
-        true,
+        product[Product().visible] as int,
       ],
     );
     database.dispose();
@@ -296,7 +296,7 @@ class DatabaseService {
       ${Product().sizeType}=?,
       ${Product().amount}=?,
       ${Product().price}=?,
-      ${Product().visible}=?,
+      ${Product().visible}=?
       WHERE ${Product().id}=?
       ''',
       [
@@ -308,7 +308,7 @@ class DatabaseService {
         product[Product().sizeType] as String,
         product[Product().amount] as int,
         product[Product().price] as double,
-        product[Product().visible] as bool,
+        product[Product().visible] as int,
         product[Product().id] as int,
       ],
     );
@@ -331,13 +331,11 @@ class DatabaseService {
     database.execute(
       '''
       UPDATE ${Product().tableName} SET
-      ${Product().amount}=?,
       ${Product().visible}=?
       WHERE ${Product().id}=?
       ''',
       [
-        0,
-        visible,
+        visible ? 1 : 0,
         id,
       ],
     );

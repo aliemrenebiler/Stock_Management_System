@@ -24,6 +24,10 @@ class _SellProductScreenState extends State<SellProductScreen> {
 
   @override
   void initState() {
+    DateTime today = DateTime.now();
+    dayController.text = today.day.toString().padLeft(2, "0");
+    monthController.text = today.month.toString().padLeft(2, "0");
+    yearController.text = today.year.toString();
     priceController.text = editedItem[Product().price].toString();
     super.initState();
   }
@@ -344,6 +348,8 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                           Product().amount: editedItem[
                                                   Product().amount] -
                                               int.parse(amountController.text),
+                                          Product().visible:
+                                              editedItem[Product().visible],
                                         },
                                       );
                                       showCustomSnackBar(

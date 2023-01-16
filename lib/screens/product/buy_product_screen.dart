@@ -16,13 +16,23 @@ class BuyProductScreen extends StatefulWidget {
 }
 
 class _BuyProductScreenState extends State<BuyProductScreen> {
+  TextEditingController priceController = TextEditingController();
+  TextEditingController amountController = TextEditingController();
+  TextEditingController dayController = TextEditingController();
+  TextEditingController monthController = TextEditingController();
+  TextEditingController yearController = TextEditingController();
+
+  @override
+  void initState() {
+    DateTime today = DateTime.now();
+    dayController.text = today.day.toString().padLeft(2, "0");
+    monthController.text = today.month.toString().padLeft(2, "0");
+    yearController.text = today.year.toString();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController priceController = TextEditingController();
-    TextEditingController amountController = TextEditingController();
-    TextEditingController dayController = TextEditingController();
-    TextEditingController monthController = TextEditingController();
-    TextEditingController yearController = TextEditingController();
     return Scaffold(
       backgroundColor: YMColors().white,
       body: Column(
@@ -328,6 +338,8 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                           Product().amount: editedItem[
                                                   Product().amount] +
                                               int.parse(amountController.text),
+                                          Product().visible:
+                                              editedItem[Product().visible],
                                         },
                                       );
                                       showCustomSnackBar(
