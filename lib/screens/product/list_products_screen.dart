@@ -24,8 +24,8 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
 
   @override
   void initState() {
-    listedProducts =
-        DatabaseService().getProducts(null, null, null, null, null, null, null);
+    listedProducts = DatabaseService()
+        .getProducts(null, null, null, null, null, null, null, true);
     super.initState();
   }
 
@@ -150,8 +150,8 @@ class ProductsListSearchBar extends StatelessWidget {
                 child: MenuButton(
                   text: "Temizle",
                   onPressed: () {
-                    listedProducts = DatabaseService()
-                        .getProducts(null, null, null, null, null, null, null);
+                    listedProducts = DatabaseService().getProducts(
+                        null, null, null, null, null, null, null, null);
                     notifyParent();
                   },
                   height: 50,
@@ -301,6 +301,7 @@ class ProductsListSearchBar extends StatelessWidget {
                       (maxAmountController.text.isEmpty)
                           ? null
                           : int.parse(maxAmountController.text),
+                      false,
                     );
                     notifyParent();
                   },

@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:yildiz_motor_v2/backend/methods.dart';
-import 'package:yildiz_motor_v2/widgets/custom_snack_bar.dart';
 
 import '../../backend/theme.dart';
+import '../../widgets/custom_snack_bar.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/menu_button.dart';
 import '../../widgets/top_bar.dart';
 
-class EnterPasswordScreen extends StatelessWidget {
-  const EnterPasswordScreen({super.key});
+class ClearDataScreen extends StatefulWidget {
+  const ClearDataScreen({super.key});
 
+  @override
+  State<ClearDataScreen> createState() => _ClearDataScreenState();
+}
+
+class _ClearDataScreenState extends State<ClearDataScreen> {
   @override
   Widget build(BuildContext context) {
     TextEditingController passwordController = TextEditingController();
@@ -20,10 +25,26 @@ class EnterPasswordScreen extends StatelessWidget {
           TopBar(
             widgets: [
               Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: MenuButton(
+                    text: "Geri",
+                    bgColor: YMColors().red,
+                    textColor: YMColors().white,
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/settings');
+                    },
+                    height: 50,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 15,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
                   child: Text(
-                    "Giriş",
+                    "Verileri Sıfırla",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -33,6 +54,10 @@ class EnterPasswordScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Container(),
               ),
             ],
           ),
@@ -64,7 +89,7 @@ class EnterPasswordScreen extends StatelessWidget {
                                     padding: const EdgeInsets.all(5),
                                     alignment: Alignment.center,
                                     child: Text(
-                                      "Lütfen şifrenizi giriniz.",
+                                      "Verileri sıfırlamak için lütfen şifrenizi girin.",
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.right,
                                       style: TextStyle(
@@ -91,9 +116,17 @@ class EnterPasswordScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(5),
                           child: MenuButton(
-                            text: "Giriş Yap",
+                            text: "Sıfırla",
                             onPressed: () async {
-                              if (passwordController.text !=
+                              if (await SharedPrefsService().isPasswordExists ==
+                                  false) {
+                                showCustomSnackBar(
+                                  context,
+                                  "Mevcut şifre belirlenmemiş, uygulamayı yeniden başlatın.",
+                                  YMColors().white,
+                                  YMColors().red,
+                                );
+                              } else if (passwordController.text !=
                                   await SharedPrefsService().getPassword()) {
                                 showCustomSnackBar(
                                   context,
@@ -102,12 +135,34 @@ class EnterPasswordScreen extends StatelessWidget {
                                   YMColors().red,
                                 );
                               } else {
-                                passwordController.clear();
-                                Navigator.pushReplacementNamed(
-                                    context, "/home");
+                                try {
+                                  DatabaseService().deletePurchasesTable();
+                                  DatabaseService().deleteSalesTable();
+                                  DatabaseService().deleteSuppliersTable();
+                                  DatabaseService().deleteProductsTable();
+
+                                  DatabaseService().createProductsTable();
+                                  DatabaseService().createSuppliersTable();
+                                  DatabaseService().createSalesTable();
+                                  DatabaseService().createPurchasesTable();
+
+                                  showCustomSnackBar(
+                                    context,
+                                    "Tüm veriler sıfırlandı.",
+                                    YMColors().white,
+                                    YMColors().blue,
+                                  );
+                                } catch (e) {
+                                  showCustomSnackBar(
+                                    context,
+                                    "Bir hata oluştu: $e",
+                                    YMColors().white,
+                                    YMColors().red,
+                                  );
+                                }
                               }
                             },
-                            bgColor: YMColors().blue,
+                            bgColor: YMColors().red,
                             textColor: YMColors().white,
                             height: 50,
                             width: double.infinity,

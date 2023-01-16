@@ -1,11 +1,12 @@
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:yildiz_motor_v2/screens/settings/clear_data_screen.dart';
 
 import 'screens/supplier/edit_supplier_screen.dart';
 import 'screens/supplier/list_suppliers_screen.dart';
-import 'screens/password/change_password_screen.dart';
-import 'screens/settings_screen.dart';
+import 'screens/settings/change_password_screen.dart';
+import 'screens/settings/settings_screen.dart';
 import 'screens/purchase/edit_purchase_screen.dart';
 import 'screens/purchase/list_purchases_screen.dart';
 import 'screens/sale/edit_sale_screen.dart';
@@ -125,6 +126,12 @@ class MyApp extends StatelessWidget {
           case '/change_password':
             return PageTransition(
               child: const ChangePasswordScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/clear_data':
+            return PageTransition(
+              child: const ClearDataScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );

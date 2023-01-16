@@ -374,15 +374,8 @@ class PurchasesListItem extends StatelessWidget {
     }
 
     try {
-      product = DatabaseService().getProducts(
-        purchase[Purchase().productID],
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-      )[0];
+      product = DatabaseService().getProducts(purchase[Purchase().productID],
+          null, null, null, null, null, null, null)[0];
     } catch (_) {
       product = null;
     }

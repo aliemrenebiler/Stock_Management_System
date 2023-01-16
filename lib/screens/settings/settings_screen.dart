@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../backend/theme.dart';
-import '../widgets/menu_button.dart';
-import '../widgets/top_bar.dart';
+import '../../backend/theme.dart';
+import '../../widgets/menu_button.dart';
+import '../../widgets/top_bar.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -69,6 +69,20 @@ class SettingsScreen extends StatelessWidget {
                             onPressed: () {
                               Navigator.pushReplacementNamed(
                                   context, '/change_password');
+                            },
+                            bgColor: YMColors().red,
+                            textColor: YMColors().white,
+                            width: double.infinity,
+                            height: 50,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: MenuButton(
+                            text: "Verileri Sıfırla",
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(
+                                  context, "/clear_data");
                             },
                             bgColor: YMColors().red,
                             textColor: YMColors().white,

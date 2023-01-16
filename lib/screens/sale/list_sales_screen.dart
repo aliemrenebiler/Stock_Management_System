@@ -341,14 +341,7 @@ class SalesListItem extends StatelessWidget {
 
     try {
       product = DatabaseService().getProducts(
-        sale[Sale().productID],
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-      )[0];
+          sale[Sale().productID], null, null, null, null, null, null, null)[0];
     } catch (_) {
       product = null;
     }

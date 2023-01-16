@@ -32,71 +32,130 @@ class SharedPrefsService {
 class DatabaseService {
   getDBSize(String dbName) {
     Database database = sqlite3.open(dbName);
-    int size = database.select('SELECT COUNT(*) FROM $dbName')[0][0];
+    int size = database.select(
+      '''
+      SELECT COUNT(*) FROM $dbName
+      ''',
+    )[0][0];
     database.dispose();
     return size;
   }
 
-  createProducts() {
+  createProductsTable() {
     Database database = sqlite3.open(dbName);
     database.execute(
-      'CREATE TABLE ${Product().tableName}(${Product().id} INTEGER PRIMARY KEY,${Product().name} TEXT not null,${Product().brand} TEXT,${Product().category} TEXT,${Product().color} TEXT,${Product().size} TEXT,${Product().sizeType} TEXT,${Product().amount} INTEGER,${Product().price} REAL)',
+      '''
+      CREATE TABLE IF NOT EXISTS ${Product().tableName}(
+      ${Product().id} INTEGER PRIMARY KEY,
+      ${Product().name} TEXT not null,
+      ${Product().category} TEXT not null,
+      ${Product().brand} TEXT,
+      ${Product().color} TEXT,
+      ${Product().size} TEXT,
+      ${Product().sizeType} TEXT,
+      ${Product().amount} INTEGER not null,
+      ${Product().price} REAL not null,
+      ${Product().visible} INTEGER not null
+      )
+      ''',
     );
     database.dispose();
   }
 
-  deleteProducts() {
+  deleteProductsTable() {
     Database database = sqlite3.open(dbName);
     database.execute(
-      ' DROP TABLE [IF EXISTS] ${Product().tableName}',
+      '''
+      DROP TABLE IF EXISTS ${Product().tableName}
+      ''',
     );
     database.dispose();
   }
 
-  createSuppliers() {
+  createSuppliersTable() {
     Database database = sqlite3.open(dbName);
     database.execute(
-      'CREATE TABLE ${Supplier().tableName}(${Supplier().id} INTEGER PRIMARY KEY, ${Supplier().name} TEXT not null, ${Supplier().phone} TEXT,${Supplier().address} TEXT)',
+      '''
+      CREATE TABLE IF NOT EXISTS ${Supplier().tableName}(
+      ${Supplier().id} INTEGER PRIMARY KEY,
+      ${Supplier().name} TEXT not null,
+      ${Supplier().phone} TEXT,
+      ${Supplier().address} TEXT
+      )
+      ''',
     );
     database.dispose();
   }
 
-  deleteSuppliers() {
+  deleteSuppliersTable() {
     Database database = sqlite3.open(dbName);
     database.execute(
-      ' DROP TABLE [IF EXISTS] ${Supplier().tableName}',
+      '''
+      DROP TABLE IF EXISTS ${Supplier().tableName}
+      ''',
     );
     database.dispose();
   }
 
-  createPurchases() {
+  createPurchasesTable() {
     Database database = sqlite3.open(dbName);
     database.execute(
-      'CREATE TABLE ${Purchase().tableName}(${Purchase().id} INTEGER PRIMARY KEY,${Purchase().supplierID} INTEGER,${Purchase().productID} INTEGER,${Purchase().amount} INTEGER,${Purchase().price} REAL,${Purchase().date} TEXT,CONSTRAINT fk_tedarikci FOREIGN KEY (${Purchase().supplierID}) REFERENCES ${Supplier().tableName}(${Supplier().id}) ON DELETE SET NULL, CONSTRAINT fk_tedarikci FOREIGN KEY (${Purchase().productID}) REFERENCES ${Purchase().tableName}(${Product().id}) ON DELETE SET NULL)',
+      '''
+      CREATE TABLE IF NOT EXISTS ${Purchase().tableName}(
+      ${Purchase().id} INTEGER PRIMARY KEY,
+      ${Purchase().supplierID} INTEGER,
+      ${Purchase().productID} INTEGER not null,
+      ${Purchase().amount} INTEGER not null,
+      ${Purchase().price} REAL not null,
+      ${Purchase().date} TEXT not null,
+      CONSTRAINT ${Purchase().tableName}Const1
+      FOREIGN KEY (${Purchase().supplierID})
+      REFERENCES ${Supplier().tableName}(${Supplier().id})
+      ON DELETE SET NULL,
+      CONSTRAINT ${Purchase().tableName}Const2
+      FOREIGN KEY (${Purchase().productID})
+      REFERENCES ${Purchase().tableName}(${Product().id})
+      ON DELETE SET NULL
+      )
+      ''',
     );
     database.dispose();
   }
 
-  deletePurchases() {
+  deletePurchasesTable() {
     Database database = sqlite3.open(dbName);
     database.execute(
-      ' DROP TABLE [IF EXISTS] ${Purchase().tableName}',
+      'DROP TABLE IF EXISTS ${Purchase().tableName}',
     );
     database.dispose();
   }
 
-  createSales() {
+  createSalesTable() {
     Database database = sqlite3.open(dbName);
     database.execute(
-      'CREATE TABLE ${Sale().tableName}(${Sale().id} INTEGER PRIMARY KEY,${Sale().productID} INTEGER,${Sale().amount} INTEGER,${Sale().price} REAL,${Sale().date} TEXT,CONSTRAINT fk_tedarikci FOREIGN KEY (${Sale().productID}) REFERENCES ${Product().tableName}(${Product().id}) ON DELETE SET NULL)',
+      '''
+      CREATE TABLE IF NOT EXISTS ${Sale().tableName}(
+      ${Sale().id} INTEGER PRIMARY KEY,
+      ${Sale().productID} INTEGER not null,
+      ${Sale().amount} INTEGER not null,
+      ${Sale().price} REAL not null,
+      ${Sale().date} TEXT not null,
+      CONSTRAINT ${Sale().tableName}Const1
+      FOREIGN KEY (${Sale().productID})
+      REFERENCES ${Product().tableName}(${Product().id})
+      ON DELETE SET NULL
+      )
+      ''',
     );
     database.dispose();
   }
 
-  deleteSales() {
+  deleteSalesTable() {
     Database database = sqlite3.open(dbName);
     database.execute(
-      ' DROP TABLE [IF EXISTS] ${Sale().tableName}',
+      '''
+      DROP TABLE IF EXISTS ${Sale().tableName}
+      ''',
     );
     database.dispose();
   }
@@ -109,6 +168,7 @@ class DatabaseService {
     double? maxPrice,
     int? minAmount,
     int? maxAmount,
+    bool? visible,
   ) {
     String query = 'SELECT * FROM ${Product().tableName}';
     bool isSearching = false;
@@ -173,6 +233,15 @@ class DatabaseService {
         query += ' ${Product().amount}<=$maxAmount';
       }
     }
+    if (visible != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' INTERSECT SELECT * FROM ${Product().tableName} WHERE';
+      }
+      query += ' ${Product().visible}==$visible';
+    }
 
     Database database = sqlite3.open(dbName);
     var products = database.select(query);
@@ -184,7 +253,20 @@ class DatabaseService {
   insertProduct(Map<dynamic, dynamic> product) {
     Database database = sqlite3.open(dbName);
     database.execute(
-      'INSERT INTO ${Product().tableName}(${Product().id},${Product().name},${Product().brand},${Product().category},${Product().color},${Product().size},${Product().sizeType},${Product().amount},${Product().price}) VALUES(?,?,?,?,?,?,?,?,?)',
+      '''
+      INSERT INTO ${Product().tableName}(
+      ${Product().id},
+      ${Product().name},
+      ${Product().brand},
+      ${Product().category},
+      ${Product().color},
+      ${Product().size},
+      ${Product().sizeType},
+      ${Product().amount},
+      ${Product().price},
+      ${Product().visible}
+      ) VALUES(?,?,?,?,?,?,?,?,?,?)
+      ''',
       [
         product[Product().id] as int,
         product[Product().name] as String,
@@ -195,6 +277,7 @@ class DatabaseService {
         product[Product().sizeType] as String,
         product[Product().amount] as int,
         product[Product().price] as double,
+        true,
       ],
     );
     database.dispose();
@@ -203,7 +286,19 @@ class DatabaseService {
   updateProduct(Map<dynamic, dynamic> product) {
     Database database = sqlite3.open(dbName);
     database.execute(
-      'UPDATE ${Product().tableName} SET ${Product().name}=?,${Product().brand}=?,${Product().category}=?,${Product().color}=?,${Product().size}=?,${Product().sizeType}=?,${Product().amount}=?,${Product().price}=? WHERE ${Product().id}=?',
+      '''
+      UPDATE ${Product().tableName} SET
+      ${Product().name}=?,
+      ${Product().brand}=?,
+      ${Product().category}=?,
+      ${Product().color}=?,
+      ${Product().size}=?,
+      ${Product().sizeType}=?,
+      ${Product().amount}=?,
+      ${Product().price}=?,
+      ${Product().visible}=?,
+      WHERE ${Product().id}=?
+      ''',
       [
         product[Product().name] as String,
         product[Product().brand] as String,
@@ -213,6 +308,7 @@ class DatabaseService {
         product[Product().sizeType] as String,
         product[Product().amount] as int,
         product[Product().price] as double,
+        product[Product().visible] as bool,
         product[Product().id] as int,
       ],
     );
@@ -222,7 +318,29 @@ class DatabaseService {
   deleteProduct(int id) {
     Database database = sqlite3.open(dbName);
     database.execute(
-        'DELETE FROM ${Product().tableName} WHERE ${Product().id}=$id');
+      '''
+      DELETE FROM ${Product().tableName}
+      WHERE ${Product().id}=$id
+      ''',
+    );
+    database.dispose();
+  }
+
+  changeProductVisibility(int id, bool visible) {
+    Database database = sqlite3.open(dbName);
+    database.execute(
+      '''
+      UPDATE ${Product().tableName} SET
+      ${Product().amount}=?,
+      ${Product().visible}=?
+      WHERE ${Product().id}=?
+      ''',
+      [
+        0,
+        visible,
+        id,
+      ],
+    );
     database.dispose();
   }
 
@@ -261,7 +379,14 @@ class DatabaseService {
   insertSupplier(Map<dynamic, dynamic> supplier) {
     Database database = sqlite3.open(dbName);
     database.execute(
-      'INSERT INTO ${Supplier().tableName}(${Supplier().id},${Supplier().name},${Supplier().phone},${Supplier().address}) VALUES(?,?,?,?)',
+      '''
+      INSERT INTO ${Supplier().tableName}(
+      ${Supplier().id},
+      ${Supplier().name},
+      ${Supplier().phone},
+      ${Supplier().address}
+      ) VALUES(?,?,?,?)
+      ''',
       [
         supplier[Supplier().id],
         supplier[Supplier().name],
@@ -275,7 +400,13 @@ class DatabaseService {
   updateSupplier(Map<dynamic, dynamic> supplier) {
     Database database = sqlite3.open(dbName);
     database.execute(
-      'UPDATE ${Supplier().tableName} SET ${Supplier().name}=?,${Supplier().phone}=?,${Supplier().address}=? WHERE ${Supplier().id}=?',
+      '''
+      UPDATE ${Supplier().tableName} SET
+      ${Supplier().name}=?,
+      ${Supplier().phone}=?,
+      ${Supplier().address}=?
+      WHERE ${Supplier().id}=?
+      ''',
       [
         supplier[Supplier().name],
         supplier[Supplier().phone],
@@ -289,7 +420,11 @@ class DatabaseService {
   deleteSupplier(int id) {
     Database database = sqlite3.open(dbName);
     database.execute(
-        'DELETE FROM ${Supplier().tableName} WHERE ${Supplier().id}=$id');
+      '''
+      DELETE FROM ${Supplier().tableName}
+      WHERE ${Supplier().id}=$id
+      ''',
+    );
     database.dispose();
   }
 
@@ -365,7 +500,16 @@ class DatabaseService {
   insertPurchase(Map<dynamic, dynamic> purchase) {
     Database database = sqlite3.open(dbName);
     database.execute(
-      'INSERT INTO ${Purchase().tableName}(${Purchase().id},${Purchase().supplierID},${Purchase().productID},${Purchase().amount},${Purchase().price},${Purchase().date}) VALUES(?,?,?,?,?,?)',
+      '''
+      INSERT INTO ${Purchase().tableName}(
+      ${Purchase().id},
+      ${Purchase().supplierID},
+      ${Purchase().productID},
+      ${Purchase().amount},
+      ${Purchase().price},
+      ${Purchase().date}
+      ) VALUES(?,?,?,?,?,?)
+      ''',
       [
         purchase[Purchase().id],
         purchase[Purchase().supplierID],
@@ -381,7 +525,15 @@ class DatabaseService {
   updatePurchase(Map<dynamic, dynamic> purchase) {
     Database database = sqlite3.open(dbName);
     database.execute(
-      'UPDATE ${Purchase().tableName} SET ${Purchase().supplierID}=?,${Purchase().productID}=?,${Purchase().amount}=?,${Purchase().price}=?,${Purchase().date}=? WHERE ${Purchase().id}=?',
+      '''
+      UPDATE ${Purchase().tableName} SET
+      ${Purchase().supplierID}=?,
+      ${Purchase().productID}=?,
+      ${Purchase().amount}=?,
+      ${Purchase().price}=?,
+      ${Purchase().date}=?
+      WHERE ${Purchase().id}=?
+      ''',
       [
         purchase[Purchase().supplierID],
         purchase[Purchase().productID],
@@ -397,7 +549,11 @@ class DatabaseService {
   deletePurchase(int id) {
     Database database = sqlite3.open(dbName);
     database.execute(
-        'DELETE FROM ${Purchase().tableName} WHERE ${Purchase().id}=$id');
+      '''
+      DELETE FROM ${Purchase().tableName}
+      WHERE ${Purchase().id}=$id
+      ''',
+    );
     database.dispose();
   }
 
@@ -473,7 +629,15 @@ class DatabaseService {
   insertSale(Map<dynamic, dynamic> sale) {
     Database database = sqlite3.open(dbName);
     database.execute(
-      'INSERT INTO ${Sale().tableName}(${Sale().id},${Sale().productID},${Sale().amount},${Sale().price},${Sale().date}) VALUES(?,?,?,?,?)',
+      '''
+      INSERT INTO ${Sale().tableName}(
+      ${Sale().id},
+      ${Sale().productID},
+      ${Sale().amount},
+      ${Sale().price},
+      ${Sale().date}
+      ) VALUES(?,?,?,?,?)
+      ''',
       [
         sale[Sale().id],
         sale[Sale().productID],
@@ -488,7 +652,14 @@ class DatabaseService {
   updateSale(Map<dynamic, dynamic> sale) {
     Database database = sqlite3.open(dbName);
     database.execute(
-      'UPDATE ${Sale().tableName} SET ${Sale().productID}=?,${Sale().amount}=?,${Sale().price}=?,${Sale().date}=? WHERE ${Sale().id}=?',
+      '''
+      UPDATE ${Sale().tableName} SET
+      ${Sale().productID}=?,
+      ${Sale().amount}=?,
+      ${Sale().price}=?,
+      ${Sale().date}=?
+      WHERE ${Sale().id}=?
+      ''',
       [
         sale[Sale().productID],
         sale[Sale().amount],
@@ -502,7 +673,12 @@ class DatabaseService {
 
   deleteSale(int id) {
     Database database = sqlite3.open(dbName);
-    database.execute('DELETE FROM ${Sale().tableName} WHERE ${Sale().id}=$id');
+    database.execute(
+      '''
+      DELETE FROM ${Sale().tableName}
+      WHERE ${Sale().id}=$id
+      ''',
+    );
     database.dispose();
   }
 }

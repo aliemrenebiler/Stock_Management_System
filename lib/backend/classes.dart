@@ -1,39 +1,40 @@
 class Product {
-  String tableName = "stok";
-  String id = "urunKodu";
-  String name = "urunAd";
-  String category = "marka";
-  String brand = "kategori";
+  String tableName = "products";
+  String id = "id";
+  String name = "name";
+  String category = "category";
+  String brand = "brand";
   String color = "renk";
-  String size = "boyut";
-  String sizeType = "boyutTur";
-  String amount = "adet";
-  String price = "adetSatisFiyat";
+  String size = "size";
+  String sizeType = "sizeType";
+  String amount = "amount";
+  String price = "price";
+  String visible = "visible";
 }
 
 class Supplier {
-  String tableName = "tedarikci";
-  String id = "firmaKodu";
-  String name = "firmaAd";
-  String phone = "telefonNo";
-  String address = "adres";
+  String tableName = "suppliers";
+  String id = "id";
+  String name = "name";
+  String phone = "phone";
+  String address = "address";
 }
 
 class Purchase {
-  String tableName = "satinAlimKayit";
-  String id = "alimKodu";
-  String supplierID = "tedarikciKodu";
-  String productID = "alinanUrunKodu";
-  String amount = "urunAdet";
-  String price = "alimFiyat";
-  String date = "alimTarih";
+  String tableName = "purchases";
+  String id = "id";
+  String supplierID = "supplierID";
+  String productID = "productID";
+  String amount = "amount";
+  String price = "price";
+  String date = "date";
 }
 
 class Sale {
-  String tableName = "satisKayit";
-  String id = "satisKodu";
-  String productID = "satilanUrunKodu";
-  String amount = "urunAdet";
-  String price = "satisFiyat";
-  String date = "satisTarih";
+  String tableName = "sales";
+  String id = "id";
+  String productID = "productID";
+  String amount = "amount";
+  String price = "price";
+  String date = "date";
 }
