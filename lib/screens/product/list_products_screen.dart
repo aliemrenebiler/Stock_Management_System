@@ -11,6 +11,13 @@ import '../../widgets/custom_top_bar.dart';
 List<Map<dynamic, dynamic>> listedProducts = [];
 bool showDeletedItems = false;
 
+TextEditingController nameController = TextEditingController();
+TextEditingController specController = TextEditingController();
+TextEditingController minAmountController = TextEditingController();
+TextEditingController maxAmountController = TextEditingController();
+TextEditingController minPriceController = TextEditingController();
+TextEditingController maxPriceController = TextEditingController();
+
 class ListProductsScreen extends StatefulWidget {
   const ListProductsScreen({Key? key}) : super(key: key);
 
@@ -155,12 +162,6 @@ class ProductsListSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController nameController = TextEditingController();
-    TextEditingController specController = TextEditingController();
-    TextEditingController minAmountController = TextEditingController();
-    TextEditingController maxAmountController = TextEditingController();
-    TextEditingController minPriceController = TextEditingController();
-    TextEditingController maxPriceController = TextEditingController();
     return Container(
       decoration: BoxDecoration(
         color: YMColors().lightGrey,
@@ -169,20 +170,25 @@ class ProductsListSearchBar extends StatelessWidget {
       child: IntrinsicHeight(
         child: Row(
           children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: CustomButton(
-                  text: "Temizle",
-                  onPressed: () {
-                    listedProducts = DatabaseService().getProducts(
-                        null, null, null, null, null, null, null, null);
-                    notifyParent();
-                  },
-                  height: 50,
-                  textColor: YMColors().white,
-                  bgColor: YMColors().grey,
-                ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: CustomButton(
+                text: "Temizle",
+                onPressed: () {
+                  nameController.clear();
+                  specController.clear();
+                  minAmountController.clear();
+                  maxAmountController.clear();
+                  minPriceController.clear();
+                  maxPriceController.clear();
+                  listedProducts = DatabaseService().getProducts(
+                      null, null, null, null, null, null, null, null);
+                  notifyParent();
+                },
+                height: 50,
+                width: 100,
+                textColor: YMColors().white,
+                bgColor: YMColors().grey,
               ),
             ),
             ListTableVerticalSeperator(
@@ -300,40 +306,35 @@ class ProductsListSearchBar extends StatelessWidget {
               color: YMColors().grey,
               space: 10,
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: CustomButton(
-                  text: "Ara",
-                  onPressed: () {
-                    listedProducts = DatabaseService().getProducts(
-                      null,
-                      (nameController.text.isEmpty)
-                          ? null
-                          : nameController.text,
-                      (specController.text.isEmpty)
-                          ? null
-                          : specController.text,
-                      (minPriceController.text.isEmpty)
-                          ? null
-                          : double.parse(minPriceController.text),
-                      (maxPriceController.text.isEmpty)
-                          ? null
-                          : double.parse(maxPriceController.text),
-                      (minAmountController.text.isEmpty)
-                          ? null
-                          : int.parse(minAmountController.text),
-                      (maxAmountController.text.isEmpty)
-                          ? null
-                          : int.parse(maxAmountController.text),
-                      false,
-                    );
-                    notifyParent();
-                  },
-                  height: 50,
-                  textColor: YMColors().white,
-                  bgColor: YMColors().red,
-                ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: CustomButton(
+                text: "Ara",
+                onPressed: () {
+                  listedProducts = DatabaseService().getProducts(
+                    null,
+                    (nameController.text.isEmpty) ? null : nameController.text,
+                    (specController.text.isEmpty) ? null : specController.text,
+                    (minPriceController.text.isEmpty)
+                        ? null
+                        : double.parse(minPriceController.text),
+                    (maxPriceController.text.isEmpty)
+                        ? null
+                        : double.parse(maxPriceController.text),
+                    (minAmountController.text.isEmpty)
+                        ? null
+                        : int.parse(minAmountController.text),
+                    (maxAmountController.text.isEmpty)
+                        ? null
+                        : int.parse(maxAmountController.text),
+                    true,
+                  );
+                  notifyParent();
+                },
+                height: 50,
+                width: 100,
+                textColor: YMColors().white,
+                bgColor: YMColors().red,
               ),
             ),
           ],
