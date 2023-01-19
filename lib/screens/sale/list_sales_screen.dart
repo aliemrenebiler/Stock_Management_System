@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../backend/classes.dart';
 import '../../backend/methods.dart';
-import '../../widgets/custom_text_field.dart';
+import '../../widgets/custom_text_form_field.dart';
 import '../../backend/theme.dart';
-import '../../widgets/list_table.dart';
-import '../../widgets/menu_button.dart';
-import '../../widgets/top_bar.dart';
+import '../../widgets/item_table.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_top_bar.dart';
 
 List<Map<dynamic, dynamic>> listedSales = [];
 
@@ -40,13 +40,13 @@ class _ListSalesScreenState extends State<ListSalesScreen> {
       backgroundColor: YMColors().white,
       body: Column(
         children: [
-          TopBar(
+          CustomTopBar(
             widgets: [
               Expanded(
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: MenuButton(
+                  child: CustomButton(
                     text: "Ana Sayfa",
                     bgColor: YMColors().red,
                     textColor: YMColors().white,
@@ -92,7 +92,7 @@ class _ListSalesScreenState extends State<ListSalesScreen> {
                     child: Padding(
                       padding:
                           const EdgeInsets.only(top: 10, left: 10, right: 10),
-                      child: ListTable(
+                      child: ItemTable(
                         titlesBar: const SalesListTitlesBar(),
                         items: [
                           for (int i = 0; i < listedSales.length; i++)
@@ -135,7 +135,7 @@ class SalesListSearchBar extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: MenuButton(
+                child: CustomButton(
                   text: "Temizle",
                   onPressed: () {
                     listedSales = DatabaseService()
@@ -156,7 +156,7 @@ class SalesListSearchBar extends StatelessWidget {
               flex: 2,
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: CustomTextField(
+                child: CustomTextFormField(
                   hintText: "Tarih",
                   height: 50,
                   controller: dateController,
@@ -177,7 +177,7 @@ class SalesListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: CustomTextField(
+                        child: CustomTextFormField(
                           hintText: "Fiyat (En Az)",
                           height: 50,
                           controller: minPriceController,
@@ -188,7 +188,7 @@ class SalesListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: CustomTextField(
+                        child: CustomTextFormField(
                           hintText: "Fiyat (En Fazla)",
                           height: 50,
                           controller: maxPriceController,
@@ -213,7 +213,7 @@ class SalesListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: CustomTextField(
+                        child: CustomTextFormField(
                           hintText: "Adet (En Az)",
                           height: 50,
                           controller: minAmountController,
@@ -224,7 +224,7 @@ class SalesListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: CustomTextField(
+                        child: CustomTextFormField(
                           hintText: "Adet (En Fazla)",
                           height: 50,
                           controller: maxAmountController,
@@ -242,7 +242,7 @@ class SalesListSearchBar extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: MenuButton(
+                child: CustomButton(
                   text: "Ara",
                   onPressed: () {
                     listedSales = DatabaseService().getSales(
@@ -425,7 +425,7 @@ class SalesListItem extends StatelessWidget {
                   flex: 2,
                   child: Padding(
                     padding: const EdgeInsets.all(10),
-                    child: MenuButton(
+                    child: CustomButton(
                       text: "Düzenle",
                       bgColor: YMColors().grey,
                       textColor: YMColors().white,

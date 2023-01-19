@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../backend/theme.dart';
 import '../../widgets/custom_snack_bar.dart';
-import '../../widgets/custom_text_field.dart';
-import '../../widgets/menu_button.dart';
-import '../../widgets/top_bar.dart';
+import '../../widgets/custom_text_form_field.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_top_bar.dart';
 import '../../backend/classes.dart';
 import '../../backend/methods.dart';
 
@@ -38,13 +38,13 @@ class _SellProductScreenState extends State<SellProductScreen> {
       backgroundColor: YMColors().white,
       body: Column(
         children: [
-          TopBar(
+          CustomTopBar(
             widgets: [
               Expanded(
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: MenuButton(
+                  child: CustomButton(
                     text: "Geri",
                     bgColor: YMColors().red,
                     textColor: YMColors().white,
@@ -133,7 +133,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
+                                          child: CustomTextFormField(
                                             height: 50,
                                             hintText:
                                                 "(Zorunlu) Güncel Fiyat: ${editedItem[Product().price]}",
@@ -166,7 +166,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
+                                          child: CustomTextFormField(
                                             height: 50,
                                             hintText:
                                                 "(Zorunlu) Güncel Adet: ${editedItem[Product().amount]}",
@@ -204,7 +204,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(5),
-                                                child: CustomTextField(
+                                                child: CustomTextFormField(
                                                   height: 50,
                                                   hintText: "(Gün)",
                                                   controller: dayController,
@@ -219,7 +219,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(5),
-                                                child: CustomTextField(
+                                                child: CustomTextFormField(
                                                   height: 50,
                                                   hintText: "(Ay)",
                                                   controller: monthController,
@@ -234,7 +234,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(5),
-                                                child: CustomTextField(
+                                                child: CustomTextFormField(
                                                   height: 50,
                                                   hintText: "(Yıl)",
                                                   controller: yearController,
@@ -258,7 +258,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.all(5),
-                                child: MenuButton(
+                                child: CustomButton(
                                   text: "Temizle",
                                   onPressed: () {
                                     priceController.clear();
@@ -278,7 +278,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                               flex: 2,
                               child: Padding(
                                 padding: const EdgeInsets.all(5),
-                                child: MenuButton(
+                                child: CustomButton(
                                   text: "Ekle",
                                   onPressed: () {
                                     if (priceController.text.isEmpty ||

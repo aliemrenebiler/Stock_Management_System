@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:yildiz_motor_v2/backend/classes.dart';
 import 'package:yildiz_motor_v2/backend/methods.dart';
 import 'package:yildiz_motor_v2/backend/theme.dart';
-import 'package:yildiz_motor_v2/widgets/menu_button.dart';
-import 'package:yildiz_motor_v2/widgets/top_bar.dart';
+import 'package:yildiz_motor_v2/widgets/custom_button.dart';
+import 'package:yildiz_motor_v2/widgets/custom_top_bar.dart';
 
 import '../../widgets/custom_snack_bar.dart';
-import '../../widgets/custom_text_field.dart';
+import '../../widgets/custom_text_form_field.dart';
 
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({super.key});
@@ -30,13 +30,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
       backgroundColor: YMColors().white,
       body: Column(
         children: [
-          TopBar(
+          CustomTopBar(
             widgets: [
               Expanded(
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: MenuButton(
+                  child: CustomButton(
                     text: "Geri",
                     bgColor: YMColors().red,
                     textColor: YMColors().white,
@@ -114,7 +114,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                           flex: 2,
                                           child: Padding(
                                             padding: const EdgeInsets.all(5),
-                                            child: MenuButton(
+                                            child: CustomButton(
                                               text: "Otomatik Doldur",
                                               onPressed: () {
                                                 Map<dynamic, dynamic>
@@ -164,7 +164,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(5),
-                                      child: CustomTextField(
+                                      child: CustomTextFormField(
                                         height: 50,
                                         controller: nameController,
                                         hintText:
@@ -207,7 +207,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                           flex: 2,
                                           child: Padding(
                                             padding: const EdgeInsets.all(5),
-                                            child: CustomTextField(
+                                            child: CustomTextFormField(
                                               height: 50,
                                               controller: brandController,
                                               action: TextInputAction.next,
@@ -237,7 +237,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                           flex: 2,
                                           child: Padding(
                                             padding: const EdgeInsets.all(5),
-                                            child: CustomTextField(
+                                            child: CustomTextFormField(
                                               height: 50,
                                               hintText: "(Zorunlu)",
                                               controller: categoryController,
@@ -268,7 +268,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                           flex: 2,
                                           child: Padding(
                                             padding: const EdgeInsets.all(5),
-                                            child: CustomTextField(
+                                            child: CustomTextFormField(
                                               height: 50,
                                               controller: colorController,
                                               action: TextInputAction.next,
@@ -298,7 +298,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                           flex: 2,
                                           child: Padding(
                                             padding: const EdgeInsets.all(5),
-                                            child: CustomTextField(
+                                            child: CustomTextFormField(
                                               height: 50,
                                               controller: sizeController,
                                               action: TextInputAction.next,
@@ -328,7 +328,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                           flex: 2,
                                           child: Padding(
                                             padding: const EdgeInsets.all(5),
-                                            child: CustomTextField(
+                                            child: CustomTextFormField(
                                               height: 50,
                                               controller: sizeTypeController,
                                               action: TextInputAction.next,
@@ -358,7 +358,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                           flex: 2,
                                           child: Padding(
                                             padding: const EdgeInsets.all(5),
-                                            child: CustomTextField(
+                                            child: CustomTextFormField(
                                               height: 50,
                                               hintText: "(Zorunlu)",
                                               controller: priceController,
@@ -390,7 +390,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                           flex: 2,
                                           child: Padding(
                                             padding: const EdgeInsets.all(5),
-                                            child: CustomTextField(
+                                            child: CustomTextFormField(
                                               height: 50,
                                               hintText: "(Zorunlu)",
                                               controller: amountController,
@@ -411,7 +411,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.all(5),
-                                child: MenuButton(
+                                child: CustomButton(
                                   text: "Temizle",
                                   onPressed: () {
                                     nameController.clear();
@@ -434,7 +434,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                               flex: 2,
                               child: Padding(
                                 padding: const EdgeInsets.all(5),
-                                child: MenuButton(
+                                child: CustomButton(
                                   text: "Kaydet",
                                   onPressed: () {
                                     if (nameController.text.isEmpty ||

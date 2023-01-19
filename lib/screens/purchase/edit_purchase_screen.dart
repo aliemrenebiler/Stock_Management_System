@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import '../../backend/classes.dart';
 import '../../backend/methods.dart';
 import '../../backend/theme.dart';
-import '../../widgets/custom_text_field.dart';
-import '../../widgets/menu_button.dart';
-import '../../widgets/top_bar.dart';
+import '../../widgets/custom_text_form_field.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_top_bar.dart';
 
 class EditPurchaseScreen extends StatefulWidget {
   const EditPurchaseScreen({super.key});
@@ -43,13 +43,13 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
       backgroundColor: YMColors().white,
       body: Column(
         children: [
-          TopBar(
+          CustomTopBar(
             widgets: [
               Expanded(
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: MenuButton(
+                  child: CustomButton(
                     text: "Geri",
                     bgColor: YMColors().red,
                     textColor: YMColors().white,
@@ -131,7 +131,7 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                                             flex: 2,
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
-                                              child: CustomTextField(
+                                              child: CustomTextFormField(
                                                 height: 50,
                                                 controller: supplierController,
                                                 action: TextInputAction.next,
@@ -161,7 +161,7 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                                             flex: 2,
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
-                                              child: CustomTextField(
+                                              child: CustomTextFormField(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
                                                 controller: productController,
@@ -192,7 +192,7 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                                             flex: 2,
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
-                                              child: CustomTextField(
+                                              child: CustomTextFormField(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
                                                 controller: priceController,
@@ -223,7 +223,7 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                                             flex: 2,
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
-                                              child: CustomTextField(
+                                              child: CustomTextFormField(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
                                                 controller: amountController,
@@ -254,7 +254,7 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                                             flex: 2,
                                             child: Padding(
                                               padding: const EdgeInsets.all(5),
-                                              child: CustomTextField(
+                                              child: CustomTextFormField(
                                                 height: 50,
                                                 hintText: "(Zorunlu)",
                                                 controller: dateController,
@@ -273,7 +273,7 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                                 Expanded(
                                   child: Padding(
                                     padding: const EdgeInsets.all(5),
-                                    child: MenuButton(
+                                    child: CustomButton(
                                       text: "Sil",
                                       onPressed: () {
                                         DatabaseService().deletePurchase(
@@ -292,7 +292,7 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                                   flex: 2,
                                   child: Padding(
                                     padding: const EdgeInsets.all(5),
-                                    child: MenuButton(
+                                    child: CustomButton(
                                       text: "Kaydet",
                                       onPressed: () {
                                         if (productController.text.isNotEmpty &&

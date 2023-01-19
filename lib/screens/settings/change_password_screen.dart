@@ -3,9 +3,9 @@ import 'package:yildiz_motor_v2/backend/methods.dart';
 
 import '../../backend/theme.dart';
 import '../../widgets/custom_snack_bar.dart';
-import '../../widgets/custom_text_field.dart';
-import '../../widgets/menu_button.dart';
-import '../../widgets/top_bar.dart';
+import '../../widgets/custom_text_form_field.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_top_bar.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
@@ -24,13 +24,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       backgroundColor: YMColors().white,
       body: Column(
         children: [
-          TopBar(
+          CustomTopBar(
             widgets: [
               Expanded(
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: MenuButton(
+                  child: CustomButton(
                     text: "Geri",
                     bgColor: YMColors().red,
                     textColor: YMColors().white,
@@ -107,7 +107,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
+                                          child: CustomTextFormField(
                                             height: 50,
                                             hideText: true,
                                             hintText: "(Zorunlu)",
@@ -139,7 +139,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
+                                          child: CustomTextFormField(
                                             height: 50,
                                             hintText: "(Zorunlu)",
                                             controller: newPassword1Controller,
@@ -170,7 +170,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
+                                          child: CustomTextFormField(
                                             height: 50,
                                             hintText: "(Zorunlu)",
                                             controller: newPassword2Controller,
@@ -189,7 +189,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.all(5),
-                                child: MenuButton(
+                                child: CustomButton(
                                   text: "Temizle",
                                   onPressed: () {
                                     prevPasswordController.clear();
@@ -207,7 +207,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               flex: 2,
                               child: Padding(
                                 padding: const EdgeInsets.all(5),
-                                child: MenuButton(
+                                child: CustomButton(
                                   text: "Kaydet",
                                   onPressed: () async {
                                     if (prevPasswordController.text.isEmpty ||

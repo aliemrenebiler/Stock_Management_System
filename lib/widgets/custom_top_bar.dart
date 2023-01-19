@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../backend/theme.dart';
 
-class TopBar extends StatelessWidget {
+class CustomTopBar extends StatelessWidget {
   final List<Widget>? widgets;
-  const TopBar({
+  const CustomTopBar({
     super.key,
     this.widgets,
   });

@@ -3,9 +3,9 @@ import 'package:yildiz_motor_v2/backend/classes.dart';
 import 'package:yildiz_motor_v2/backend/methods.dart';
 import '../../backend/theme.dart';
 import '../../widgets/custom_snack_bar.dart';
-import '../../widgets/custom_text_field.dart';
-import '../../widgets/menu_button.dart';
-import '../../widgets/top_bar.dart';
+import '../../widgets/custom_text_form_field.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_top_bar.dart';
 
 class EditProductScreen extends StatefulWidget {
   const EditProductScreen({super.key});
@@ -48,13 +48,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
       backgroundColor: YMColors().white,
       body: Column(
         children: [
-          TopBar(
+          CustomTopBar(
             widgets: [
               Expanded(
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: MenuButton(
+                  child: CustomButton(
                     text: "Geri",
                     bgColor: YMColors().red,
                     textColor: YMColors().white,
@@ -131,7 +131,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
+                                          child: CustomTextFormField(
                                             height: 50,
                                             hintText: "(Zorunlu)",
                                             controller: nameController,
@@ -162,7 +162,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
+                                          child: CustomTextFormField(
                                             height: 50,
                                             controller: brandController,
                                             action: TextInputAction.next,
@@ -192,7 +192,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
+                                          child: CustomTextFormField(
                                             height: 50,
                                             hintText: "(Zorunlu)",
                                             controller: categoryController,
@@ -223,7 +223,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
+                                          child: CustomTextFormField(
                                             height: 50,
                                             controller: colorController,
                                             action: TextInputAction.next,
@@ -253,7 +253,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
+                                          child: CustomTextFormField(
                                             height: 50,
                                             controller: sizeController,
                                             action: TextInputAction.next,
@@ -283,7 +283,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
+                                          child: CustomTextFormField(
                                             height: 50,
                                             controller: sizeTypeController,
                                             action: TextInputAction.next,
@@ -313,7 +313,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
+                                          child: CustomTextFormField(
                                             height: 50,
                                             hintText: "(Zorunlu)",
                                             controller: priceController,
@@ -345,7 +345,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
+                                          child: CustomTextFormField(
                                             height: 50,
                                             hintText: "(Zorunlu)",
                                             controller: amountController,
@@ -365,7 +365,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.all(5),
-                                child: MenuButton(
+                                child: CustomButton(
                                   text: "Sil",
                                   onPressed: () {
                                     DatabaseService().deleteProduct(
@@ -384,7 +384,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               flex: 2,
                               child: Padding(
                                 padding: const EdgeInsets.all(5),
-                                child: MenuButton(
+                                child: CustomButton(
                                   text: "Kaydet",
                                   onPressed: () {
                                     if (nameController.text.isEmpty ||

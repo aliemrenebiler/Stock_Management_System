@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../backend/theme.dart';
 
-class ListTable extends StatelessWidget {
+class ItemTable extends StatelessWidget {
   final Widget titlesBar;
   final List<Widget> items;
-  const ListTable({
+  const ItemTable({
     super.key,
     required this.titlesBar,
     required this.items,

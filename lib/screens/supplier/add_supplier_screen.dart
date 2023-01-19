@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../backend/classes.dart';
 import '../../backend/methods.dart';
-import '../../widgets/top_bar.dart';
+import '../../widgets/custom_top_bar.dart';
 import '../../backend/theme.dart';
-import '../../widgets/custom_text_field.dart';
-import '../../widgets/menu_button.dart';
+import '../../widgets/custom_text_form_field.dart';
+import '../../widgets/custom_button.dart';
 
 class AddSupplierScreen extends StatefulWidget {
   const AddSupplierScreen({super.key});
@@ -24,13 +24,13 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
       backgroundColor: YMColors().white,
       body: Column(
         children: [
-          TopBar(
+          CustomTopBar(
             widgets: [
               Expanded(
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: MenuButton(
+                  child: CustomButton(
                     text: "Geri",
                     bgColor: YMColors().red,
                     textColor: YMColors().white,
@@ -107,7 +107,7 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
+                                          child: CustomTextFormField(
                                             height: 50,
                                             hintText: "(Zorunlu)",
                                             controller: nameController,
@@ -138,7 +138,7 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
+                                          child: CustomTextFormField(
                                             height: 50,
                                             controller: phoneController,
                                             action: TextInputAction.next,
@@ -168,7 +168,7 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
+                                          child: CustomTextFormField(
                                             height: 50,
                                             controller: addressController,
                                           ),
@@ -186,7 +186,7 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.all(5),
-                                child: MenuButton(
+                                child: CustomButton(
                                   text: "Temizle",
                                   onPressed: () {
                                     nameController.clear();
@@ -204,7 +204,7 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
                               flex: 2,
                               child: Padding(
                                 padding: const EdgeInsets.all(5),
-                                child: MenuButton(
+                                child: CustomButton(
                                   text: "Kaydet",
                                   onPressed: () {
                                     if (nameController.text.isNotEmpty) {

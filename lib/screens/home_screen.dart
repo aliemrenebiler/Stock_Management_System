@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../backend/theme.dart';
-import '../widgets/menu_button.dart';
+import '../widgets/custom_button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(5),
-                    child: MenuButton(
+                    child: CustomButton(
                       text: "Ürünler",
                       onPressed: () {
                         Navigator.pushReplacementNamed(
@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(5),
-                    child: MenuButton(
+                    child: CustomButton(
                       text: "Alımlar",
                       onPressed: () {
                         Navigator.pushReplacementNamed(
@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(5),
-                    child: MenuButton(
+                    child: CustomButton(
                       text: "Satışlar",
                       onPressed: () {
                         Navigator.pushReplacementNamed(context, '/list_sales');
@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(5),
-                    child: MenuButton(
+                    child: CustomButton(
                       text: "Ayarlar",
                       onPressed: () {
                         Navigator.pushReplacementNamed(context, '/settings');
@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(5),
-                    child: MenuButton(
+                    child: CustomButton(
                       text: "Çıkış Yap",
                       onPressed: () {
                         Navigator.pushReplacementNamed(context, '/login');

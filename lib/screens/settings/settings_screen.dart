@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../backend/theme.dart';
-import '../../widgets/menu_button.dart';
-import '../../widgets/top_bar.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_top_bar.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -13,13 +13,13 @@ class SettingsScreen extends StatelessWidget {
       backgroundColor: YMColors().white,
       body: Column(
         children: [
-          TopBar(
+          CustomTopBar(
             widgets: [
               Expanded(
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: MenuButton(
+                  child: CustomButton(
                     text: "Ana Sayfa",
                     bgColor: YMColors().red,
                     textColor: YMColors().white,
@@ -64,7 +64,7 @@ class SettingsScreen extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(5),
-                          child: MenuButton(
+                          child: CustomButton(
                             text: "Şifre Değiştir",
                             onPressed: () {
                               Navigator.pushReplacementNamed(
@@ -78,7 +78,7 @@ class SettingsScreen extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(5),
-                          child: MenuButton(
+                          child: CustomButton(
                             text: "Verileri Sıfırla",
                             onPressed: () {
                               Navigator.pushReplacementNamed(

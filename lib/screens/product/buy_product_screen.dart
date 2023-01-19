@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../backend/theme.dart';
 import '../../widgets/custom_snack_bar.dart';
-import '../../widgets/custom_text_field.dart';
-import '../../widgets/menu_button.dart';
-import '../../widgets/top_bar.dart';
+import '../../widgets/custom_text_form_field.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_top_bar.dart';
 import '../../backend/classes.dart';
 import '../../backend/methods.dart';
 
@@ -37,13 +37,13 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
       backgroundColor: YMColors().white,
       body: Column(
         children: [
-          TopBar(
+          CustomTopBar(
             widgets: [
               Expanded(
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: MenuButton(
+                  child: CustomButton(
                     text: "Geri",
                     bgColor: YMColors().red,
                     textColor: YMColors().white,
@@ -132,7 +132,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
+                                          child: CustomTextFormField(
                                             height: 50,
                                             hintText: "(Zorunlu)",
                                             controller: priceController,
@@ -164,7 +164,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
+                                          child: CustomTextFormField(
                                             height: 50,
                                             hintText: "(Zorunlu)",
                                             controller: amountController,
@@ -201,7 +201,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(5),
-                                                child: CustomTextField(
+                                                child: CustomTextFormField(
                                                   height: 50,
                                                   hintText: "(Gün)",
                                                   controller: dayController,
@@ -216,7 +216,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(5),
-                                                child: CustomTextField(
+                                                child: CustomTextFormField(
                                                   height: 50,
                                                   hintText: "(Ay)",
                                                   controller: monthController,
@@ -231,7 +231,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(5),
-                                                child: CustomTextField(
+                                                child: CustomTextFormField(
                                                   height: 50,
                                                   hintText: "(Yıl)",
                                                   controller: yearController,
@@ -255,7 +255,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.all(5),
-                                child: MenuButton(
+                                child: CustomButton(
                                   text: "Temizle",
                                   onPressed: () {
                                     priceController.clear();
@@ -275,7 +275,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                               flex: 2,
                               child: Padding(
                                 padding: const EdgeInsets.all(5),
-                                child: MenuButton(
+                                child: CustomButton(
                                   text: "Ekle",
                                   onPressed: () {
                                     if (priceController.text.isEmpty ||

@@ -3,9 +3,9 @@ import 'package:yildiz_motor_v2/backend/methods.dart';
 
 import '../../backend/theme.dart';
 import '../../widgets/custom_snack_bar.dart';
-import '../../widgets/custom_text_field.dart';
-import '../../widgets/menu_button.dart';
-import '../../widgets/top_bar.dart';
+import '../../widgets/custom_text_form_field.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_top_bar.dart';
 
 class ClearDataScreen extends StatefulWidget {
   const ClearDataScreen({super.key});
@@ -22,13 +22,13 @@ class _ClearDataScreenState extends State<ClearDataScreen> {
       backgroundColor: YMColors().white,
       body: Column(
         children: [
-          TopBar(
+          CustomTopBar(
             widgets: [
               Expanded(
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: MenuButton(
+                  child: CustomButton(
                     text: "Geri",
                     bgColor: YMColors().red,
                     textColor: YMColors().white,
@@ -100,7 +100,7 @@ class _ClearDataScreenState extends State<ClearDataScreen> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(5),
-                                    child: CustomTextField(
+                                    child: CustomTextFormField(
                                       height: 50,
                                       hideText: true,
                                       hintText: "Şifre",
@@ -115,7 +115,7 @@ class _ClearDataScreenState extends State<ClearDataScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(5),
-                          child: MenuButton(
+                          child: CustomButton(
                             text: "Sıfırla",
                             onPressed: () async {
                               if (await SharedPrefsService().isPasswordExists ==

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:yildiz_motor_v2/backend/classes.dart';
 import 'package:yildiz_motor_v2/backend/methods.dart';
-import 'package:yildiz_motor_v2/widgets/custom_text_field.dart';
+import 'package:yildiz_motor_v2/widgets/custom_text_form_field.dart';
 
 import '../../backend/theme.dart';
-import '../../widgets/list_table.dart';
-import '../../widgets/menu_button.dart';
-import '../../widgets/top_bar.dart';
+import '../../widgets/item_table.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_top_bar.dart';
 
 List<Map<dynamic, dynamic>> listedProducts = [];
 bool showDeletedItems = false;
@@ -41,13 +41,13 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
       backgroundColor: YMColors().white,
       body: Column(
         children: [
-          TopBar(
+          CustomTopBar(
             widgets: [
               Expanded(
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: MenuButton(
+                  child: CustomButton(
                     text: "Ana Sayfa",
                     bgColor: YMColors().red,
                     textColor: YMColors().white,
@@ -82,7 +82,7 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: MenuButton(
+                  child: CustomButton(
                     text: showDeletedItems ? "Geri" : "Silinenler",
                     onPressed: () {
                       listedProducts = DatabaseService().getProducts(null, null,
@@ -100,7 +100,7 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: MenuButton(
+                  child: CustomButton(
                     text: "Ürün Ekle",
                     bgColor: YMColors().red,
                     textColor: YMColors().white,
@@ -128,7 +128,7 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
                     child: Padding(
                       padding:
                           const EdgeInsets.only(top: 10, left: 10, right: 10),
-                      child: ListTable(
+                      child: ItemTable(
                         titlesBar: const ProductsListTitlesBar(),
                         items: [
                           for (int i = 0; i < listedProducts.length; i++)
@@ -172,7 +172,7 @@ class ProductsListSearchBar extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: MenuButton(
+                child: CustomButton(
                   text: "Temizle",
                   onPressed: () {
                     listedProducts = DatabaseService().getProducts(
@@ -198,7 +198,7 @@ class ProductsListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: CustomTextField(
+                        child: CustomTextFormField(
                           hintText: "İsim",
                           height: 50,
                           controller: nameController,
@@ -209,7 +209,7 @@ class ProductsListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: CustomTextField(
+                        child: CustomTextFormField(
                           hintText: "Özellik",
                           height: 50,
                           controller: specController,
@@ -234,7 +234,7 @@ class ProductsListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: CustomTextField(
+                        child: CustomTextFormField(
                           hintText: "Fiyat (En Az)",
                           height: 50,
                           controller: minPriceController,
@@ -246,7 +246,7 @@ class ProductsListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: CustomTextField(
+                        child: CustomTextFormField(
                           hintText: "Fiyat (En Fazla)",
                           height: 50,
                           controller: maxPriceController,
@@ -272,7 +272,7 @@ class ProductsListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: CustomTextField(
+                        child: CustomTextFormField(
                           hintText: "Adet (En Az)",
                           height: 50,
                           controller: minAmountController,
@@ -284,7 +284,7 @@ class ProductsListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: CustomTextField(
+                        child: CustomTextFormField(
                           hintText: "Adet (En Fazla)",
                           height: 50,
                           controller: maxAmountController,
@@ -303,7 +303,7 @@ class ProductsListSearchBar extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: MenuButton(
+                child: CustomButton(
                   text: "Ara",
                   onPressed: () {
                     listedProducts = DatabaseService().getProducts(
@@ -533,7 +533,7 @@ class ProductsListItem extends StatelessWidget {
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.all(5),
-                            child: MenuButton(
+                            child: CustomButton(
                               text: "Düzenle",
                               bgColor: YMColors().grey,
                               textColor: YMColors().white,
@@ -549,7 +549,7 @@ class ProductsListItem extends StatelessWidget {
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.all(5),
-                            child: MenuButton(
+                            child: CustomButton(
                               text: "Alım",
                               bgColor: YMColors().blue,
                               textColor: YMColors().white,
@@ -565,7 +565,7 @@ class ProductsListItem extends StatelessWidget {
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.all(5),
-                            child: MenuButton(
+                            child: CustomButton(
                               text: "Satış",
                               bgColor: YMColors().red,
                               textColor: YMColors().white,

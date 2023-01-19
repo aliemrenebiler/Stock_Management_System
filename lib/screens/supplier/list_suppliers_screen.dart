@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../backend/classes.dart';
 import '../../backend/methods.dart';
-import '../../widgets/custom_text_field.dart';
+import '../../widgets/custom_text_form_field.dart';
 import '../../backend/theme.dart';
-import '../../widgets/list_table.dart';
-import '../../widgets/menu_button.dart';
-import '../../widgets/top_bar.dart';
+import '../../widgets/item_table.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_top_bar.dart';
 
 List<Map<dynamic, dynamic>> listedSuppliers = [];
 
@@ -39,13 +39,13 @@ class _ListSuppliersScreenState extends State<ListSuppliersScreen> {
       backgroundColor: YMColors().white,
       body: Column(
         children: [
-          TopBar(
+          CustomTopBar(
             widgets: [
               Expanded(
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: MenuButton(
+                  child: CustomButton(
                     text: "Geri",
                     bgColor: YMColors().red,
                     textColor: YMColors().white,
@@ -77,7 +77,7 @@ class _ListSuppliersScreenState extends State<ListSuppliersScreen> {
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: MenuButton(
+                  child: CustomButton(
                     text: "Yeni Ekle",
                     bgColor: YMColors().red,
                     textColor: YMColors().white,
@@ -105,7 +105,7 @@ class _ListSuppliersScreenState extends State<ListSuppliersScreen> {
                     child: Padding(
                       padding:
                           const EdgeInsets.only(top: 10, left: 10, right: 10),
-                      child: ListTable(
+                      child: ItemTable(
                         titlesBar: const SuppliersListTitlesBar(),
                         items: [
                           for (int i = 0; i < listedSuppliers.length; i++)
@@ -144,7 +144,7 @@ class SuppliersListSearchBar extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: MenuButton(
+                child: CustomButton(
                   text: "Temizle",
                   onPressed: () {
                     listedSuppliers =
@@ -165,7 +165,7 @@ class SuppliersListSearchBar extends StatelessWidget {
               flex: 5,
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: CustomTextField(
+                child: CustomTextFormField(
                   hintText: "İsim, Telefon Numarası veya Adres",
                   height: 50,
                   controller: infoController,
@@ -180,7 +180,7 @@ class SuppliersListSearchBar extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: MenuButton(
+                child: CustomButton(
                   text: "Ara",
                   onPressed: () {
                     listedSuppliers = DatabaseService().getSuppliers(
@@ -313,7 +313,7 @@ class SuppliersListItem extends StatelessWidget {
                   flex: 2,
                   child: Padding(
                     padding: const EdgeInsets.all(10),
-                    child: MenuButton(
+                    child: CustomButton(
                       text: "Düzenle",
                       bgColor: YMColors().grey,
                       textColor: YMColors().white,

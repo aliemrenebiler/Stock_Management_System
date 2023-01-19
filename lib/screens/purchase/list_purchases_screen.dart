@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../backend/classes.dart';
 import '../../backend/methods.dart';
-import '../../widgets/custom_text_field.dart';
+import '../../widgets/custom_text_form_field.dart';
 import '../../backend/theme.dart';
-import '../../widgets/list_table.dart';
-import '../../widgets/menu_button.dart';
-import '../../widgets/top_bar.dart';
+import '../../widgets/item_table.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_top_bar.dart';
 
 List<Map<dynamic, dynamic>> listedPurchases = [];
 
@@ -40,13 +40,13 @@ class _ListPurchasesScreenState extends State<ListPurchasesScreen> {
       backgroundColor: YMColors().white,
       body: Column(
         children: [
-          TopBar(
+          CustomTopBar(
             widgets: [
               Expanded(
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: MenuButton(
+                  child: CustomButton(
                     text: "Ana Sayfa",
                     bgColor: YMColors().red,
                     textColor: YMColors().white,
@@ -77,7 +77,7 @@ class _ListPurchasesScreenState extends State<ListPurchasesScreen> {
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: MenuButton(
+                  child: CustomButton(
                     text: "Tedarikçiler",
                     bgColor: YMColors().red,
                     textColor: YMColors().white,
@@ -104,7 +104,7 @@ class _ListPurchasesScreenState extends State<ListPurchasesScreen> {
                     child: Padding(
                       padding:
                           const EdgeInsets.only(top: 10, left: 10, right: 10),
-                      child: ListTable(
+                      child: ItemTable(
                         titlesBar: const PurchasesListTitlesBar(),
                         items: [
                           for (int i = 0; i < listedPurchases.length; i++)
@@ -147,7 +147,7 @@ class PurchasesListSearchBar extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: MenuButton(
+                child: CustomButton(
                   text: "Temizle",
                   onPressed: () {
                     listedPurchases = DatabaseService()
@@ -168,7 +168,7 @@ class PurchasesListSearchBar extends StatelessWidget {
               flex: 2,
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: CustomTextField(
+                child: CustomTextFormField(
                   hintText: "Tarih",
                   height: 50,
                   controller: dateController,
@@ -189,7 +189,7 @@ class PurchasesListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: CustomTextField(
+                        child: CustomTextFormField(
                           hintText: "Fiyat (En Az)",
                           height: 50,
                           controller: minPriceController,
@@ -200,7 +200,7 @@ class PurchasesListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: CustomTextField(
+                        child: CustomTextFormField(
                           hintText: "Fiyat (En Fazla)",
                           height: 50,
                           controller: maxPriceController,
@@ -225,7 +225,7 @@ class PurchasesListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: CustomTextField(
+                        child: CustomTextFormField(
                           hintText: "Adet (En Az)",
                           height: 50,
                           controller: minAmountController,
@@ -236,7 +236,7 @@ class PurchasesListSearchBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: CustomTextField(
+                        child: CustomTextFormField(
                           hintText: "Adet (En Fazla)",
                           height: 50,
                           controller: maxAmountController,
@@ -254,7 +254,7 @@ class PurchasesListSearchBar extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: MenuButton(
+                child: CustomButton(
                   text: "Ara",
                   onPressed: () {
                     listedPurchases = DatabaseService().getPurchases(
@@ -467,7 +467,7 @@ class PurchasesListItem extends StatelessWidget {
                   flex: 2,
                   child: Padding(
                     padding: const EdgeInsets.all(10),
-                    child: MenuButton(
+                    child: CustomButton(
                       text: "Düzenle",
                       bgColor: YMColors().grey,
                       textColor: YMColors().white,

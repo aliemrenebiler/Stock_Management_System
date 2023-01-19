@@ -3,9 +3,9 @@ import 'package:yildiz_motor_v2/backend/methods.dart';
 import 'package:yildiz_motor_v2/widgets/custom_snack_bar.dart';
 
 import '../../backend/theme.dart';
-import '../../widgets/custom_text_field.dart';
-import '../../widgets/menu_button.dart';
-import '../../widgets/top_bar.dart';
+import '../../widgets/custom_text_form_field.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_top_bar.dart';
 
 class EnterPasswordScreen extends StatelessWidget {
   const EnterPasswordScreen({super.key});
@@ -17,7 +17,7 @@ class EnterPasswordScreen extends StatelessWidget {
       backgroundColor: YMColors().white,
       body: Column(
         children: [
-          TopBar(
+          CustomTopBar(
             widgets: [
               Expanded(
                 child: Padding(
@@ -75,7 +75,7 @@ class EnterPasswordScreen extends StatelessWidget {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(5),
-                                    child: CustomTextField(
+                                    child: CustomTextFormField(
                                       height: 50,
                                       hideText: true,
                                       hintText: "Şifre",
@@ -90,7 +90,7 @@ class EnterPasswordScreen extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(5),
-                          child: MenuButton(
+                          child: CustomButton(
                             text: "Giriş Yap",
                             onPressed: () async {
                               if (passwordController.text !=

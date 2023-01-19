@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yildiz_motor_v2/backend/theme.dart';
 
-class MenuButton extends StatelessWidget {
+class CustomButton extends StatelessWidget {
   final String text;
   final void Function() onPressed;
   final double? height;
@@ -9,7 +9,7 @@ class MenuButton extends StatelessWidget {
   final Color? bgColor;
   final Color? textColor;
 
-  const MenuButton({
+  const CustomButton({
     super.key,
     required this.text,
     required this.onPressed,

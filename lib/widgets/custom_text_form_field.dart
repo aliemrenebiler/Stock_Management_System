@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 import '../backend/theme.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final String? hintText;
   final bool? hideText;
@@ -14,7 +14,7 @@ class CustomTextField extends StatelessWidget {
   final double? height;
   final double? width;
   final TextInputAction? action;
-  const CustomTextField({
+  const CustomTextFormField({
     super.key,
     this.keyboardType,
     this.inputType,

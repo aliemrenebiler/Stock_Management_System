@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:yildiz_motor_v2/backend/theme.dart';
-import 'package:yildiz_motor_v2/widgets/custom_text_field.dart';
-import 'package:yildiz_motor_v2/widgets/menu_button.dart';
-import 'package:yildiz_motor_v2/widgets/top_bar.dart';
+import 'package:yildiz_motor_v2/widgets/custom_text_form_field.dart';
+import 'package:yildiz_motor_v2/widgets/custom_button.dart';
+import 'package:yildiz_motor_v2/widgets/custom_top_bar.dart';
 
 import '../../backend/classes.dart';
 import '../../backend/methods.dart';
@@ -32,13 +32,13 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
       backgroundColor: YMColors().white,
       body: Column(
         children: [
-          TopBar(
+          CustomTopBar(
             widgets: [
               Expanded(
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: MenuButton(
+                  child: CustomButton(
                     text: "Geri",
                     bgColor: YMColors().red,
                     textColor: YMColors().white,
@@ -116,7 +116,7 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
+                                          child: CustomTextFormField(
                                             height: 50,
                                             hintText: "(Zorunlu)",
                                             controller: nameController,
@@ -147,7 +147,7 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
+                                          child: CustomTextFormField(
                                             height: 50,
                                             controller: phoneController,
                                             action: TextInputAction.next,
@@ -177,7 +177,7 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextField(
+                                          child: CustomTextFormField(
                                             height: 50,
                                             controller: addressController,
                                           ),
@@ -195,7 +195,7 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.all(5),
-                                child: MenuButton(
+                                child: CustomButton(
                                   text: "Sil",
                                   onPressed: () {
                                     DatabaseService().deleteSupplier(
@@ -214,7 +214,7 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                               flex: 2,
                               child: Padding(
                                 padding: const EdgeInsets.all(5),
-                                child: MenuButton(
+                                child: CustomButton(
                                   text: "Kaydet",
                                   onPressed: () {
                                     if (nameController.text.isNotEmpty) {
