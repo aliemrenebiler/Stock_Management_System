@@ -473,6 +473,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                             double.parse(priceController.text),
                                         Product().amount:
                                             int.parse(amountController.text),
+                                        Product().visible: 1,
                                       });
                                       showCustomSnackBar(
                                         context,

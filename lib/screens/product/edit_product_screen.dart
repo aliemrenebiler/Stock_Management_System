@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yildiz_motor_v2/backend/classes.dart';
 import 'package:yildiz_motor_v2/backend/methods.dart';
+import 'package:yildiz_motor_v2/widgets/custom_pop_up.dart';
 import '../../backend/theme.dart';
 import '../../widgets/custom_snack_bar.dart';
 import '../../widgets/custom_text_form_field.dart';
@@ -368,10 +369,77 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                 child: CustomButton(
                                   text: "Sil",
                                   onPressed: () {
-                                    DatabaseService().deleteProduct(
-                                        editedItem[Product().id]);
-                                    Navigator.pushReplacementNamed(
-                                        context, "/list_products");
+                                    showCustomPopUp(
+                                      context,
+                                      SizedBox(
+                                        width: YMSizes().maxWidth,
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              alignment: Alignment.center,
+                                              padding: const EdgeInsets.all(5),
+                                              height: 50,
+                                              child: Text(
+                                                "Bu ürün silinen ürünlere eklenecek.",
+                                                textAlign: TextAlign.center,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  color: YMColors().black,
+                                                  fontSize:
+                                                      YMSizes().fontSizeSmall,
+                                                ),
+                                              ),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(5),
+                                                    child: CustomButton(
+                                                      text: "İptal Et",
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      bgColor: YMColors().grey,
+                                                      textColor:
+                                                          YMColors().white,
+                                                      width: double.infinity,
+                                                      height: 50,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(5),
+                                                    child: CustomButton(
+                                                      text: "Sil",
+                                                      onPressed: () {
+                                                        DatabaseService()
+                                                            .deleteProduct(
+                                                                editedItem[
+                                                                    Product()
+                                                                        .id]);
+                                                        Navigator
+                                                            .pushReplacementNamed(
+                                                                context,
+                                                                "/list_products");
+                                                      },
+                                                      bgColor: YMColors().red,
+                                                      textColor:
+                                                          YMColors().white,
+                                                      width: double.infinity,
+                                                      height: 50,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
                                   },
                                   bgColor: YMColors().red,
                                   textColor: YMColors().white,

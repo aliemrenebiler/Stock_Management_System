@@ -17,4 +17,6 @@ class YMSizes {
   double fontSizeSmall = 15;
   double fontSizeMedium = 20;
   double fontSizeLarge = 25;
+
+  double maxWidth = 400;
 }
