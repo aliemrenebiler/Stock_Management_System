@@ -31,43 +31,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
       body: Column(
         children: [
           CustomTopBar(
-            widgets: [
-              Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: CustomButton(
-                    text: "Geri",
-                    bgColor: YMColors().red,
-                    textColor: YMColors().white,
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/list_products');
-                    },
-                    height: 50,
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 15,
-                child: Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Text(
-                    "Ürün Ekle",
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: YMColors().white,
-                      fontSize: YMSizes().fontSizeLarge,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(),
-              ),
-            ],
+            title: 'Ürün Ekle',
+            leftButtonText: "Geri",
+            leftButtonAction: () {
+              Navigator.pushReplacementNamed(context, '/list_products');
+            },
           ),
           Expanded(
             child: Center(

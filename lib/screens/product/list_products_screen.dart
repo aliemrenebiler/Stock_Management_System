@@ -50,49 +50,15 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
       body: Column(
         children: [
           CustomTopBar(
-            widgets: [
-              Padding(
-                padding: const EdgeInsets.all(5),
-                child: CustomButton(
-                  text: "Ana Sayfa",
-                  textColor: YMColors().white,
-                  bgColor: YMColors().darkGrey,
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/home');
-                  },
-                  height: 50,
-                  width: 180,
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Text(
-                    "Ürünler",
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: YMColors().white,
-                      fontSize: YMSizes().fontSizeLarge,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(5),
-                child: CustomButton(
-                  text: "Silinen Ürünler",
-                  onPressed: () {
-                    // TODO: There will be a new deleted items page
-                  },
-                  height: 50,
-                  width: 180,
-                  textColor: YMColors().white,
-                  bgColor: YMColors().darkGrey,
-                ),
-              ),
-            ],
+            title: 'Ürünler',
+            leftButtonText: "Ana Sayfa",
+            leftButtonAction: () {
+              Navigator.pushReplacementNamed(context, '/home');
+            },
+            rightButtonText: "Silinen Ürünler",
+            rightButtonAction: () {
+              // TODO: There will be a new deleted items page
+            },
           ),
           Expanded(
             child: Padding(

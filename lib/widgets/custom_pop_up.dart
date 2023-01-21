@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:yildiz_motor_v2/backend/theme.dart';
 
-showCustomPopUp(
-  BuildContext context,
-  Widget content,
-) {
+showCustomPopUp(BuildContext context, Widget content,
+    {bool barrierDismissible = false}) {
   showDialog(
     context: context,
-    barrierDismissible: false,
+    barrierDismissible: barrierDismissible,
     builder: (BuildContext context) {
       return AlertDialog(
         contentPadding: const EdgeInsets.all(5),

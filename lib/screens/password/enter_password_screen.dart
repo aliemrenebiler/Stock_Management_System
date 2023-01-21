@@ -17,24 +17,8 @@ class EnterPasswordScreen extends StatelessWidget {
       backgroundColor: YMColors().white,
       body: Column(
         children: [
-          CustomTopBar(
-            widgets: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Text(
-                    "Giriş",
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: YMColors().white,
-                      fontSize: YMSizes().fontSizeLarge,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+          const CustomTopBar(
+            title: 'Giriş Yap',
           ),
           Expanded(
             child: Center(

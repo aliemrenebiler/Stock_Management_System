@@ -40,55 +40,15 @@ class _ListSuppliersScreenState extends State<ListSuppliersScreen> {
       body: Column(
         children: [
           CustomTopBar(
-            widgets: [
-              Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: CustomButton(
-                    text: "Geri",
-                    bgColor: YMColors().red,
-                    textColor: YMColors().white,
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(
-                          context, '/list_purchases');
-                    },
-                    height: 50,
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 15,
-                child: Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Text(
-                    "Tedarikçiler",
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: YMColors().white,
-                      fontSize: YMSizes().fontSizeLarge,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: CustomButton(
-                    text: "Yeni Ekle",
-                    bgColor: YMColors().red,
-                    textColor: YMColors().white,
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/add_supplier');
-                    },
-                    height: 50,
-                  ),
-                ),
-              ),
-            ],
+            title: 'Tedarikçiler',
+            leftButtonText: "Geri",
+            leftButtonAction: () {
+              Navigator.pushReplacementNamed(context, '/list_purchases');
+            },
+            rightButtonText: "Yeni Ekle",
+            rightButtonAction: () {
+              Navigator.pushReplacementNamed(context, '/add_supplier');
+            },
           ),
           Expanded(
             child: Padding(
