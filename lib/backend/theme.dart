@@ -4,13 +4,10 @@ class YMColors {
   Color white = Colors.white;
   Color lightGrey = Colors.grey.shade200;
   Color grey = Colors.grey.shade400;
+  Color darkGrey = Colors.grey.shade600;
   Color black = Colors.black;
-  Color lightBlue = Colors.blueAccent.shade100;
   Color blue = Colors.blueAccent;
-  Color darkBlue = Colors.blueAccent.shade700;
-  Color lightRed = Colors.red.shade200;
-  Color red = Colors.red;
-  Color darkRed = Colors.red.shade900;
+  Color red = Colors.redAccent;
 }
 
 class YMSizes {

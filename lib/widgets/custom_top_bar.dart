@@ -15,7 +15,7 @@ class CustomTopBar extends StatelessWidget {
       height: 70,
       padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
-        color: YMColors().darkRed,
+        color: YMColors().grey,
       ),
       child: (widgets != null || widgets!.isNotEmpty)
           ? Row(

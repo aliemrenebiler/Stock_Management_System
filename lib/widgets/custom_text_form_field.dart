@@ -76,7 +76,7 @@ class CustomTextFormField extends StatelessWidget {
           color: YMColors().black,
           fontSize: YMSizes().fontSizeSmall,
         ),
-        cursorColor: YMColors().darkBlue,
+        cursorColor: YMColors().darkGrey,
         autofocus: false,
         inputFormatters: formatter,
         textInputAction: action ?? TextInputAction.done,
