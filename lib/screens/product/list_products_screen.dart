@@ -448,26 +448,6 @@ class ProductsListTitlesBar extends StatelessWidget {
                   height: 70,
                   alignment: Alignment.center,
                   child: Text(
-                    "Birim",
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: YMColors().black,
-                      fontSize: YMSizes().fontSizeMedium,
-                    ),
-                  ),
-                ),
-              ),
-              ListTableVerticalSeperator(
-                color: YMColors().grey,
-                space: 10,
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  height: 70,
-                  alignment: Alignment.center,
-                  child: Text(
                     "Fiyat",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -637,26 +617,9 @@ class ProductsListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (product[Product().size] != null)
-                        ? product[Product().size].toString()
-                        : "-",
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: YMColors().black,
-                      fontSize: YMSizes().fontSizeMedium,
-                    ),
-                  ),
-                ),
-                ListTableVerticalSeperator(
-                  color: YMColors().lightGrey,
-                  space: 10,
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Text(
-                    (product[Product().sizeType] != null)
-                        ? product[Product().sizeType].toString()
+                    (product[Product().size] != null &&
+                            product[Product().sizeType] != null)
+                        ? "${product[Product().size]} (${product[Product().sizeType]})"
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,

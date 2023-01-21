@@ -43,8 +43,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 physics: const BouncingScrollPhysics(),
                 child: Center(
                   child: Container(
-                    padding: const EdgeInsets.all(5),
-                    width: MediaQuery.of(context).size.width / 3,
+                    padding: const EdgeInsets.all(15),
+                    width: YMSizes().maxWidth,
                     child: Column(
                       children: [
                         Container(
@@ -403,7 +403,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                               child: Padding(
                                 padding: const EdgeInsets.all(5),
                                 child: CustomButton(
-                                  text: "Kaydet",
+                                  text: "Ekle",
                                   onPressed: () {
                                     if (nameController.text.isEmpty ||
                                         categoryController.text.isEmpty ||
