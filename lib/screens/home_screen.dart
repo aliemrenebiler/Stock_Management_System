@@ -15,13 +15,13 @@ class HomeScreen extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           child: Center(
             child: Container(
-              width: MediaQuery.of(context).size.width / 3,
-              margin: const EdgeInsets.all(5),
+              width: YMSizes().maxWidth,
+              padding: const EdgeInsets.all(15),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(30),
                     child: Image.asset(
                       "assets/images/yildiz_motor_logo.png",
                     ),
@@ -34,8 +34,8 @@ class HomeScreen extends StatelessWidget {
                         Navigator.pushReplacementNamed(
                             context, '/list_products');
                       },
-                      bgColor: YMColors().red,
                       textColor: YMColors().white,
+                      bgColor: YMColors().grey,
                       width: double.infinity,
                       height: 50,
                     ),
@@ -48,8 +48,8 @@ class HomeScreen extends StatelessWidget {
                         Navigator.pushReplacementNamed(
                             context, '/list_purchases');
                       },
-                      bgColor: YMColors().red,
                       textColor: YMColors().white,
+                      bgColor: YMColors().grey,
                       width: double.infinity,
                       height: 50,
                     ),
@@ -61,37 +61,46 @@ class HomeScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.pushReplacementNamed(context, '/list_sales');
                       },
-                      bgColor: YMColors().red,
                       textColor: YMColors().white,
+                      bgColor: YMColors().grey,
                       width: double.infinity,
                       height: 50,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: CustomButton(
-                      text: "Ayarlar",
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/settings');
-                      },
-                      bgColor: YMColors().red,
-                      textColor: YMColors().white,
-                      width: double.infinity,
-                      height: 50,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: CustomButton(
-                      text: "Çıkış Yap",
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/login');
-                      },
-                      bgColor: YMColors().red,
-                      textColor: YMColors().white,
-                      width: double.infinity,
-                      height: 50,
-                    ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: CustomButton(
+                            text: "Ayarlar",
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(
+                                  context, '/settings');
+                            },
+                            textColor: YMColors().white,
+                            bgColor: YMColors().blue,
+                            width: double.infinity,
+                            height: 50,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: CustomButton(
+                            text: "Çıkış Yap",
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(context, '/login');
+                            },
+                            textColor: YMColors().white,
+                            bgColor: YMColors().red,
+                            width: double.infinity,
+                            height: 50,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
