@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:yildiz_motor_v2/screens/password/enter_password_screen.dart';
 
-import 'set_password_screen.dart';
 import '../../backend/theme.dart';
 import '../../backend/methods.dart';
+import 'enter_password_screen.dart';
+import 'set_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
