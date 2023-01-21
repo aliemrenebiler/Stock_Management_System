@@ -9,7 +9,6 @@ import '../../widgets/custom_button.dart';
 import '../../widgets/custom_top_bar.dart';
 
 List<Map<dynamic, dynamic>> listedProducts = [];
-bool showDeletedItems = false;
 
 TextEditingController nameController = TextEditingController();
 TextEditingController specController = TextEditingController();

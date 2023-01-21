@@ -385,10 +385,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                                       text: "Sil",
                                                       onPressed: () {
                                                         DatabaseService()
-                                                            .deleteProduct(
-                                                                editedItem[
-                                                                    Product()
-                                                                        .id]);
+                                                            .changeProductVisibility(
+                                                          editedItem[
+                                                              Product().id],
+                                                          false,
+                                                        );
                                                         Navigator
                                                             .pushReplacementNamed(
                                                                 context,

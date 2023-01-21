@@ -6,6 +6,7 @@ import 'package:yildiz_motor_v2/widgets/custom_top_bar.dart';
 
 import '../../backend/classes.dart';
 import '../../backend/methods.dart';
+import '../../widgets/custom_pop_up.dart';
 
 class EditSupplierScreen extends StatefulWidget {
   const EditSupplierScreen({super.key});
@@ -165,10 +166,77 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                                 child: CustomButton(
                                   text: "Sil",
                                   onPressed: () {
-                                    DatabaseService().deleteSupplier(
-                                        editedItem[Supplier().id]);
-                                    Navigator.pushReplacementNamed(
-                                        context, "/list_suppliers");
+                                    showCustomPopUp(
+                                      context,
+                                      SizedBox(
+                                        width: YMSizes().maxWidth,
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              alignment: Alignment.center,
+                                              padding: const EdgeInsets.all(5),
+                                              height: 50,
+                                              child: Text(
+                                                "Bu tedarikçi silinecek.",
+                                                textAlign: TextAlign.center,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  color: YMColors().black,
+                                                  fontSize:
+                                                      YMSizes().fontSizeSmall,
+                                                ),
+                                              ),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(5),
+                                                    child: CustomButton(
+                                                      text: "İptal Et",
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      bgColor: YMColors().grey,
+                                                      textColor:
+                                                          YMColors().white,
+                                                      width: double.infinity,
+                                                      height: 50,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(5),
+                                                    child: CustomButton(
+                                                      text: "Sil",
+                                                      onPressed: () {
+                                                        DatabaseService()
+                                                            .deleteSupplier(
+                                                                editedItem[
+                                                                    Supplier()
+                                                                        .id]);
+                                                        Navigator
+                                                            .pushReplacementNamed(
+                                                                context,
+                                                                "/list_suppliers");
+                                                      },
+                                                      bgColor: YMColors().red,
+                                                      textColor:
+                                                          YMColors().white,
+                                                      width: double.infinity,
+                                                      height: 50,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
                                   },
                                   bgColor: YMColors().red,
                                   textColor: YMColors().white,

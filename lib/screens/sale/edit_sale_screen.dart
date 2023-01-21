@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../backend/classes.dart';
 import '../../backend/methods.dart';
 import '../../backend/theme.dart';
+import '../../widgets/custom_pop_up.dart';
 import '../../widgets/custom_text_form_field.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_top_bar.dart';
@@ -209,10 +210,86 @@ class _EditSaleScreenState extends State<EditSaleScreen> {
                                     child: CustomButton(
                                       text: "Sil",
                                       onPressed: () {
-                                        DatabaseService()
-                                            .deleteSale(editedItem[Sale().id]);
-                                        Navigator.pushReplacementNamed(
-                                            context, "/list_sales");
+                                        showCustomPopUp(
+                                          context,
+                                          SizedBox(
+                                            width: YMSizes().maxWidth,
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  height: 50,
+                                                  child: Text(
+                                                    "Bu satış silinecek.",
+                                                    textAlign: TextAlign.center,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                      color: YMColors().black,
+                                                      fontSize: YMSizes()
+                                                          .fontSizeSmall,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(5),
+                                                        child: CustomButton(
+                                                          text: "İptal Et",
+                                                          onPressed: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          bgColor:
+                                                              YMColors().grey,
+                                                          textColor:
+                                                              YMColors().white,
+                                                          width:
+                                                              double.infinity,
+                                                          height: 50,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(5),
+                                                        child: CustomButton(
+                                                          text: "Sil",
+                                                          onPressed: () {
+                                                            DatabaseService()
+                                                                .deleteSale(
+                                                                    editedItem[
+                                                                        Sale()
+                                                                            .id]);
+                                                            Navigator
+                                                                .pushReplacementNamed(
+                                                                    context,
+                                                                    "/list_sales");
+                                                          },
+                                                          bgColor:
+                                                              YMColors().red,
+                                                          textColor:
+                                                              YMColors().white,
+                                                          width:
+                                                              double.infinity,
+                                                          height: 50,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
                                       },
                                       bgColor: YMColors().red,
                                       textColor: YMColors().white,
