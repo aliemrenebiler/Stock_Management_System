@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:yildiz_motor_v2/backend/methods.dart';
-import 'package:yildiz_motor_v2/widgets/custom_snack_bar.dart';
 
+import '../../backend/methods.dart';
 import '../../backend/theme.dart';
+import '../../widgets/custom_snack_bar.dart';
 import '../../widgets/custom_text_form_field.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_top_bar.dart';
@@ -42,8 +42,8 @@ class EnterPasswordScreen extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 child: Center(
                   child: Container(
-                    padding: const EdgeInsets.all(5),
-                    width: MediaQuery.of(context).size.width / 3,
+                    padding: const EdgeInsets.all(15),
+                    width: YMSizes().maxWidth,
                     child: Column(
                       children: [
                         Padding(
