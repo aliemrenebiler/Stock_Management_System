@@ -349,6 +349,8 @@ class ProductsListTitlesBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 70,
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         color: YMColors().lightGrey,
         borderRadius: BorderRadius.circular(10),
@@ -358,52 +360,197 @@ class ProductsListTitlesBar extends StatelessWidget {
         child: IntrinsicHeight(
           child: Row(
             children: [
-              const ListTableTitlesBarItem(text: "ID", flex: 1),
+              Container(
+                width: 60,
+                alignment: Alignment.center,
+                child: Text(
+                  "ID",
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: YMColors().black,
+                    fontSize: YMSizes().fontSizeMedium,
+                  ),
+                ),
+              ),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ListTableTitlesBarItem(text: "İsim", flex: 2),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 70,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "İsim",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+              ),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ListTableTitlesBarItem(text: "Marka", flex: 2),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 70,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Marka",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+              ),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ListTableTitlesBarItem(text: "Kategori", flex: 2),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 70,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Kategori",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+              ),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ListTableTitlesBarItem(text: "Renk", flex: 2),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 70,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Renk",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+              ),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ListTableTitlesBarItem(text: "Boyut", flex: 2),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 70,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Boyut",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+              ),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ListTableTitlesBarItem(text: "Birim", flex: 2),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 70,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Birim",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+              ),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ListTableTitlesBarItem(text: "Fiyat", flex: 2),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 70,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Fiyat",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+              ),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ListTableTitlesBarItem(text: "Adet", flex: 2),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 70,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Adet",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+              ),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ListTableTitlesBarItem(text: "İşlemler", flex: 6),
+              Container(
+                height: 70,
+                width: 300,
+                alignment: Alignment.center,
+                child: Text(
+                  "İşlemler",
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: YMColors().black,
+                    fontSize: YMSizes().fontSizeMedium,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -432,154 +579,219 @@ class ProductsListItem extends StatelessWidget {
             ),
             child: Row(
               children: [
-                ListTableItemPart(
-                  value: (product[Product().id] != null)
-                      ? product[Product().id].toString()
-                      : null,
-                  flex: 1,
-                  textColor: YMColors().grey,
-                ),
-                ListTableVerticalSeperator(
-                  color: YMColors().lightGrey,
-                  space: 10,
-                ),
-                ListTableItemPart(
-                  value: (product[Product().name] != null)
-                      ? product[Product().name].toString()
-                      : null,
-                  flex: 2,
-                ),
-                ListTableVerticalSeperator(
-                  color: YMColors().lightGrey,
-                  space: 10,
-                ),
-                ListTableItemPart(
-                  value: (product[Product().brand] != null)
-                      ? product[Product().brand].toString()
-                      : null,
-                  flex: 2,
-                ),
-                ListTableVerticalSeperator(
-                  color: YMColors().lightGrey,
-                  space: 10,
-                ),
-                ListTableItemPart(
-                  value: (product[Product().category] != null)
-                      ? product[Product().category].toString()
-                      : null,
-                  flex: 2,
-                ),
-                ListTableVerticalSeperator(
-                  color: YMColors().lightGrey,
-                  space: 10,
-                ),
-                ListTableItemPart(
-                  value: (product[Product().color] != null)
-                      ? product[Product().color].toString()
-                      : null,
-                  flex: 2,
-                ),
-                ListTableVerticalSeperator(
-                  color: YMColors().lightGrey,
-                  space: 10,
-                ),
-                ListTableItemPart(
-                  value: (product[Product().size] != null)
-                      ? product[Product().size].toString()
-                      : null,
-                  flex: 2,
-                ),
-                ListTableVerticalSeperator(
-                  color: YMColors().lightGrey,
-                  space: 10,
-                ),
-                ListTableItemPart(
-                  value: (product[Product().sizeType] != null)
-                      ? product[Product().sizeType].toString()
-                      : null,
-                  flex: 2,
-                ),
-                ListTableVerticalSeperator(
-                  color: YMColors().lightGrey,
-                  space: 10,
-                ),
-                ListTableItemPart(
-                  value: (product[Product().price] != null)
-                      ? product[Product().price].toString()
-                      : null,
-                  flex: 2,
-                ),
-                ListTableVerticalSeperator(
-                  color: YMColors().lightGrey,
-                  space: 10,
-                ),
-                ListTableItemPart(
-                  value: (product[Product().amount] != null)
-                      ? product[Product().amount].toString()
-                      : null,
-                  flex: 2,
+                SizedBox(
+                  width: 60,
+                  child: Text(
+                    (product[Product().id] != null)
+                        ? product[Product().id].toString()
+                        : "-",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().grey,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
                 ),
                 ListTableVerticalSeperator(
                   color: YMColors().lightGrey,
                   space: 10,
                 ),
                 Expanded(
-                  flex: 6,
-                  child: Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: CustomButton(
-                              text: "Düzenle",
-                              bgColor: YMColors().grey,
-                              textColor: YMColors().white,
-                              onPressed: () {
-                                editedItem = product;
-                                Navigator.pushReplacementNamed(
-                                    context, '/edit_product');
-                              },
-                              height: 50,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: CustomButton(
-                              text: "Alım",
-                              bgColor: YMColors().blue,
-                              textColor: YMColors().white,
-                              onPressed: () {
-                                editedItem = product;
-                                Navigator.pushReplacementNamed(
-                                    context, '/buy_product');
-                              },
-                              height: 50,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: CustomButton(
-                              text: "Satış",
-                              bgColor: YMColors().red,
-                              textColor: YMColors().white,
-                              onPressed: () {
-                                editedItem = product;
-                                Navigator.pushReplacementNamed(
-                                    context, '/sell_product');
-                              },
-                              height: 50,
-                            ),
-                          ),
-                        ),
-                      ],
+                  flex: 2,
+                  child: Text(
+                    (product[Product().name] != null)
+                        ? product[Product().name].toString()
+                        : "-",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
                     ),
+                  ),
+                ),
+                ListTableVerticalSeperator(
+                  color: YMColors().lightGrey,
+                  space: 10,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    (product[Product().brand] != null)
+                        ? product[Product().brand].toString()
+                        : "-",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+                ListTableVerticalSeperator(
+                  color: YMColors().lightGrey,
+                  space: 10,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    (product[Product().category] != null)
+                        ? product[Product().category].toString()
+                        : "-",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+                ListTableVerticalSeperator(
+                  color: YMColors().lightGrey,
+                  space: 10,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    (product[Product().color] != null)
+                        ? product[Product().color].toString()
+                        : "-",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+                ListTableVerticalSeperator(
+                  color: YMColors().lightGrey,
+                  space: 10,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    (product[Product().size] != null)
+                        ? product[Product().size].toString()
+                        : "-",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+                ListTableVerticalSeperator(
+                  color: YMColors().lightGrey,
+                  space: 10,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    (product[Product().sizeType] != null)
+                        ? product[Product().sizeType].toString()
+                        : "-",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+                ListTableVerticalSeperator(
+                  color: YMColors().lightGrey,
+                  space: 10,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    (product[Product().price] != null)
+                        ? product[Product().price].toString()
+                        : "-",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+                ListTableVerticalSeperator(
+                  color: YMColors().lightGrey,
+                  space: 10,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    (product[Product().amount] != null)
+                        ? product[Product().amount].toString()
+                        : "-",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+                ListTableVerticalSeperator(
+                  color: YMColors().lightGrey,
+                  space: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: CustomButton(
+                          text: "Düzenle",
+                          bgColor: YMColors().grey,
+                          textColor: YMColors().white,
+                          onPressed: () {
+                            editedItem = product;
+                            Navigator.pushReplacementNamed(
+                                context, '/edit_product');
+                          },
+                          height: 50,
+                          width: 100,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: CustomButton(
+                          text: "Al",
+                          bgColor: YMColors().blue,
+                          textColor: YMColors().white,
+                          onPressed: () {
+                            editedItem = product;
+                            Navigator.pushReplacementNamed(
+                                context, '/buy_product');
+                          },
+                          height: 50,
+                          width: 80,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: CustomButton(
+                          text: "Sat",
+                          bgColor: YMColors().red,
+                          textColor: YMColors().white,
+                          onPressed: () {
+                            editedItem = product;
+                            Navigator.pushReplacementNamed(
+                                context, '/sell_product');
+                          },
+                          height: 50,
+                          width: 80,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

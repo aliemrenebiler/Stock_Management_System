@@ -293,32 +293,32 @@ class SalesListTitlesBar extends StatelessWidget {
         child: IntrinsicHeight(
           child: Row(
             children: [
-              const ListTableTitlesBarItem(text: "ID", flex: 1),
+              const ItemTableTitlesBarItem(text: "ID", flex: 1),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ListTableTitlesBarItem(text: "Ürün", flex: 11),
+              const ItemTableTitlesBarItem(text: "Ürün", flex: 11),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ListTableTitlesBarItem(text: "Fiyat", flex: 2),
+              const ItemTableTitlesBarItem(text: "Fiyat", flex: 2),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ListTableTitlesBarItem(text: "Adet", flex: 2),
+              const ItemTableTitlesBarItem(text: "Adet", flex: 2),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ListTableTitlesBarItem(text: "Tarih", flex: 3),
+              const ItemTableTitlesBarItem(text: "Tarih", flex: 3),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ListTableTitlesBarItem(text: "İşlemler", flex: 2),
+              const ItemTableTitlesBarItem(text: "İşlemler", flex: 2),
             ],
           ),
         ),

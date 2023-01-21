@@ -34,10 +34,10 @@ class ItemTable extends StatelessWidget {
   }
 }
 
-class ListTableTitlesBarItem extends StatelessWidget {
+class ItemTableTitlesBarItem extends StatelessWidget {
   final String text;
   final int flex;
-  const ListTableTitlesBarItem({
+  const ItemTableTitlesBarItem({
     super.key,
     required this.text,
     required this.flex,
