@@ -118,8 +118,10 @@ class CustomTopBar extends StatelessWidget {
                 : leftButton ?? const SizedBox(width: 180),
           ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(5),
+            child: Container(
+              height: 50,
+              margin: const EdgeInsets.all(5),
+              alignment: Alignment.center,
               child: Text(
                 title,
                 textAlign: TextAlign.center,
