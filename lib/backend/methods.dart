@@ -543,6 +543,7 @@ class DatabaseService {
     database.dispose();
   }
 
+  // TODO: Make the same searching system in purchases
   getSales(
     String? id,
     String? date,
