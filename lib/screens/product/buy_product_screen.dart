@@ -453,12 +453,11 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                         YMColors().white,
                                         YMColors().red,
                                       );
-                                    } else if (int.parse(dayController.text) >
-                                            31 ||
-                                        int.parse(dayController.text) < 1 ||
-                                        int.parse(monthController.text) > 12 ||
-                                        int.parse(monthController.text) < 1 ||
-                                        yearController.text.length < 4) {
+                                    } else if (validDate(
+                                      dayController.text,
+                                      monthController.text,
+                                      yearController.text,
+                                    )) {
                                       showCustomSnackBar(
                                         context,
                                         "Lütfen geçerli bir tarih giriniz.",
