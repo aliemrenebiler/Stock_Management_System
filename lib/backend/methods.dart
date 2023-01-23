@@ -107,7 +107,7 @@ class DatabaseService {
       ${Purchase().productID} INTEGER not null,
       ${Purchase().amount} INTEGER not null,
       ${Purchase().price} REAL not null,
-      ${Purchase().date} TEXT not null,
+      ${Purchase().date} DATE not null,
       CONSTRAINT ${Purchase().tableName}Const1
       FOREIGN KEY (${Purchase().supplierID})
       REFERENCES ${Supplier().tableName}(${Supplier().id})
@@ -139,7 +139,7 @@ class DatabaseService {
       ${Sale().productID} INTEGER not null,
       ${Sale().amount} INTEGER not null,
       ${Sale().price} REAL not null,
-      ${Sale().date} TEXT not null,
+      ${Sale().date} DATE not null,
       CONSTRAINT ${Sale().tableName}Const1
       FOREIGN KEY (${Sale().productID})
       REFERENCES ${Product().tableName}(${Product().id})
@@ -428,64 +428,52 @@ class DatabaseService {
 
   getPurchases(
     int? id,
-    String? date,
+    String? date1,
+    String? date2,
     double? minPrice,
     double? maxPrice,
     int? minAmount,
     int? maxAmount,
   ) {
-    String query = 'SELECT * FROM ${Purchase().tableName}';
-    bool isSearching = false;
+    String query =
+        """
+        SELECT
+        ${Purchase().tableName}.${Purchase().id},
+        ${Purchase().tableName}.${Purchase().price},
+        ${Purchase().tableName}.${Purchase().amount},
+        ${Purchase().tableName}.${Purchase().supplierID},
+        ${Product().tableName}.${Product().name},
+        ${Product().tableName}.${Product().brand},
+        ${Product().tableName}.${Product().color},
+        ${Product().tableName}.${Product().size},
+        ${Product().tableName}.${Product().sizeType},
+        ${Purchase().tableName}.${Purchase().date},
+        STRFTIME('%d.%m.%Y', ${Purchase().tableName}.${Purchase().date})
+        AS ${Purchase().formattedDate}
+        FROM ${Purchase().tableName}, ${Product().tableName}
+        WHERE ${Purchase().tableName}.${Purchase().productID}==${Product().tableName}.${Product().id}
+        """;
 
     if (id != null) {
-      if (!isSearching) {
-        isSearching = true;
-        query += ' WHERE';
-      }
-      query += ' ${Purchase().id}="$id"';
+      query += ' AND ${Purchase().tableName}.${Purchase().id}="$id"';
     }
-    if (date != null) {
-      if (!isSearching) {
-        isSearching = true;
-        query += ' WHERE';
-      } else {
-        query += ' AND';
-      }
-      query += ' ${Purchase().date} LIKE "%$date%"';
+    if (date1 != null) {
+      query += ' AND ${Purchase().tableName}.${Purchase().date}>="$date1"';
     }
-    if (minPrice != null || maxPrice != null) {
-      if (!isSearching) {
-        isSearching = true;
-        query += ' WHERE';
-      } else {
-        query += ' INTERSECT SELECT * FROM ${Purchase().tableName} WHERE';
-      }
-      if (minPrice != null) {
-        query += ' ${Purchase().price}>=$minPrice';
-      }
-      if (maxPrice != null) {
-        if (minPrice != null) {
-          query += ' AND';
-        }
-        query += ' ${Purchase().price}<=$maxPrice';
-      }
+    if (date2 != null) {
+      query += ' AND ${Purchase().tableName}.${Purchase().date}<="$date2"';
     }
-    if (minAmount != null || maxAmount != null) {
-      if (!isSearching) {
-        isSearching = true;
-        query += ' WHERE';
-      } else {
-        query += ' INTERSECT SELECT * FROM ${Purchase().tableName} WHERE';
-      }
-      if (minAmount != null) {
-        query += ' ${Purchase().amount}>=$minAmount';
-      }
-      if (maxAmount != null) {
-        if (minAmount != null) {
-          query += ' AND';
-        }
-        query += ' ${Purchase().amount}<=$maxAmount';
-      }
+    if (minPrice != null) {
+      query += ' AND ${Purchase().tableName}.${Purchase().price}>=$minPrice';
+    }
+    if (maxPrice != null && minPrice != null) {
+      query += ' AND ${Purchase().tableName}.${Purchase().price}<=$maxPrice';
+    }
+    if (minAmount != null) {
+      query += ' AND ${Purchase().amount}>=$minAmount';
+    }
+    if (maxAmount != null) {
+      query += ' AND ${Purchase().amount}<=$maxAmount';
     }
 
     Database database = sqlite3.open(dbName);

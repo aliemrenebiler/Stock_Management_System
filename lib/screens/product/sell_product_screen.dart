@@ -464,7 +464,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                         YMColors().white,
                                         YMColors().red,
                                       );
-                                    } else if (validDate(
+                                    } else if (!validDate(
                                       dayController.text,
                                       monthController.text,
                                       yearController.text,
@@ -477,7 +477,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                       );
                                     } else {
                                       String date =
-                                          "${dayController.text.padLeft(2, "0")}.${monthController.text.padLeft(2, "0")}.${yearController.text}";
+                                          "${yearController.text}-${monthController.text.padLeft(2, "0")}-${dayController.text.padLeft(2, "0")}";
                                       DatabaseService().insertSale(
                                         {
                                           Sale().id: null,

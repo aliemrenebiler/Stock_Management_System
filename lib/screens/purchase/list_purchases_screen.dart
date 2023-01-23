@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../backend/classes.dart';
 import '../../backend/methods.dart';
+import '../../widgets/custom_snack_bar.dart';
 import '../../widgets/custom_text_form_field.dart';
 import '../../backend/theme.dart';
 import '../../widgets/item_table.dart';
@@ -9,6 +10,17 @@ import '../../widgets/custom_button.dart';
 import '../../widgets/custom_top_bar.dart';
 
 List<Map<dynamic, dynamic>> listedPurchases = [];
+
+TextEditingController day1Controller = TextEditingController();
+TextEditingController month1Controller = TextEditingController();
+TextEditingController year1Controller = TextEditingController();
+TextEditingController day2Controller = TextEditingController();
+TextEditingController month2Controller = TextEditingController();
+TextEditingController year2Controller = TextEditingController();
+TextEditingController minAmountController = TextEditingController();
+TextEditingController maxAmountController = TextEditingController();
+TextEditingController minPriceController = TextEditingController();
+TextEditingController maxPriceController = TextEditingController();
 
 class ListPurchasesScreen extends StatefulWidget {
   const ListPurchasesScreen({Key? key}) : super(key: key);
@@ -24,14 +36,19 @@ class _ListPurchasesScreenState extends State<ListPurchasesScreen> {
 
   @override
   void initState() {
-    listedPurchases =
-        DatabaseService().getPurchases(null, null, null, null, null, null);
+    day1Controller.clear();
+    month1Controller.clear();
+    year1Controller.clear();
+    day2Controller.clear();
+    month2Controller.clear();
+    year2Controller.clear();
+    minAmountController.clear();
+    maxAmountController.clear();
+    minPriceController.clear();
+    maxPriceController.clear();
+    listedPurchases = DatabaseService()
+        .getPurchases(null, null, null, null, null, null, null);
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
@@ -91,11 +108,6 @@ class PurchasesListSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController dateController = TextEditingController();
-    TextEditingController minAmountController = TextEditingController();
-    TextEditingController maxAmountController = TextEditingController();
-    TextEditingController minPriceController = TextEditingController();
-    TextEditingController maxPriceController = TextEditingController();
     return Container(
       decoration: BoxDecoration(
         color: YMColors().lightGrey,
@@ -105,34 +117,116 @@ class PurchasesListSearchBar extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
+              flex: 2,
               child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: CustomButton(
-                  text: "Temizle",
-                  onPressed: () {
-                    listedPurchases = DatabaseService()
-                        .getPurchases(null, null, null, null, null, null);
-                    notifyParent();
-                  },
-                  height: 50,
-                  textColor: YMColors().white,
-                  bgColor: YMColors().grey,
+                padding: const EdgeInsets.all(5),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: CustomTextFormField(
+                          height: 50,
+                          hintText: "(Gün)",
+                          controller: day1Controller,
+                          inputType: int,
+                          maxInputLength: 2,
+                          action: TextInputAction.next,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: CustomTextFormField(
+                          height: 50,
+                          hintText: "(Ay)",
+                          controller: month1Controller,
+                          inputType: int,
+                          maxInputLength: 2,
+                          action: TextInputAction.next,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: CustomTextFormField(
+                          height: 50,
+                          hintText: "(Yıl)",
+                          controller: year1Controller,
+                          inputType: int,
+                          maxInputLength: 4,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-            ListTableVerticalSeperator(
-              color: YMColors().grey,
-              space: 10,
+            Padding(
+              padding: const EdgeInsets.all(5),
+              child: Text(
+                "—",
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.right,
+                style: TextStyle(
+                  fontSize: YMSizes().fontSizeMedium,
+                  color: YMColors().grey,
+                ),
+              ),
             ),
             Expanded(
               flex: 2,
               child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: CustomTextFormField(
-                  hintText: "Tarih",
-                  height: 50,
-                  controller: dateController,
-                  action: TextInputAction.next,
+                padding: const EdgeInsets.all(5),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: CustomTextFormField(
+                          height: 50,
+                          hintText: "(Gün)",
+                          controller: day2Controller,
+                          inputType: int,
+                          maxInputLength: 2,
+                          action: TextInputAction.next,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: CustomTextFormField(
+                          height: 50,
+                          hintText: "(Ay)",
+                          controller: month2Controller,
+                          inputType: int,
+                          maxInputLength: 2,
+                          action: TextInputAction.next,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: CustomTextFormField(
+                          height: 50,
+                          hintText: "(Yıl)",
+                          controller: year2Controller,
+                          inputType: int,
+                          maxInputLength: 4,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -153,6 +247,7 @@ class PurchasesListSearchBar extends StatelessWidget {
                           hintText: "Fiyat (En Az)",
                           height: 50,
                           controller: minPriceController,
+                          inputType: double,
                           action: TextInputAction.next,
                         ),
                       ),
@@ -164,6 +259,7 @@ class PurchasesListSearchBar extends StatelessWidget {
                           hintText: "Fiyat (En Fazla)",
                           height: 50,
                           controller: maxPriceController,
+                          inputType: double,
                           action: TextInputAction.next,
                         ),
                       ),
@@ -189,6 +285,7 @@ class PurchasesListSearchBar extends StatelessWidget {
                           hintText: "Adet (En Az)",
                           height: 50,
                           controller: minAmountController,
+                          inputType: int,
                           action: TextInputAction.next,
                         ),
                       ),
@@ -200,6 +297,7 @@ class PurchasesListSearchBar extends StatelessWidget {
                           hintText: "Adet (En Fazla)",
                           height: 50,
                           controller: maxAmountController,
+                          inputType: int,
                         ),
                       ),
                     ),
@@ -211,36 +309,110 @@ class PurchasesListSearchBar extends StatelessWidget {
               color: YMColors().grey,
               space: 10,
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: CustomButton(
-                  text: "Ara",
-                  onPressed: () {
-                    listedPurchases = DatabaseService().getPurchases(
-                      null,
-                      (dateController.text.isEmpty)
-                          ? null
-                          : dateController.text,
-                      (minPriceController.text.isEmpty)
-                          ? null
-                          : double.parse(minPriceController.text),
-                      (maxPriceController.text.isEmpty)
-                          ? null
-                          : double.parse(maxPriceController.text),
-                      (minAmountController.text.isEmpty)
-                          ? null
-                          : int.parse(minAmountController.text),
-                      (maxAmountController.text.isEmpty)
-                          ? null
-                          : int.parse(maxAmountController.text),
-                    );
-                    notifyParent();
-                  },
-                  height: 50,
-                  textColor: YMColors().white,
-                  bgColor: YMColors().red,
-                ),
+            Padding(
+              padding: const EdgeInsets.all(5),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: CustomButton(
+                      text: "Ara",
+                      onPressed: () {
+                        String? date1, date2;
+                        bool searchable = true;
+                        if (day1Controller.text.isNotEmpty ||
+                            month1Controller.text.isNotEmpty ||
+                            year1Controller.text.isNotEmpty) {
+                          if (!validDate(
+                            day1Controller.text,
+                            month1Controller.text,
+                            year1Controller.text,
+                          )) {
+                            searchable = false;
+                            showCustomSnackBar(
+                              context,
+                              "Lütfen geçerli bir tarih giriniz.",
+                              YMColors().white,
+                              YMColors().red,
+                            );
+                          } else {
+                            date1 =
+                                "${year1Controller.text}-${month1Controller.text}-${day1Controller.text}";
+                          }
+                        }
+                        if (day2Controller.text.isNotEmpty ||
+                            month2Controller.text.isNotEmpty ||
+                            year2Controller.text.isNotEmpty) {
+                          if (!validDate(
+                            day2Controller.text,
+                            month2Controller.text,
+                            year2Controller.text,
+                          )) {
+                            searchable = false;
+                            showCustomSnackBar(
+                              context,
+                              "Lütfen geçerli bir tarih giriniz.",
+                              YMColors().white,
+                              YMColors().red,
+                            );
+                          } else {
+                            date2 =
+                                "${year2Controller.text}-${month2Controller.text}-${day2Controller.text}";
+                          }
+                        }
+                        if (searchable) {
+                          listedPurchases = DatabaseService().getPurchases(
+                            null,
+                            date1,
+                            date2,
+                            (minPriceController.text.isEmpty)
+                                ? null
+                                : double.parse(minPriceController.text),
+                            (maxPriceController.text.isEmpty)
+                                ? null
+                                : double.parse(maxPriceController.text),
+                            (minAmountController.text.isEmpty)
+                                ? null
+                                : int.parse(minAmountController.text),
+                            (maxAmountController.text.isEmpty)
+                                ? null
+                                : int.parse(maxAmountController.text),
+                          );
+                          notifyParent();
+                        }
+                      },
+                      height: 50,
+                      width: 80,
+                      textColor: YMColors().white,
+                      bgColor: YMColors().blue,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: CustomButton(
+                      text: "Sıfırla",
+                      onPressed: () {
+                        day1Controller.clear();
+                        month1Controller.clear();
+                        year1Controller.clear();
+                        day2Controller.clear();
+                        month2Controller.clear();
+                        year2Controller.clear();
+                        minAmountController.clear();
+                        maxAmountController.clear();
+                        minPriceController.clear();
+                        maxPriceController.clear();
+                        listedPurchases = DatabaseService().getPurchases(
+                            null, null, null, null, null, null, null);
+                        notifyParent();
+                      },
+                      height: 50,
+                      width: 80,
+                      textColor: YMColors().white,
+                      bgColor: YMColors().red,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -265,37 +437,197 @@ class PurchasesListTitlesBar extends StatelessWidget {
         child: IntrinsicHeight(
           child: Row(
             children: [
-              const ItemTableTitlesBarItem(text: "ID", flex: 1),
+              Container(
+                width: 60,
+                alignment: Alignment.center,
+                child: Text(
+                  "ID",
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: YMColors().black,
+                    fontSize: YMSizes().fontSizeMedium,
+                  ),
+                ),
+              ),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ItemTableTitlesBarItem(text: "Tedarikçi", flex: 3),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  width: 60,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Tedarikçi",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+              ),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ItemTableTitlesBarItem(text: "Ürün", flex: 8),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 70,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "İsim",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+              ),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ItemTableTitlesBarItem(text: "Fiyat", flex: 2),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 70,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Marka",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+              ),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ItemTableTitlesBarItem(text: "Adet", flex: 2),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 70,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Renk",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+              ),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ItemTableTitlesBarItem(text: "Tarih", flex: 3),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 70,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Boyut",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+              ),
               ListTableVerticalSeperator(
                 color: YMColors().grey,
                 space: 10,
               ),
-              const ItemTableTitlesBarItem(text: "İşlemler", flex: 2),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 70,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Fiyat",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+              ),
+              ListTableVerticalSeperator(
+                color: YMColors().grey,
+                space: 10,
+              ),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 70,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Adet",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+              ),
+              ListTableVerticalSeperator(
+                color: YMColors().grey,
+                space: 10,
+              ),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 70,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Tarih",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+              ),
+              ListTableVerticalSeperator(
+                color: YMColors().grey,
+                space: 10,
+              ),
+              Container(
+                height: 70,
+                width: 120,
+                alignment: Alignment.center,
+                child: Text(
+                  "İşlemler",
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: YMColors().black,
+                    fontSize: YMSizes().fontSizeMedium,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -313,10 +645,7 @@ class PurchasesListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<dynamic, dynamic>? product;
     Map<dynamic, dynamic>? supplier;
-    String productInfo = "-";
-    String supplierInfo = "-";
 
     if (purchase[Purchase().supplierID] != null) {
       try {
@@ -326,32 +655,6 @@ class PurchasesListItem extends StatelessWidget {
         )[0];
       } catch (_) {
         supplier = null;
-      }
-
-      if (supplier != null) {
-        supplierInfo = supplier[Supplier().name];
-      }
-    }
-
-    try {
-      product = DatabaseService().getProducts(purchase[Purchase().productID],
-          null, null, null, null, null, null, null)[0];
-    } catch (_) {
-      product = null;
-    }
-
-    if (product != null) {
-      productInfo = "${product[Product().name]}";
-
-      if (product[Product().brand] != null) {
-        productInfo += " - ${product[Product().brand]} Marka";
-      }
-      if (product[Product().color] != null) {
-        productInfo += " - ${product[Product().color]} Renk";
-      }
-      if (product[Product().color] != null) {
-        productInfo +=
-            " - ${product[Product().size]} ${product[Product().sizeType]}";
       }
     }
 
@@ -366,58 +669,19 @@ class PurchasesListItem extends StatelessWidget {
             ),
             child: Row(
               children: [
-                ListTableItemPart(
-                  value: (purchase[Purchase().id] != null)
-                      ? purchase[Purchase().id].toString()
-                      : null,
-                  flex: 1,
-                  textColor: YMColors().grey,
-                ),
-                ListTableVerticalSeperator(
-                  color: YMColors().lightGrey,
-                  space: 10,
-                ),
-                ListTableItemPart(
-                  value: supplierInfo,
-                  flex: 3,
-                ),
-                ListTableVerticalSeperator(
-                  color: YMColors().lightGrey,
-                  space: 10,
-                ),
-                ListTableItemPart(
-                  value: productInfo,
-                  flex: 8,
-                ),
-                ListTableVerticalSeperator(
-                  color: YMColors().lightGrey,
-                  space: 10,
-                ),
-                ListTableItemPart(
-                  value: (purchase[Purchase().price] != null)
-                      ? purchase[Purchase().price].toString()
-                      : null,
-                  flex: 2,
-                ),
-                ListTableVerticalSeperator(
-                  color: YMColors().lightGrey,
-                  space: 10,
-                ),
-                ListTableItemPart(
-                  value: (purchase[Purchase().amount] != null)
-                      ? purchase[Purchase().amount].toString()
-                      : null,
-                  flex: 2,
-                ),
-                ListTableVerticalSeperator(
-                  color: YMColors().lightGrey,
-                  space: 10,
-                ),
-                ListTableItemPart(
-                  value: (purchase[Purchase().date] != null)
-                      ? purchase[Purchase().date].toString()
-                      : null,
-                  flex: 3,
+                SizedBox(
+                  width: 60,
+                  child: Text(
+                    (purchase[Purchase().id] != null)
+                        ? purchase[Purchase().id].toString()
+                        : "-",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().grey,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
                 ),
                 ListTableVerticalSeperator(
                   color: YMColors().lightGrey,
@@ -425,19 +689,161 @@ class PurchasesListItem extends StatelessWidget {
                 ),
                 Expanded(
                   flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: CustomButton(
-                      text: "Düzenle",
-                      bgColor: YMColors().grey,
-                      textColor: YMColors().white,
-                      onPressed: () {
-                        editedItem = purchase;
-                        Navigator.pushReplacementNamed(
-                            context, '/edit_purchase');
-                      },
-                      height: 50,
+                  child: Text(
+                    (supplier != null)
+                        ? supplier[Supplier().name].toString()
+                        : "-",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
                     ),
+                  ),
+                ),
+                ListTableVerticalSeperator(
+                  color: YMColors().lightGrey,
+                  space: 10,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    (purchase[Product().name] != null)
+                        ? purchase[Product().name].toString()
+                        : "-",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+                ListTableVerticalSeperator(
+                  color: YMColors().lightGrey,
+                  space: 10,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    (purchase[Product().brand] != null)
+                        ? purchase[Product().brand].toString()
+                        : "-",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+                ListTableVerticalSeperator(
+                  color: YMColors().lightGrey,
+                  space: 10,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    (purchase[Product().color] != null)
+                        ? purchase[Product().color].toString()
+                        : "-",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+                ListTableVerticalSeperator(
+                  color: YMColors().lightGrey,
+                  space: 10,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    (purchase[Product().size] != null &&
+                            purchase[Product().sizeType] != null)
+                        ? "${purchase[Product().size]} (${purchase[Product().sizeType]})"
+                        : "-",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+                ListTableVerticalSeperator(
+                  color: YMColors().lightGrey,
+                  space: 10,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    (purchase[Purchase().price] != null)
+                        ? purchase[Purchase().price].toString()
+                        : "-",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+                ListTableVerticalSeperator(
+                  color: YMColors().lightGrey,
+                  space: 10,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    (purchase[Purchase().amount] != null)
+                        ? purchase[Purchase().amount].toString()
+                        : "-",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+                ListTableVerticalSeperator(
+                  color: YMColors().lightGrey,
+                  space: 10,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    (purchase[Purchase().formattedDate] != null)
+                        ? purchase[Purchase().formattedDate].toString()
+                        : "-",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+                ListTableVerticalSeperator(
+                  color: YMColors().lightGrey,
+                  space: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: CustomButton(
+                    text: "Düzenle",
+                    bgColor: YMColors().grey,
+                    textColor: YMColors().white,
+                    onPressed: () {
+                      editedItem = purchase;
+                      Navigator.pushReplacementNamed(context, '/edit_purchase');
+                    },
+                    height: 50,
+                    width: 100,
                   ),
                 ),
               ],

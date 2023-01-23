@@ -4,7 +4,7 @@ class Product {
   String name = "name";
   String category = "category";
   String brand = "brand";
-  String color = "renk";
+  String color = "color";
   String size = "size";
   String sizeType = "sizeType";
   String amount = "amount";
@@ -28,6 +28,7 @@ class Purchase {
   String amount = "amount";
   String price = "price";
   String date = "date";
+  String formattedDate = "formattedDate";
 }
 
 class Sale {

@@ -25,13 +25,13 @@ class _EditSaleScreenState extends State<EditSaleScreen> {
 
   @override
   void initState() {
-    List<String> dateList = editedItem[Purchase().date].toString().split(".");
+    List<String> dateList = editedItem[Purchase().date].toString().split("-");
     productController.text = editedItem[Sale().productID].toString();
     priceController.text = editedItem[Sale().price].toString();
     amountController.text = editedItem[Sale().amount].toString();
-    dayController.text = dateList[0];
+    dayController.text = dateList[2];
     monthController.text = dateList[1];
-    yearController.text = dateList[2];
+    yearController.text = dateList[0];
     super.initState();
   }
 
@@ -357,7 +357,7 @@ class _EditSaleScreenState extends State<EditSaleScreen> {
                                       );
                                     } else {
                                       String date =
-                                          "${dayController.text.padLeft(2, "0")}.${monthController.text.padLeft(2, "0")}.${yearController.text}";
+                                          "${yearController.text}-${monthController.text.padLeft(2, "0")}-${dayController.text.padLeft(2, "0")}";
                                       DatabaseService().updateSale(
                                         {
                                           Sale().id: editedItem[Sale().id],
