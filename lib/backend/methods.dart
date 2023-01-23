@@ -442,6 +442,7 @@ class DatabaseService {
         ${Purchase().tableName}.${Purchase().price},
         ${Purchase().tableName}.${Purchase().amount},
         ${Purchase().tableName}.${Purchase().supplierID},
+        ${Purchase().tableName}.${Purchase().productID},
         ${Product().tableName}.${Product().name},
         ${Product().tableName}.${Product().brand},
         ${Product().tableName}.${Product().color},
