@@ -688,7 +688,9 @@ validDate(String day, String month, String year) {
     int intYear = int.parse(year);
     if (intDay < 1 || intMonth < 1 || intYear < 1000) {
       throw Exception();
-    } else if (intMonth == 2 && intDay > 29) {
+    } else if (intMonth == 2 && intYear % 4 == 0 && intDay > 29) {
+      throw Exception();
+    } else if (intMonth == 2 && intYear % 4 != 0 && intDay > 28) {
       throw Exception();
     } else if ([4, 6, 9, 11].contains(intMonth) && intDay > 30) {
       throw Exception();

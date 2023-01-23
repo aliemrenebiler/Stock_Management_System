@@ -332,19 +332,19 @@ class _EditSaleScreenState extends State<EditSaleScreen> {
                                 child: CustomButton(
                                   text: "Kaydet",
                                   onPressed: () {
-                                    if (productController.text.isNotEmpty ||
-                                        dayController.text.isNotEmpty ||
-                                        monthController.text.isNotEmpty ||
-                                        yearController.text.isNotEmpty ||
-                                        priceController.text.isNotEmpty ||
-                                        amountController.text.isNotEmpty) {
+                                    if (productController.text.isEmpty ||
+                                        dayController.text.isEmpty ||
+                                        monthController.text.isEmpty ||
+                                        yearController.text.isEmpty ||
+                                        priceController.text.isEmpty ||
+                                        amountController.text.isEmpty) {
                                       showCustomSnackBar(
                                         context,
                                         "Lütfen zorunlu alanları doldurunuz.",
                                         YMColors().white,
                                         YMColors().red,
                                       );
-                                    } else if (validDate(
+                                    } else if (!validDate(
                                       dayController.text,
                                       monthController.text,
                                       yearController.text,
