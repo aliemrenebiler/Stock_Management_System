@@ -465,6 +465,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                                 .text.isEmpty)
                                             ? null
                                             : int.parse(amountController.text),
+                                        Product().visible:
+                                            editedItem[Product().visible],
                                       });
                                       showCustomSnackBar(
                                         context,

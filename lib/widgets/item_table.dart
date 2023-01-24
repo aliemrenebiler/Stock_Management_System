@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../backend/theme.dart';
-
 class ItemTable extends StatelessWidget {
   final Widget titlesBar;
   final List<Widget> items;
@@ -30,64 +28,6 @@ class ItemTable extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class ItemTableTitlesBarItem extends StatelessWidget {
-  final String text;
-  final int flex;
-  const ItemTableTitlesBarItem({
-    super.key,
-    required this.text,
-    required this.flex,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      flex: flex,
-      child: Container(
-        height: 70,
-        alignment: Alignment.center,
-        child: Text(
-          text,
-          textAlign: TextAlign.center,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            color: YMColors().black,
-            fontSize: YMSizes().fontSizeMedium,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ListTableItemPart extends StatelessWidget {
-  final String? value;
-  final int flex;
-  final Color? textColor;
-  const ListTableItemPart({
-    super.key,
-    required this.value,
-    required this.flex,
-    this.textColor,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      flex: flex,
-      child: Text(
-        value ?? "-",
-        textAlign: TextAlign.center,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(
-          color: textColor ?? YMColors().black,
-          fontSize: YMSizes().fontSizeMedium,
-        ),
-      ),
     );
   }
 }

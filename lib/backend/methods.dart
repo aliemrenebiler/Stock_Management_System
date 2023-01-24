@@ -435,8 +435,7 @@ class DatabaseService {
     int? minAmount,
     int? maxAmount,
   ) {
-    String query =
-        """
+    String query = """
         SELECT
         ${Purchase().tableName}.${Purchase().id},
         ${Purchase().tableName}.${Purchase().price},
@@ -547,64 +546,51 @@ class DatabaseService {
   // TODO: Make the same searching system in purchases
   getSales(
     String? id,
-    String? date,
+    String? date1,
+    String? date2,
     double? minPrice,
     double? maxPrice,
     int? minAmount,
     int? maxAmount,
   ) {
-    String query = 'SELECT * FROM ${Sale().tableName}';
-    bool isSearching = false;
+    String query = """
+        SELECT
+        ${Sale().tableName}.${Sale().id},
+        ${Sale().tableName}.${Sale().price},
+        ${Sale().tableName}.${Sale().amount},
+        ${Sale().tableName}.${Sale().productID},
+        ${Product().tableName}.${Product().name},
+        ${Product().tableName}.${Product().brand},
+        ${Product().tableName}.${Product().color},
+        ${Product().tableName}.${Product().size},
+        ${Product().tableName}.${Product().sizeType},
+        ${Sale().tableName}.${Sale().date},
+        STRFTIME('%d.%m.%Y', ${Sale().tableName}.${Sale().date})
+        AS ${Sale().formattedDate}
+        FROM ${Sale().tableName}, ${Product().tableName}
+        WHERE ${Sale().tableName}.${Sale().productID}==${Product().tableName}.${Product().id}
+        """;
 
     if (id != null) {
-      if (!isSearching) {
-        isSearching = true;
-        query += ' WHERE';
-      }
-      query += ' ${Sale().id}="$id"';
+      query += ' AND ${Sale().tableName}.${Sale().id}="$id"';
     }
-    if (date != null) {
-      if (!isSearching) {
-        isSearching = true;
-        query += ' WHERE';
-      } else {
-        query += ' AND';
-      }
-      query += ' ${Sale().date} LIKE "%$date%"';
+    if (date1 != null) {
+      query += ' AND ${Sale().tableName}.${Sale().date}>="$date1"';
     }
-    if (minPrice != null || maxPrice != null) {
-      if (!isSearching) {
-        isSearching = true;
-        query += ' WHERE';
-      } else {
-        query += ' INTERSECT SELECT * FROM ${Sale().tableName} WHERE';
-      }
-      if (minPrice != null) {
-        query += ' ${Sale().price}>=$minPrice';
-      }
-      if (maxPrice != null) {
-        if (minPrice != null) {
-          query += ' AND';
-        }
-        query += ' ${Sale().price}<=$maxPrice';
-      }
+    if (date2 != null) {
+      query += ' AND ${Sale().tableName}.${Sale().date}<="$date2"';
     }
-    if (minAmount != null || maxAmount != null) {
-      if (!isSearching) {
-        isSearching = true;
-        query += ' WHERE';
-      } else {
-        query += ' INTERSECT SELECT * FROM ${Sale().tableName} WHERE';
-      }
-      if (minAmount != null) {
-        query += ' ${Sale().amount}>=$minAmount';
-      }
-      if (maxAmount != null) {
-        if (minAmount != null) {
-          query += ' AND';
-        }
-        query += ' ${Sale().amount}<=$maxAmount';
-      }
+    if (minPrice != null) {
+      query += ' AND ${Sale().tableName}.${Sale().price}>=$minPrice';
+    }
+    if (maxPrice != null && minPrice != null) {
+      query += ' AND ${Sale().tableName}.${Sale().price}<=$maxPrice';
+    }
+    if (minAmount != null) {
+      query += ' AND ${Sale().amount}>=$minAmount';
+    }
+    if (maxAmount != null) {
+      query += ' AND ${Sale().amount}<=$maxAmount';
     }
 
     Database database = sqlite3.open(dbName);

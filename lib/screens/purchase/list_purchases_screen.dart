@@ -160,6 +160,7 @@ class PurchasesListSearchBar extends StatelessWidget {
                           controller: year1Controller,
                           inputType: int,
                           maxInputLength: 4,
+                          action: TextInputAction.next,
                         ),
                       ),
                     ),
@@ -223,6 +224,7 @@ class PurchasesListSearchBar extends StatelessWidget {
                           controller: year2Controller,
                           inputType: int,
                           maxInputLength: 4,
+                          action: TextInputAction.next,
                         ),
                       ),
                     ),
@@ -298,6 +300,7 @@ class PurchasesListSearchBar extends StatelessWidget {
                           height: 50,
                           controller: maxAmountController,
                           inputType: int,
+                          action: TextInputAction.next,
                         ),
                       ),
                     ),
@@ -337,7 +340,7 @@ class PurchasesListSearchBar extends StatelessWidget {
                             );
                           } else {
                             date1 =
-                                "${year1Controller.text}-${month1Controller.text}-${day1Controller.text}";
+                                "${year1Controller.text}-${month1Controller.text.padLeft(2, "0")}-${day1Controller.text.padLeft(2, "0")}";
                           }
                         }
                         if (day2Controller.text.isNotEmpty ||
@@ -357,7 +360,7 @@ class PurchasesListSearchBar extends StatelessWidget {
                             );
                           } else {
                             date2 =
-                                "${year2Controller.text}-${month2Controller.text}-${day2Controller.text}";
+                                "${year2Controller.text}-${month2Controller.text.padLeft(2, "0")}-${day2Controller.text.padLeft(2, "0")}";
                           }
                         }
                         if (searchable) {
@@ -645,18 +648,8 @@ class PurchasesListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<dynamic, dynamic>? supplier;
-
-    if (purchase[Purchase().supplierID] != null) {
-      try {
-        supplier = DatabaseService().getSuppliers(
-          purchase[Purchase().supplierID],
-          null,
-        )[0];
-      } catch (_) {
-        supplier = null;
-      }
-    }
+    Map<dynamic, dynamic>?
+        supplier; // TODO: Make this disappear with getting the tables together
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),

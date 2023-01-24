@@ -179,27 +179,27 @@ class SuppliersListTitlesBar extends StatelessWidget {
         child: IntrinsicHeight(
           child: Row(
             children: [
-              const ItemTableTitlesBarItem(text: "ID", flex: 1),
-              ListTableVerticalSeperator(
-                color: YMColors().grey,
-                space: 10,
-              ),
-              const ItemTableTitlesBarItem(text: "İsim", flex: 3),
-              ListTableVerticalSeperator(
-                color: YMColors().grey,
-                space: 10,
-              ),
-              const ItemTableTitlesBarItem(text: "Telefon Numarası", flex: 3),
-              ListTableVerticalSeperator(
-                color: YMColors().grey,
-                space: 10,
-              ),
-              const ItemTableTitlesBarItem(text: "Adres", flex: 5),
-              ListTableVerticalSeperator(
-                color: YMColors().grey,
-                space: 10,
-              ),
-              const ItemTableTitlesBarItem(text: "İşlemler", flex: 2),
+              // const ItemTableTitlesBarItem(text: "ID", flex: 1),
+              // ListTableVerticalSeperator(
+              //   color: YMColors().grey,
+              //   space: 10,
+              // ),
+              // const ItemTableTitlesBarItem(text: "İsim", flex: 3),
+              // ListTableVerticalSeperator(
+              //   color: YMColors().grey,
+              //   space: 10,
+              // ),
+              // const ItemTableTitlesBarItem(text: "Telefon Numarası", flex: 3),
+              // ListTableVerticalSeperator(
+              //   color: YMColors().grey,
+              //   space: 10,
+              // ),
+              // const ItemTableTitlesBarItem(text: "Adres", flex: 5),
+              // ListTableVerticalSeperator(
+              //   color: YMColors().grey,
+              //   space: 10,
+              // ),
+              // const ItemTableTitlesBarItem(text: "İşlemler", flex: 2),
             ],
           ),
         ),
@@ -228,64 +228,65 @@ class SuppliersListItem extends StatelessWidget {
             ),
             child: Row(
               children: [
-                ListTableItemPart(
-                  value: (supplier[Supplier().id] != null)
-                      ? supplier[Supplier().id].toString()
-                      : null,
-                  flex: 1,
-                  textColor: YMColors().grey,
-                ),
-                ListTableVerticalSeperator(
-                  color: YMColors().lightGrey,
-                  space: 10,
-                ),
-                ListTableItemPart(
-                  value: (supplier[Supplier().name] != null)
-                      ? supplier[Supplier().name].toString()
-                      : null,
-                  flex: 3,
-                ),
-                ListTableVerticalSeperator(
-                  color: YMColors().lightGrey,
-                  space: 10,
-                ),
-                ListTableItemPart(
-                  value: (supplier[Supplier().phone] != null)
-                      ? supplier[Supplier().phone].toString()
-                      : null,
-                  flex: 3,
-                ),
-                ListTableVerticalSeperator(
-                  color: YMColors().lightGrey,
-                  space: 10,
-                ),
-                ListTableItemPart(
-                  value: (supplier[Supplier().address] != null)
-                      ? supplier[Supplier().address].toString()
-                      : null,
-                  flex: 5,
-                ),
-                ListTableVerticalSeperator(
-                  color: YMColors().lightGrey,
-                  space: 10,
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: CustomButton(
-                      text: "Düzenle",
-                      bgColor: YMColors().grey,
-                      textColor: YMColors().white,
-                      onPressed: () {
-                        editedItem = supplier;
-                        Navigator.pushReplacementNamed(
-                            context, '/edit_supplier');
-                      },
-                      height: 50,
-                    ),
-                  ),
-                ),
+                // TODO: Fix that mess
+                // ListTableItemPart(
+                //   value: (supplier[Supplier().id] != null)
+                //       ? supplier[Supplier().id].toString()
+                //       : null,
+                //   flex: 1,
+                //   textColor: YMColors().grey,
+                // ),
+                // ListTableVerticalSeperator(
+                //   color: YMColors().lightGrey,
+                //   space: 10,
+                // ),
+                // ListTableItemPart(
+                //   value: (supplier[Supplier().name] != null)
+                //       ? supplier[Supplier().name].toString()
+                //       : null,
+                //   flex: 3,
+                // ),
+                // ListTableVerticalSeperator(
+                //   color: YMColors().lightGrey,
+                //   space: 10,
+                // ),
+                // ListTableItemPart(
+                //   value: (supplier[Supplier().phone] != null)
+                //       ? supplier[Supplier().phone].toString()
+                //       : null,
+                //   flex: 3,
+                // ),
+                // ListTableVerticalSeperator(
+                //   color: YMColors().lightGrey,
+                //   space: 10,
+                // ),
+                // ListTableItemPart(
+                //   value: (supplier[Supplier().address] != null)
+                //       ? supplier[Supplier().address].toString()
+                //       : null,
+                //   flex: 5,
+                // ),
+                // ListTableVerticalSeperator(
+                //   color: YMColors().lightGrey,
+                //   space: 10,
+                // ),
+                // Expanded(
+                //   flex: 2,
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(10),
+                //     child: CustomButton(
+                //       text: "Düzenle",
+                //       bgColor: YMColors().grey,
+                //       textColor: YMColors().white,
+                //       onPressed: () {
+                //         editedItem = supplier;
+                //         Navigator.pushReplacementNamed(
+                //             context, '/edit_supplier');
+                //       },
+                //       height: 50,
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
