@@ -656,8 +656,8 @@ class SalesListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (sale[Product().name] != null)
-                        ? sale[Product().name].toString()
+                    (sale[Sale().productName] != null)
+                        ? sale[Sale().productName].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,

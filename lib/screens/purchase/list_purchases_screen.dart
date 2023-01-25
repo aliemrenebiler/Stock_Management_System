@@ -648,9 +648,6 @@ class PurchasesListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<dynamic, dynamic>?
-        supplier; // TODO: Make this disappear with getting the tables together
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
@@ -683,8 +680,8 @@ class PurchasesListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (supplier != null)
-                        ? supplier[Supplier().name].toString()
+                    (purchase[Purchase().supplierName] != null)
+                        ? purchase[Purchase().supplierName].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -701,8 +698,8 @@ class PurchasesListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (purchase[Product().name] != null)
-                        ? purchase[Product().name].toString()
+                    (purchase[Purchase().productName] != null)
+                        ? purchase[Purchase().productName].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,

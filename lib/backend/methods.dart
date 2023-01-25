@@ -442,7 +442,7 @@ class DatabaseService {
         ${Purchase().tableName}.${Purchase().amount},
         ${Purchase().tableName}.${Purchase().supplierID},
         ${Purchase().tableName}.${Purchase().productID},
-        ${Product().tableName}.${Product().name},
+        ${Product().tableName}.${Product().name} AS ${Purchase().productName},
         ${Product().tableName}.${Product().brand},
         ${Product().tableName}.${Product().color},
         ${Product().tableName}.${Product().size},
@@ -543,7 +543,6 @@ class DatabaseService {
     database.dispose();
   }
 
-  // TODO: Make the same searching system in purchases
   getSales(
     String? id,
     String? date1,
@@ -559,7 +558,7 @@ class DatabaseService {
         ${Sale().tableName}.${Sale().price},
         ${Sale().tableName}.${Sale().amount},
         ${Sale().tableName}.${Sale().productID},
-        ${Product().tableName}.${Product().name},
+        ${Product().tableName}.${Product().name} AS ${Sale().productName},
         ${Product().tableName}.${Product().brand},
         ${Product().tableName}.${Product().color},
         ${Product().tableName}.${Product().size},

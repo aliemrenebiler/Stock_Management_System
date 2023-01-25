@@ -24,7 +24,9 @@ class Purchase {
   String tableName = "purchases";
   String id = "id";
   String supplierID = "supplierID";
+  String supplierName = "supplierName";
   String productID = "productID";
+  String productName = "productName";
   String amount = "amount";
   String price = "price";
   String date = "date";
@@ -35,6 +37,7 @@ class Sale {
   String tableName = "sales";
   String id = "id";
   String productID = "productID";
+  String productName = "productName";
   String amount = "amount";
   String price = "price";
   String date = "date";
