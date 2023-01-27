@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../backend/classes.dart';
 import '../../backend/methods.dart';
+import '../../widgets/custom_snack_bar.dart';
 import '../../widgets/custom_top_bar.dart';
 import '../../backend/theme.dart';
 import '../../widgets/custom_text_form_field.dart';
@@ -175,19 +176,34 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
                                 child: CustomButton(
                                   text: "Kaydet",
                                   onPressed: () {
-                                    if (nameController.text.isNotEmpty) {
-                                      DatabaseService().insertSupplier({
-                                        Supplier().id: null,
-                                        Supplier().name: nameController.text,
-                                        Supplier().phone:
-                                            (phoneController.text.isEmpty)
-                                                ? null
-                                                : phoneController.text,
-                                        Supplier().address:
-                                            (addressController.text.isEmpty)
-                                                ? null
-                                                : addressController.text,
-                                      });
+                                    if (nameController.text.isEmpty) {
+                                      showCustomSnackBar(
+                                        context,
+                                        "Lütfen zorunlu alanları doldurunuz.",
+                                        YMColors().white,
+                                        YMColors().red,
+                                      );
+                                    } else {
+                                      DatabaseService().insertSupplier(
+                                        {
+                                          Supplier().id: null,
+                                          Supplier().name: nameController.text,
+                                          Supplier().phone:
+                                              (phoneController.text.isEmpty)
+                                                  ? null
+                                                  : phoneController.text,
+                                          Supplier().address:
+                                              (addressController.text.isEmpty)
+                                                  ? null
+                                                  : addressController.text,
+                                        },
+                                      );
+                                      showCustomSnackBar(
+                                        context,
+                                        "Yeni tedarikçi eklendi.",
+                                        YMColors().white,
+                                        YMColors().blue,
+                                      );
                                     }
                                   },
                                   bgColor: YMColors().blue,
