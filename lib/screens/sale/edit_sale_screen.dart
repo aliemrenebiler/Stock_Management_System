@@ -77,7 +77,7 @@ class _EditSaleScreenState extends State<EditSaleScreen> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
                                           child: Text(
-                                            "Ürün ID",
+                                            "Ürün İsmi:",
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
                                             style: TextStyle(
@@ -92,11 +92,134 @@ class _EditSaleScreenState extends State<EditSaleScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: CustomTextFormField(
-                                            height: 50,
-                                            hintText: "(Zorunlu)",
-                                            controller: productController,
-                                            action: TextInputAction.next,
+                                          child: Text(
+                                            (editedItem[Sale().productName] !=
+                                                    null)
+                                                ? editedItem[Sale().productName]
+                                                    .toString()
+                                                : "-",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  YMSizes().fontSizeMedium,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text(
+                                            "Marka:",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  YMSizes().fontSizeMedium,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text(
+                                            (editedItem[Product().brand] !=
+                                                    null)
+                                                ? editedItem[Product().brand]
+                                                    .toString()
+                                                : "-",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  YMSizes().fontSizeMedium,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text(
+                                            "Renk:",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  YMSizes().fontSizeMedium,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text(
+                                            (editedItem[Product().color] !=
+                                                    null)
+                                                ? editedItem[Product().color]
+                                                    .toString()
+                                                : "-",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  YMSizes().fontSizeMedium,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text(
+                                            "Boyut:",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  YMSizes().fontSizeMedium,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text(
+                                            (editedItem[Product().size] !=
+                                                        null &&
+                                                    editedItem[Product()
+                                                            .sizeType] !=
+                                                        null)
+                                                ? "${editedItem[Product().size]} (${editedItem[Product().sizeType]})"
+                                                : "-",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  YMSizes().fontSizeMedium,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -362,7 +485,7 @@ class _EditSaleScreenState extends State<EditSaleScreen> {
                                         {
                                           Sale().id: editedItem[Sale().id],
                                           Sale().productID:
-                                              int.parse(productController.text),
+                                              editedItem[Sale().productID],
                                           Sale().date: date,
                                           Sale().price: double.parse(
                                               priceController.text),
