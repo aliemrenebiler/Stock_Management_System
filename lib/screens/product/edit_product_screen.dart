@@ -430,44 +430,48 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                         YMColors().red,
                                       );
                                     } else {
-                                      DatabaseService().updateProduct({
-                                        Product().id: editedItem[Product().id],
-                                        Product().name:
-                                            (nameController.text.isEmpty)
-                                                ? null
-                                                : nameController.text,
-                                        Product().brand:
-                                            (brandController.text.isEmpty)
-                                                ? null
-                                                : brandController.text,
-                                        Product().category:
-                                            (categoryController.text.isEmpty)
-                                                ? null
-                                                : categoryController.text,
-                                        Product().color:
-                                            (colorController.text.isEmpty)
-                                                ? null
-                                                : colorController.text,
-                                        Product().size:
-                                            (sizeController.text.isEmpty)
-                                                ? null
-                                                : sizeController.text,
-                                        Product().sizeType:
-                                            (sizeTypeController.text.isEmpty)
-                                                ? null
-                                                : sizeTypeController.text,
-                                        Product().price:
-                                            (priceController.text.isEmpty)
-                                                ? null
-                                                : double.parse(
-                                                    priceController.text),
-                                        Product().amount: (amountController
-                                                .text.isEmpty)
-                                            ? null
-                                            : int.parse(amountController.text),
-                                        Product().visible:
-                                            editedItem[Product().visible],
-                                      });
+                                      DatabaseService().updateProduct(
+                                        {
+                                          Product().id:
+                                              editedItem[Product().id],
+                                          Product().name:
+                                              (nameController.text.isEmpty)
+                                                  ? null
+                                                  : nameController.text,
+                                          Product().brand:
+                                              (brandController.text.isEmpty)
+                                                  ? null
+                                                  : brandController.text,
+                                          Product().category:
+                                              (categoryController.text.isEmpty)
+                                                  ? null
+                                                  : categoryController.text,
+                                          Product().color:
+                                              (colorController.text.isEmpty)
+                                                  ? null
+                                                  : colorController.text,
+                                          Product().size:
+                                              (sizeController.text.isEmpty)
+                                                  ? null
+                                                  : sizeController.text,
+                                          Product().sizeType:
+                                              (sizeTypeController.text.isEmpty)
+                                                  ? null
+                                                  : sizeTypeController.text,
+                                          Product().price:
+                                              (priceController.text.isEmpty)
+                                                  ? null
+                                                  : double.parse(
+                                                      priceController.text),
+                                          Product().amount:
+                                              (amountController.text.isEmpty)
+                                                  ? null
+                                                  : int.parse(
+                                                      amountController.text),
+                                          Product().visible:
+                                              editedItem[Product().visible],
+                                        },
+                                      );
                                       showCustomSnackBar(
                                         context,
                                         "Ürün güncellendi.",

@@ -7,6 +7,7 @@ import 'package:yildiz_motor_v2/widgets/custom_top_bar.dart';
 import '../../backend/classes.dart';
 import '../../backend/methods.dart';
 import '../../widgets/custom_pop_up.dart';
+import '../../widgets/custom_snack_bar.dart';
 
 class EditSupplierScreen extends StatefulWidget {
   const EditSupplierScreen({super.key});
@@ -252,23 +253,38 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                                 child: CustomButton(
                                   text: "Kaydet",
                                   onPressed: () {
-                                    if (nameController.text.isNotEmpty) {
-                                      DatabaseService().updateSupplier({
-                                        Supplier().id:
-                                            editedItem[Supplier().id],
-                                        Supplier().name:
-                                            (nameController.text.isEmpty)
-                                                ? null
-                                                : nameController.text,
-                                        Supplier().phone:
-                                            (phoneController.text.isEmpty)
-                                                ? null
-                                                : phoneController.text,
-                                        Supplier().address:
-                                            (addressController.text.isEmpty)
-                                                ? null
-                                                : addressController.text,
-                                      });
+                                    if (nameController.text.isEmpty) {
+                                      showCustomSnackBar(
+                                        context,
+                                        "Lütfen zorunlu alanları doldurunuz.",
+                                        YMColors().white,
+                                        YMColors().red,
+                                      );
+                                    } else {
+                                      DatabaseService().updateSupplier(
+                                        {
+                                          Supplier().id:
+                                              editedItem[Supplier().id],
+                                          Supplier().name:
+                                              (nameController.text.isEmpty)
+                                                  ? null
+                                                  : nameController.text,
+                                          Supplier().phone:
+                                              (phoneController.text.isEmpty)
+                                                  ? null
+                                                  : phoneController.text,
+                                          Supplier().address:
+                                              (addressController.text.isEmpty)
+                                                  ? null
+                                                  : addressController.text,
+                                        },
+                                      );
+                                      showCustomSnackBar(
+                                        context,
+                                        "Tedarikçi güncellendi.",
+                                        YMColors().white,
+                                        YMColors().blue,
+                                      );
                                       Navigator.pushReplacementNamed(
                                           context, "/list_suppliers");
                                     }
