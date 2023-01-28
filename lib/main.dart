@@ -4,6 +4,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:yildiz_motor_v2/screens/settings/clear_data_screen.dart';
 import 'package:yildiz_motor_v2/screens/supplier/add_supplier_screen.dart';
 
+import 'screens/product/list_deleted_products_screen.dart';
 import 'screens/supplier/edit_supplier_screen.dart';
 import 'screens/supplier/list_suppliers_screen.dart';
 import 'screens/settings/change_password_screen.dart';
@@ -55,6 +56,12 @@ class MyApp extends StatelessWidget {
           case '/list_products':
             return PageTransition(
               child: const ListProductsScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/list_deleted_products':
+            return PageTransition(
+              child: const ListDeletedProductsScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );

@@ -56,7 +56,7 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
             },
             rightButtonText: "Silinen Ürünler",
             rightButtonAction: () {
-              // TODO: There will be a new deleted items page
+              Navigator.pushReplacementNamed(context, '/list_deleted_products');
             },
           ),
           Expanded(
