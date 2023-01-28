@@ -679,9 +679,10 @@ class PurchasesListItem extends StatelessWidget {
                 ),
                 Expanded(
                   flex: 2,
+                  // TODO: This supplier ID must be changed with name
                   child: Text(
-                    (purchase[Purchase().supplierName] != null)
-                        ? purchase[Purchase().supplierName].toString()
+                    (purchase[Purchase().supplierID] != null)
+                        ? purchase[Purchase().supplierID].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,

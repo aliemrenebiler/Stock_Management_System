@@ -12,21 +12,21 @@ List<Map<dynamic, dynamic>> listedSuppliers = [];
 
 TextEditingController infoController = TextEditingController();
 
-class ListSuppliersScreen extends StatefulWidget {
-  const ListSuppliersScreen({Key? key}) : super(key: key);
+class SelectSupplierScreen extends StatefulWidget {
+  const SelectSupplierScreen({Key? key}) : super(key: key);
 
   @override
-  State<ListSuppliersScreen> createState() => _ListSuppliersScreenState();
+  State<SelectSupplierScreen> createState() => _SelectSupplierScreenState();
 }
 
-class _ListSuppliersScreenState extends State<ListSuppliersScreen> {
+class _SelectSupplierScreenState extends State<SelectSupplierScreen> {
   refresh() {
     setState(() {});
   }
 
   @override
   void initState() {
-    backRoute = "/list_suppliers";
+    backRoute = "/select_supplier";
     infoController.clear();
     listedSuppliers = DatabaseService().getSuppliers(null, null);
     super.initState();
@@ -39,10 +39,10 @@ class _ListSuppliersScreenState extends State<ListSuppliersScreen> {
       body: Column(
         children: [
           CustomTopBar(
-            title: 'Tedarikçiler',
+            title: 'Tedarikçi Seç',
             leftButtonText: "Geri",
             leftButtonAction: () {
-              Navigator.pushReplacementNamed(context, '/list_purchases');
+              Navigator.pushReplacementNamed(context, '/buy_product');
             },
           ),
           Expanded(
@@ -278,7 +278,7 @@ class SuppliersListTitlesBar extends StatelessWidget {
               ),
               Container(
                 height: 70,
-                width: 120,
+                width: 100,
                 alignment: Alignment.center,
                 child: Text(
                   "İşlemler",
@@ -393,15 +393,15 @@ class SuppliersListItem extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: CustomButton(
-                    text: "Düzenle",
-                    bgColor: YMColors().grey,
+                    text: "Seç",
+                    bgColor: YMColors().blue,
                     textColor: YMColors().white,
                     onPressed: () {
-                      editedItem = supplier;
-                      Navigator.pushReplacementNamed(context, '/edit_supplier');
+                      selectedItem = supplier;
+                      Navigator.pushReplacementNamed(context, '/buy_product');
                     },
                     height: 50,
-                    width: 100,
+                    width: 80,
                   ),
                 ),
               ],

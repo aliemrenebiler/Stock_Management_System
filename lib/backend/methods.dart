@@ -6,7 +6,10 @@ import 'classes.dart';
 
 String dbName = "yildiz_motor_db.db";
 
+String backRoute = "/home";
+
 Map<dynamic, dynamic> editedItem = {};
+Map<dynamic, dynamic>? selectedItem;
 
 class SharedPrefsService {
   get isPasswordExists async {

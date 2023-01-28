@@ -1,6 +1,8 @@
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:yildiz_motor_v2/backend/methods.dart';
+import 'package:yildiz_motor_v2/screens/supplier/select_supplier_screen.dart';
 import 'package:yildiz_motor_v2/screens/settings/clear_data_screen.dart';
 import 'package:yildiz_motor_v2/screens/supplier/add_supplier_screen.dart';
 
@@ -83,6 +85,12 @@ class MyApp extends StatelessWidget {
               type: PageTransitionType.fade,
               settings: settings,
             );
+          case '/select_supplier':
+            return PageTransition(
+              child: const SelectSupplierScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
           case '/sell_product':
             return PageTransition(
               child: const SellProductScreen(),
@@ -121,7 +129,9 @@ class MyApp extends StatelessWidget {
             );
           case '/add_supplier':
             return PageTransition(
-              child: const AddSupplierScreen(),
+              child: AddSupplierScreen(
+                backRoute: backRoute,
+              ),
               type: PageTransitionType.fade,
               settings: settings,
             );

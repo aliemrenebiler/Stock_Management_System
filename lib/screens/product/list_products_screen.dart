@@ -697,6 +697,7 @@ class ProductsListItem extends StatelessWidget {
                           textColor: YMColors().white,
                           onPressed: () {
                             editedItem = product;
+                            selectedItem = null;
                             Navigator.pushReplacementNamed(
                                 context, '/buy_product');
                           },

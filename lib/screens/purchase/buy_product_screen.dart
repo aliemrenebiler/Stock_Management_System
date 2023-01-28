@@ -22,6 +22,10 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
   TextEditingController monthController = TextEditingController();
   TextEditingController yearController = TextEditingController();
 
+  refresh() {
+    setState(() {});
+  }
+
   @override
   void initState() {
     DateTime today = DateTime.now();
@@ -73,7 +77,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
                                           child: Text(
-                                            "ID:",
+                                            "Ürün ID:",
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
                                             style: TextStyle(
@@ -107,7 +111,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
                                           child: Text(
-                                            "İsim:",
+                                            "Ürün İsmi:",
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
                                             style: TextStyle(
@@ -275,6 +279,127 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                       ),
                                     ],
                                   ),
+                                  (selectedItem == null)
+                                      ? Row(
+                                          children: [
+                                            Expanded(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(5),
+                                                child: Text(
+                                                  "Tedarikçi",
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  textAlign: TextAlign.right,
+                                                  style: TextStyle(
+                                                    fontSize: YMSizes()
+                                                        .fontSizeMedium,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 2,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(5),
+                                                child: CustomButton(
+                                                  text: "Seç",
+                                                  onPressed: () {
+                                                    Navigator
+                                                        .pushReplacementNamed(
+                                                            context,
+                                                            "/select_supplier");
+                                                  },
+                                                  textColor: YMColors().white,
+                                                  bgColor: YMColors().grey,
+                                                  height: 50,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      : Row(
+                                          children: [
+                                            Expanded(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(5),
+                                                child: Text(
+                                                  "Tedarikçi",
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  textAlign: TextAlign.right,
+                                                  style: TextStyle(
+                                                    fontSize: YMSizes()
+                                                        .fontSizeMedium,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 2,
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Container(
+                                                      margin:
+                                                          const EdgeInsets.all(
+                                                              5),
+                                                      height: 50,
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              5),
+                                                      decoration: BoxDecoration(
+                                                        color: YMColors().white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        border: Border.all(
+                                                          color:
+                                                              YMColors().grey,
+                                                          width: 2,
+                                                        ),
+                                                      ),
+                                                      child: Text(
+                                                        "(${selectedItem![Supplier().id]}) ${selectedItem![Supplier().name]}",
+                                                        overflow: TextOverflow
+                                                            .visible,
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                        maxLines: 1,
+                                                        style: TextStyle(
+                                                          fontSize: YMSizes()
+                                                              .fontSizeMedium,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(5),
+                                                    child: CustomButton(
+                                                      text: "Kaldır",
+                                                      onPressed: () {
+                                                        selectedItem = null;
+                                                        refresh();
+                                                      },
+                                                      textColor:
+                                                          YMColors().white,
+                                                      bgColor: YMColors().grey,
+                                                      height: 50,
+                                                      width: 80,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                   Row(
                                     children: [
                                       Expanded(
@@ -297,7 +422,6 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
                                           child: CustomTextFormField(
-                                            height: 50,
                                             hintText: "(Zorunlu)",
                                             controller: priceController,
                                             inputType: double,
@@ -329,7 +453,6 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
                                           child: CustomTextFormField(
-                                            height: 50,
                                             hintText: "(Zorunlu)",
                                             controller: amountController,
                                             inputType: int,
@@ -366,7 +489,6 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                                 padding:
                                                     const EdgeInsets.all(5),
                                                 child: CustomTextFormField(
-                                                  height: 50,
                                                   hintText: "(Gün)",
                                                   controller: dayController,
                                                   inputType: int,
@@ -381,7 +503,6 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                                 padding:
                                                     const EdgeInsets.all(5),
                                                 child: CustomTextFormField(
-                                                  height: 50,
                                                   hintText: "(Ay)",
                                                   controller: monthController,
                                                   inputType: int,
@@ -396,7 +517,6 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                                 padding:
                                                     const EdgeInsets.all(5),
                                                 child: CustomTextFormField(
-                                                  height: 50,
                                                   hintText: "(Yıl)",
                                                   controller: yearController,
                                                   inputType: int,
@@ -427,11 +547,13 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                     dayController.clear();
                                     monthController.clear();
                                     yearController.clear();
+                                    selectedItem = null;
+                                    refresh();
                                   },
                                   bgColor: YMColors().grey,
                                   textColor: YMColors().white,
-                                  height: 50,
                                   width: double.infinity,
+                                  height: 50,
                                 ),
                               ),
                             ),
@@ -470,7 +592,10 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                       DatabaseService().insertPurchase(
                                         {
                                           Purchase().id: null,
-                                          Purchase().supplierID: null,
+                                          Purchase().supplierID:
+                                              (selectedItem != null)
+                                                  ? selectedItem![Supplier().id]
+                                                  : null,
                                           Purchase().productID:
                                               editedItem[Product().id],
                                           Purchase().price: double.parse(
@@ -515,8 +640,8 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                   },
                                   bgColor: YMColors().blue,
                                   textColor: YMColors().white,
-                                  height: 50,
                                   width: double.infinity,
+                                  height: 50,
                                 ),
                               ),
                             ),

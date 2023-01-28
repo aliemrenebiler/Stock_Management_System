@@ -9,7 +9,11 @@ import '../../widgets/custom_text_form_field.dart';
 import '../../widgets/custom_button.dart';
 
 class AddSupplierScreen extends StatefulWidget {
-  const AddSupplierScreen({super.key});
+  final String backRoute;
+  const AddSupplierScreen({
+    super.key,
+    required this.backRoute,
+  });
 
   @override
   State<AddSupplierScreen> createState() => _AddSupplierScreenState();
@@ -29,7 +33,7 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
             title: 'Tedarikçi Ekle',
             leftButtonText: "Geri",
             leftButtonAction: () {
-              Navigator.pushReplacementNamed(context, '/list_suppliers');
+              Navigator.pushReplacementNamed(context, widget.backRoute);
             },
           ),
           Expanded(
