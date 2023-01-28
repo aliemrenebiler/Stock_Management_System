@@ -190,38 +190,46 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                     } else if (await SharedPrefsService()
                                             .isPasswordExists ==
                                         false) {
-                                      showCustomSnackBar(
-                                        context,
-                                        "Mevcut şifre belirlenmemiş, uygulamayı yeniden başlatın.",
-                                        YMColors().white,
-                                        YMColors().red,
-                                      );
+                                      if (mounted) {
+                                        showCustomSnackBar(
+                                          context,
+                                          "Mevcut şifre belirlenmemiş, uygulamayı yeniden başlatın.",
+                                          YMColors().white,
+                                          YMColors().red,
+                                        );
+                                      }
                                     } else if (prevPasswordController.text !=
                                         await SharedPrefsService()
                                             .getPassword()) {
-                                      showCustomSnackBar(
-                                        context,
-                                        "Mevcut şifre hatalı.",
-                                        YMColors().white,
-                                        YMColors().red,
-                                      );
+                                      if (mounted) {
+                                        showCustomSnackBar(
+                                          context,
+                                          "Mevcut şifre hatalı.",
+                                          YMColors().white,
+                                          YMColors().red,
+                                        );
+                                      }
                                     } else if (newPassword1Controller.text !=
                                         newPassword2Controller.text) {
-                                      showCustomSnackBar(
-                                        context,
-                                        "Şifreler eşleşmiyor.",
-                                        YMColors().white,
-                                        YMColors().red,
-                                      );
+                                      if (mounted) {
+                                        showCustomSnackBar(
+                                          context,
+                                          "Şifreler eşleşmiyor.",
+                                          YMColors().white,
+                                          YMColors().red,
+                                        );
+                                      }
                                     } else {
                                       SharedPrefsService().setPassword(
                                           newPassword2Controller.text);
-                                      showCustomSnackBar(
-                                        context,
-                                        "Şifre değiştirildi.",
-                                        YMColors().white,
-                                        YMColors().blue,
-                                      );
+                                      if (mounted) {
+                                        showCustomSnackBar(
+                                          context,
+                                          "Şifre değiştirildi.",
+                                          YMColors().white,
+                                          YMColors().blue,
+                                        );
+                                      }
                                       prevPasswordController.clear();
                                       newPassword1Controller.clear();
                                       newPassword2Controller.clear();

@@ -88,20 +88,24 @@ class _ClearDataScreenState extends State<ClearDataScreen> {
                             onPressed: () async {
                               if (await SharedPrefsService().isPasswordExists ==
                                   false) {
-                                showCustomSnackBar(
-                                  context,
-                                  "Mevcut şifre belirlenmemiş, uygulamayı yeniden başlatın.",
-                                  YMColors().white,
-                                  YMColors().red,
-                                );
+                                if (mounted) {
+                                  showCustomSnackBar(
+                                    context,
+                                    "Mevcut şifre belirlenmemiş, uygulamayı yeniden başlatın.",
+                                    YMColors().white,
+                                    YMColors().red,
+                                  );
+                                }
                               } else if (passwordController.text !=
                                   await SharedPrefsService().getPassword()) {
-                                showCustomSnackBar(
-                                  context,
-                                  "Şifre hatalı.",
-                                  YMColors().white,
-                                  YMColors().red,
-                                );
+                                if (mounted) {
+                                  showCustomSnackBar(
+                                    context,
+                                    "Şifre hatalı.",
+                                    YMColors().white,
+                                    YMColors().red,
+                                  );
+                                }
                               } else {
                                 try {
                                   DatabaseService().deletePurchasesTable();
@@ -114,19 +118,23 @@ class _ClearDataScreenState extends State<ClearDataScreen> {
                                   DatabaseService().createSalesTable();
                                   DatabaseService().createPurchasesTable();
 
-                                  showCustomSnackBar(
-                                    context,
-                                    "Tüm veriler sıfırlandı.",
-                                    YMColors().white,
-                                    YMColors().blue,
-                                  );
+                                  if (mounted) {
+                                    showCustomSnackBar(
+                                      context,
+                                      "Tüm veriler sıfırlandı.",
+                                      YMColors().white,
+                                      YMColors().blue,
+                                    );
+                                  }
                                 } catch (e) {
-                                  showCustomSnackBar(
-                                    context,
-                                    "Bir hata oluştu: $e",
-                                    YMColors().white,
-                                    YMColors().red,
-                                  );
+                                  if (mounted) {
+                                    showCustomSnackBar(
+                                      context,
+                                      "Bir hata oluştu: $e",
+                                      YMColors().white,
+                                      YMColors().red,
+                                    );
+                                  }
                                 }
                               }
                             },

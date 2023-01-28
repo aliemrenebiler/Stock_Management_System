@@ -7,9 +7,14 @@ import '../../widgets/custom_text_form_field.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_top_bar.dart';
 
-class EnterPasswordScreen extends StatelessWidget {
+class EnterPasswordScreen extends StatefulWidget {
   const EnterPasswordScreen({super.key});
 
+  @override
+  State<EnterPasswordScreen> createState() => _EnterPasswordScreenState();
+}
+
+class _EnterPasswordScreenState extends State<EnterPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     TextEditingController passwordController = TextEditingController();
@@ -79,16 +84,20 @@ class EnterPasswordScreen extends StatelessWidget {
                             onPressed: () async {
                               if (passwordController.text !=
                                   await SharedPrefsService().getPassword()) {
-                                showCustomSnackBar(
-                                  context,
-                                  "Şifre hatalı.",
-                                  YMColors().white,
-                                  YMColors().red,
-                                );
+                                if (mounted) {
+                                  showCustomSnackBar(
+                                    context,
+                                    "Şifre hatalı.",
+                                    YMColors().white,
+                                    YMColors().red,
+                                  );
+                                }
                               } else {
                                 passwordController.clear();
-                                Navigator.pushReplacementNamed(
-                                    context, "/home");
+                                if (mounted) {
+                                  Navigator.pushReplacementNamed(
+                                      context, "/home");
+                                }
                               }
                             },
                             bgColor: YMColors().blue,
