@@ -461,46 +461,78 @@ class DatabaseService {
     int? minAmount,
     int? maxAmount,
   ) {
-    String query = """
+    String query1 = """
         SELECT
         ${Purchase().tableName}.${Purchase().id},
         ${Purchase().tableName}.${Purchase().price},
         ${Purchase().tableName}.${Purchase().amount},
-        ${Purchase().tableName}.${Purchase().supplierID},
-        ${Purchase().tableName}.${Purchase().productID},
+        ${Purchase().tableName}.${Purchase().price},
+        ${Purchase().tableName}.${Purchase().amount},
+        ${Purchase().tableName}.${Purchase().date},
+        STRFTIME('%d.%m.%Y', ${Purchase().tableName}.${Purchase().date})
+        AS ${Purchase().formattedDate},
         ${Product().tableName}.${Product().name} AS ${Purchase().productName},
         ${Product().tableName}.${Product().brand},
         ${Product().tableName}.${Product().color},
         ${Product().tableName}.${Product().size},
         ${Product().tableName}.${Product().sizeType},
+        NULL AS ${Purchase().supplierName}
+        FROM ${Purchase().tableName}, ${Product().tableName}, ${Supplier().tableName}
+        WHERE ${Purchase().tableName}.${Purchase().productID}==${Product().tableName}.${Product().id}
+        AND ${Purchase().tableName}.${Purchase().supplierID} IS NULL
+        """;
+
+    String query2 = """
+        SELECT
+        ${Purchase().tableName}.${Purchase().id},
+        ${Purchase().tableName}.${Purchase().productID},
+        ${Purchase().tableName}.${Purchase().supplierID},
+        ${Purchase().tableName}.${Purchase().price},
+        ${Purchase().tableName}.${Purchase().amount},
         ${Purchase().tableName}.${Purchase().date},
         STRFTIME('%d.%m.%Y', ${Purchase().tableName}.${Purchase().date})
-        AS ${Purchase().formattedDate}
-        FROM ${Purchase().tableName}, ${Product().tableName}
+        AS ${Purchase().formattedDate},
+        ${Product().tableName}.${Product().name} AS ${Purchase().productName},
+        ${Product().tableName}.${Product().brand},
+        ${Product().tableName}.${Product().color},
+        ${Product().tableName}.${Product().size},
+        ${Product().tableName}.${Product().sizeType},
+        ${Supplier().tableName}.${Supplier().name} AS ${Purchase().supplierName}
+        FROM ${Purchase().tableName}, ${Product().tableName}, ${Supplier().tableName}
         WHERE ${Purchase().tableName}.${Purchase().productID}==${Product().tableName}.${Product().id}
+        AND ${Purchase().tableName}.${Purchase().supplierID}==${Supplier().tableName}.${Supplier().id}
         """;
 
     if (id != null) {
-      query += ' AND ${Purchase().tableName}.${Purchase().id}="$id"';
+      query1 += ' AND ${Purchase().tableName}.${Purchase().id}="$id"';
+      query2 += ' AND ${Purchase().tableName}.${Purchase().id}="$id"';
     }
     if (date1 != null) {
-      query += ' AND ${Purchase().tableName}.${Purchase().date}>="$date1"';
+      query1 += ' AND ${Purchase().tableName}.${Purchase().date}>="$date1"';
+      query2 += ' AND ${Purchase().tableName}.${Purchase().date}>="$date1"';
     }
     if (date2 != null) {
-      query += ' AND ${Purchase().tableName}.${Purchase().date}<="$date2"';
+      query1 += ' AND ${Purchase().tableName}.${Purchase().date}<="$date2"';
+      query2 += ' AND ${Purchase().tableName}.${Purchase().date}<="$date2"';
     }
     if (minPrice != null) {
-      query += ' AND ${Purchase().tableName}.${Purchase().price}>=$minPrice';
+      query1 += ' AND ${Purchase().tableName}.${Purchase().price}>=$minPrice';
+      query2 += ' AND ${Purchase().tableName}.${Purchase().price}>=$minPrice';
     }
-    if (maxPrice != null && minPrice != null) {
-      query += ' AND ${Purchase().tableName}.${Purchase().price}<=$maxPrice';
+    if (maxPrice != null) {
+      query1 += ' AND ${Purchase().tableName}.${Purchase().price}<=$maxPrice';
+      query2 += ' AND ${Purchase().tableName}.${Purchase().price}<=$maxPrice';
     }
     if (minAmount != null) {
-      query += ' AND ${Purchase().amount}>=$minAmount';
+      query1 += ' AND ${Purchase().tableName}.${Purchase().amount}>=$minAmount';
+      query2 += ' AND ${Purchase().tableName}.${Purchase().amount}>=$minAmount';
     }
     if (maxAmount != null) {
-      query += ' AND ${Purchase().amount}<=$maxAmount';
+      query1 += ' AND ${Purchase().tableName}.${Purchase().amount}<=$maxAmount';
+      query2 += ' AND ${Purchase().tableName}.${Purchase().amount}<=$maxAmount';
     }
+
+    String query = "$query1 UNION $query2";
 
     Database database = sqlite3.open(dbName);
     var purchases = database.select(query);
@@ -608,14 +640,14 @@ class DatabaseService {
     if (minPrice != null) {
       query += ' AND ${Sale().tableName}.${Sale().price}>=$minPrice';
     }
-    if (maxPrice != null && minPrice != null) {
+    if (maxPrice != null) {
       query += ' AND ${Sale().tableName}.${Sale().price}<=$maxPrice';
     }
     if (minAmount != null) {
-      query += ' AND ${Sale().amount}>=$minAmount';
+      query += ' AND ${Sale().tableName}.${Sale().amount}>=$minAmount';
     }
     if (maxAmount != null) {
-      query += ' AND ${Sale().amount}<=$maxAmount';
+      query += ' AND ${Sale().tableName}.${Sale().amount}<=$maxAmount';
     }
 
     Database database = sqlite3.open(dbName);

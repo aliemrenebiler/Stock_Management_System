@@ -92,10 +92,10 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                                           padding: const EdgeInsets.all(5),
                                           child: Text(
                                             (editedItem[Purchase()
-                                                        .supplierID] !=
+                                                        .supplierName] !=
                                                     null)
                                                 ? editedItem[
-                                                        Purchase().supplierID]
+                                                        Purchase().supplierName]
                                                     .toString()
                                                 : "-",
                                             overflow: TextOverflow.ellipsis,
