@@ -294,77 +294,50 @@ class DatabaseService {
     int? maxAmount,
     bool? visible,
   ) {
-    String query = 'SELECT * FROM ${Product().tableName}';
-    bool isSearching = false;
+    String query = '''
+      SELECT ${Product().tableName}.${Product().id},
+      ${Product().tableName}.${Product().categoryID},
+      ${Category().tableName}.${Category().name} AS ${Product().categoryName},
+      ${Product().tableName}.${Product().name},
+      ${Product().tableName}.${Product().brand},
+      ${Product().tableName}.${Product().color},
+      ${Product().tableName}.${Product().size},
+      ${Product().tableName}.${Product().sizeType},
+      ${Product().tableName}.${Product().price},
+      ${Product().tableName}.${Product().amount}
+      FROM ${Product().tableName}, ${Category().tableName}
+      WHERE ${Product().tableName}.${Product().categoryID}==${Category().tableName}.${Category().id}
+      ''';
 
     if (id != null) {
-      if (!isSearching) {
-        isSearching = true;
-        query += ' WHERE';
-      }
-      query += ' ${Product().id}=$id';
+      query += ' AND ${Product().id}=$id';
     }
     if (name != null) {
-      if (!isSearching) {
-        isSearching = true;
-        query += ' WHERE';
-      } else {
-        query += ' AND';
-      }
-      query += ' ${Product().name} LIKE "%$name%"';
+      query += ' AND ${Product().name} LIKE "%$name%"';
     }
     if (spec != null) {
-      if (!isSearching) {
-        isSearching = true;
-        query += ' WHERE';
-      } else {
-        query += ' INTERSECT SELECT * FROM ${Product().tableName} WHERE';
-      }
-      query +=
-          ' ${Product().brand} LIKE "%$spec%" OR ${Product().categoryName} LIKE "%$spec%" OR ${Product().color} LIKE "%$spec%" OR ${Product().size} LIKE "%$spec%" OR ${Product().sizeType} LIKE "%$spec%"';
+      query += ''' AND (${Product().brand} LIKE "%$spec%"
+          OR ${Product().categoryName} LIKE "%$spec%"
+          OR ${Product().color} LIKE "%$spec%"
+          OR ${Product().size} LIKE "%$spec%"
+          OR ${Product().sizeType} LIKE "%$spec%"
+          )
+          ''';
     }
-    if (minPrice != null || maxPrice != null) {
-      if (!isSearching) {
-        isSearching = true;
-        query += ' WHERE';
-      } else {
-        query += ' INTERSECT SELECT * FROM ${Product().tableName} WHERE';
-      }
-      if (minPrice != null) {
-        query += ' ${Product().price}>=$minPrice';
-      }
-      if (maxPrice != null) {
-        if (minPrice != null) {
-          query += ' AND';
-        }
-        query += ' ${Product().price}<=$maxPrice';
-      }
+    if (minPrice != null) {
+      query += ' AND ${Product().price}>=$minPrice';
     }
-    if (minAmount != null || maxAmount != null) {
-      if (!isSearching) {
-        isSearching = true;
-        query += ' WHERE';
-      } else {
-        query += ' INTERSECT SELECT * FROM ${Product().tableName} WHERE';
-      }
-      if (minAmount != null) {
-        query += ' ${Product().amount}>=$minAmount';
-      }
-      if (maxAmount != null) {
-        if (minAmount != null) {
-          query += ' AND';
-        }
-        query += ' ${Product().amount}<=$maxAmount';
-      }
+    if (maxPrice != null) {
+      query += ' AND ${Product().price}<=$maxPrice';
+    }
+    if (minAmount != null) {
+      query += ' AND ${Product().amount}>=$minAmount';
+    }
+    if (maxAmount != null) {
+      query += ' AND ${Product().amount}<=$maxAmount';
     }
     if (visible != null) {
-      if (!isSearching) {
-        isSearching = true;
-        query += ' WHERE';
-      } else {
-        query += ' INTERSECT SELECT * FROM ${Product().tableName} WHERE';
-      }
-      query += ' ${Product().visible}==$visible';
+      query += ' AND ${Product().visible}==$visible';
     }
 
     Database database = sqlite3.open(dbName);

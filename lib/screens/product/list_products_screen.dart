@@ -348,6 +348,26 @@ class ProductsListTitlesBar extends StatelessWidget {
                   height: 70,
                   alignment: Alignment.center,
                   child: Text(
+                    "Kategori",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+              ),
+              ListTableVerticalSeperator(
+                color: YMColors().grey,
+                space: 10,
+              ),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 70,
+                  alignment: Alignment.center,
+                  child: Text(
                     "İsim",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -369,26 +389,6 @@ class ProductsListTitlesBar extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Text(
                     "Marka",
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: YMColors().black,
-                      fontSize: YMSizes().fontSizeMedium,
-                    ),
-                  ),
-                ),
-              ),
-              ListTableVerticalSeperator(
-                color: YMColors().grey,
-                space: 10,
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  height: 70,
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Kategori",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -545,6 +545,24 @@ class ProductsListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
+                    (product[Product().categoryName] != null)
+                        ? product[Product().categoryName].toString()
+                        : "-",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+                ListTableVerticalSeperator(
+                  color: YMColors().lightGrey,
+                  space: 10,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
                     (product[Product().name] != null)
                         ? product[Product().name].toString()
                         : "-",
@@ -565,24 +583,6 @@ class ProductsListItem extends StatelessWidget {
                   child: Text(
                     (product[Product().brand] != null)
                         ? product[Product().brand].toString()
-                        : "-",
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: YMColors().black,
-                      fontSize: YMSizes().fontSizeMedium,
-                    ),
-                  ),
-                ),
-                ListTableVerticalSeperator(
-                  color: YMColors().lightGrey,
-                  space: 10,
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Text(
-                    (product[Product().categoryName] != null)
-                        ? product[Product().categoryName].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,

@@ -160,36 +160,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                           child: Padding(
                                             padding: const EdgeInsets.all(5),
                                             child: Text(
-                                              "Marka",
-                                              overflow: TextOverflow.ellipsis,
-                                              textAlign: TextAlign.right,
-                                              style: TextStyle(
-                                                fontSize:
-                                                    YMSizes().fontSizeMedium,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(5),
-                                            child: CustomTextFormField(
-                                              height: 50,
-                                              controller: brandController,
-                                              action: TextInputAction.next,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(5),
-                                            child: Text(
                                               "Kategori",
                                               overflow: TextOverflow.ellipsis,
                                               textAlign: TextAlign.right,
@@ -209,6 +179,36 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                               height: 50,
                                               hintText: "(Zorunlu)",
                                               controller: categoryController,
+                                              action: TextInputAction.next,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(5),
+                                            child: Text(
+                                              "Marka",
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.right,
+                                              style: TextStyle(
+                                                fontSize:
+                                                    YMSizes().fontSizeMedium,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 2,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(5),
+                                            child: CustomTextFormField(
+                                              height: 50,
+                                              controller: brandController,
                                               action: TextInputAction.next,
                                             ),
                                           ),
