@@ -26,8 +26,8 @@ class SettingsScreen extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 child: Center(
                   child: Container(
-                    padding: const EdgeInsets.all(5),
-                    width: MediaQuery.of(context).size.width / 3,
+                    padding: const EdgeInsets.all(15),
+                    width: YMSizes().maxWidth,
                     child: Column(
                       children: [
                         Padding(
@@ -38,7 +38,7 @@ class SettingsScreen extends StatelessWidget {
                               Navigator.pushReplacementNamed(
                                   context, '/change_password');
                             },
-                            bgColor: YMColors().red,
+                            bgColor: YMColors().grey,
                             textColor: YMColors().white,
                             width: double.infinity,
                             height: 50,
@@ -52,7 +52,7 @@ class SettingsScreen extends StatelessWidget {
                               Navigator.pushReplacementNamed(
                                   context, "/clear_data");
                             },
-                            bgColor: YMColors().red,
+                            bgColor: YMColors().grey,
                             textColor: YMColors().white,
                             width: double.infinity,
                             height: 50,
