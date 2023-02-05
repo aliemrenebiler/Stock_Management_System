@@ -89,6 +89,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                       height: 50,
                                     ),
                                   ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: CustomButton(
+                                      text: "Kategoriler",
+                                      onPressed: () {
+                                        Navigator.pushReplacementNamed(
+                                            context, '/list_categories');
+                                      },
+                                      textColor: YMColors().white,
+                                      bgColor: YMColors().grey,
+                                      width: double.infinity,
+                                      height: 50,
+                                    ),
+                                  ),
                                 ],
                               )
                             : Container(
@@ -127,6 +141,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           width: double.infinity,
                                           onPressed: () {
                                             try {
+                                              DatabaseService()
+                                                  .createCategoriesTable();
                                               DatabaseService()
                                                   .createProductsTable();
                                               DatabaseService()

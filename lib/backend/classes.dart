@@ -1,8 +1,15 @@
+class Category {
+  String tableName = "categories";
+  String id = "id";
+  String name = "name";
+}
+
 class Product {
   String tableName = "products";
   String id = "id";
   String name = "name";
-  String category = "category";
+  String categoryID = "categoryID";
+  String categoryName = "categoryName";
   String brand = "brand";
   String color = "color";
   String size = "size";

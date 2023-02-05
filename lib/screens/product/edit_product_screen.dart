@@ -29,7 +29,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   void initState() {
     nameController.text = editedItem[Product().name];
     brandController.text = editedItem[Product().brand];
-    categoryController.text = editedItem[Product().category];
+    categoryController.text = editedItem[Product().categoryName];
     colorController.text = editedItem[Product().color];
     sizeController.text = editedItem[Product().size];
     sizeTypeController.text = editedItem[Product().sizeType];
@@ -442,7 +442,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                               (brandController.text.isEmpty)
                                                   ? null
                                                   : brandController.text,
-                                          Product().category:
+                                          Product().categoryName:
                                               (categoryController.text.isEmpty)
                                                   ? null
                                                   : categoryController.text,

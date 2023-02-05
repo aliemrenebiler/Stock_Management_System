@@ -1,0 +1,345 @@
+import 'package:flutter/material.dart';
+
+import '../../backend/classes.dart';
+import '../../backend/methods.dart';
+import '../../widgets/custom_text_form_field.dart';
+import '../../backend/theme.dart';
+import '../../widgets/item_table.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_top_bar.dart';
+
+List<Map<dynamic, dynamic>> listedSuppliers = [];
+
+TextEditingController nameController = TextEditingController();
+
+class ListCategoriesScreen extends StatefulWidget {
+  const ListCategoriesScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ListCategoriesScreen> createState() => _ListCategoriesScreenState();
+}
+
+class _ListCategoriesScreenState extends State<ListCategoriesScreen> {
+  refresh() {
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    backRoute = "/list_categories";
+    nameController.clear();
+    listedSuppliers = DatabaseService().getCategories(null, null);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: YMColors().white,
+      body: Column(
+        children: [
+          CustomTopBar(
+            title: 'Kategoriler',
+            leftButtonText: "Geri",
+            leftButtonAction: () {
+              Navigator.pushReplacementNamed(context, '/home');
+            },
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: CategoriesListSearchBar(
+                      notifyParent: refresh,
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(top: 10, left: 10, right: 10),
+                      child: ItemTable(
+                        titlesBar: const CategoriesListTitlesBar(),
+                        items: [
+                          for (int i = 0; i < listedSuppliers.length; i++)
+                            CategoriesListItem(
+                              category: listedSuppliers[i],
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CategoriesListSearchBar extends StatelessWidget {
+  final Function() notifyParent;
+  const CategoriesListSearchBar({super.key, required this.notifyParent});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: YMColors().lightGrey,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: IntrinsicHeight(
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: CustomButton(
+                text: "Yeni Ekle",
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/add_category');
+                },
+                height: 50,
+                width: 120,
+                textColor: YMColors().white,
+                bgColor: YMColors().grey,
+              ),
+            ),
+            ListTableVerticalSeperator(
+              color: YMColors().grey,
+              space: 10,
+            ),
+            Expanded(
+              flex: 3,
+              child: Padding(
+                padding: const EdgeInsets.all(5),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: CustomTextFormField(
+                          hintText: "İsim",
+                          height: 50,
+                          controller: nameController,
+                          action: TextInputAction.next,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            ListTableVerticalSeperator(
+              color: YMColors().grey,
+              space: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(5),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: CustomButton(
+                      text: "Ara",
+                      onPressed: () {
+                        listedSuppliers = DatabaseService().getCategories(
+                          null,
+                          nameController.text,
+                        );
+                        notifyParent();
+                      },
+                      height: 50,
+                      width: 80,
+                      textColor: YMColors().white,
+                      bgColor: YMColors().blue,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: CustomButton(
+                      text: "Sıfırla",
+                      onPressed: () {
+                        nameController.clear();
+                        listedSuppliers =
+                            DatabaseService().getCategories(null, null);
+                        notifyParent();
+                      },
+                      height: 50,
+                      width: 80,
+                      textColor: YMColors().white,
+                      bgColor: YMColors().red,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CategoriesListTitlesBar extends StatelessWidget {
+  const CategoriesListTitlesBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: YMColors().lightGrey,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: IntrinsicHeight(
+          child: Row(
+            children: [
+              Container(
+                width: 60,
+                alignment: Alignment.center,
+                child: Text(
+                  "ID",
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: YMColors().black,
+                    fontSize: YMSizes().fontSizeMedium,
+                  ),
+                ),
+              ),
+              ListTableVerticalSeperator(
+                color: YMColors().grey,
+                space: 10,
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  height: 70,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "İsim",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+              ),
+              ListTableVerticalSeperator(
+                color: YMColors().grey,
+                space: 10,
+              ),
+              Container(
+                height: 70,
+                width: 120,
+                alignment: Alignment.center,
+                child: Text(
+                  "İşlemler",
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: YMColors().black,
+                    fontSize: YMSizes().fontSizeMedium,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CategoriesListItem extends StatelessWidget {
+  final Map<dynamic, dynamic> category;
+  const CategoriesListItem({
+    super.key,
+    required this.category,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        children: [
+          Container(
+            height: 70,
+            decoration: BoxDecoration(
+              color: YMColors().white,
+            ),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 60,
+                  child: Text(
+                    (category[Category().id] != null)
+                        ? category[Category().id].toString()
+                        : "-",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().grey,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+                ListTableVerticalSeperator(
+                  color: YMColors().lightGrey,
+                  space: 10,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Text(
+                    (category[Category().name] != null)
+                        ? category[Category().name].toString()
+                        : "-",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: YMColors().black,
+                      fontSize: YMSizes().fontSizeMedium,
+                    ),
+                  ),
+                ),
+                ListTableVerticalSeperator(
+                  color: YMColors().lightGrey,
+                  space: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: CustomButton(
+                    text: "Düzenle",
+                    bgColor: YMColors().grey,
+                    textColor: YMColors().white,
+                    onPressed: () {
+                      editedItem = category;
+                      Navigator.pushReplacementNamed(context, '/edit_category');
+                    },
+                    height: 50,
+                    width: 100,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Divider(
+            indent: 0,
+            endIndent: 0,
+            height: 2,
+            thickness: 2,
+            color: YMColors().lightGrey,
+          ),
+        ],
+      ),
+    );
+  }
+}

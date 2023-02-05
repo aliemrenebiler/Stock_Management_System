@@ -1,11 +1,15 @@
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:yildiz_motor_v2/backend/methods.dart';
-import 'package:yildiz_motor_v2/screens/supplier/select_supplier_screen.dart';
-import 'package:yildiz_motor_v2/screens/settings/clear_data_screen.dart';
-import 'package:yildiz_motor_v2/screens/supplier/add_supplier_screen.dart';
 
+import 'backend/methods.dart';
+
+import 'screens/category/add_category_screen.dart';
+import 'screens/category/edit_category_screen.dart';
+import 'screens/category/list_categories_screen.dart';
+import 'screens/supplier/select_supplier_screen.dart';
+import 'screens/settings/clear_data_screen.dart';
+import 'screens/supplier/add_supplier_screen.dart';
 import 'screens/product/list_deleted_products_screen.dart';
 import 'screens/supplier/edit_supplier_screen.dart';
 import 'screens/supplier/list_suppliers_screen.dart';
@@ -156,6 +160,26 @@ class MyApp extends StatelessWidget {
           case '/clear_data':
             return PageTransition(
               child: const ClearDataScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/list_categories':
+            return PageTransition(
+              child: const ListCategoriesScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/add_category':
+            return PageTransition(
+              child: AddCategoryScreen(
+                backRoute: backRoute,
+              ),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/edit_category':
+            return PageTransition(
+              child: const EditCategoryScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );

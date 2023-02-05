@@ -423,7 +423,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                             (brandController.text.isEmpty)
                                                 ? null
                                                 : brandController.text,
-                                        Product().category:
+                                        Product().categoryName:
                                             categoryController.text,
                                         Product().color:
                                             (colorController.text.isEmpty)

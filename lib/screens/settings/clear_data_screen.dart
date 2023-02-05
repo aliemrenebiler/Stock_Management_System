@@ -112,6 +112,7 @@ class _ClearDataScreenState extends State<ClearDataScreen> {
                                   DatabaseService().deleteSalesTable();
                                   DatabaseService().deleteSuppliersTable();
                                   DatabaseService().deleteProductsTable();
+                                  DatabaseService().deleteCategoriesTable();
 
                                   if (mounted) {
                                     Navigator.pushReplacementNamed(

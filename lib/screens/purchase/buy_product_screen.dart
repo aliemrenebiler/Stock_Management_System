@@ -197,7 +197,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
                                           child: Text(
-                                            editedItem[Product().category]
+                                            editedItem[Product().categoryName]
                                                 .toString(),
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.left,
@@ -613,8 +613,8 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                               editedItem[Product().name],
                                           Product().brand:
                                               editedItem[Product().brand],
-                                          Product().category:
-                                              editedItem[Product().category],
+                                          Product().categoryName: editedItem[
+                                              Product().categoryName],
                                           Product().color:
                                               editedItem[Product().color],
                                           Product().size:

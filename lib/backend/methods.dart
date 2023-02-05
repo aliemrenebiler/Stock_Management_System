@@ -56,15 +56,38 @@ class DatabaseService {
     }
   }
 
-  getDBSize() {
+  // getDBSize() {
+  //   Database database = sqlite3.open(dbName);
+  //   int size = database.select(
+  //     '''
+  //     SELECT COUNT(*) FROM $dbName
+  //     ''',
+  //   )[0][0];
+  //   database.dispose();
+  //   return size;
+  // }
+
+  createCategoriesTable() {
     Database database = sqlite3.open(dbName);
-    int size = database.select(
+    database.execute(
       '''
-      SELECT COUNT(*) FROM $dbName
+      CREATE TABLE IF NOT EXISTS ${Category().tableName}(
+      ${Category().id} INTEGER PRIMARY KEY,
+      ${Category().name} TEXT not null
+      )
       ''',
-    )[0][0];
+    );
     database.dispose();
-    return size;
+  }
+
+  deleteCategoriesTable() {
+    Database database = sqlite3.open(dbName);
+    database.execute(
+      '''
+      DROP TABLE IF EXISTS ${Category().tableName}
+      ''',
+    );
+    database.dispose();
   }
 
   createProductsTable() {
@@ -73,15 +96,19 @@ class DatabaseService {
       '''
       CREATE TABLE IF NOT EXISTS ${Product().tableName}(
       ${Product().id} INTEGER PRIMARY KEY,
+      ${Product().categoryID} INTEGER not null,
       ${Product().name} TEXT not null,
-      ${Product().category} TEXT not null,
       ${Product().brand} TEXT,
       ${Product().color} TEXT,
       ${Product().size} TEXT,
       ${Product().sizeType} TEXT,
       ${Product().amount} INTEGER not null,
       ${Product().price} REAL not null,
-      ${Product().visible} INTEGER not null
+      ${Product().visible} INTEGER not null,
+      CONSTRAINT ${Product().tableName}Const1
+      FOREIGN KEY (${Product().categoryID})
+      REFERENCES ${Category().tableName}(${Category().id})
+      ON DELETE SET NULL
       )
       ''',
     );
@@ -186,6 +213,77 @@ class DatabaseService {
     database.dispose();
   }
 
+  getCategories(
+    int? id,
+    String? name,
+  ) {
+    String query = 'SELECT * FROM ${Category().tableName}';
+    bool isSearching = false;
+
+    if (id != null) {
+      isSearching = true;
+      query += ' WHERE ${Category().id}=$id';
+    }
+    if (name != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' AND';
+      }
+      query += ' ${Category().name} LIKE "%$name%"';
+    }
+    Database database = sqlite3.open(dbName);
+    var categories = database.select(query);
+    database.dispose();
+
+    return categories;
+  }
+
+  insertCategory(Map<dynamic, dynamic> category) {
+    Database database = sqlite3.open(dbName);
+    database.execute(
+      '''
+      INSERT INTO ${Category().tableName}(
+      ${Product().id},
+      ${Product().name}
+      ) VALUES(?,?)
+      ''',
+      [
+        category[Category().id] as int,
+        category[Category().name] as String,
+      ],
+    );
+    database.dispose();
+  }
+
+  updateCategory(Map<dynamic, dynamic> category) {
+    Database database = sqlite3.open(dbName);
+    database.execute(
+      '''
+      UPDATE ${Category().tableName} SET
+      ${Category().name}=?
+      WHERE ${Category().id}=?
+      ''',
+      [
+        category[Category().name] as String,
+        category[Category().id] as int,
+      ],
+    );
+    database.dispose();
+  }
+
+  deleteCategory(int id) {
+    Database database = sqlite3.open(dbName);
+    database.execute(
+      '''
+      DELETE FROM ${Category().tableName}
+      WHERE ${Category().id}=$id
+      ''',
+    );
+    database.dispose();
+  }
+
   getProducts(
     int? id,
     String? name,
@@ -223,7 +321,7 @@ class DatabaseService {
         query += ' INTERSECT SELECT * FROM ${Product().tableName} WHERE';
       }
       query +=
-          ' ${Product().brand} LIKE "%$spec%" OR ${Product().category} LIKE "%$spec%" OR ${Product().color} LIKE "%$spec%" OR ${Product().size} LIKE "%$spec%" OR ${Product().sizeType} LIKE "%$spec%"';
+          ' ${Product().brand} LIKE "%$spec%" OR ${Product().categoryName} LIKE "%$spec%" OR ${Product().color} LIKE "%$spec%" OR ${Product().size} LIKE "%$spec%" OR ${Product().sizeType} LIKE "%$spec%"';
     }
     if (minPrice != null || maxPrice != null) {
       if (!isSearching) {
@@ -284,7 +382,7 @@ class DatabaseService {
       ${Product().id},
       ${Product().name},
       ${Product().brand},
-      ${Product().category},
+      ${Product().categoryName},
       ${Product().color},
       ${Product().size},
       ${Product().sizeType},
@@ -297,7 +395,7 @@ class DatabaseService {
         product[Product().id] as int,
         product[Product().name] as String,
         product[Product().brand] as String,
-        product[Product().category] as String,
+        product[Product().categoryName] as String,
         product[Product().color] as String,
         product[Product().size] as String,
         product[Product().sizeType] as String,
@@ -316,7 +414,7 @@ class DatabaseService {
       UPDATE ${Product().tableName} SET
       ${Product().name}=?,
       ${Product().brand}=?,
-      ${Product().category}=?,
+      ${Product().categoryName}=?,
       ${Product().color}=?,
       ${Product().size}=?,
       ${Product().sizeType}=?,
@@ -328,7 +426,7 @@ class DatabaseService {
       [
         product[Product().name] as String,
         product[Product().brand] as String,
-        product[Product().category] as String,
+        product[Product().categoryName] as String,
         product[Product().color] as String,
         product[Product().size] as String,
         product[Product().sizeType] as String,

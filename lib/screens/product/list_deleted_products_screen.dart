@@ -562,8 +562,8 @@ class DeletedProductsListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (product[Product().category] != null)
-                        ? product[Product().category].toString()
+                    (product[Product().categoryName] != null)
+                        ? product[Product().categoryName].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
