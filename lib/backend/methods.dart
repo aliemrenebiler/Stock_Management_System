@@ -33,7 +33,30 @@ class SharedPrefsService {
 }
 
 class DatabaseService {
-  getDBSize(String dbName) {
+  get areTablesExists {
+    Database database = sqlite3.open(dbName);
+    int tableCount = database.select(
+      '''
+      SELECT COUNT(name)
+      FROM sqlite_master
+      WHERE type="table"
+      AND (
+      name="${Product().tableName}"
+      OR name="${Supplier().tableName}"
+      OR name="${Purchase().tableName}"
+      OR name="${Sale().tableName}"
+      )
+      ''',
+    )[0][0];
+    database.dispose();
+    if (tableCount == 4) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  getDBSize() {
     Database database = sqlite3.open(dbName);
     int size = database.select(
       '''

@@ -47,7 +47,7 @@ class SettingsScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(5),
                           child: CustomButton(
-                            text: "Verileri Sıfırla",
+                            text: "Tabloları Sil",
                             onPressed: () {
                               Navigator.pushReplacementNamed(
                                   context, "/clear_data");

@@ -113,12 +113,9 @@ class _ClearDataScreenState extends State<ClearDataScreen> {
                                   DatabaseService().deleteSuppliersTable();
                                   DatabaseService().deleteProductsTable();
 
-                                  DatabaseService().createProductsTable();
-                                  DatabaseService().createSuppliersTable();
-                                  DatabaseService().createSalesTable();
-                                  DatabaseService().createPurchasesTable();
-
                                   if (mounted) {
+                                    Navigator.pushReplacementNamed(
+                                        context, "/settings");
                                     showCustomSnackBar(
                                       context,
                                       "Tüm veriler sıfırlandı.",
