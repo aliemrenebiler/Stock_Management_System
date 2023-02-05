@@ -35,8 +35,8 @@ class _ClearDataScreenState extends State<ClearDataScreen> {
                 physics: const BouncingScrollPhysics(),
                 child: Center(
                   child: Container(
-                    padding: const EdgeInsets.all(5),
-                    width: MediaQuery.of(context).size.width / 3,
+                    padding: const EdgeInsets.all(15),
+                    width: YMSizes().maxWidth,
                     child: Column(
                       children: [
                         Padding(
