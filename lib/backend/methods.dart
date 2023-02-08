@@ -67,6 +67,8 @@ class DatabaseService {
   //   return size;
   // }
 
+  // TODO: Add "PRAGMA foreign_keys = ON"
+
   createCategoriesTable() {
     Database database = sqlite3.open(dbName);
     database.execute(
