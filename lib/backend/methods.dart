@@ -105,10 +105,9 @@ class DatabaseService {
       ${Product().amount} INTEGER not null,
       ${Product().price} REAL not null,
       ${Product().visible} INTEGER not null,
-      CONSTRAINT ${Product().tableName}Const1
       FOREIGN KEY (${Product().categoryID})
       REFERENCES ${Category().tableName}(${Category().id})
-      ON DELETE SET NULL
+      ON DELETE CASCADE
       )
       ''',
     );
@@ -161,14 +160,12 @@ class DatabaseService {
       ${Purchase().amount} INTEGER not null,
       ${Purchase().price} REAL not null,
       ${Purchase().date} DATE not null,
-      CONSTRAINT ${Purchase().tableName}Const1
       FOREIGN KEY (${Purchase().supplierID})
       REFERENCES ${Supplier().tableName}(${Supplier().id})
-      ON DELETE SET NULL,
-      CONSTRAINT ${Purchase().tableName}Const2
+      ON DELETE CASCADE,
       FOREIGN KEY (${Purchase().productID})
       REFERENCES ${Purchase().tableName}(${Product().id})
-      ON DELETE SET NULL
+      ON DELETE CASCADE
       )
       ''',
     );
@@ -193,10 +190,9 @@ class DatabaseService {
       ${Sale().amount} INTEGER not null,
       ${Sale().price} REAL not null,
       ${Sale().date} DATE not null,
-      CONSTRAINT ${Sale().tableName}Const1
       FOREIGN KEY (${Sale().productID})
       REFERENCES ${Product().tableName}(${Product().id})
-      ON DELETE SET NULL
+      ON DELETE CASCADE
       )
       ''',
     );
