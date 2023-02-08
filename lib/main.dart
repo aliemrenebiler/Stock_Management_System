@@ -1,28 +1,41 @@
-import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
+import 'package:desktop_window/desktop_window.dart';
 import 'package:page_transition/page_transition.dart';
 
+// Main
+import 'screens/password/login_screen.dart';
+import 'screens/home_screen.dart';
+
+// Category
 import 'screens/category/add_category_screen.dart';
 import 'screens/category/edit_category_screen.dart';
 import 'screens/category/list_categories_screen.dart';
-import 'screens/settings/clear_data_screen.dart';
-import 'screens/supplier/add_supplier_screen.dart';
+
+// Product
+import 'screens/product/list_products_screen.dart';
 import 'screens/product/list_deleted_products_screen.dart';
-import 'screens/supplier/edit_supplier_screen.dart';
-import 'screens/supplier/list_suppliers_screen.dart';
-import 'screens/settings/change_password_screen.dart';
-import 'screens/settings/settings_screen.dart';
-import 'screens/purchase/edit_purchase_screen.dart';
-import 'screens/purchase/list_purchases_screen.dart';
-import 'screens/sale/edit_sale_screen.dart';
-import 'screens/sale/list_sales_screen.dart';
-import 'screens/product/buy_product_screen.dart';
-import 'screens/product/sell_product_screen.dart';
 import 'screens/product/add_product_screen.dart';
 import 'screens/product/edit_product_screen.dart';
-import 'screens/product/list_products_screen.dart';
-import 'screens/password/login_screen.dart';
-import 'screens/home_screen.dart';
+import 'screens/product/buy_product_screen.dart';
+import 'screens/product/sell_product_screen.dart';
+
+// Supplier
+import 'screens/supplier/list_suppliers_screen.dart';
+import 'screens/supplier/add_supplier_screen.dart';
+import 'screens/supplier/edit_supplier_screen.dart';
+
+// Purchase
+import 'screens/purchase/list_purchases_screen.dart';
+import 'screens/purchase/edit_purchase_screen.dart';
+
+// Sale
+import 'screens/sale/list_sales_screen.dart';
+import 'screens/sale/edit_sale_screen.dart';
+
+// Settings
+import 'screens/settings/clear_data_screen.dart';
+import 'screens/settings/change_password_screen.dart';
+import 'screens/settings/settings_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,6 +69,34 @@ class MyApp extends StatelessWidget {
               type: PageTransitionType.fade,
               settings: settings,
             );
+          case '/list_categories':
+            return PageTransition(
+              child: const ListCategoriesScreen(
+                isSelectionModeActive: false,
+              ),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/select_category':
+            return PageTransition(
+              child: const ListCategoriesScreen(
+                isSelectionModeActive: true,
+              ),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/add_category':
+            return PageTransition(
+              child: const AddCategoryScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/edit_category':
+            return PageTransition(
+              child: const EditCategoryScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
           case '/list_products':
             return PageTransition(
               child: const ListProductsScreen(),
@@ -86,15 +127,33 @@ class MyApp extends StatelessWidget {
               type: PageTransitionType.fade,
               settings: settings,
             );
+          case '/sell_product':
+            return PageTransition(
+              child: const SellProductScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/list_suppliers':
+            return PageTransition(
+              child: const ListSuppliersScreen(isSelectionModeActive: false),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
           case '/select_supplier':
             return PageTransition(
               child: const ListSuppliersScreen(isSelectionModeActive: true),
               type: PageTransitionType.fade,
               settings: settings,
             );
-          case '/sell_product':
+          case '/add_supplier':
             return PageTransition(
-              child: const SellProductScreen(),
+              child: const AddSupplierScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/edit_supplier':
+            return PageTransition(
+              child: const EditSupplierScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );
@@ -122,24 +181,6 @@ class MyApp extends StatelessWidget {
               type: PageTransitionType.fade,
               settings: settings,
             );
-          case '/list_suppliers':
-            return PageTransition(
-              child: const ListSuppliersScreen(isSelectionModeActive: false),
-              type: PageTransitionType.fade,
-              settings: settings,
-            );
-          case '/add_supplier':
-            return PageTransition(
-              child: const AddSupplierScreen(),
-              type: PageTransitionType.fade,
-              settings: settings,
-            );
-          case '/edit_supplier':
-            return PageTransition(
-              child: const EditSupplierScreen(),
-              type: PageTransitionType.fade,
-              settings: settings,
-            );
           case '/settings':
             return PageTransition(
               child: const SettingsScreen(),
@@ -155,34 +196,6 @@ class MyApp extends StatelessWidget {
           case '/clear_data':
             return PageTransition(
               child: const ClearDataScreen(),
-              type: PageTransitionType.fade,
-              settings: settings,
-            );
-          case '/list_categories':
-            return PageTransition(
-              child: const ListCategoriesScreen(
-                isSelectionModeActive: false,
-              ),
-              type: PageTransitionType.fade,
-              settings: settings,
-            );
-          case '/select_category':
-            return PageTransition(
-              child: const ListCategoriesScreen(
-                isSelectionModeActive: true,
-              ),
-              type: PageTransitionType.fade,
-              settings: settings,
-            );
-          case '/add_category':
-            return PageTransition(
-              child: const AddCategoryScreen(),
-              type: PageTransitionType.fade,
-              settings: settings,
-            );
-          case '/edit_category':
-            return PageTransition(
-              child: const EditCategoryScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );
