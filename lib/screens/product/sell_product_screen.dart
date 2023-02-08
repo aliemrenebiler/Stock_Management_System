@@ -42,7 +42,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
             title: 'Ürün Sat',
             leftButtonText: "Geri",
             leftButtonAction: () {
-              Navigator.pushReplacementNamed(context, '/list_products');
+              Navigator.pushReplacementNamed(context, routeStack.removeLast());
             },
           ),
           Expanded(
@@ -498,8 +498,8 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                               editedItem[Product().name],
                                           Product().brand:
                                               editedItem[Product().brand],
-                                          Product().categoryName: editedItem[
-                                              Product().categoryName],
+                                          Product().categoryID:
+                                              editedItem[Product().categoryID],
                                           Product().color:
                                               editedItem[Product().color],
                                           Product().size:
@@ -521,6 +521,8 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                         YMColors().white,
                                         YMColors().blue,
                                       );
+                                      Navigator.pushReplacementNamed(
+                                          context, routeStack.removeLast());
                                     }
                                   },
                                   bgColor: YMColors().blue,

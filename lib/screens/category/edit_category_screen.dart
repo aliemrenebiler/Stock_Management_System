@@ -34,7 +34,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
             title: 'Kategori Düzenle',
             leftButtonText: "Geri",
             leftButtonAction: () {
-              Navigator.pushReplacementNamed(context, '/list_categories');
+              Navigator.pushReplacementNamed(context, routeStack.removeLast());
             },
           ),
           Expanded(
@@ -154,7 +154,8 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
                                                         Navigator
                                                             .pushReplacementNamed(
                                                                 context,
-                                                                "/list_categories");
+                                                                routeStack
+                                                                    .removeLast());
                                                       },
                                                       bgColor: YMColors().red,
                                                       textColor:
@@ -210,7 +211,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
                                         YMColors().blue,
                                       );
                                       Navigator.pushReplacementNamed(
-                                          context, "/list_categories");
+                                          context, routeStack.removeLast());
                                     }
                                   },
                                   bgColor: YMColors().blue,

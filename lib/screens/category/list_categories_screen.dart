@@ -13,7 +13,11 @@ List<Map<dynamic, dynamic>> listedSuppliers = [];
 TextEditingController nameController = TextEditingController();
 
 class ListCategoriesScreen extends StatefulWidget {
-  const ListCategoriesScreen({Key? key}) : super(key: key);
+  final bool isSelectionModeActive;
+  const ListCategoriesScreen({
+    super.key,
+    required this.isSelectionModeActive,
+  });
 
   @override
   State<ListCategoriesScreen> createState() => _ListCategoriesScreenState();
@@ -26,7 +30,6 @@ class _ListCategoriesScreenState extends State<ListCategoriesScreen> {
 
   @override
   void initState() {
-    backRoute = "/list_categories";
     nameController.clear();
     listedSuppliers = DatabaseService().getCategories(null, null);
     super.initState();
@@ -39,10 +42,11 @@ class _ListCategoriesScreenState extends State<ListCategoriesScreen> {
       body: Column(
         children: [
           CustomTopBar(
-            title: 'Kategoriler',
+            title:
+                (widget.isSelectionModeActive) ? "Kategori Seç" : 'Kategoriler',
             leftButtonText: "Geri",
             leftButtonAction: () {
-              Navigator.pushReplacementNamed(context, '/home');
+              Navigator.pushReplacementNamed(context, routeStack.removeLast());
             },
           ),
           Expanded(
@@ -54,6 +58,7 @@ class _ListCategoriesScreenState extends State<ListCategoriesScreen> {
                     padding: const EdgeInsets.all(10),
                     child: CategoriesListSearchBar(
                       notifyParent: refresh,
+                      isSelectionModeActive: widget.isSelectionModeActive,
                     ),
                   ),
                   Expanded(
@@ -61,11 +66,15 @@ class _ListCategoriesScreenState extends State<ListCategoriesScreen> {
                       padding:
                           const EdgeInsets.only(top: 10, left: 10, right: 10),
                       child: ItemTable(
-                        titlesBar: const CategoriesListTitlesBar(),
+                        titlesBar: CategoriesListTitlesBar(
+                          isSelectionModeActive: widget.isSelectionModeActive,
+                        ),
                         items: [
                           for (int i = 0; i < listedSuppliers.length; i++)
                             CategoriesListItem(
                               category: listedSuppliers[i],
+                              isSelectionModeActive:
+                                  widget.isSelectionModeActive,
                             ),
                         ],
                       ),
@@ -83,7 +92,12 @@ class _ListCategoriesScreenState extends State<ListCategoriesScreen> {
 
 class CategoriesListSearchBar extends StatelessWidget {
   final Function() notifyParent;
-  const CategoriesListSearchBar({super.key, required this.notifyParent});
+  final bool isSelectionModeActive;
+  const CategoriesListSearchBar({
+    super.key,
+    required this.notifyParent,
+    required this.isSelectionModeActive,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +114,11 @@ class CategoriesListSearchBar extends StatelessWidget {
               child: CustomButton(
                 text: "Yeni Ekle",
                 onPressed: () {
+                  if (isSelectionModeActive) {
+                    routeStack.add("/select_category");
+                  } else {
+                    routeStack.add("/list_categories");
+                  }
                   Navigator.pushReplacementNamed(context, '/add_category');
                 },
                 height: 50,
@@ -185,7 +204,11 @@ class CategoriesListSearchBar extends StatelessWidget {
 }
 
 class CategoriesListTitlesBar extends StatelessWidget {
-  const CategoriesListTitlesBar({super.key});
+  final bool isSelectionModeActive;
+  const CategoriesListTitlesBar({
+    super.key,
+    required this.isSelectionModeActive,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -238,7 +261,7 @@ class CategoriesListTitlesBar extends StatelessWidget {
               ),
               Container(
                 height: 70,
-                width: 120,
+                width: (isSelectionModeActive) ? 100 : 120,
                 alignment: Alignment.center,
                 child: Text(
                   "İşlemler",
@@ -260,9 +283,11 @@ class CategoriesListTitlesBar extends StatelessWidget {
 
 class CategoriesListItem extends StatelessWidget {
   final Map<dynamic, dynamic> category;
+  final bool isSelectionModeActive;
   const CategoriesListItem({
     super.key,
     required this.category,
+    required this.isSelectionModeActive,
   });
 
   @override
@@ -314,20 +339,38 @@ class CategoriesListItem extends StatelessWidget {
                   color: YMColors().lightGrey,
                   space: 10,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: CustomButton(
-                    text: "Düzenle",
-                    bgColor: YMColors().grey,
-                    textColor: YMColors().white,
-                    onPressed: () {
-                      editedItem = category;
-                      Navigator.pushReplacementNamed(context, '/edit_category');
-                    },
-                    height: 50,
-                    width: 100,
-                  ),
-                ),
+                (isSelectionModeActive)
+                    ? Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: CustomButton(
+                          text: "Seç",
+                          bgColor: YMColors().blue,
+                          textColor: YMColors().white,
+                          onPressed: () {
+                            selectedItem = category;
+                            Navigator.pushReplacementNamed(
+                                context, routeStack.removeLast());
+                          },
+                          height: 50,
+                          width: 80,
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: CustomButton(
+                          text: "Düzenle",
+                          bgColor: YMColors().grey,
+                          textColor: YMColors().white,
+                          onPressed: () {
+                            editedItem = category;
+                            routeStack.add("/list_categories");
+                            Navigator.pushReplacementNamed(
+                                context, '/edit_category');
+                          },
+                          height: 50,
+                          width: 100,
+                        ),
+                      ),
               ],
             ),
           ),

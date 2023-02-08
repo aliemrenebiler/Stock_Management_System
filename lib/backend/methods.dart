@@ -6,7 +6,7 @@ import 'classes.dart';
 
 String dbName = "yildiz_motor_db.db";
 
-String backRoute = "/home";
+List<String> routeStack = [];
 
 Map<dynamic, dynamic> editedItem = {};
 Map<dynamic, dynamic>? selectedItem;
@@ -304,7 +304,8 @@ class DatabaseService {
       ${Product().tableName}.${Product().size},
       ${Product().tableName}.${Product().sizeType},
       ${Product().tableName}.${Product().price},
-      ${Product().tableName}.${Product().amount}
+      ${Product().tableName}.${Product().amount},
+      ${Product().tableName}.${Product().visible}
       FROM ${Product().tableName}, ${Category().tableName}
       WHERE ${Product().tableName}.${Product().categoryID}==${Category().tableName}.${Category().id}
       ''';
@@ -355,7 +356,7 @@ class DatabaseService {
       ${Product().id},
       ${Product().name},
       ${Product().brand},
-      ${Product().categoryName},
+      ${Product().categoryID},
       ${Product().color},
       ${Product().size},
       ${Product().sizeType},
@@ -368,7 +369,7 @@ class DatabaseService {
         product[Product().id] as int,
         product[Product().name] as String,
         product[Product().brand] as String,
-        product[Product().categoryName] as String,
+        product[Product().categoryID] as int,
         product[Product().color] as String,
         product[Product().size] as String,
         product[Product().sizeType] as String,
@@ -387,7 +388,7 @@ class DatabaseService {
       UPDATE ${Product().tableName} SET
       ${Product().name}=?,
       ${Product().brand}=?,
-      ${Product().categoryName}=?,
+      ${Product().categoryID}=?,
       ${Product().color}=?,
       ${Product().size}=?,
       ${Product().sizeType}=?,
@@ -399,7 +400,7 @@ class DatabaseService {
       [
         product[Product().name] as String,
         product[Product().brand] as String,
-        product[Product().categoryName] as String,
+        product[Product().categoryID] as int,
         product[Product().color] as String,
         product[Product().size] as String,
         product[Product().sizeType] as String,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yildiz_motor_v2/backend/methods.dart';
 
 import '../../backend/theme.dart';
 import '../../widgets/custom_button.dart';
@@ -17,7 +18,7 @@ class SettingsScreen extends StatelessWidget {
             title: 'Ayarlar',
             leftButtonText: "Ana Sayfa",
             leftButtonAction: () {
-              Navigator.pushReplacementNamed(context, '/home');
+              Navigator.pushReplacementNamed(context, routeStack.removeLast());
             },
           ),
           Expanded(
@@ -35,6 +36,7 @@ class SettingsScreen extends StatelessWidget {
                           child: CustomButton(
                             text: "Şifre Değiştir",
                             onPressed: () {
+                              routeStack.add('/settings');
                               Navigator.pushReplacementNamed(
                                   context, '/change_password');
                             },
@@ -49,6 +51,7 @@ class SettingsScreen extends StatelessWidget {
                           child: CustomButton(
                             text: "Tabloları Sil",
                             onPressed: () {
+                              routeStack.add('/settings');
                               Navigator.pushReplacementNamed(
                                   context, "/clear_data");
                             },

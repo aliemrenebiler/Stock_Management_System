@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yildiz_motor_v2/widgets/custom_select_form_field.dart';
 
 import '../../backend/theme.dart';
 import '../../widgets/custom_snack_bar.dart';
@@ -45,7 +46,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
             title: 'Ürün Al',
             leftButtonText: "Geri",
             leftButtonAction: () {
-              Navigator.pushReplacementNamed(context, '/list_products');
+              Navigator.pushReplacementNamed(context, routeStack.removeLast());
             },
           ),
           Expanded(
@@ -279,127 +280,44 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                       ),
                                     ],
                                   ),
-                                  (selectedItem == null)
-                                      ? Row(
-                                          children: [
-                                            Expanded(
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(5),
-                                                child: Text(
-                                                  "Tedarikçi",
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  textAlign: TextAlign.right,
-                                                  style: TextStyle(
-                                                    fontSize: YMSizes()
-                                                        .fontSizeMedium,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text(
+                                            "Tedarikçi",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  YMSizes().fontSizeMedium,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                            Expanded(
-                                              flex: 2,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(5),
-                                                child: CustomButton(
-                                                  text: "Seç",
-                                                  onPressed: () {
-                                                    Navigator
-                                                        .pushReplacementNamed(
-                                                            context,
-                                                            "/select_supplier");
-                                                  },
-                                                  textColor: YMColors().white,
-                                                  bgColor: YMColors().grey,
-                                                  height: 50,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      : Row(
-                                          children: [
-                                            Expanded(
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(5),
-                                                child: Text(
-                                                  "Tedarikçi",
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  textAlign: TextAlign.right,
-                                                  style: TextStyle(
-                                                    fontSize: YMSizes()
-                                                        .fontSizeMedium,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              flex: 2,
-                                              child: Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Container(
-                                                      margin:
-                                                          const EdgeInsets.all(
-                                                              5),
-                                                      height: 50,
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              5),
-                                                      decoration: BoxDecoration(
-                                                        color: YMColors().white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        border: Border.all(
-                                                          color:
-                                                              YMColors().grey,
-                                                          width: 2,
-                                                        ),
-                                                      ),
-                                                      child: Text(
-                                                        "(${selectedItem![Supplier().id]}) ${selectedItem![Supplier().name]}",
-                                                        overflow: TextOverflow
-                                                            .visible,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        maxLines: 1,
-                                                        style: TextStyle(
-                                                          fontSize: YMSizes()
-                                                              .fontSizeMedium,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(5),
-                                                    child: CustomButton(
-                                                      text: "Kaldır",
-                                                      onPressed: () {
-                                                        selectedItem = null;
-                                                        refresh();
-                                                      },
-                                                      textColor:
-                                                          YMColors().white,
-                                                      bgColor: YMColors().grey,
-                                                      height: 50,
-                                                      width: 80,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
+                                          ),
                                         ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: CustomSelectionField(
+                                            selectionText:
+                                                (selectedItem == null)
+                                                    ? null
+                                                    : selectedItem![
+                                                        Supplier().name],
+                                            onPressed: () {
+                                              routeStack.add('/buy_product');
+                                              Navigator.pushReplacementNamed(
+                                                  context, "/select_supplier");
+                                            },
+                                            notifyParent: refresh,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                   Row(
                                     children: [
                                       Expanded(
@@ -613,8 +531,8 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                               editedItem[Product().name],
                                           Product().brand:
                                               editedItem[Product().brand],
-                                          Product().categoryName: editedItem[
-                                              Product().categoryName],
+                                          Product().categoryID:
+                                              editedItem[Product().categoryID],
                                           Product().color:
                                               editedItem[Product().color],
                                           Product().size:
@@ -636,6 +554,8 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                         YMColors().white,
                                         YMColors().blue,
                                       );
+                                      Navigator.pushReplacementNamed(
+                                          context, routeStack.removeLast());
                                     }
                                   },
                                   bgColor: YMColors().blue,

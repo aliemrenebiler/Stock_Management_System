@@ -61,7 +61,7 @@ class _ListSalesScreenState extends State<ListSalesScreen> {
             title: 'Satışlar',
             leftButtonText: "Ana Sayfa",
             leftButtonAction: () {
-              Navigator.pushReplacementNamed(context, '/home');
+              Navigator.pushReplacementNamed(context, routeStack.removeLast());
             },
           ),
           Expanded(
@@ -788,6 +788,7 @@ class SalesListItem extends StatelessWidget {
                     textColor: YMColors().white,
                     onPressed: () {
                       editedItem = sale;
+                      routeStack.add('/list_sales');
                       Navigator.pushReplacementNamed(context, '/edit_sale');
                     },
                     height: 50,

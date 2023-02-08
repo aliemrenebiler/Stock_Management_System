@@ -61,10 +61,11 @@ class _ListPurchasesScreenState extends State<ListPurchasesScreen> {
             title: 'Alımlar',
             leftButtonText: "Ana Sayfa",
             leftButtonAction: () {
-              Navigator.pushReplacementNamed(context, '/home');
+              Navigator.pushReplacementNamed(context, routeStack.removeLast());
             },
             rightButtonText: "Tedarikçiler",
             rightButtonAction: () {
+              routeStack.add('/list_purchases');
               Navigator.pushReplacementNamed(context, '/list_suppliers');
             },
           ),
@@ -679,7 +680,6 @@ class PurchasesListItem extends StatelessWidget {
                 ),
                 Expanded(
                   flex: 2,
-                  // TODO: This supplier ID must be changed with name
                   child: Text(
                     (purchase[Purchase().supplierName] != null)
                         ? purchase[Purchase().supplierName].toString()
@@ -831,6 +831,7 @@ class PurchasesListItem extends StatelessWidget {
                     textColor: YMColors().white,
                     onPressed: () {
                       editedItem = purchase;
+                      routeStack.add('/list_purchases');
                       Navigator.pushReplacementNamed(context, '/edit_purchase');
                     },
                     height: 50,

@@ -13,7 +13,11 @@ List<Map<dynamic, dynamic>> listedSuppliers = [];
 TextEditingController infoController = TextEditingController();
 
 class ListSuppliersScreen extends StatefulWidget {
-  const ListSuppliersScreen({Key? key}) : super(key: key);
+  final bool isSelectionModeActive;
+  const ListSuppliersScreen({
+    super.key,
+    required this.isSelectionModeActive,
+  });
 
   @override
   State<ListSuppliersScreen> createState() => _ListSuppliersScreenState();
@@ -26,7 +30,6 @@ class _ListSuppliersScreenState extends State<ListSuppliersScreen> {
 
   @override
   void initState() {
-    backRoute = "/list_suppliers";
     infoController.clear();
     listedSuppliers = DatabaseService().getSuppliers(null, null);
     super.initState();
@@ -39,10 +42,12 @@ class _ListSuppliersScreenState extends State<ListSuppliersScreen> {
       body: Column(
         children: [
           CustomTopBar(
-            title: 'Tedarikçiler',
+            title: (widget.isSelectionModeActive)
+                ? "Tedarikçi Seç"
+                : "Tedarikçiler",
             leftButtonText: "Geri",
             leftButtonAction: () {
-              Navigator.pushReplacementNamed(context, '/list_purchases');
+              Navigator.pushReplacementNamed(context, routeStack.removeLast());
             },
           ),
           Expanded(
@@ -54,6 +59,7 @@ class _ListSuppliersScreenState extends State<ListSuppliersScreen> {
                     padding: const EdgeInsets.all(10),
                     child: SuppliersListSearchBar(
                       notifyParent: refresh,
+                      isSelectionModeActive: widget.isSelectionModeActive,
                     ),
                   ),
                   Expanded(
@@ -61,11 +67,15 @@ class _ListSuppliersScreenState extends State<ListSuppliersScreen> {
                       padding:
                           const EdgeInsets.only(top: 10, left: 10, right: 10),
                       child: ItemTable(
-                        titlesBar: const SuppliersListTitlesBar(),
+                        titlesBar: SuppliersListTitlesBar(
+                          isSelectionModeActive: widget.isSelectionModeActive,
+                        ),
                         items: [
                           for (int i = 0; i < listedSuppliers.length; i++)
                             SuppliersListItem(
                               supplier: listedSuppliers[i],
+                              isSelectionModeActive:
+                                  widget.isSelectionModeActive,
                             ),
                         ],
                       ),
@@ -83,7 +93,12 @@ class _ListSuppliersScreenState extends State<ListSuppliersScreen> {
 
 class SuppliersListSearchBar extends StatelessWidget {
   final Function() notifyParent;
-  const SuppliersListSearchBar({super.key, required this.notifyParent});
+  final bool isSelectionModeActive;
+  const SuppliersListSearchBar({
+    super.key,
+    required this.notifyParent,
+    required this.isSelectionModeActive,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +115,11 @@ class SuppliersListSearchBar extends StatelessWidget {
               child: CustomButton(
                 text: "Yeni Ekle",
                 onPressed: () {
+                  if (isSelectionModeActive) {
+                    routeStack.add("/select_supplier");
+                  } else {
+                    routeStack.add("/list_suppliers");
+                  }
                   Navigator.pushReplacementNamed(context, '/add_supplier');
                 },
                 height: 50,
@@ -185,7 +205,11 @@ class SuppliersListSearchBar extends StatelessWidget {
 }
 
 class SuppliersListTitlesBar extends StatelessWidget {
-  const SuppliersListTitlesBar({super.key});
+  final bool isSelectionModeActive;
+  const SuppliersListTitlesBar({
+    super.key,
+    required this.isSelectionModeActive,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -278,7 +302,7 @@ class SuppliersListTitlesBar extends StatelessWidget {
               ),
               Container(
                 height: 70,
-                width: 120,
+                width: (isSelectionModeActive) ? 100 : 120,
                 alignment: Alignment.center,
                 child: Text(
                   "İşlemler",
@@ -300,9 +324,11 @@ class SuppliersListTitlesBar extends StatelessWidget {
 
 class SuppliersListItem extends StatelessWidget {
   final Map<dynamic, dynamic> supplier;
+  final bool isSelectionModeActive;
   const SuppliersListItem({
     super.key,
     required this.supplier,
+    required this.isSelectionModeActive,
   });
 
   @override
@@ -392,17 +418,32 @@ class SuppliersListItem extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10),
-                  child: CustomButton(
-                    text: "Düzenle",
-                    bgColor: YMColors().grey,
-                    textColor: YMColors().white,
-                    onPressed: () {
-                      editedItem = supplier;
-                      Navigator.pushReplacementNamed(context, '/edit_supplier');
-                    },
-                    height: 50,
-                    width: 100,
-                  ),
+                  child: (isSelectionModeActive)
+                      ? CustomButton(
+                          text: "Seç",
+                          bgColor: YMColors().blue,
+                          textColor: YMColors().white,
+                          onPressed: () {
+                            selectedItem = supplier;
+                            Navigator.pushReplacementNamed(
+                                context, routeStack.removeLast());
+                          },
+                          height: 50,
+                          width: 80,
+                        )
+                      : CustomButton(
+                          text: "Düzenle",
+                          bgColor: YMColors().grey,
+                          textColor: YMColors().white,
+                          onPressed: () {
+                            editedItem = supplier;
+                            routeStack.add('/list_suppliers');
+                            Navigator.pushReplacementNamed(
+                                context, '/edit_supplier');
+                          },
+                          height: 50,
+                          width: 100,
+                        ),
                 ),
               ],
             ),

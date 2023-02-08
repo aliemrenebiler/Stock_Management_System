@@ -3,6 +3,7 @@ import 'package:yildiz_motor_v2/backend/classes.dart';
 import 'package:yildiz_motor_v2/backend/methods.dart';
 import 'package:yildiz_motor_v2/backend/theme.dart';
 import 'package:yildiz_motor_v2/widgets/custom_button.dart';
+import 'package:yildiz_motor_v2/widgets/custom_select_form_field.dart';
 import 'package:yildiz_motor_v2/widgets/custom_top_bar.dart';
 
 import '../../widgets/custom_snack_bar.dart';
@@ -16,11 +17,14 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
+  refresh() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     TextEditingController nameController = TextEditingController();
     TextEditingController brandController = TextEditingController();
-    TextEditingController categoryController = TextEditingController();
     TextEditingController colorController = TextEditingController();
     TextEditingController sizeController = TextEditingController();
     TextEditingController sizeTypeController = TextEditingController();
@@ -34,7 +38,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
             title: 'Ürün Ekle',
             leftButtonText: "Geri",
             leftButtonAction: () {
-              Navigator.pushReplacementNamed(context, '/list_products');
+              Navigator.pushReplacementNamed(context, routeStack.removeLast());
             },
           ),
           Expanded(
@@ -175,11 +179,20 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                           flex: 2,
                                           child: Padding(
                                             padding: const EdgeInsets.all(5),
-                                            child: CustomTextFormField(
-                                              height: 50,
-                                              hintText: "(Zorunlu)",
-                                              controller: categoryController,
-                                              action: TextInputAction.next,
+                                            child: CustomSelectionField(
+                                              selectionText:
+                                                  (selectedItem == null)
+                                                      ? null
+                                                      : selectedItem![
+                                                          Category().name],
+                                              onPressed: () {
+                                                routeStack.add("/add_product");
+                                                Navigator.pushReplacementNamed(
+                                                    context,
+                                                    "/select_category");
+                                              },
+                                              notifyParent: refresh,
+                                              isRequired: true,
                                             ),
                                           ),
                                         ),
@@ -384,7 +397,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                   onPressed: () {
                                     nameController.clear();
                                     brandController.clear();
-                                    categoryController.clear();
                                     colorController.clear();
                                     sizeController.clear();
                                     sizeTypeController.clear();
@@ -406,9 +418,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                   text: "Ekle",
                                   onPressed: () {
                                     if (nameController.text.isEmpty ||
-                                        categoryController.text.isEmpty ||
                                         priceController.text.isEmpty ||
-                                        amountController.text.isEmpty) {
+                                        amountController.text.isEmpty ||
+                                        selectedItem == null) {
                                       showCustomSnackBar(
                                         context,
                                         "Lütfen zorunlu alanları doldurunuz.",
@@ -423,8 +435,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                             (brandController.text.isEmpty)
                                                 ? null
                                                 : brandController.text,
-                                        Product().categoryName:
-                                            categoryController.text,
+                                        Product().categoryID:
+                                            selectedItem![Category().id],
                                         Product().color:
                                             (colorController.text.isEmpty)
                                                 ? null

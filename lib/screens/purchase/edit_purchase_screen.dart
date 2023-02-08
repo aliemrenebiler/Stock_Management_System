@@ -43,7 +43,7 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
             title: 'Alım Düzenle',
             leftButtonText: "Geri",
             leftButtonAction: () {
-              Navigator.pushReplacementNamed(context, '/list_purchases');
+              Navigator.pushReplacementNamed(context, routeStack.removeLast());
             },
           ),
           Expanded(
@@ -465,7 +465,8 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                                                         Navigator
                                                             .pushReplacementNamed(
                                                                 context,
-                                                                "/list_purchases");
+                                                                routeStack
+                                                                    .removeLast());
                                                       },
                                                       bgColor: YMColors().red,
                                                       textColor:
@@ -535,7 +536,7 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                                             int.parse(amountController.text),
                                       });
                                       Navigator.pushReplacementNamed(
-                                          context, "/list_purchases");
+                                          context, routeStack.removeLast());
                                     }
                                   },
                                   bgColor: YMColors().blue,

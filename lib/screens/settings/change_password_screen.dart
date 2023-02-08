@@ -28,7 +28,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             title: 'Şifre Değiştir',
             leftButtonText: "Geri",
             leftButtonAction: () {
-              Navigator.pushReplacementNamed(context, '/settings');
+              Navigator.pushReplacementNamed(context, routeStack.removeLast());
             },
           ),
           Expanded(

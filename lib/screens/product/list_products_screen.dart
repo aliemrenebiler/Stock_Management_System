@@ -52,10 +52,11 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
             title: 'Ürünler',
             leftButtonText: "Ana Sayfa",
             leftButtonAction: () {
-              Navigator.pushReplacementNamed(context, '/home');
+              Navigator.pushReplacementNamed(context, routeStack.removeLast());
             },
             rightButtonText: "Silinen Ürünler",
             rightButtonAction: () {
+              routeStack.add('/list_products');
               Navigator.pushReplacementNamed(context, '/list_deleted_products');
             },
           ),
@@ -114,6 +115,8 @@ class ProductsListSearchBar extends StatelessWidget {
               child: CustomButton(
                 text: "Ürün Ekle",
                 onPressed: () {
+                  selectedItem = null;
+                  routeStack.add('/list_products');
                   Navigator.pushReplacementNamed(context, '/add_product');
                 },
                 height: 50,
@@ -348,7 +351,7 @@ class ProductsListTitlesBar extends StatelessWidget {
                   height: 70,
                   alignment: Alignment.center,
                   child: Text(
-                    "Kategori",
+                    "İsim",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -368,7 +371,7 @@ class ProductsListTitlesBar extends StatelessWidget {
                   height: 70,
                   alignment: Alignment.center,
                   child: Text(
-                    "İsim",
+                    "Kategori",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -545,8 +548,8 @@ class ProductsListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (product[Product().categoryName] != null)
-                        ? product[Product().categoryName].toString()
+                    (product[Product().name] != null)
+                        ? product[Product().name].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -563,8 +566,8 @@ class ProductsListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (product[Product().name] != null)
-                        ? product[Product().name].toString()
+                    (product[Product().categoryName] != null)
+                        ? product[Product().categoryName].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -682,6 +685,9 @@ class ProductsListItem extends StatelessWidget {
                           textColor: YMColors().white,
                           onPressed: () {
                             editedItem = product;
+                            selectedItem = DatabaseService().getCategories(
+                                editedItem[Product().categoryID], null)[0];
+                            routeStack.add('/list_products');
                             Navigator.pushReplacementNamed(
                                 context, '/edit_product');
                           },
@@ -698,6 +704,7 @@ class ProductsListItem extends StatelessWidget {
                           onPressed: () {
                             editedItem = product;
                             selectedItem = null;
+                            routeStack.add('/list_products');
                             Navigator.pushReplacementNamed(
                                 context, '/buy_product');
                           },
@@ -713,6 +720,7 @@ class ProductsListItem extends StatelessWidget {
                           textColor: YMColors().white,
                           onPressed: () {
                             editedItem = product;
+                            routeStack.add('/list_products');
                             Navigator.pushReplacementNamed(
                                 context, '/sell_product');
                           },

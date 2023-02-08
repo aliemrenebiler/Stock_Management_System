@@ -9,11 +9,7 @@ import '../../widgets/custom_text_form_field.dart';
 import '../../widgets/custom_button.dart';
 
 class AddCategoryScreen extends StatefulWidget {
-  final String backRoute;
-  const AddCategoryScreen({
-    super.key,
-    required this.backRoute,
-  });
+  const AddCategoryScreen({super.key});
 
   @override
   State<AddCategoryScreen> createState() => _AddCategoryScreenState();
@@ -31,7 +27,7 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
             title: 'Kategori Ekle',
             leftButtonText: "Geri",
             leftButtonAction: () {
-              Navigator.pushReplacementNamed(context, widget.backRoute);
+              Navigator.pushReplacementNamed(context, routeStack.removeLast());
             },
           ),
           Expanded(
@@ -79,7 +75,6 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                                         height: 50,
                                         hintText: "(Zorunlu)",
                                         controller: nameController,
-                                        action: TextInputAction.next,
                                       ),
                                     ),
                                   ),
@@ -132,6 +127,8 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                                         YMColors().white,
                                         YMColors().blue,
                                       );
+                                      Navigator.pushReplacementNamed(
+                                          context, routeStack.removeLast());
                                     }
                                   },
                                   bgColor: YMColors().blue,

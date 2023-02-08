@@ -26,7 +26,7 @@ class _ClearDataScreenState extends State<ClearDataScreen> {
             title: 'Verileri Sıfırla',
             leftButtonText: "Geri",
             leftButtonAction: () {
-              Navigator.pushReplacementNamed(context, '/settings');
+              Navigator.pushReplacementNamed(context, routeStack.removeLast());
             },
           ),
           Expanded(
@@ -116,7 +116,7 @@ class _ClearDataScreenState extends State<ClearDataScreen> {
 
                                   if (mounted) {
                                     Navigator.pushReplacementNamed(
-                                        context, "/settings");
+                                        context, routeStack.removeLast());
                                     showCustomSnackBar(
                                       context,
                                       "Tüm veriler sıfırlandı.",

@@ -52,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: CustomButton(
                                       text: "Ürünler",
                                       onPressed: () {
+                                        routeStack.add('/home');
                                         Navigator.pushReplacementNamed(
                                             context, '/list_products');
                                       },
@@ -66,6 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: CustomButton(
                                       text: "Alımlar",
                                       onPressed: () {
+                                        routeStack.add('/home');
                                         Navigator.pushReplacementNamed(
                                             context, '/list_purchases');
                                       },
@@ -80,6 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: CustomButton(
                                       text: "Satışlar",
                                       onPressed: () {
+                                        routeStack.add('/home');
                                         Navigator.pushReplacementNamed(
                                             context, '/list_sales');
                                       },
@@ -94,6 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: CustomButton(
                                       text: "Kategoriler",
                                       onPressed: () {
+                                        routeStack.add('/home');
                                         Navigator.pushReplacementNamed(
                                             context, '/list_categories');
                                       },
@@ -187,6 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: CustomButton(
                                   text: "Ayarlar",
                                   onPressed: () {
+                                    routeStack.add('/home');
                                     Navigator.pushReplacementNamed(
                                         context, '/settings');
                                   },
@@ -203,6 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: CustomButton(
                                   text: "Çıkış Yap",
                                   onPressed: () {
+                                    routeStack.clear();
                                     Navigator.pushReplacementNamed(
                                         context, '/login');
                                   },

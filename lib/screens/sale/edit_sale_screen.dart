@@ -45,7 +45,7 @@ class _EditSaleScreenState extends State<EditSaleScreen> {
             title: 'Satış Düzenle',
             leftButtonText: "Geri",
             leftButtonAction: () {
-              Navigator.pushReplacementNamed(context, '/list_sales');
+              Navigator.pushReplacementNamed(context, routeStack.removeLast());
             },
           ),
           Expanded(
@@ -424,7 +424,8 @@ class _EditSaleScreenState extends State<EditSaleScreen> {
                                                         Navigator
                                                             .pushReplacementNamed(
                                                                 context,
-                                                                "/list_sales");
+                                                                routeStack
+                                                                    .removeLast());
                                                       },
                                                       bgColor: YMColors().red,
                                                       textColor:
@@ -494,7 +495,7 @@ class _EditSaleScreenState extends State<EditSaleScreen> {
                                         },
                                       );
                                       Navigator.pushReplacementNamed(
-                                          context, "/list_sales");
+                                          context, routeStack.removeLast());
                                     }
                                   },
                                   bgColor: YMColors().blue,

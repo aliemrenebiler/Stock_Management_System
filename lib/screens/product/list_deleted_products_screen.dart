@@ -28,6 +28,8 @@ class ListDeletedProductsScreen extends StatefulWidget {
 
 class _ListDeletedProductsScreenState extends State<ListDeletedProductsScreen> {
   refresh() {
+    listedProducts = DatabaseService()
+        .getProducts(null, null, null, null, null, null, null, false);
     setState(() {});
   }
 
@@ -54,7 +56,7 @@ class _ListDeletedProductsScreenState extends State<ListDeletedProductsScreen> {
             title: 'Silinen Ürünler',
             leftButtonText: "Geri",
             leftButtonAction: () {
-              Navigator.pushReplacementNamed(context, '/list_products');
+              Navigator.pushReplacementNamed(context, routeStack.removeLast());
             },
           ),
           Expanded(
@@ -78,6 +80,7 @@ class _ListDeletedProductsScreenState extends State<ListDeletedProductsScreen> {
                           for (int i = 0; i < listedProducts.length; i++)
                             DeletedProductsListItem(
                               product: listedProducts[i],
+                              notifyParent: refresh,
                             ),
                         ],
                       ),
@@ -487,9 +490,11 @@ class DeletedProductsListTitlesBar extends StatelessWidget {
 
 class DeletedProductsListItem extends StatelessWidget {
   final Map<dynamic, dynamic> product;
+  final Function() notifyParent;
   const DeletedProductsListItem({
     super.key,
     required this.product,
+    required this.notifyParent,
   });
 
   @override
@@ -705,8 +710,8 @@ class DeletedProductsListItem extends StatelessWidget {
                                             product[Product().id],
                                             true,
                                           );
-                                          Navigator.pushReplacementNamed(
-                                              context, "/list_products");
+                                          Navigator.pop(context);
+                                          notifyParent();
                                         },
                                         bgColor: YMColors().blue,
                                         textColor: YMColors().white,

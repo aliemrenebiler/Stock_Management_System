@@ -3,6 +3,7 @@ import 'package:yildiz_motor_v2/backend/classes.dart';
 import 'package:yildiz_motor_v2/backend/methods.dart';
 import 'package:yildiz_motor_v2/widgets/custom_pop_up.dart';
 import '../../backend/theme.dart';
+import '../../widgets/custom_select_form_field.dart';
 import '../../widgets/custom_snack_bar.dart';
 import '../../widgets/custom_text_form_field.dart';
 import '../../widgets/custom_button.dart';
@@ -16,9 +17,12 @@ class EditProductScreen extends StatefulWidget {
 }
 
 class _EditProductScreenState extends State<EditProductScreen> {
+  refresh() {
+    setState(() {});
+  }
+
   TextEditingController nameController = TextEditingController();
   TextEditingController brandController = TextEditingController();
-  TextEditingController categoryController = TextEditingController();
   TextEditingController colorController = TextEditingController();
   TextEditingController sizeController = TextEditingController();
   TextEditingController sizeTypeController = TextEditingController();
@@ -29,7 +33,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
   void initState() {
     nameController.text = editedItem[Product().name];
     brandController.text = editedItem[Product().brand];
-    categoryController.text = editedItem[Product().categoryName];
     colorController.text = editedItem[Product().color];
     sizeController.text = editedItem[Product().size];
     sizeTypeController.text = editedItem[Product().sizeType];
@@ -48,7 +51,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
             title: 'Ürün Düzenle',
             leftButtonText: "Geri",
             leftButtonAction: () {
-              Navigator.pushReplacementNamed(context, '/list_products');
+              Navigator.pushReplacementNamed(context, routeStack.removeLast());
             },
           ),
           Expanded(
@@ -111,6 +114,45 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
                                           child: Text(
+                                            "Kategori",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  YMSizes().fontSizeMedium,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: CustomSelectionField(
+                                            selectionText:
+                                                (selectedItem == null)
+                                                    ? null
+                                                    : selectedItem![
+                                                        Category().name],
+                                            onPressed: () {
+                                              routeStack.add("/edit_product");
+                                              Navigator.pushReplacementNamed(
+                                                  context, "/select_category");
+                                            },
+                                            notifyParent: refresh,
+                                            isRequired: true,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text(
                                             "Marka",
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
@@ -129,37 +171,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                           child: CustomTextFormField(
                                             height: 50,
                                             controller: brandController,
-                                            action: TextInputAction.next,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(5),
-                                          child: Text(
-                                            "Kategori",
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.right,
-                                            style: TextStyle(
-                                              fontSize:
-                                                  YMSizes().fontSizeMedium,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(5),
-                                          child: CustomTextFormField(
-                                            height: 50,
-                                            hintText: "(Zorunlu)",
-                                            controller: categoryController,
                                             action: TextInputAction.next,
                                           ),
                                         ),
@@ -388,7 +399,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                                         Navigator
                                                             .pushReplacementNamed(
                                                                 context,
-                                                                "/list_products");
+                                                                routeStack
+                                                                    .removeLast());
                                                       },
                                                       bgColor: YMColors().red,
                                                       textColor:
@@ -420,9 +432,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                   text: "Kaydet",
                                   onPressed: () {
                                     if (nameController.text.isEmpty ||
-                                        categoryController.text.isEmpty ||
                                         priceController.text.isEmpty ||
-                                        amountController.text.isEmpty) {
+                                        amountController.text.isEmpty ||
+                                        selectedItem == null) {
                                       showCustomSnackBar(
                                         context,
                                         "Lütfen zorunlu alanları doldurunuz.",
@@ -442,10 +454,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                               (brandController.text.isEmpty)
                                                   ? null
                                                   : brandController.text,
-                                          Product().categoryName:
-                                              (categoryController.text.isEmpty)
-                                                  ? null
-                                                  : categoryController.text,
+                                          Product().categoryID:
+                                              selectedItem![Category().id],
                                           Product().color:
                                               (colorController.text.isEmpty)
                                                   ? null
@@ -478,6 +488,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                         YMColors().white,
                                         YMColors().blue,
                                       );
+                                      Navigator.pushReplacementNamed(
+                                          context, routeStack.removeLast());
                                     }
                                   },
                                   bgColor: YMColors().blue,

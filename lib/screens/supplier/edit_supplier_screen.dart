@@ -38,7 +38,7 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
             title: 'Tedarikçi Düzenle',
             leftButtonText: "Geri",
             leftButtonAction: () {
-              Navigator.pushReplacementNamed(context, '/list_suppliers');
+              Navigator.pushReplacementNamed(context, routeStack.removeLast());
             },
           ),
           Expanded(
@@ -222,7 +222,8 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                                                         Navigator
                                                             .pushReplacementNamed(
                                                                 context,
-                                                                "/list_suppliers");
+                                                                routeStack
+                                                                    .removeLast());
                                                       },
                                                       bgColor: YMColors().red,
                                                       textColor:
@@ -286,7 +287,7 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                                         YMColors().blue,
                                       );
                                       Navigator.pushReplacementNamed(
-                                          context, "/list_suppliers");
+                                          context, routeStack.removeLast());
                                     }
                                   },
                                   bgColor: YMColors().blue,

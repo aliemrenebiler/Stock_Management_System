@@ -2,12 +2,9 @@ import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-import 'backend/methods.dart';
-
 import 'screens/category/add_category_screen.dart';
 import 'screens/category/edit_category_screen.dart';
 import 'screens/category/list_categories_screen.dart';
-import 'screens/supplier/select_supplier_screen.dart';
 import 'screens/settings/clear_data_screen.dart';
 import 'screens/supplier/add_supplier_screen.dart';
 import 'screens/product/list_deleted_products_screen.dart';
@@ -19,8 +16,8 @@ import 'screens/purchase/edit_purchase_screen.dart';
 import 'screens/purchase/list_purchases_screen.dart';
 import 'screens/sale/edit_sale_screen.dart';
 import 'screens/sale/list_sales_screen.dart';
-import 'screens/purchase/buy_product_screen.dart';
-import 'screens/sale/sell_product_screen.dart';
+import 'screens/product/buy_product_screen.dart';
+import 'screens/product/sell_product_screen.dart';
 import 'screens/product/add_product_screen.dart';
 import 'screens/product/edit_product_screen.dart';
 import 'screens/product/list_products_screen.dart';
@@ -91,7 +88,7 @@ class MyApp extends StatelessWidget {
             );
           case '/select_supplier':
             return PageTransition(
-              child: const SelectSupplierScreen(),
+              child: const ListSuppliersScreen(isSelectionModeActive: true),
               type: PageTransitionType.fade,
               settings: settings,
             );
@@ -127,15 +124,13 @@ class MyApp extends StatelessWidget {
             );
           case '/list_suppliers':
             return PageTransition(
-              child: const ListSuppliersScreen(),
+              child: const ListSuppliersScreen(isSelectionModeActive: false),
               type: PageTransitionType.fade,
               settings: settings,
             );
           case '/add_supplier':
             return PageTransition(
-              child: AddSupplierScreen(
-                backRoute: backRoute,
-              ),
+              child: const AddSupplierScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );
@@ -165,15 +160,23 @@ class MyApp extends StatelessWidget {
             );
           case '/list_categories':
             return PageTransition(
-              child: const ListCategoriesScreen(),
+              child: const ListCategoriesScreen(
+                isSelectionModeActive: false,
+              ),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/select_category':
+            return PageTransition(
+              child: const ListCategoriesScreen(
+                isSelectionModeActive: true,
+              ),
               type: PageTransitionType.fade,
               settings: settings,
             );
           case '/add_category':
             return PageTransition(
-              child: AddCategoryScreen(
-                backRoute: backRoute,
-              ),
+              child: const AddCategoryScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );
