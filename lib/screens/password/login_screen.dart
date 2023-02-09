@@ -21,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: YMColors().white,
-      body: FutureBuilder<Object>(
+      body: FutureBuilder(
         future: SharedPrefsService().isPasswordExists,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
