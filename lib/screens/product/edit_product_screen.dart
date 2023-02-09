@@ -354,7 +354,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                               padding: const EdgeInsets.all(5),
                                               height: 50,
                                               child: Text(
-                                                "Bu ürün silinen ürünlere eklenecek.",
+                                                "Bu ürün silinen ürünler listesine taşınacak.",
                                                 textAlign: TextAlign.center,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
@@ -388,7 +388,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                                     padding:
                                                         const EdgeInsets.all(5),
                                                     child: CustomButton(
-                                                      text: "Sil",
+                                                      text: "Taşı",
                                                       onPressed: () {
                                                         DatabaseService()
                                                             .changeProductVisibility(

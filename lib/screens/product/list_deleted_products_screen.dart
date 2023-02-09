@@ -468,7 +468,7 @@ class DeletedProductsListTitlesBar extends StatelessWidget {
               ),
               Container(
                 height: 70,
-                width: 140,
+                width: 230,
                 alignment: Alignment.center,
                 child: Text(
                   "İşlemler",
@@ -656,79 +656,160 @@ class DeletedProductsListItem extends StatelessWidget {
                   space: 10,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: CustomButton(
-                    text: "Geri Getir",
-                    bgColor: YMColors().blue,
-                    textColor: YMColors().white,
-                    onPressed: () {
-                      showCustomPopUp(
-                        context,
-                        SizedBox(
-                          width: YMSizes().maxWidth,
-                          child: Column(
-                            children: [
-                              Container(
-                                alignment: Alignment.center,
-                                padding: const EdgeInsets.all(5),
-                                height: 50,
-                                child: Text(
-                                  "Bu ürün geri getirilecek.",
-                                  textAlign: TextAlign.center,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: YMColors().black,
-                                    fontSize: YMSizes().fontSizeSmall,
-                                  ),
+                  padding: const EdgeInsets.all(5),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: CustomButton(
+                          text: "Sil",
+                          bgColor: YMColors().red,
+                          textColor: YMColors().white,
+                          onPressed: () {
+                            showCustomPopUp(
+                              context,
+                              SizedBox(
+                                width: YMSizes().maxWidth,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      alignment: Alignment.center,
+                                      padding: const EdgeInsets.all(5),
+                                      height: 50,
+                                      child: Text(
+                                        "Bu ürün kalıcı olarak silinecek.",
+                                        textAlign: TextAlign.center,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: YMColors().black,
+                                          fontSize: YMSizes().fontSizeSmall,
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(5),
+                                            child: CustomButton(
+                                              text: "İptal Et",
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              bgColor: YMColors().grey,
+                                              textColor: YMColors().white,
+                                              width: double.infinity,
+                                              height: 50,
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(5),
+                                            child: CustomButton(
+                                              text: "Sil",
+                                              onPressed: () {
+                                                DatabaseService().deleteProduct(
+                                                  product[Product().id],
+                                                );
+                                                Navigator.pop(context);
+                                                notifyParent();
+                                              },
+                                              bgColor: YMColors().red,
+                                              textColor: YMColors().white,
+                                              width: double.infinity,
+                                              height: 50,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5),
-                                      child: CustomButton(
-                                        text: "İptal Et",
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        bgColor: YMColors().grey,
-                                        textColor: YMColors().white,
-                                        width: double.infinity,
-                                        height: 50,
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5),
-                                      child: CustomButton(
-                                        text: "Geri Getir",
-                                        onPressed: () {
-                                          DatabaseService()
-                                              .changeProductVisibility(
-                                            product[Product().id],
-                                            true,
-                                          );
-                                          Navigator.pop(context);
-                                          notifyParent();
-                                        },
-                                        bgColor: YMColors().blue,
-                                        textColor: YMColors().white,
-                                        width: double.infinity,
-                                        height: 50,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                            );
+                          },
+                          height: 50,
+                          width: 80,
                         ),
-                      );
-                    },
-                    height: 50,
-                    width: 120,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: CustomButton(
+                          text: "Geri Getir",
+                          bgColor: YMColors().blue,
+                          textColor: YMColors().white,
+                          onPressed: () {
+                            showCustomPopUp(
+                              context,
+                              SizedBox(
+                                width: YMSizes().maxWidth,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      alignment: Alignment.center,
+                                      padding: const EdgeInsets.all(5),
+                                      height: 50,
+                                      child: Text(
+                                        "Bu ürün geri getirilecek.",
+                                        textAlign: TextAlign.center,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: YMColors().black,
+                                          fontSize: YMSizes().fontSizeSmall,
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(5),
+                                            child: CustomButton(
+                                              text: "İptal Et",
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              bgColor: YMColors().grey,
+                                              textColor: YMColors().white,
+                                              width: double.infinity,
+                                              height: 50,
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(5),
+                                            child: CustomButton(
+                                              text: "Geri Getir",
+                                              onPressed: () {
+                                                DatabaseService()
+                                                    .changeProductVisibility(
+                                                  product[Product().id],
+                                                  true,
+                                                );
+                                                Navigator.pop(context);
+                                                notifyParent();
+                                              },
+                                              bgColor: YMColors().blue,
+                                              textColor: YMColors().white,
+                                              width: double.infinity,
+                                              height: 50,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                          height: 50,
+                          width: 120,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
