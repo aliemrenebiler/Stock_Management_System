@@ -35,6 +35,7 @@ class SharedPrefsService {
 class DatabaseService {
   openDatabase(String dbName) {
     Database database = sqlite3.open(dbName);
+    // The SQL down below is needed for "ON DELETE CASCADE" to work
     database.execute("PRAGMA foreign_keys = ON;");
     return database;
   }
