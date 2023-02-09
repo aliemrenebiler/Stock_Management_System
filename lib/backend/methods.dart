@@ -33,8 +33,14 @@ class SharedPrefsService {
 }
 
 class DatabaseService {
-  get areTablesExists {
+  openDatabase(String dbName) {
     Database database = sqlite3.open(dbName);
+    database.execute("PRAGMA foreign_keys = ON;");
+    return database;
+  }
+
+  get areTablesExists {
+    Database database = openDatabase(dbName);
     int tableCount = database.select(
       '''
       SELECT COUNT(name)
@@ -57,7 +63,7 @@ class DatabaseService {
   }
 
   // getDBSize() {
-  //   Database database = sqlite3.open(dbName);
+  //   Database database = openDatabase(dbName);
   //   int size = database.select(
   //     '''
   //     SELECT COUNT(*) FROM $dbName
@@ -67,10 +73,8 @@ class DatabaseService {
   //   return size;
   // }
 
-  // TODO: Add "PRAGMA foreign_keys = ON"
-
   createCategoriesTable() {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       CREATE TABLE IF NOT EXISTS ${Category().tableName}(
@@ -83,7 +87,7 @@ class DatabaseService {
   }
 
   deleteCategoriesTable() {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       DROP TABLE IF EXISTS ${Category().tableName}
@@ -93,7 +97,7 @@ class DatabaseService {
   }
 
   createProductsTable() {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       CREATE TABLE IF NOT EXISTS ${Product().tableName}(
@@ -117,7 +121,7 @@ class DatabaseService {
   }
 
   deleteProductsTable() {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       DROP TABLE IF EXISTS ${Product().tableName}
@@ -127,7 +131,7 @@ class DatabaseService {
   }
 
   createSuppliersTable() {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       CREATE TABLE IF NOT EXISTS ${Supplier().tableName}(
@@ -142,7 +146,7 @@ class DatabaseService {
   }
 
   deleteSuppliersTable() {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       DROP TABLE IF EXISTS ${Supplier().tableName}
@@ -152,7 +156,7 @@ class DatabaseService {
   }
 
   createPurchasesTable() {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       CREATE TABLE IF NOT EXISTS ${Purchase().tableName}(
@@ -175,7 +179,7 @@ class DatabaseService {
   }
 
   deletePurchasesTable() {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       'DROP TABLE IF EXISTS ${Purchase().tableName}',
     );
@@ -183,7 +187,7 @@ class DatabaseService {
   }
 
   createSalesTable() {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       CREATE TABLE IF NOT EXISTS ${Sale().tableName}(
@@ -202,7 +206,7 @@ class DatabaseService {
   }
 
   deleteSalesTable() {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       DROP TABLE IF EXISTS ${Sale().tableName}
@@ -231,7 +235,7 @@ class DatabaseService {
       }
       query += ' ${Category().name} LIKE "%$name%"';
     }
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     var categories = database.select(query);
     database.dispose();
 
@@ -239,7 +243,7 @@ class DatabaseService {
   }
 
   insertCategory(Map<dynamic, dynamic> category) {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       INSERT INTO ${Category().tableName}(
@@ -256,7 +260,7 @@ class DatabaseService {
   }
 
   updateCategory(Map<dynamic, dynamic> category) {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       UPDATE ${Category().tableName} SET
@@ -272,7 +276,7 @@ class DatabaseService {
   }
 
   deleteCategory(int id) {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       DELETE FROM ${Category().tableName}
@@ -339,7 +343,7 @@ class DatabaseService {
       query += ' AND ${Product().visible}==$visible';
     }
 
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     var products = database.select(query);
     database.dispose();
 
@@ -347,7 +351,7 @@ class DatabaseService {
   }
 
   insertProduct(Map<dynamic, dynamic> product) {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       INSERT INTO ${Product().tableName}(
@@ -380,7 +384,7 @@ class DatabaseService {
   }
 
   updateProduct(Map<dynamic, dynamic> product) {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       UPDATE ${Product().tableName} SET
@@ -412,7 +416,7 @@ class DatabaseService {
   }
 
   deleteProduct(int id) {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       DELETE FROM ${Product().tableName}
@@ -423,7 +427,7 @@ class DatabaseService {
   }
 
   changeProductVisibility(int id, bool visible) {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       UPDATE ${Product().tableName} SET
@@ -463,7 +467,7 @@ class DatabaseService {
           ' ${Supplier().name} LIKE "%$info%" OR ${Supplier().phone} LIKE "%$info%" OR ${Supplier().address} LIKE "%$info%"';
     }
 
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     var suppliers = database.select(query);
     database.dispose();
 
@@ -471,7 +475,7 @@ class DatabaseService {
   }
 
   insertSupplier(Map<dynamic, dynamic> supplier) {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       INSERT INTO ${Supplier().tableName}(
@@ -492,7 +496,7 @@ class DatabaseService {
   }
 
   updateSupplier(Map<dynamic, dynamic> supplier) {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       UPDATE ${Supplier().tableName} SET
@@ -512,7 +516,7 @@ class DatabaseService {
   }
 
   deleteSupplier(int id) {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       DELETE FROM ${Supplier().tableName}
@@ -604,7 +608,7 @@ class DatabaseService {
 
     String query = "$query1 UNION $query2";
 
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     var purchases = database.select(query);
     database.dispose();
 
@@ -612,7 +616,7 @@ class DatabaseService {
   }
 
   insertPurchase(Map<dynamic, dynamic> purchase) {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       INSERT INTO ${Purchase().tableName}(
@@ -637,7 +641,7 @@ class DatabaseService {
   }
 
   updatePurchase(Map<dynamic, dynamic> purchase) {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       UPDATE ${Purchase().tableName} SET
@@ -661,7 +665,7 @@ class DatabaseService {
   }
 
   deletePurchase(int id) {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       DELETE FROM ${Purchase().tableName}
@@ -720,7 +724,7 @@ class DatabaseService {
       query += ' AND ${Sale().tableName}.${Sale().amount}<=$maxAmount';
     }
 
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     var sales = database.select(query);
     database.dispose();
 
@@ -728,7 +732,7 @@ class DatabaseService {
   }
 
   insertSale(Map<dynamic, dynamic> sale) {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       INSERT INTO ${Sale().tableName}(
@@ -751,7 +755,7 @@ class DatabaseService {
   }
 
   updateSale(Map<dynamic, dynamic> sale) {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       UPDATE ${Sale().tableName} SET
@@ -773,7 +777,7 @@ class DatabaseService {
   }
 
   deleteSale(int id) {
-    Database database = sqlite3.open(dbName);
+    Database database = openDatabase(dbName);
     database.execute(
       '''
       DELETE FROM ${Sale().tableName}
