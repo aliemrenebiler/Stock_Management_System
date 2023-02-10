@@ -4,6 +4,7 @@ import 'package:yildiz_motor_v2/backend/methods.dart';
 import 'package:yildiz_motor_v2/widgets/custom_text_form_field.dart';
 
 import '../../backend/theme.dart';
+import '../../widgets/custom_pop_up.dart';
 import '../../widgets/item_table.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_top_bar.dart';
@@ -18,7 +19,8 @@ TextEditingController minPriceController = TextEditingController();
 TextEditingController maxPriceController = TextEditingController();
 
 class ListProductsScreen extends StatefulWidget {
-  const ListProductsScreen({Key? key}) : super(key: key);
+  final bool listVisibleItems;
+  const ListProductsScreen({super.key, required this.listVisibleItems});
 
   @override
   State<ListProductsScreen> createState() => _ListProductsScreenState();
@@ -26,6 +28,8 @@ class ListProductsScreen extends StatefulWidget {
 
 class _ListProductsScreenState extends State<ListProductsScreen> {
   refresh() {
+    listedProducts = DatabaseService().getProducts(
+        null, null, null, null, null, null, null, widget.listVisibleItems);
     setState(() {});
   }
 
@@ -37,8 +41,8 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
     maxAmountController.clear();
     minPriceController.clear();
     maxPriceController.clear();
-    listedProducts = DatabaseService()
-        .getProducts(null, null, null, null, null, null, null, true);
+    listedProducts = DatabaseService().getProducts(
+        null, null, null, null, null, null, null, widget.listVisibleItems);
     super.initState();
   }
 
@@ -49,15 +53,19 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
       body: Column(
         children: [
           CustomTopBar(
-            title: 'Ürünler',
-            leftButtonText: "Ana Sayfa",
+            title: (widget.listVisibleItems) ? "Ürünler" : "Silinen Ürünler",
+            leftButtonText: (widget.listVisibleItems) ? "Ana Sayfa" : "Geri",
             leftButtonAction: () {
               Navigator.pushReplacementNamed(context, routeStack.removeLast());
             },
-            rightButtonText: "Silinen Ürünler",
+            rightButtonText:
+                (widget.listVisibleItems) ? "Silinen Ürünler" : null,
             rightButtonAction: () {
-              routeStack.add('/list_products');
-              Navigator.pushReplacementNamed(context, '/list_deleted_products');
+              if (widget.listVisibleItems) {
+                routeStack.add('/list_products');
+                Navigator.pushReplacementNamed(
+                    context, '/list_deleted_products');
+              }
             },
           ),
           Expanded(
@@ -69,6 +77,7 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
                     padding: const EdgeInsets.all(10),
                     child: ProductsListSearchBar(
                       notifyParent: refresh,
+                      listVisibleItems: widget.listVisibleItems,
                     ),
                   ),
                   Expanded(
@@ -76,11 +85,15 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
                       padding:
                           const EdgeInsets.only(top: 10, left: 10, right: 10),
                       child: ItemTable(
-                        titlesBar: const ProductsListTitlesBar(),
+                        titlesBar: ProductsListTitlesBar(
+                          listVisibleItems: widget.listVisibleItems,
+                        ),
                         items: [
                           for (int i = 0; i < listedProducts.length; i++)
                             ProductsListItem(
                               product: listedProducts[i],
+                              notifyParent: refresh,
+                              listVisibleItems: widget.listVisibleItems,
                             ),
                         ],
                       ),
@@ -98,7 +111,12 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
 
 class ProductsListSearchBar extends StatelessWidget {
   final Function() notifyParent;
-  const ProductsListSearchBar({super.key, required this.notifyParent});
+  final bool listVisibleItems;
+  const ProductsListSearchBar({
+    super.key,
+    required this.notifyParent,
+    required this.listVisibleItems,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -110,24 +128,31 @@ class ProductsListSearchBar extends StatelessWidget {
       child: IntrinsicHeight(
         child: Row(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: CustomButton(
-                text: "Ürün Ekle",
-                onPressed: () {
-                  selectedItem = null;
-                  routeStack.add('/list_products');
-                  Navigator.pushReplacementNamed(context, '/add_product');
-                },
-                height: 50,
-                width: 120,
-                textColor: YMColors().white,
-                bgColor: YMColors().grey,
-              ),
-            ),
-            ListTableVerticalSeperator(
-              color: YMColors().grey,
-              space: 10,
+            Row(
+              children: [
+                (listVisibleItems)
+                    ? Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: CustomButton(
+                          text: "Ürün Ekle",
+                          onPressed: () {
+                            selectedItem = null;
+                            routeStack.add('/list_products');
+                            Navigator.pushReplacementNamed(
+                                context, '/add_product');
+                          },
+                          height: 50,
+                          width: 120,
+                          textColor: YMColors().white,
+                          bgColor: YMColors().grey,
+                        ),
+                      )
+                    : Container(),
+                ListTableVerticalSeperator(
+                  color: YMColors().grey,
+                  space: 10,
+                ),
+              ],
             ),
             Expanded(
               flex: 3,
@@ -270,7 +295,7 @@ class ProductsListSearchBar extends StatelessWidget {
                           (maxAmountController.text.isEmpty)
                               ? null
                               : int.parse(maxAmountController.text),
-                          true,
+                          listVisibleItems,
                         );
                         notifyParent();
                       },
@@ -292,7 +317,14 @@ class ProductsListSearchBar extends StatelessWidget {
                         minPriceController.clear();
                         maxPriceController.clear();
                         listedProducts = DatabaseService().getProducts(
-                            null, null, null, null, null, null, null, true);
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            listVisibleItems);
                         notifyParent();
                       },
                       height: 50,
@@ -312,7 +344,8 @@ class ProductsListSearchBar extends StatelessWidget {
 }
 
 class ProductsListTitlesBar extends StatelessWidget {
-  const ProductsListTitlesBar({super.key});
+  final bool listVisibleItems;
+  const ProductsListTitlesBar({super.key, required this.listVisibleItems});
 
   @override
   Widget build(BuildContext context) {
@@ -487,7 +520,7 @@ class ProductsListTitlesBar extends StatelessWidget {
               ),
               Container(
                 height: 70,
-                width: 300,
+                width: (listVisibleItems) ? 300 : 230,
                 alignment: Alignment.center,
                 child: Text(
                   "İşlemler",
@@ -509,9 +542,13 @@ class ProductsListTitlesBar extends StatelessWidget {
 
 class ProductsListItem extends StatelessWidget {
   final Map<dynamic, dynamic> product;
+  final Function() notifyParent;
+  final bool listVisibleItems;
   const ProductsListItem({
     super.key,
     required this.product,
+    required this.notifyParent,
+    required this.listVisibleItems,
   });
 
   @override
@@ -674,62 +711,225 @@ class ProductsListItem extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: CustomButton(
-                          text: "Düzenle",
-                          bgColor: YMColors().grey,
-                          textColor: YMColors().white,
-                          onPressed: () {
-                            editedItem = product;
-                            selectedItem = DatabaseService().getCategories(
-                                editedItem[Product().categoryID], null)[0];
-                            routeStack.add('/list_products');
-                            Navigator.pushReplacementNamed(
-                                context, '/edit_product');
-                          },
-                          height: 50,
-                          width: 100,
+                  child: (listVisibleItems)
+                      ? Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: CustomButton(
+                                text: "Düzenle",
+                                bgColor: YMColors().grey,
+                                textColor: YMColors().white,
+                                onPressed: () {
+                                  editedItem = product;
+                                  selectedItem = DatabaseService()
+                                      .getCategories(
+                                          editedItem[Product().categoryID],
+                                          null)[0];
+                                  routeStack.add('/list_products');
+                                  Navigator.pushReplacementNamed(
+                                      context, '/edit_product');
+                                },
+                                height: 50,
+                                width: 100,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: CustomButton(
+                                text: "Al",
+                                bgColor: YMColors().blue,
+                                textColor: YMColors().white,
+                                onPressed: () {
+                                  editedItem = product;
+                                  selectedItem = null;
+                                  routeStack.add('/list_products');
+                                  Navigator.pushReplacementNamed(
+                                      context, '/buy_product');
+                                },
+                                height: 50,
+                                width: 80,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: CustomButton(
+                                text: "Sat",
+                                bgColor: YMColors().red,
+                                textColor: YMColors().white,
+                                onPressed: () {
+                                  editedItem = product;
+                                  routeStack.add('/list_products');
+                                  Navigator.pushReplacementNamed(
+                                      context, '/sell_product');
+                                },
+                                height: 50,
+                                width: 80,
+                              ),
+                            ),
+                          ],
+                        )
+                      : Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: CustomButton(
+                                text: "Sil",
+                                bgColor: YMColors().red,
+                                textColor: YMColors().white,
+                                onPressed: () {
+                                  showCustomPopUp(
+                                    context,
+                                    SizedBox(
+                                      width: YMSizes().maxWidth,
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            alignment: Alignment.center,
+                                            padding: const EdgeInsets.all(5),
+                                            height: 50,
+                                            child: Text(
+                                              "Bu ürün ve ona ait olan tüm alımlar/satışlar kalıcı olarak silinecek.",
+                                              textAlign: TextAlign.center,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                color: YMColors().black,
+                                                fontSize:
+                                                    YMSizes().fontSizeSmall,
+                                              ),
+                                            ),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  child: CustomButton(
+                                                    text: "İptal Et",
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    bgColor: YMColors().grey,
+                                                    textColor: YMColors().white,
+                                                    width: double.infinity,
+                                                    height: 50,
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  child: CustomButton(
+                                                    text: "Sil",
+                                                    onPressed: () {
+                                                      DatabaseService()
+                                                          .deleteProduct(
+                                                        product[Product().id],
+                                                      );
+                                                      Navigator.pop(context);
+                                                      notifyParent();
+                                                    },
+                                                    bgColor: YMColors().red,
+                                                    textColor: YMColors().white,
+                                                    width: double.infinity,
+                                                    height: 50,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                                height: 50,
+                                width: 80,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: CustomButton(
+                                text: "Geri Getir",
+                                bgColor: YMColors().blue,
+                                textColor: YMColors().white,
+                                onPressed: () {
+                                  showCustomPopUp(
+                                    context,
+                                    SizedBox(
+                                      width: YMSizes().maxWidth,
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            alignment: Alignment.center,
+                                            padding: const EdgeInsets.all(5),
+                                            height: 50,
+                                            child: Text(
+                                              "Bu ürün geri getirilecek.",
+                                              textAlign: TextAlign.center,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                color: YMColors().black,
+                                                fontSize:
+                                                    YMSizes().fontSizeSmall,
+                                              ),
+                                            ),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  child: CustomButton(
+                                                    text: "İptal Et",
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    bgColor: YMColors().grey,
+                                                    textColor: YMColors().white,
+                                                    width: double.infinity,
+                                                    height: 50,
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  child: CustomButton(
+                                                    text: "Geri Getir",
+                                                    onPressed: () {
+                                                      DatabaseService()
+                                                          .changeProductVisibility(
+                                                        product[Product().id],
+                                                        true,
+                                                      );
+                                                      Navigator.pop(context);
+                                                      notifyParent();
+                                                    },
+                                                    bgColor: YMColors().blue,
+                                                    textColor: YMColors().white,
+                                                    width: double.infinity,
+                                                    height: 50,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                                height: 50,
+                                width: 120,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: CustomButton(
-                          text: "Al",
-                          bgColor: YMColors().blue,
-                          textColor: YMColors().white,
-                          onPressed: () {
-                            editedItem = product;
-                            selectedItem = null;
-                            routeStack.add('/list_products');
-                            Navigator.pushReplacementNamed(
-                                context, '/buy_product');
-                          },
-                          height: 50,
-                          width: 80,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: CustomButton(
-                          text: "Sat",
-                          bgColor: YMColors().red,
-                          textColor: YMColors().white,
-                          onPressed: () {
-                            editedItem = product;
-                            routeStack.add('/list_products');
-                            Navigator.pushReplacementNamed(
-                                context, '/sell_product');
-                          },
-                          height: 50,
-                          width: 80,
-                        ),
-                      ),
-                    ],
-                  ),
                 ),
               ],
             ),

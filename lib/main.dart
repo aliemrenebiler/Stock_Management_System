@@ -13,7 +13,6 @@ import 'screens/category/list_categories_screen.dart';
 
 // Product
 import 'screens/product/list_products_screen.dart';
-import 'screens/product/list_deleted_products_screen.dart';
 import 'screens/product/add_product_screen.dart';
 import 'screens/product/edit_product_screen.dart';
 import 'screens/product/buy_product_screen.dart';
@@ -99,13 +98,17 @@ class MyApp extends StatelessWidget {
             );
           case '/list_products':
             return PageTransition(
-              child: const ListProductsScreen(),
+              child: const ListProductsScreen(
+                listVisibleItems: true,
+              ),
               type: PageTransitionType.fade,
               settings: settings,
             );
           case '/list_deleted_products':
             return PageTransition(
-              child: const ListDeletedProductsScreen(),
+              child: const ListProductsScreen(
+                listVisibleItems: false,
+              ),
               type: PageTransitionType.fade,
               settings: settings,
             );
