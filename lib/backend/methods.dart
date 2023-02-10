@@ -552,7 +552,7 @@ class DatabaseService {
         ${Product().tableName}.${Product().size},
         ${Product().tableName}.${Product().sizeType},
         NULL AS ${Purchase().supplierName}
-        FROM ${Purchase().tableName}, ${Product().tableName}, ${Supplier().tableName}
+        FROM ${Purchase().tableName}, ${Product().tableName}
         WHERE ${Purchase().tableName}.${Purchase().productID}==${Product().tableName}.${Product().id}
         AND ${Purchase().tableName}.${Purchase().supplierID} IS NULL
         """;
