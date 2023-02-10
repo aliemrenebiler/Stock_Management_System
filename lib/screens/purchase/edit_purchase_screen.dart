@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yildiz_motor_v2/widgets/custom_select_form_field.dart';
 import '../../backend/classes.dart';
 import '../../backend/methods.dart';
 import '../../backend/theme.dart';
@@ -16,6 +17,10 @@ class EditPurchaseScreen extends StatefulWidget {
 }
 
 class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
+  refresh() {
+    setState(() {});
+  }
+
   TextEditingController priceController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   TextEditingController dayController = TextEditingController();
@@ -69,46 +74,6 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                               padding: const EdgeInsets.all(5),
                               child: Column(
                                 children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(5),
-                                          child: Text(
-                                            "Tedarikçi:",
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.right,
-                                            style: TextStyle(
-                                              fontSize:
-                                                  YMSizes().fontSizeMedium,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(5),
-                                          child: Text(
-                                            (editedItem[Purchase()
-                                                        .supplierName] !=
-                                                    null)
-                                                ? editedItem[
-                                                        Purchase().supplierName]
-                                                    .toString()
-                                                : "-",
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              fontSize:
-                                                  YMSizes().fontSizeMedium,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
                                   Row(
                                     children: [
                                       Expanded(
@@ -260,6 +225,44 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                                               fontSize:
                                                   YMSizes().fontSizeMedium,
                                             ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Text(
+                                            "Tedarikçi:",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontSize:
+                                                  YMSizes().fontSizeMedium,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: CustomSelectionField(
+                                            selectionText:
+                                                (selectedItem == null)
+                                                    ? null
+                                                    : selectedItem![
+                                                        Supplier().name],
+                                            onPressed: () {
+                                              routeStack.add("/edit_purchase");
+                                              Navigator.pushReplacementNamed(
+                                                  context, "/select_supplier");
+                                            },
+                                            notifyParent: refresh,
                                           ),
                                         ),
                                       ),
@@ -526,7 +529,9 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                                         Purchase().id:
                                             editedItem[Purchase().id],
                                         Purchase().supplierID:
-                                            editedItem[Purchase().supplierID],
+                                            (selectedItem == null)
+                                                ? null
+                                                : selectedItem![Supplier().id],
                                         Purchase().productID:
                                             editedItem[Purchase().productID],
                                         Purchase().date: date,

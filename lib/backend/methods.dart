@@ -539,8 +539,8 @@ class DatabaseService {
     String query1 = """
         SELECT
         ${Purchase().tableName}.${Purchase().id},
-        ${Purchase().tableName}.${Purchase().price},
-        ${Purchase().tableName}.${Purchase().amount},
+        ${Purchase().tableName}.${Purchase().productID},
+        ${Purchase().tableName}.${Purchase().supplierID},
         ${Purchase().tableName}.${Purchase().price},
         ${Purchase().tableName}.${Purchase().amount},
         ${Purchase().tableName}.${Purchase().date},

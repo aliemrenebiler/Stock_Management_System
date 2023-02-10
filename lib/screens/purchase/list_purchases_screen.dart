@@ -831,6 +831,9 @@ class PurchasesListItem extends StatelessWidget {
                     textColor: YMColors().white,
                     onPressed: () {
                       editedItem = purchase;
+                      List suppliers = DatabaseService().getSuppliers(
+                          editedItem[Purchase().supplierID], null);
+                      selectedItem = (suppliers.isEmpty) ? null : suppliers[0];
                       routeStack.add('/list_purchases');
                       Navigator.pushReplacementNamed(context, '/edit_purchase');
                     },
