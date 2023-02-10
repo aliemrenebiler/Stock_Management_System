@@ -171,7 +171,7 @@ class DatabaseService {
       REFERENCES ${Supplier().tableName}(${Supplier().id})
       ON DELETE CASCADE,
       FOREIGN KEY (${Purchase().productID})
-      REFERENCES ${Purchase().tableName}(${Product().id})
+      REFERENCES ${Product().tableName}(${Product().id})
       ON DELETE CASCADE
       )
       ''',
