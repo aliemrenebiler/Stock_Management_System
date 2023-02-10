@@ -110,7 +110,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
                                               padding: const EdgeInsets.all(5),
                                               height: 50,
                                               child: Text(
-                                                "Bu kategori silinecek.",
+                                                "Bu kategori ve ona ait olan tüm ürünler silinecek.",
                                                 textAlign: TextAlign.center,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(

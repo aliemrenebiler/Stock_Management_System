@@ -677,7 +677,7 @@ class DeletedProductsListItem extends StatelessWidget {
                                       padding: const EdgeInsets.all(5),
                                       height: 50,
                                       child: Text(
-                                        "Bu ürün kalıcı olarak silinecek.",
+                                        "Bu ürün ve ona ait olan tüm alımlar/satışlar kalıcı olarak silinecek.",
                                         textAlign: TextAlign.center,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(

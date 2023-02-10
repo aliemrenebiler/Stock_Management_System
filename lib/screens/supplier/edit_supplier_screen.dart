@@ -178,7 +178,7 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                                               padding: const EdgeInsets.all(5),
                                               height: 50,
                                               child: Text(
-                                                "Bu tedarikçi silinecek.",
+                                                "Bu tedarikçi ve ona ait olan alımlar silinecek.",
                                                 textAlign: TextAlign.center,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
