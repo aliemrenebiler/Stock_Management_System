@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:desktop_window/desktop_window.dart';
+import 'package:window_size/window_size.dart';
 import 'package:page_transition/page_transition.dart';
 
 // Main
@@ -36,9 +36,10 @@ import 'screens/settings/clear_data_screen.dart';
 import 'screens/settings/change_password_screen.dart';
 import 'screens/settings/settings_screen.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  await DesktopWindow.setMinWindowSize(const Size(500, 500));
+  setWindowMinSize(const Size(500, 500));
+  setWindowTitle("Yıldız Motor");
   runApp(const MyApp());
 }
 

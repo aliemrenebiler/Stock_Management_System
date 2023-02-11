@@ -30,12 +30,16 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cupertino_icons: ^1.0.2
-  desktop_window: ^0.4.0
   flutter:
     sdk: flutter
   page_transition: ^2.0.9
   shared_preferences: ^2.0.15
   sqlite3: ^1.9.1
+  window_size:
+    git:
+      url: https://github.com/google/flutter-desktop-embedding.git
+      path: plugins/window_size
+      ref: 6c66ad23ee79749f30a8eece542cf54eaf157ed8
 
 dev_dependencies:
   flutter_lints: ^2.0.0
