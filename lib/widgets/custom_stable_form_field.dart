@@ -31,13 +31,13 @@ class CustomStableField extends StatelessWidget {
         ),
       ),
       child: Text(
-        selectionText ?? "(Yok)",
+        selectionText ?? "-",
         overflow: TextOverflow.visible,
         textAlign: TextAlign.left,
         maxLines: 1,
         style: TextStyle(
           fontSize: YMSizes().fontSizeSmall,
-          color: (selectionText == null) ? YMColors().grey : YMColors().black,
+          color: YMColors().black,
         ),
       ),
     );

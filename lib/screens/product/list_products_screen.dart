@@ -657,10 +657,11 @@ class ProductsListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (product[Product().size] != null &&
-                            product[Product().sizeType] != null)
-                        ? "${product[Product().size]} (${product[Product().sizeType]})"
-                        : "-",
+                    (product[Product().size] == null)
+                        ? "-"
+                        : (product[Product().sizeType] == null)
+                            ? product[Product().size]
+                            : "${product[Product().size]} (${product[Product().sizeType]})",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
