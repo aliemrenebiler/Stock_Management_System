@@ -17,19 +17,32 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController brandController = TextEditingController();
+  TextEditingController colorController = TextEditingController();
+  TextEditingController sizeController = TextEditingController();
+  TextEditingController sizeTypeController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  TextEditingController amountController = TextEditingController();
+
   refresh() {
     setState(() {});
   }
 
   @override
+  void initState() {
+    nameController.text = editedItem[Product().name];
+    brandController.text = editedItem[Product().brand];
+    colorController.text = editedItem[Product().color];
+    sizeController.text = editedItem[Product().size];
+    sizeTypeController.text = editedItem[Product().sizeType];
+    priceController.text = editedItem[Product().price];
+    amountController.text = editedItem[Product().amount];
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    TextEditingController nameController = TextEditingController();
-    TextEditingController brandController = TextEditingController();
-    TextEditingController colorController = TextEditingController();
-    TextEditingController sizeController = TextEditingController();
-    TextEditingController sizeTypeController = TextEditingController();
-    TextEditingController priceController = TextEditingController();
-    TextEditingController amountController = TextEditingController();
     return Scaffold(
       backgroundColor: YMColors().white,
       body: Column(
@@ -186,6 +199,20 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                       : selectedItem![
                                                           Category().name],
                                               onPressed: () {
+                                                editedItem[Product().name] =
+                                                    nameController.text;
+                                                editedItem[Product().brand] =
+                                                    brandController.text;
+                                                editedItem[Product().color] =
+                                                    colorController.text;
+                                                editedItem[Product().size] =
+                                                    sizeController.text;
+                                                editedItem[Product().sizeType] =
+                                                    sizeTypeController.text;
+                                                editedItem[Product().price] =
+                                                    priceController.text;
+                                                editedItem[Product().amount] =
+                                                    amountController.text;
                                                 routeStack.add("/add_product");
                                                 Navigator.pushReplacementNamed(
                                                     context,

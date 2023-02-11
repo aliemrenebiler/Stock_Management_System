@@ -136,6 +136,20 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                                     : selectedItem![
                                                         Category().name],
                                             onPressed: () {
+                                              editedItem[Product().name] =
+                                                  nameController.text;
+                                              editedItem[Product().brand] =
+                                                  brandController.text;
+                                              editedItem[Product().color] =
+                                                  colorController.text;
+                                              editedItem[Product().size] =
+                                                  sizeController.text;
+                                              editedItem[Product().sizeType] =
+                                                  sizeTypeController.text;
+                                              editedItem[Product().price] =
+                                                  priceController.text;
+                                              editedItem[Product().amount] =
+                                                  amountController.text;
                                               routeStack.add("/edit_product");
                                               Navigator.pushReplacementNamed(
                                                   context, "/select_category");

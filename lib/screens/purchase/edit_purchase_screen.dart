@@ -18,24 +18,25 @@ class EditPurchaseScreen extends StatefulWidget {
 }
 
 class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
-  refresh() {
-    setState(() {});
-  }
-
   TextEditingController priceController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   TextEditingController dayController = TextEditingController();
   TextEditingController monthController = TextEditingController();
   TextEditingController yearController = TextEditingController();
 
+  refresh() {
+    setState(() {});
+  }
+
   @override
   void initState() {
-    List<String> dateList = editedItem[Purchase().date].toString().split("-");
     priceController.text = editedItem[Purchase().price].toString();
     amountController.text = editedItem[Purchase().amount].toString();
-    dayController.text = dateList[2];
-    monthController.text = dateList[1];
-    yearController.text = dateList[0];
+    dayController.text = editedItem[Purchase().date].split("-")[2];
+    monthController.text =
+        editedItem[Purchase().date].split("-")[1].padLeft(2, "0");
+    yearController.text =
+        editedItem[Purchase().date].split("-")[0].padLeft(2, "0");
     super.initState();
   }
 
@@ -230,6 +231,12 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                                                     : selectedItem![
                                                         Supplier().name],
                                             onPressed: () {
+                                              editedItem[Purchase().price] =
+                                                  priceController.text;
+                                              editedItem[Purchase().amount] =
+                                                  amountController.text;
+                                              editedItem[Purchase().date] =
+                                                  "${yearController.text}-${monthController.text}-${dayController.text}";
                                               routeStack.add("/edit_purchase");
                                               Navigator.pushReplacementNamed(
                                                   context, "/select_supplier");

@@ -831,7 +831,7 @@ class PurchasesListItem extends StatelessWidget {
                     bgColor: YMColors().grey,
                     textColor: YMColors().white,
                     onPressed: () {
-                      editedItem = purchase;
+                      editedItem = Map.from(purchase);
                       List suppliers = DatabaseService().getSuppliers(
                           editedItem[Purchase().supplierID], null);
                       selectedItem = (suppliers.isEmpty) ? null : suppliers[0];

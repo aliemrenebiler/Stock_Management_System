@@ -29,7 +29,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
     dayController.text = today.day.toString().padLeft(2, "0");
     monthController.text = today.month.toString().padLeft(2, "0");
     yearController.text = today.year.toString();
-    priceController.text = editedItem[Product().price].toString();
+    priceController.text = stableItem[Product().price].toString();
     super.initState();
   }
 
@@ -93,7 +93,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                           child: CustomStableField(
                                             height: 50,
                                             selectionText:
-                                                "[${editedItem[Product().id]}] ${editedItem[Product().name]}",
+                                                "[${stableItem[Product().id]}] ${stableItem[Product().name]}",
                                           ),
                                         ),
                                       ),
@@ -123,7 +123,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                           child: CustomStableField(
                                             height: 50,
                                             selectionText:
-                                                editedItem[Product().brand],
+                                                stableItem[Product().brand],
                                           ),
                                         ),
                                       ),
@@ -152,7 +152,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                           padding: const EdgeInsets.all(5),
                                           child: CustomStableField(
                                             height: 50,
-                                            selectionText: editedItem[
+                                            selectionText: stableItem[
                                                 Product().categoryName],
                                           ),
                                         ),
@@ -183,7 +183,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                           child: CustomStableField(
                                             height: 50,
                                             selectionText:
-                                                editedItem[Product().color],
+                                                stableItem[Product().color],
                                           ),
                                         ),
                                       ),
@@ -212,15 +212,15 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                           padding: const EdgeInsets.all(5),
                                           child: CustomStableField(
                                             height: 50,
-                                            selectionText: (editedItem[
+                                            selectionText: (stableItem[
                                                         Product().size] ==
                                                     null)
                                                 ? null
-                                                : (editedItem[Product()
+                                                : (stableItem[Product()
                                                             .sizeType] ==
                                                         null)
-                                                    ? editedItem[Product().size]
-                                                    : "${editedItem[Product().size]} (${editedItem[Product().sizeType]})",
+                                                    ? stableItem[Product().size]
+                                                    : "${stableItem[Product().size]} (${stableItem[Product().sizeType]})",
                                           ),
                                         ),
                                       ),
@@ -250,7 +250,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                           child: CustomTextFormField(
                                             height: 50,
                                             hintText:
-                                                "(Zorunlu) Güncel Fiyat: ${editedItem[Product().price]}",
+                                                "(Zorunlu) Güncel Fiyat: ${stableItem[Product().price]}",
                                             controller: priceController,
                                             inputType: double,
                                             action: TextInputAction.next,
@@ -283,7 +283,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                           child: CustomTextFormField(
                                             height: 50,
                                             hintText:
-                                                "(Zorunlu) Güncel Adet: ${editedItem[Product().amount]}",
+                                                "(Zorunlu) Güncel Adet: ${stableItem[Product().amount]}",
                                             controller: amountController,
                                             inputType: int,
                                             action: TextInputAction.next,
@@ -406,7 +406,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                         YMColors().white,
                                         YMColors().red,
                                       );
-                                    } else if (editedItem[Product().amount] <
+                                    } else if (stableItem[Product().amount] <
                                         int.parse(amountController.text)) {
                                       showCustomSnackBar(
                                         context,
@@ -432,7 +432,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                         {
                                           Sale().id: null,
                                           Sale().productID:
-                                              editedItem[Product().id],
+                                              stableItem[Product().id],
                                           Sale().price: double.parse(
                                               priceController.text),
                                           Sale().amount:
@@ -443,26 +443,26 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                       DatabaseService().updateProduct(
                                         {
                                           Product().id:
-                                              editedItem[Product().id],
+                                              stableItem[Product().id],
                                           Product().name:
-                                              editedItem[Product().name],
+                                              stableItem[Product().name],
                                           Product().brand:
-                                              editedItem[Product().brand],
+                                              stableItem[Product().brand],
                                           Product().categoryID:
-                                              editedItem[Product().categoryID],
+                                              stableItem[Product().categoryID],
                                           Product().color:
-                                              editedItem[Product().color],
+                                              stableItem[Product().color],
                                           Product().size:
-                                              editedItem[Product().size],
+                                              stableItem[Product().size],
                                           Product().sizeType:
-                                              editedItem[Product().sizeType],
+                                              stableItem[Product().sizeType],
                                           Product().price:
-                                              editedItem[Product().price],
-                                          Product().amount: editedItem[
+                                              stableItem[Product().price],
+                                          Product().amount: stableItem[
                                                   Product().amount] -
                                               int.parse(amountController.text),
                                           Product().visible:
-                                              editedItem[Product().visible],
+                                              stableItem[Product().visible],
                                         },
                                       );
                                       showCustomSnackBar(

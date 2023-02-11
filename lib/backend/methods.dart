@@ -8,6 +8,7 @@ String dbName = "yildiz_motor_db.db";
 
 List<String> routeStack = [];
 
+Map<dynamic, dynamic> stableItem = {};
 Map<dynamic, dynamic> editedItem = {};
 Map<dynamic, dynamic>? selectedItem;
 

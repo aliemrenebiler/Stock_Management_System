@@ -136,6 +136,7 @@ class ProductsListSearchBar extends StatelessWidget {
                         child: CustomButton(
                           text: "Ürün Ekle",
                           onPressed: () {
+                            editedItem = Map.from(emptyProduct);
                             selectedItem = null;
                             routeStack.add('/list_products');
                             Navigator.pushReplacementNamed(
@@ -722,7 +723,7 @@ class ProductsListItem extends StatelessWidget {
                                 bgColor: YMColors().grey,
                                 textColor: YMColors().white,
                                 onPressed: () {
-                                  editedItem = product;
+                                  editedItem = Map.from(product);
                                   selectedItem = DatabaseService()
                                       .getCategories(
                                           editedItem[Product().categoryID],
@@ -742,7 +743,11 @@ class ProductsListItem extends StatelessWidget {
                                 bgColor: YMColors().blue,
                                 textColor: YMColors().white,
                                 onPressed: () {
-                                  editedItem = product;
+                                  stableItem = product;
+                                  editedItem = Map.from(emptyPurchase);
+                                  DateTime today = DateTime.now();
+                                  editedItem[Purchase().date] =
+                                      "${today.year}-${today.month}-${today.day}";
                                   selectedItem = null;
                                   routeStack.add('/list_products');
                                   Navigator.pushReplacementNamed(
@@ -759,7 +764,8 @@ class ProductsListItem extends StatelessWidget {
                                 bgColor: YMColors().red,
                                 textColor: YMColors().white,
                                 onPressed: () {
-                                  editedItem = product;
+                                  stableItem = product;
+                                  selectedItem = null;
                                   routeStack.add('/list_products');
                                   Navigator.pushReplacementNamed(
                                       context, '/sell_product');

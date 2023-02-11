@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:yildiz_motor_v2/widgets/custom_select_form_field.dart';
-import 'package:yildiz_motor_v2/widgets/custom_stable_form_field.dart';
 
+import '../../widgets/custom_select_form_field.dart';
+import '../../widgets/custom_stable_form_field.dart';
 import '../../backend/theme.dart';
 import '../../widgets/custom_snack_bar.dart';
 import '../../widgets/custom_text_form_field.dart';
@@ -30,10 +30,13 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
 
   @override
   void initState() {
-    DateTime today = DateTime.now();
-    dayController.text = today.day.toString().padLeft(2, "0");
-    monthController.text = today.month.toString().padLeft(2, "0");
-    yearController.text = today.year.toString();
+    priceController.text = editedItem[Purchase().price];
+    amountController.text = editedItem[Purchase().amount];
+    dayController.text = editedItem[Purchase().date].split("-")[2];
+    monthController.text =
+        editedItem[Purchase().date].split("-")[1].padLeft(2, "0");
+    yearController.text =
+        editedItem[Purchase().date].split("-")[0].padLeft(2, "0");
     super.initState();
   }
 
@@ -97,7 +100,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                           child: CustomStableField(
                                             height: 50,
                                             selectionText:
-                                                "[${editedItem[Product().id]}] ${editedItem[Product().name]}",
+                                                "[${stableItem[Product().id]}] ${stableItem[Product().name]}",
                                           ),
                                         ),
                                       ),
@@ -127,7 +130,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                           child: CustomStableField(
                                             height: 50,
                                             selectionText:
-                                                editedItem[Product().brand],
+                                                stableItem[Product().brand],
                                           ),
                                         ),
                                       ),
@@ -156,7 +159,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                           padding: const EdgeInsets.all(5),
                                           child: CustomStableField(
                                             height: 50,
-                                            selectionText: editedItem[
+                                            selectionText: stableItem[
                                                 Product().categoryName],
                                           ),
                                         ),
@@ -187,7 +190,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                           child: CustomStableField(
                                             height: 50,
                                             selectionText:
-                                                editedItem[Product().color],
+                                                stableItem[Product().color],
                                           ),
                                         ),
                                       ),
@@ -216,15 +219,15 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                           padding: const EdgeInsets.all(5),
                                           child: CustomStableField(
                                             height: 50,
-                                            selectionText: (editedItem[
+                                            selectionText: (stableItem[
                                                         Product().size] ==
                                                     null)
                                                 ? null
-                                                : (editedItem[Product()
+                                                : (stableItem[Product()
                                                             .sizeType] ==
                                                         null)
-                                                    ? editedItem[Product().size]
-                                                    : "${editedItem[Product().size]} (${editedItem[Product().sizeType]})",
+                                                    ? stableItem[Product().size]
+                                                    : "${stableItem[Product().size]} (${stableItem[Product().sizeType]})",
                                           ),
                                         ),
                                       ),
@@ -258,6 +261,12 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                                     : selectedItem![
                                                         Supplier().name],
                                             onPressed: () {
+                                              editedItem[Purchase().price] =
+                                                  priceController.text;
+                                              editedItem[Purchase().amount] =
+                                                  amountController.text;
+                                              editedItem[Purchase().date] =
+                                                  "${yearController.text}-${monthController.text}-${dayController.text}";
                                               routeStack.add('/buy_product');
                                               Navigator.pushReplacementNamed(
                                                   context, "/select_supplier");
@@ -465,7 +474,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                                   ? selectedItem![Supplier().id]
                                                   : null,
                                           Purchase().productID:
-                                              editedItem[Product().id],
+                                              stableItem[Product().id],
                                           Purchase().price: double.parse(
                                               priceController.text),
                                           Purchase().amount:
@@ -476,26 +485,26 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                       DatabaseService().updateProduct(
                                         {
                                           Product().id:
-                                              editedItem[Product().id],
+                                              stableItem[Product().id],
                                           Product().name:
-                                              editedItem[Product().name],
+                                              stableItem[Product().name],
                                           Product().brand:
-                                              editedItem[Product().brand],
+                                              stableItem[Product().brand],
                                           Product().categoryID:
-                                              editedItem[Product().categoryID],
+                                              stableItem[Product().categoryID],
                                           Product().color:
-                                              editedItem[Product().color],
+                                              stableItem[Product().color],
                                           Product().size:
-                                              editedItem[Product().size],
+                                              stableItem[Product().size],
                                           Product().sizeType:
-                                              editedItem[Product().sizeType],
+                                              stableItem[Product().sizeType],
                                           Product().price:
-                                              editedItem[Product().price],
-                                          Product().amount: editedItem[
+                                              stableItem[Product().price],
+                                          Product().amount: stableItem[
                                                   Product().amount] +
                                               int.parse(amountController.text),
                                           Product().visible:
-                                              editedItem[Product().visible],
+                                              stableItem[Product().visible],
                                         },
                                       );
                                       showCustomSnackBar(
