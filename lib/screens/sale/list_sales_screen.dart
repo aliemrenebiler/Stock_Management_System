@@ -710,10 +710,11 @@ class SalesListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (sale[Product().size] != null &&
-                            sale[Product().sizeType] != null)
-                        ? "${sale[Product().size]} (${sale[Product().sizeType]})"
-                        : "-",
+                    (sale[Product().size] == null)
+                        ? "-"
+                        : (sale[Product().sizeType] == null)
+                            ? sale[Product().size]
+                            : "${sale[Product().size]} (${sale[Product().sizeType]})",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(

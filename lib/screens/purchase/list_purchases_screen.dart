@@ -753,10 +753,11 @@ class PurchasesListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (purchase[Product().size] != null &&
-                            purchase[Product().sizeType] != null)
-                        ? "${purchase[Product().size]} (${purchase[Product().sizeType]})"
-                        : "-",
+                    (purchase[Product().size] == null)
+                        ? "-"
+                        : (purchase[Product().sizeType] == null)
+                            ? purchase[Product().size]
+                            : "${purchase[Product().size]} (${purchase[Product().sizeType]})",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../backend/theme.dart';
 import '../../widgets/custom_snack_bar.dart';
+import '../../widgets/custom_stable_form_field.dart';
 import '../../widgets/custom_text_form_field.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_top_bar.dart';
@@ -74,7 +75,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
                                           child: Text(
-                                            "ID:",
+                                            "Ürün",
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
                                             style: TextStyle(
@@ -89,14 +90,10 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: Text(
-                                            editedItem[Product().id].toString(),
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              fontSize:
-                                                  YMSizes().fontSizeMedium,
-                                            ),
+                                          child: CustomStableField(
+                                            height: 50,
+                                            selectionText:
+                                                "[${editedItem[Product().id]}] ${editedItem[Product().name]}",
                                           ),
                                         ),
                                       ),
@@ -108,7 +105,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
                                           child: Text(
-                                            "İsim:",
+                                            "Marka",
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
                                             style: TextStyle(
@@ -123,15 +120,10 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: Text(
-                                            editedItem[Product().name]
-                                                .toString(),
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              fontSize:
-                                                  YMSizes().fontSizeMedium,
-                                            ),
+                                          child: CustomStableField(
+                                            height: 50,
+                                            selectionText:
+                                                editedItem[Product().brand],
                                           ),
                                         ),
                                       ),
@@ -143,7 +135,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
                                           child: Text(
-                                            "Marka:",
+                                            "Kategori",
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
                                             style: TextStyle(
@@ -158,15 +150,10 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: Text(
-                                            editedItem[Product().brand]
-                                                .toString(),
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              fontSize:
-                                                  YMSizes().fontSizeMedium,
-                                            ),
+                                          child: CustomStableField(
+                                            height: 50,
+                                            selectionText: editedItem[
+                                                Product().categoryName],
                                           ),
                                         ),
                                       ),
@@ -178,7 +165,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
                                           child: Text(
-                                            "Kategori:",
+                                            "Renk",
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
                                             style: TextStyle(
@@ -193,15 +180,10 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: Text(
-                                            editedItem[Product().categoryName]
-                                                .toString(),
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              fontSize:
-                                                  YMSizes().fontSizeMedium,
-                                            ),
+                                          child: CustomStableField(
+                                            height: 50,
+                                            selectionText:
+                                                editedItem[Product().color],
                                           ),
                                         ),
                                       ),
@@ -213,7 +195,7 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
                                           child: Text(
-                                            "Renk:",
+                                            "Boyut",
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.right,
                                             style: TextStyle(
@@ -228,49 +210,17 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                         flex: 2,
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
-                                          child: Text(
-                                            editedItem[Product().color]
-                                                .toString(),
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              fontSize:
-                                                  YMSizes().fontSizeMedium,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(5),
-                                          child: Text(
-                                            "Boyut:",
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.right,
-                                            style: TextStyle(
-                                              fontSize:
-                                                  YMSizes().fontSizeMedium,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(5),
-                                          child: Text(
-                                            "${editedItem[Product().size]} (${editedItem[Product().sizeType]})",
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              fontSize:
-                                                  YMSizes().fontSizeMedium,
-                                            ),
+                                          child: CustomStableField(
+                                            height: 50,
+                                            selectionText: (editedItem[
+                                                        Product().size] ==
+                                                    null)
+                                                ? null
+                                                : (editedItem[Product()
+                                                            .sizeType] ==
+                                                        null)
+                                                    ? editedItem[Product().size]
+                                                    : "${editedItem[Product().size]} (${editedItem[Product().sizeType]})",
                                           ),
                                         ),
                                       ),
