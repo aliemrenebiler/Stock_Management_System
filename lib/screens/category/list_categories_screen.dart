@@ -8,11 +8,30 @@ import '../../widgets/item_table.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_top_bar.dart';
 
-List<Map<dynamic, dynamic>> listedSuppliers = [];
-int currentPage = 1;
-int totalPage = 1;
-
 TextEditingController nameController = TextEditingController();
+
+clearAll() {
+  currentPage = 1;
+  nameController.clear();
+}
+
+getAll() {
+  int itemCount = DatabaseService().getCategories(
+    true,
+    null,
+    nameController.text,
+    null,
+    null,
+  );
+  totalPage = (itemCount / listedItemCount).ceil();
+  listedItems = DatabaseService().getCategories(
+    false,
+    null,
+    nameController.text,
+    listedItemCount,
+    (currentPage - 1) * listedItemCount,
+  );
+}
 
 class ListCategoriesScreen extends StatefulWidget {
   final bool isSelectionModeActive;
@@ -32,23 +51,8 @@ class _ListCategoriesScreenState extends State<ListCategoriesScreen> {
 
   @override
   void initState() {
-    nameController.clear();
-    int itemCount = DatabaseService().getCategories(
-      true,
-      null,
-      null,
-      null,
-      null,
-    );
-    currentPage = 1;
-    totalPage = (itemCount / listedItemCount).ceil();
-    listedSuppliers = DatabaseService().getCategories(
-      false,
-      null,
-      null,
-      listedItemCount,
-      (currentPage - 1) * listedItemCount,
-    );
+    clearAll();
+    getAll();
     super.initState();
   }
 
@@ -87,9 +91,9 @@ class _ListCategoriesScreenState extends State<ListCategoriesScreen> {
                           isSelectionModeActive: widget.isSelectionModeActive,
                         ),
                         items: [
-                          for (int i = 0; i < listedSuppliers.length; i++)
+                          for (int i = 0; i < listedItems.length; i++)
                             CategoriesListItem(
-                              category: listedSuppliers[i],
+                              category: listedItems[i],
                               isSelectionModeActive:
                                   widget.isSelectionModeActive,
                             ),
@@ -99,26 +103,14 @@ class _ListCategoriesScreenState extends State<ListCategoriesScreen> {
                         onPressedPrev: () {
                           if (currentPage > 1) {
                             currentPage--;
-                            listedSuppliers = DatabaseService().getCategories(
-                              false,
-                              null,
-                              null,
-                              listedItemCount,
-                              (currentPage - 1) * listedItemCount,
-                            );
+                            getAll();
                             refresh();
                           }
                         },
                         onPressedNext: () {
                           if (currentPage < totalPage) {
                             currentPage++;
-                            listedSuppliers = DatabaseService().getCategories(
-                              false,
-                              null,
-                              null,
-                              listedItemCount,
-                              (currentPage - 1) * listedItemCount,
-                            );
+                            getAll();
                             refresh();
                           }
                         },
@@ -210,22 +202,8 @@ class CategoriesListSearchBar extends StatelessWidget {
                     child: CustomButton(
                       text: "Ara",
                       onPressed: () {
-                        int itemCount = DatabaseService().getCategories(
-                          true,
-                          null,
-                          nameController.text,
-                          null,
-                          null,
-                        );
                         currentPage = 1;
-                        totalPage = (itemCount / listedItemCount).ceil();
-                        listedSuppliers = DatabaseService().getCategories(
-                          false,
-                          null,
-                          nameController.text,
-                          listedItemCount,
-                          (currentPage - 1) * listedItemCount,
-                        );
+                        getAll();
                         notifyParent();
                       },
                       height: 50,
@@ -239,23 +217,8 @@ class CategoriesListSearchBar extends StatelessWidget {
                     child: CustomButton(
                       text: "Sıfırla",
                       onPressed: () {
-                        nameController.clear();
-                        int itemCount = DatabaseService().getCategories(
-                          true,
-                          null,
-                          null,
-                          null,
-                          null,
-                        );
-                        currentPage = 1;
-                        totalPage = (itemCount / listedItemCount).ceil();
-                        listedSuppliers = DatabaseService().getCategories(
-                          false,
-                          null,
-                          null,
-                          listedItemCount,
-                          (currentPage - 1) * listedItemCount,
-                        );
+                        clearAll();
+                        getAll();
                         notifyParent();
                       },
                       height: 50,

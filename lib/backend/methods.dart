@@ -4,15 +4,21 @@ import 'package:sqlite3/sqlite3.dart';
 
 import 'classes.dart';
 
-String dbName = "yildiz_motor_db.db";
+// Constants
+const String dbName = "yildiz_motor_db.db";
+const int listedItemCount = 10;
 
+// Globals
 List<String> routeStack = [];
+
+List<Map<dynamic, dynamic>> listedItems = [];
 
 Map<dynamic, dynamic> stableItem = {};
 Map<dynamic, dynamic> editedItem = {};
 Map<dynamic, dynamic>? selectedItem;
 
-int listedItemCount = 10;
+int currentPage = 1;
+int totalPage = 1;
 
 class SharedPrefsService {
   get isPasswordExists async {
@@ -301,6 +307,7 @@ class DatabaseService {
   }
 
   getProducts(
+    bool getCount,
     int? id,
     String? name,
     String? spec,
@@ -309,8 +316,16 @@ class DatabaseService {
     int? minAmount,
     int? maxAmount,
     bool? visible,
+    int? limit,
+    int? offset,
   ) {
-    String query = '''
+    String query;
+    if (getCount) {
+      query = '''
+      SELECT COUNT(*)
+      ''';
+    } else {
+      query = '''
       SELECT ${Product().tableName}.${Product().id},
       ${Product().tableName}.${Product().categoryID},
       ${Category().tableName}.${Category().name} AS ${Product().categoryName},
@@ -322,6 +337,10 @@ class DatabaseService {
       ${Product().tableName}.${Product().price},
       ${Product().tableName}.${Product().amount},
       ${Product().tableName}.${Product().visible}
+      ''';
+    }
+
+    query += '''
       FROM ${Product().tableName}, ${Category().tableName}
       WHERE ${Product().tableName}.${Product().categoryID}==${Category().tableName}.${Category().id}
       ''';
@@ -357,11 +376,22 @@ class DatabaseService {
       query += ' AND ${Product().visible}==$visible';
     }
 
+    if (limit != null) {
+      query += ' LIMIT $limit';
+    }
+    if (offset != null) {
+      query += ' OFFSET $offset';
+    }
+
     Database database = openDatabase(dbName);
     var products = database.select(query);
     database.dispose();
 
-    return products;
+    if (getCount) {
+      return products[0][0];
+    } else {
+      return products;
+    }
   }
 
   insertProduct(Map<dynamic, dynamic> product) {

@@ -42,17 +42,15 @@ class ItemTable extends StatelessWidget {
             ),
           ],
         ),
-        (totalPage > 1)
-            ? Padding(
-                padding: const EdgeInsets.all(10),
-                child: ItemTablePageControls(
-                  currentPage: currentPage,
-                  totalPage: totalPage,
-                  onPressedPrev: onPressedPrev,
-                  onPressedNext: onPressedNext,
-                ),
-              )
-            : Container(),
+        Padding(
+          padding: const EdgeInsets.all(10),
+          child: ItemTablePageControls(
+            currentPage: currentPage,
+            totalPage: totalPage,
+            onPressedPrev: onPressedPrev,
+            onPressedNext: onPressedNext,
+          ),
+        )
       ],
     );
   }

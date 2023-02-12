@@ -9,14 +9,68 @@ import '../../widgets/item_table.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_top_bar.dart';
 
-List<Map<dynamic, dynamic>> listedProducts = [];
-
 TextEditingController nameController = TextEditingController();
 TextEditingController specController = TextEditingController();
 TextEditingController minAmountController = TextEditingController();
 TextEditingController maxAmountController = TextEditingController();
 TextEditingController minPriceController = TextEditingController();
 TextEditingController maxPriceController = TextEditingController();
+
+clearAll() {
+  currentPage = 1;
+  nameController.clear();
+  specController.clear();
+  minAmountController.clear();
+  maxAmountController.clear();
+  minPriceController.clear();
+  maxPriceController.clear();
+}
+
+getAll(bool listVisibleItems) {
+  int itemCount = DatabaseService().getProducts(
+    true,
+    null,
+    (nameController.text.isEmpty) ? null : nameController.text,
+    (specController.text.isEmpty) ? null : specController.text,
+    (minPriceController.text.isEmpty)
+        ? null
+        : double.parse(minPriceController.text),
+    (maxPriceController.text.isEmpty)
+        ? null
+        : double.parse(maxPriceController.text),
+    (minAmountController.text.isEmpty)
+        ? null
+        : int.parse(minAmountController.text),
+    (maxAmountController.text.isEmpty)
+        ? null
+        : int.parse(maxAmountController.text),
+    listVisibleItems,
+    null,
+    null,
+  );
+  totalPage = (itemCount / listedItemCount).ceil();
+  listedItems = DatabaseService().getProducts(
+    false,
+    null,
+    (nameController.text.isEmpty) ? null : nameController.text,
+    (specController.text.isEmpty) ? null : specController.text,
+    (minPriceController.text.isEmpty)
+        ? null
+        : double.parse(minPriceController.text),
+    (maxPriceController.text.isEmpty)
+        ? null
+        : double.parse(maxPriceController.text),
+    (minAmountController.text.isEmpty)
+        ? null
+        : int.parse(minAmountController.text),
+    (maxAmountController.text.isEmpty)
+        ? null
+        : int.parse(maxAmountController.text),
+    listVisibleItems,
+    listedItemCount,
+    (currentPage - 1) * listedItemCount,
+  );
+}
 
 class ListProductsScreen extends StatefulWidget {
   final bool listVisibleItems;
@@ -28,21 +82,13 @@ class ListProductsScreen extends StatefulWidget {
 
 class _ListProductsScreenState extends State<ListProductsScreen> {
   refresh() {
-    listedProducts = DatabaseService().getProducts(
-        null, null, null, null, null, null, null, widget.listVisibleItems);
     setState(() {});
   }
 
   @override
   void initState() {
-    nameController.clear();
-    specController.clear();
-    minAmountController.clear();
-    maxAmountController.clear();
-    minPriceController.clear();
-    maxPriceController.clear();
-    listedProducts = DatabaseService().getProducts(
-        null, null, null, null, null, null, null, widget.listVisibleItems);
+    clearAll();
+    getAll(widget.listVisibleItems);
     super.initState();
   }
 
@@ -89,18 +135,29 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
                           listVisibleItems: widget.listVisibleItems,
                         ),
                         items: [
-                          for (int i = 0; i < listedProducts.length; i++)
+                          for (int i = 0; i < listedItems.length; i++)
                             ProductsListItem(
-                              product: listedProducts[i],
+                              product: listedItems[i],
                               notifyParent: refresh,
                               listVisibleItems: widget.listVisibleItems,
                             ),
                         ],
-                        // TODO: CHANGE THESE
-                        currentPage: 0,
-                        totalPage: 0,
-                        onPressedPrev: () {},
-                        onPressedNext: () {},
+                        currentPage: currentPage,
+                        totalPage: totalPage,
+                        onPressedPrev: () {
+                          if (currentPage > 1) {
+                            currentPage--;
+                            getAll(widget.listVisibleItems);
+                            refresh();
+                          }
+                        },
+                        onPressedNext: () {
+                          if (currentPage < totalPage) {
+                            currentPage++;
+                            getAll(widget.listVisibleItems);
+                            refresh();
+                          }
+                        },
                       ),
                     ),
                   ),
@@ -133,10 +190,10 @@ class ProductsListSearchBar extends StatelessWidget {
       child: IntrinsicHeight(
         child: Row(
           children: [
-            Row(
-              children: [
-                (listVisibleItems)
-                    ? Padding(
+            (listVisibleItems)
+                ? Row(
+                    children: [
+                      Padding(
                         padding: const EdgeInsets.all(10),
                         child: CustomButton(
                           text: "Ürün Ekle",
@@ -152,14 +209,14 @@ class ProductsListSearchBar extends StatelessWidget {
                           textColor: YMColors().white,
                           bgColor: YMColors().grey,
                         ),
-                      )
-                    : Container(),
-                ListTableVerticalSeperator(
-                  color: YMColors().grey,
-                  space: 10,
-                ),
-              ],
-            ),
+                      ),
+                      ListTableVerticalSeperator(
+                        color: YMColors().grey,
+                        space: 10,
+                      ),
+                    ],
+                  )
+                : Container(),
             Expanded(
               flex: 3,
               child: Padding(
@@ -281,28 +338,8 @@ class ProductsListSearchBar extends StatelessWidget {
                     child: CustomButton(
                       text: "Ara",
                       onPressed: () {
-                        listedProducts = DatabaseService().getProducts(
-                          null,
-                          (nameController.text.isEmpty)
-                              ? null
-                              : nameController.text,
-                          (specController.text.isEmpty)
-                              ? null
-                              : specController.text,
-                          (minPriceController.text.isEmpty)
-                              ? null
-                              : double.parse(minPriceController.text),
-                          (maxPriceController.text.isEmpty)
-                              ? null
-                              : double.parse(maxPriceController.text),
-                          (minAmountController.text.isEmpty)
-                              ? null
-                              : int.parse(minAmountController.text),
-                          (maxAmountController.text.isEmpty)
-                              ? null
-                              : int.parse(maxAmountController.text),
-                          listVisibleItems,
-                        );
+                        currentPage = 1;
+                        getAll(listVisibleItems);
                         notifyParent();
                       },
                       height: 50,
@@ -316,21 +353,8 @@ class ProductsListSearchBar extends StatelessWidget {
                     child: CustomButton(
                       text: "Sıfırla",
                       onPressed: () {
-                        nameController.clear();
-                        specController.clear();
-                        minAmountController.clear();
-                        maxAmountController.clear();
-                        minPriceController.clear();
-                        maxPriceController.clear();
-                        listedProducts = DatabaseService().getProducts(
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            listVisibleItems);
+                        clearAll();
+                        getAll(listVisibleItems);
                         notifyParent();
                       },
                       height: 50,
@@ -844,6 +868,8 @@ class ProductsListItem extends StatelessWidget {
                                                           .deleteProduct(
                                                         product[Product().id],
                                                       );
+                                                      currentPage = 1;
+                                                      getAll(listVisibleItems);
                                                       Navigator.pop(context);
                                                       notifyParent();
                                                     },
@@ -923,6 +949,8 @@ class ProductsListItem extends StatelessWidget {
                                                         product[Product().id],
                                                         true,
                                                       );
+                                                      currentPage = 1;
+                                                      getAll(listVisibleItems);
                                                       Navigator.pop(context);
                                                       notifyParent();
                                                     },
