@@ -28,17 +28,29 @@ class ItemTable extends StatelessWidget {
           children: [
             titlesBar,
             Expanded(
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: Column(
-                    children: [
-                      for (int i = 0; i < items.length; i++) items[i],
-                    ],
-                  ),
-                ),
-              ),
+              child: (items.isNotEmpty)
+                  ? SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Column(
+                          children: [
+                            for (int i = 0; i < items.length; i++) items[i],
+                          ],
+                        ),
+                      ),
+                    )
+                  : Center(
+                      child: Text(
+                        "Herhangi bir veri mevcut değil.",
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: YMSizes().fontSizeMedium,
+                          color: YMColors().grey,
+                        ),
+                      ),
+                    ),
             ),
           ],
         ),
