@@ -21,37 +21,44 @@ class ItemTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
+      alignment: AlignmentDirectional.bottomCenter,
       children: [
-        titlesBar,
-        Expanded(
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Column(
-                children: [
-                  for (int i = 0; i < items.length; i++) items[i],
-                ],
+        Column(
+          children: [
+            titlesBar,
+            Expanded(
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Column(
+                    children: [
+                      for (int i = 0; i < items.length; i++) items[i],
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
+          ],
         ),
-        if (totalPage > 1)
-          Padding(
-              padding: const EdgeInsets.all(15),
-              child: ItemTablePageControls(
-                currentPage: currentPage,
-                totalPage: totalPage,
-                onPressedPrev: onPressedPrev,
-                onPressedNext: onPressedNext,
-              ))
+        (totalPage > 1)
+            ? Padding(
+                padding: const EdgeInsets.all(10),
+                child: ItemTablePageControls(
+                  currentPage: currentPage,
+                  totalPage: totalPage,
+                  onPressedPrev: onPressedPrev,
+                  onPressedNext: onPressedNext,
+                ),
+              )
+            : Container(),
       ],
     );
   }
 }
 
-class ItemTablePageControls extends StatelessWidget {
+class ItemTablePageControls extends StatefulWidget {
   final int currentPage;
   final int totalPage;
   final Function() onPressedPrev;
@@ -65,55 +72,91 @@ class ItemTablePageControls extends StatelessWidget {
   });
 
   @override
+  State<ItemTablePageControls> createState() => _ItemTablePageControlsState();
+}
+
+class _ItemTablePageControlsState extends State<ItemTablePageControls> {
+  bool visible = false;
+  @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        CustomButton(
-          width: 40,
-          height: 40,
-          textColor: YMColors().darkGrey,
-          bgColor: YMColors().lightGrey,
-          text: "<",
-          isTextBold: false,
-          onPressed: onPressedPrev,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 7),
-          child: Container(
-            height: 40,
-            width: 80,
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: YMColors().white,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: YMColors().grey,
-                width: 2,
-              ),
-            ),
-            child: Text(
-              "$currentPage/$totalPage",
-              overflow: TextOverflow.visible,
-              textAlign: TextAlign.center,
-              maxLines: 1,
-              style: TextStyle(
-                fontSize: YMSizes().fontSizeSmall,
-                color: YMColors().black,
-              ),
+    return MouseRegion(
+      onEnter: (event) {
+        visible = true;
+        setState(() {});
+      },
+      onExit: (event) {
+        visible = false;
+        setState(() {});
+      },
+      child: AnimatedOpacity(
+        duration: const Duration(milliseconds: 200),
+        opacity: (visible) ? 1 : 0,
+        child: Container(
+          padding: const EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            color: YMColors().lightGrey,
+            borderRadius: const BorderRadius.all(Radius.circular(15)),
+          ),
+          child: FittedBox(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(3),
+                  child: CustomButton(
+                    width: 40,
+                    height: 40,
+                    textColor: YMColors().lightGrey,
+                    bgColor: YMColors().grey,
+                    text: "<",
+                    isTextBold: false,
+                    onPressed: widget.onPressedPrev,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(3),
+                  child: Container(
+                    height: 40,
+                    width: 80,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: YMColors().white,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: YMColors().grey,
+                        width: 2,
+                      ),
+                    ),
+                    child: Text(
+                      "${widget.currentPage}/${widget.totalPage}",
+                      overflow: TextOverflow.visible,
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      style: TextStyle(
+                        fontSize: YMSizes().fontSizeSmall,
+                        color: YMColors().black,
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(3),
+                  child: CustomButton(
+                    width: 40,
+                    height: 40,
+                    textColor: YMColors().lightGrey,
+                    bgColor: YMColors().grey,
+                    text: ">",
+                    isTextBold: false,
+                    onPressed: widget.onPressedNext,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
-        CustomButton(
-          width: 40,
-          height: 40,
-          textColor: YMColors().darkGrey,
-          bgColor: YMColors().lightGrey,
-          text: ">",
-          isTextBold: false,
-          onPressed: onPressedNext,
-        ),
-      ],
+      ),
     );
   }
 }

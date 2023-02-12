@@ -12,7 +12,7 @@ Map<dynamic, dynamic> stableItem = {};
 Map<dynamic, dynamic> editedItem = {};
 Map<dynamic, dynamic>? selectedItem;
 
-int listedItemCount = 5;
+int listedItemCount = 10;
 
 class SharedPrefsService {
   get isPasswordExists async {
