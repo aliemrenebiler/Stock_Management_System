@@ -20,6 +20,7 @@ Map<dynamic, dynamic>? selectedItem;
 int currentPage = 1;
 int totalPage = 1;
 
+// Functions
 class SharedPrefsService {
   get isPasswordExists async {
     final prefs = await SharedPreferences.getInstance();
