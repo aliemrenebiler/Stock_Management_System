@@ -64,17 +64,6 @@ class DatabaseService {
     }
   }
 
-  getTableSize(String tableName) {
-    Database database = openDatabase(dbName);
-    int size = database.select(
-      '''
-      SELECT COUNT(*) FROM $tableName
-      ''',
-    )[0][0];
-    database.dispose();
-    return size;
-  }
-
   createCategoriesTable() {
     Database database = openDatabase(dbName);
     database.execute(
