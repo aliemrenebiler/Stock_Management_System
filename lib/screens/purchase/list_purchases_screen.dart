@@ -90,6 +90,11 @@ class _ListPurchasesScreenState extends State<ListPurchasesScreen> {
                               purchase: listedPurchases[i],
                             ),
                         ],
+                        // TODO: CHANGE THESE
+                        currentPage: 0,
+                        totalPage: 0,
+                        onPressedPrev: () {},
+                        onPressedNext: () {},
                       ),
                     ),
                   ),

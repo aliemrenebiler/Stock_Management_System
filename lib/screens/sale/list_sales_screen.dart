@@ -85,6 +85,11 @@ class _ListSalesScreenState extends State<ListSalesScreen> {
                               sale: listedSales[i],
                             ),
                         ],
+                        // TODO: CHANGE THESE
+                        currentPage: 0,
+                        totalPage: 0,
+                        onPressedPrev: () {},
+                        onPressedNext: () {},
                       ),
                     ),
                   ),

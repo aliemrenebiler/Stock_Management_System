@@ -77,6 +77,11 @@ class _ListCategoriesScreenState extends State<ListCategoriesScreen> {
                                   widget.isSelectionModeActive,
                             ),
                         ],
+                        // TODO: CHANGE THESE
+                        currentPage: 0,
+                        totalPage: 0,
+                        onPressedPrev: () {},
+                        onPressedNext: () {},
                       ),
                     ),
                   ),

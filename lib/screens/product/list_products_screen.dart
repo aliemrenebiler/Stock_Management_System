@@ -96,6 +96,11 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
                               listVisibleItems: widget.listVisibleItems,
                             ),
                         ],
+                        // TODO: CHANGE THESE
+                        currentPage: 0,
+                        totalPage: 0,
+                        onPressedPrev: () {},
+                        onPressedNext: () {},
                       ),
                     ),
                   ),
