@@ -492,24 +492,22 @@ class DatabaseService {
     String? info,
   ) {
     String query = 'SELECT * FROM ${Supplier().tableName}';
-    bool isSearching = false;
-    if (id != null) {
-      if (!isSearching) {
-        isSearching = true;
-        query += ' WHERE';
-      }
-      query += ' ${Supplier().id}=$id';
-    }
 
+    bool isSearching = false;
+
+    if (id != null) {
+      isSearching = true;
+      query += ' WHERE ${Supplier().id}=$id';
+    }
     if (info != null) {
       if (!isSearching) {
         isSearching = true;
         query += ' WHERE';
       } else {
-        query += ' INTERSECT SELECT * FROM ${Supplier().tableName} WHERE';
+        query += ' AND';
       }
       query +=
-          ' ${Supplier().name} LIKE "%$info%" OR ${Supplier().phone} LIKE "%$info%" OR ${Supplier().address} LIKE "%$info%"';
+          ' (${Supplier().name} LIKE "%$info%" OR ${Supplier().phone} LIKE "%$info%" OR ${Supplier().address} LIKE "%$info%")';
     }
 
     Database database = openDatabase(dbName);
@@ -572,6 +570,7 @@ class DatabaseService {
   }
 
   getPurchases(
+    bool getCount,
     int? id,
     String? date1,
     String? date2,
@@ -579,6 +578,8 @@ class DatabaseService {
     double? maxPrice,
     int? minAmount,
     int? maxAmount,
+    int? limit,
+    int? offset,
   ) {
     String query1 = """
         SELECT
@@ -622,42 +623,104 @@ class DatabaseService {
         AND ${Purchase().tableName}.${Purchase().supplierID}==${Supplier().tableName}.${Supplier().id}
         """;
 
-    if (id != null) {
-      query1 += ' AND ${Purchase().tableName}.${Purchase().id}="$id"';
-      query2 += ' AND ${Purchase().tableName}.${Purchase().id}="$id"';
-    }
-    if (date1 != null) {
-      query1 += ' AND ${Purchase().tableName}.${Purchase().date}>="$date1"';
-      query2 += ' AND ${Purchase().tableName}.${Purchase().date}>="$date1"';
-    }
-    if (date2 != null) {
-      query1 += ' AND ${Purchase().tableName}.${Purchase().date}<="$date2"';
-      query2 += ' AND ${Purchase().tableName}.${Purchase().date}<="$date2"';
-    }
-    if (minPrice != null) {
-      query1 += ' AND ${Purchase().tableName}.${Purchase().price}>=$minPrice';
-      query2 += ' AND ${Purchase().tableName}.${Purchase().price}>=$minPrice';
-    }
-    if (maxPrice != null) {
-      query1 += ' AND ${Purchase().tableName}.${Purchase().price}<=$maxPrice';
-      query2 += ' AND ${Purchase().tableName}.${Purchase().price}<=$maxPrice';
-    }
-    if (minAmount != null) {
-      query1 += ' AND ${Purchase().tableName}.${Purchase().amount}>=$minAmount';
-      query2 += ' AND ${Purchase().tableName}.${Purchase().amount}>=$minAmount';
-    }
-    if (maxAmount != null) {
-      query1 += ' AND ${Purchase().tableName}.${Purchase().amount}<=$maxAmount';
-      query2 += ' AND ${Purchase().tableName}.${Purchase().amount}<=$maxAmount';
+    String query;
+    if (getCount) {
+      query = '''
+        SELECT COUNT(*) FROM
+        (
+        $query1
+        UNION
+        $query2
+        )
+        ''';
+    } else {
+      query = '''
+        SELECT * FROM
+        (
+        $query1
+        UNION
+        $query2
+        )
+        ''';
     }
 
-    String query = "$query1 UNION $query2";
+    bool isSearching = false;
+
+    if (id != null) {
+      isSearching = true;
+      query += ' WHERE ${Purchase().id}="$id"';
+    }
+    if (date1 != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' AND';
+      }
+      query += ' ${Purchase().date}>="$date1"';
+    }
+    if (date2 != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' AND';
+      }
+      query += ' ${Purchase().date}<="$date2"';
+    }
+    if (minPrice != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' AND';
+      }
+      query += ' ${Purchase().price}>=$minPrice';
+    }
+    if (maxPrice != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' AND';
+      }
+      query += ' ${Purchase().price}<=$maxPrice';
+    }
+    if (minAmount != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' AND';
+      }
+      query += ' ${Purchase().amount}>=$minAmount';
+    }
+    if (maxAmount != null) {
+      if (!isSearching) {
+        isSearching = true;
+        query += ' WHERE';
+      } else {
+        query += ' AND';
+      }
+      query += ' ${Purchase().amount}<=$maxAmount';
+    }
+
+    if (limit != null) {
+      query += ' LIMIT $limit';
+    }
+    if (offset != null) {
+      query += ' OFFSET $offset';
+    }
 
     Database database = openDatabase(dbName);
     var purchases = database.select(query);
     database.dispose();
 
-    return purchases;
+    if (getCount) {
+      return purchases[0][0];
+    } else {
+      return purchases;
+    }
   }
 
   insertPurchase(Map<dynamic, dynamic> purchase) {
