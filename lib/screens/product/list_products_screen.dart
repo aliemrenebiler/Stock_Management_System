@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:yildiz_motor_v2/backend/classes.dart';
-import 'package:yildiz_motor_v2/backend/methods.dart';
-import 'package:yildiz_motor_v2/widgets/custom_text_form_field.dart';
 
 import '../../backend/theme.dart';
-import '../../widgets/custom_pop_up.dart';
+import '../../backend/classes.dart';
+import '../../backend/methods.dart';
 import '../../widgets/item_table.dart';
+import '../../widgets/custom_text_form_field.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_top_bar.dart';
+import '../../widgets/custom_pop_up.dart';
 
 TextEditingController nameController = TextEditingController();
 TextEditingController specController = TextEditingController();
