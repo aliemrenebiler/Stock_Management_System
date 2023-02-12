@@ -729,10 +729,14 @@ class ProductsListItem extends StatelessWidget {
                                 textColor: YMColors().white,
                                 onPressed: () {
                                   editedItem = Map.from(product);
-                                  selectedItem = DatabaseService()
-                                      .getCategories(
-                                          editedItem[Product().categoryID],
-                                          null)[0];
+                                  selectedItem =
+                                      DatabaseService().getCategories(
+                                    false,
+                                    editedItem[Product().categoryID],
+                                    null,
+                                    null,
+                                    null,
+                                  )[0];
                                   routeStack.add('/list_products');
                                   Navigator.pushReplacementNamed(
                                       context, '/edit_product');

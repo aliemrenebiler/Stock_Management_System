@@ -9,6 +9,8 @@ import '../../widgets/custom_button.dart';
 import '../../widgets/custom_top_bar.dart';
 
 List<Map<dynamic, dynamic>> listedSuppliers = [];
+int currentPage = 1;
+int totalPage = 1;
 
 TextEditingController nameController = TextEditingController();
 
@@ -31,7 +33,22 @@ class _ListCategoriesScreenState extends State<ListCategoriesScreen> {
   @override
   void initState() {
     nameController.clear();
-    listedSuppliers = DatabaseService().getCategories(null, null);
+    int itemCount = DatabaseService().getCategories(
+      true,
+      null,
+      null,
+      null,
+      null,
+    );
+    currentPage = 1;
+    totalPage = (itemCount / listedItemCount).ceil();
+    listedSuppliers = DatabaseService().getCategories(
+      false,
+      null,
+      null,
+      listedItemCount,
+      (currentPage - 1) * listedItemCount,
+    );
     super.initState();
   }
 
@@ -77,11 +94,34 @@ class _ListCategoriesScreenState extends State<ListCategoriesScreen> {
                                   widget.isSelectionModeActive,
                             ),
                         ],
-                        // TODO: CHANGE THESE
-                        currentPage: 0,
-                        totalPage: 0,
-                        onPressedPrev: () {},
-                        onPressedNext: () {},
+                        currentPage: currentPage,
+                        totalPage: totalPage,
+                        onPressedPrev: () {
+                          if (currentPage > 1) {
+                            currentPage--;
+                            listedSuppliers = DatabaseService().getCategories(
+                              false,
+                              null,
+                              null,
+                              listedItemCount,
+                              (currentPage - 1) * listedItemCount,
+                            );
+                            refresh();
+                          }
+                        },
+                        onPressedNext: () {
+                          if (currentPage < totalPage) {
+                            currentPage++;
+                            listedSuppliers = DatabaseService().getCategories(
+                              false,
+                              null,
+                              null,
+                              listedItemCount,
+                              (currentPage - 1) * listedItemCount,
+                            );
+                            refresh();
+                          }
+                        },
                       ),
                     ),
                   ),
@@ -170,9 +210,21 @@ class CategoriesListSearchBar extends StatelessWidget {
                     child: CustomButton(
                       text: "Ara",
                       onPressed: () {
-                        listedSuppliers = DatabaseService().getCategories(
+                        int itemCount = DatabaseService().getCategories(
+                          true,
                           null,
                           nameController.text,
+                          null,
+                          null,
+                        );
+                        currentPage = 1;
+                        totalPage = (itemCount / listedItemCount).ceil();
+                        listedSuppliers = DatabaseService().getCategories(
+                          false,
+                          null,
+                          nameController.text,
+                          listedItemCount,
+                          (currentPage - 1) * listedItemCount,
                         );
                         notifyParent();
                       },
@@ -188,8 +240,22 @@ class CategoriesListSearchBar extends StatelessWidget {
                       text: "Sıfırla",
                       onPressed: () {
                         nameController.clear();
-                        listedSuppliers =
-                            DatabaseService().getCategories(null, null);
+                        int itemCount = DatabaseService().getCategories(
+                          true,
+                          null,
+                          null,
+                          null,
+                          null,
+                        );
+                        currentPage = 1;
+                        totalPage = (itemCount / listedItemCount).ceil();
+                        listedSuppliers = DatabaseService().getCategories(
+                          false,
+                          null,
+                          null,
+                          listedItemCount,
+                          (currentPage - 1) * listedItemCount,
+                        );
                         notifyParent();
                       },
                       height: 50,

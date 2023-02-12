@@ -12,6 +12,8 @@ Map<dynamic, dynamic> stableItem = {};
 Map<dynamic, dynamic> editedItem = {};
 Map<dynamic, dynamic>? selectedItem;
 
+int listedItemCount = 5;
+
 class SharedPrefsService {
   get isPasswordExists async {
     final prefs = await SharedPreferences.getInstance();
@@ -207,10 +209,19 @@ class DatabaseService {
   }
 
   getCategories(
+    bool getCount,
     int? id,
     String? name,
+    int? limit,
+    int? offset,
   ) {
-    String query = 'SELECT * FROM ${Category().tableName}';
+    String query;
+    if (getCount) {
+      query = 'SELECT COUNT(*) FROM ${Category().tableName}';
+    } else {
+      query = 'SELECT * FROM ${Category().tableName}';
+    }
+
     bool isSearching = false;
 
     if (id != null) {
@@ -226,11 +237,23 @@ class DatabaseService {
       }
       query += ' ${Category().name} LIKE "%$name%"';
     }
+
+    if (limit != null) {
+      query += ' LIMIT $limit';
+    }
+    if (offset != null) {
+      query += ' OFFSET $offset';
+    }
+
     Database database = openDatabase(dbName);
     var categories = database.select(query);
     database.dispose();
 
-    return categories;
+    if (getCount) {
+      return categories[0][0];
+    } else {
+      return categories;
+    }
   }
 
   insertCategory(Map<dynamic, dynamic> category) {
