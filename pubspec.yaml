@@ -30,6 +30,8 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cupertino_icons: ^1.0.2
+  excel: ^2.0.1
+  file_picker: ^5.2.5
   flutter:
     sdk: flutter
   page_transition: ^2.0.9

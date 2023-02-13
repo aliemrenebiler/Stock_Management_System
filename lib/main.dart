@@ -34,6 +34,7 @@ import 'screens/sale/edit_sale_screen.dart';
 // Settings
 import 'screens/settings/clear_data_screen.dart';
 import 'screens/settings/change_password_screen.dart';
+import 'screens/settings/import_export_screen.dart';
 import 'screens/settings/settings_screen.dart';
 
 void main() {
@@ -194,6 +195,12 @@ class MyApp extends StatelessWidget {
           case '/change_password':
             return PageTransition(
               child: const ChangePasswordScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+          case '/import_export':
+            return PageTransition(
+              child: const ImportExportScreen(),
               type: PageTransitionType.fade,
               settings: settings,
             );

@@ -49,6 +49,21 @@ class SettingsScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(5),
                           child: CustomButton(
+                            text: "İçe Aktar / Dışa Aktar",
+                            onPressed: () {
+                              routeStack.add('/settings');
+                              Navigator.pushReplacementNamed(
+                                  context, "/import_export");
+                            },
+                            bgColor: YMColors().grey,
+                            textColor: YMColors().white,
+                            width: double.infinity,
+                            height: 50,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: CustomButton(
                             text: "Tabloları Sil",
                             onPressed: () {
                               routeStack.add('/settings');

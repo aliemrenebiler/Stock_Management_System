@@ -1,4 +1,7 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:excel/excel.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqlite3/sqlite3.dart';
 
@@ -7,6 +10,7 @@ import 'classes.dart';
 // Constants
 const String dbName = "yildiz_motor_db.db";
 const int listedItemCount = 10;
+const String excelExportName = "yildiz_motor_db.xlsx";
 
 // Globals
 List<String> routeStack = [];
@@ -942,6 +946,40 @@ class DatabaseService {
       ''',
     );
     database.dispose();
+  }
+}
+
+class ExcelService {
+  importExcel() async {
+    FilePickerResult? pickedFile = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['xlsx'],
+    );
+    if (pickedFile != null && pickedFile.files.single.path != null) {
+      String path = pickedFile.files.single.path!;
+      var bytes = File(path).readAsBytesSync();
+      var excel = Excel.decodeBytes(bytes);
+
+      // TODO: Get every data from the file
+      // print(excel);
+      // print(excel.sheets.keys);
+      // print(excel.sheets);
+    }
+  }
+
+  exportExcel(String fileName) async {
+    String? path =
+        await FilePicker.platform.getDirectoryPath(dialogTitle: "Kaydet");
+
+    if (path != null) {
+      var excel = Excel.createExcel();
+      // TODO: Create and put every data in the database
+
+      var bytes = excel.save(fileName: fileName);
+      File("$path/$fileName")
+        ..createSync(recursive: true)
+        ..writeAsBytesSync(bytes!);
+    }
   }
 }
 
