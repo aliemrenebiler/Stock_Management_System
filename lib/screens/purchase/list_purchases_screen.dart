@@ -874,7 +874,12 @@ class PurchasesListItem extends StatelessWidget {
                       editedItem = Map.from(purchase);
                       if (editedItem[Purchase().supplierID] != null) {
                         selectedItem = DatabaseService().getSuppliers(
-                            editedItem[Purchase().supplierID], null)[0];
+                          false,
+                          editedItem[Purchase().supplierID],
+                          null,
+                          null,
+                          null,
+                        )[0];
                       } else {
                         selectedItem = null;
                       }

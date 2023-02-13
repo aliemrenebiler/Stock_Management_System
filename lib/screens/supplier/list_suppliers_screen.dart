@@ -8,9 +8,30 @@ import '../../widgets/item_table.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_top_bar.dart';
 
-List<Map<dynamic, dynamic>> listedSuppliers = [];
-
 TextEditingController infoController = TextEditingController();
+
+clearAll() {
+  currentPage = 1;
+  infoController.clear();
+}
+
+getAll() {
+  int itemCount = DatabaseService().getSuppliers(
+    true,
+    null,
+    (infoController.text.isEmpty) ? null : infoController.text,
+    null,
+    null,
+  );
+  totalPage = (itemCount / listedItemCount).ceil();
+  listedItems = DatabaseService().getSuppliers(
+    false,
+    null,
+    (infoController.text.isEmpty) ? null : infoController.text,
+    listedItemCount,
+    (currentPage - 1) * listedItemCount,
+  );
+}
 
 class ListSuppliersScreen extends StatefulWidget {
   final bool isSelectionModeActive;
@@ -30,8 +51,8 @@ class _ListSuppliersScreenState extends State<ListSuppliersScreen> {
 
   @override
   void initState() {
-    infoController.clear();
-    listedSuppliers = DatabaseService().getSuppliers(null, null);
+    clearAll();
+    getAll();
     super.initState();
   }
 
@@ -71,18 +92,29 @@ class _ListSuppliersScreenState extends State<ListSuppliersScreen> {
                           isSelectionModeActive: widget.isSelectionModeActive,
                         ),
                         items: [
-                          for (int i = 0; i < listedSuppliers.length; i++)
+                          for (int i = 0; i < listedItems.length; i++)
                             SuppliersListItem(
-                              supplier: listedSuppliers[i],
+                              supplier: listedItems[i],
                               isSelectionModeActive:
                                   widget.isSelectionModeActive,
                             ),
                         ],
-                        // TODO: CHANGE THESE
-                        currentPage: 0,
-                        totalPage: 0,
-                        onPressedPrev: () {},
-                        onPressedNext: () {},
+                        currentPage: currentPage,
+                        totalPage: totalPage,
+                        onPressedPrev: () {
+                          if (currentPage > 1) {
+                            currentPage--;
+                            getAll();
+                            refresh();
+                          }
+                        },
+                        onPressedNext: () {
+                          if (currentPage < totalPage) {
+                            currentPage++;
+                            getAll();
+                            refresh();
+                          }
+                        },
                       ),
                     ),
                   ),
@@ -171,10 +203,8 @@ class SuppliersListSearchBar extends StatelessWidget {
                     child: CustomButton(
                       text: "Ara",
                       onPressed: () {
-                        listedSuppliers = DatabaseService().getSuppliers(
-                          null,
-                          infoController.text,
-                        );
+                        currentPage = 1;
+                        getAll();
                         notifyParent();
                       },
                       height: 50,
@@ -188,9 +218,8 @@ class SuppliersListSearchBar extends StatelessWidget {
                     child: CustomButton(
                       text: "Sıfırla",
                       onPressed: () {
-                        infoController.clear();
-                        listedSuppliers =
-                            DatabaseService().getSuppliers(null, null);
+                        clearAll();
+                        getAll();
                         notifyParent();
                       },
                       height: 50,

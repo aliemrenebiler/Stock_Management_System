@@ -488,10 +488,24 @@ class DatabaseService {
   }
 
   getSuppliers(
+    bool getCount,
     int? id,
     String? info,
+    int? limit,
+    int? offset,
   ) {
-    String query = 'SELECT * FROM ${Supplier().tableName}';
+    String query;
+    if (getCount) {
+      query = '''
+      SELECT COUNT(*)
+      ''';
+    } else {
+      query = '''
+      SELECT *
+      ''';
+    }
+
+    query += 'FROM ${Supplier().tableName}';
 
     bool isSearching = false;
 
@@ -510,11 +524,22 @@ class DatabaseService {
           ' (${Supplier().name} LIKE "%$info%" OR ${Supplier().phone} LIKE "%$info%" OR ${Supplier().address} LIKE "%$info%")';
     }
 
+    if (limit != null) {
+      query += ' LIMIT $limit';
+    }
+    if (offset != null) {
+      query += ' OFFSET $offset';
+    }
+
     Database database = openDatabase(dbName);
     var suppliers = database.select(query);
     database.dispose();
 
-    return suppliers;
+    if (getCount) {
+      return suppliers[0][0];
+    } else {
+      return suppliers;
+    }
   }
 
   insertSupplier(Map<dynamic, dynamic> supplier) {
