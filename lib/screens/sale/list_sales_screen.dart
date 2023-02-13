@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../../backend/theme.dart';
 import '../../backend/classes.dart';
 import '../../backend/methods.dart';
-import '../../widgets/custom_snack_bar.dart';
-import '../../widgets/custom_text_form_field.dart';
-import '../../backend/theme.dart';
 import '../../widgets/item_table.dart';
+import '../../widgets/custom_text_form_field.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_top_bar.dart';
-
-List<Map<dynamic, dynamic>> listedSales = [];
+import '../../widgets/custom_snack_bar.dart';
 
 TextEditingController day1Controller = TextEditingController();
 TextEditingController month1Controller = TextEditingController();
@@ -21,6 +19,68 @@ TextEditingController minAmountController = TextEditingController();
 TextEditingController maxAmountController = TextEditingController();
 TextEditingController minPriceController = TextEditingController();
 TextEditingController maxPriceController = TextEditingController();
+
+String? date1, date2;
+
+clearAll() {
+  currentPage = 1;
+  day1Controller.clear();
+  month1Controller.clear();
+  year1Controller.clear();
+  day2Controller.clear();
+  month2Controller.clear();
+  year2Controller.clear();
+  minAmountController.clear();
+  maxAmountController.clear();
+  minPriceController.clear();
+  maxPriceController.clear();
+  date1 = null;
+  date2 = null;
+}
+
+getAll() {
+  int itemCount = DatabaseService().getSales(
+    true,
+    null,
+    date1,
+    date2,
+    (minPriceController.text.isEmpty)
+        ? null
+        : double.parse(minPriceController.text),
+    (maxPriceController.text.isEmpty)
+        ? null
+        : double.parse(maxPriceController.text),
+    (minAmountController.text.isEmpty)
+        ? null
+        : int.parse(minAmountController.text),
+    (maxAmountController.text.isEmpty)
+        ? null
+        : int.parse(maxAmountController.text),
+    null,
+    null,
+  );
+  totalPage = (itemCount / listedItemCount).ceil();
+  listedItems = DatabaseService().getSales(
+    false,
+    null,
+    date1,
+    date2,
+    (minPriceController.text.isEmpty)
+        ? null
+        : double.parse(minPriceController.text),
+    (maxPriceController.text.isEmpty)
+        ? null
+        : double.parse(maxPriceController.text),
+    (minAmountController.text.isEmpty)
+        ? null
+        : int.parse(minAmountController.text),
+    (maxAmountController.text.isEmpty)
+        ? null
+        : int.parse(maxAmountController.text),
+    listedItemCount,
+    (currentPage - 1) * listedItemCount,
+  );
+}
 
 class ListSalesScreen extends StatefulWidget {
   const ListSalesScreen({Key? key}) : super(key: key);
@@ -36,18 +96,8 @@ class _ListSalesScreenState extends State<ListSalesScreen> {
 
   @override
   void initState() {
-    day1Controller.clear();
-    month1Controller.clear();
-    year1Controller.clear();
-    day2Controller.clear();
-    month2Controller.clear();
-    year2Controller.clear();
-    minAmountController.clear();
-    maxAmountController.clear();
-    minPriceController.clear();
-    maxPriceController.clear();
-    listedSales =
-        DatabaseService().getSales(null, null, null, null, null, null, null);
+    clearAll();
+    getAll();
     super.initState();
   }
 
@@ -80,16 +130,27 @@ class _ListSalesScreenState extends State<ListSalesScreen> {
                       child: ItemTable(
                         titlesBar: const SalesListTitlesBar(),
                         items: [
-                          for (int i = 0; i < listedSales.length; i++)
+                          for (int i = 0; i < listedItems.length; i++)
                             SalesListItem(
-                              sale: listedSales[i],
+                              sale: listedItems[i],
                             ),
                         ],
-                        // TODO: CHANGE THESE
-                        currentPage: 0,
-                        totalPage: 0,
-                        onPressedPrev: () {},
-                        onPressedNext: () {},
+                        currentPage: currentPage,
+                        totalPage: totalPage,
+                        onPressedPrev: () {
+                          if (currentPage > 1) {
+                            currentPage--;
+                            getAll();
+                            refresh();
+                          }
+                        },
+                        onPressedNext: () {
+                          if (currentPage < totalPage) {
+                            currentPage++;
+                            getAll();
+                            refresh();
+                          }
+                        },
                       ),
                     ),
                   ),
@@ -322,7 +383,6 @@ class SalesListSearchBar extends StatelessWidget {
                     child: CustomButton(
                       text: "Ara",
                       onPressed: () {
-                        String? date1, date2;
                         bool searchable = true;
                         if (day1Controller.text.isNotEmpty ||
                             month1Controller.text.isNotEmpty ||
@@ -365,23 +425,8 @@ class SalesListSearchBar extends StatelessWidget {
                           }
                         }
                         if (searchable) {
-                          listedSales = DatabaseService().getSales(
-                            null,
-                            date1,
-                            date2,
-                            (minPriceController.text.isEmpty)
-                                ? null
-                                : double.parse(minPriceController.text),
-                            (maxPriceController.text.isEmpty)
-                                ? null
-                                : double.parse(maxPriceController.text),
-                            (minAmountController.text.isEmpty)
-                                ? null
-                                : int.parse(minAmountController.text),
-                            (maxAmountController.text.isEmpty)
-                                ? null
-                                : int.parse(maxAmountController.text),
-                          );
+                          currentPage = 1;
+                          getAll();
                           notifyParent();
                         }
                       },
@@ -396,18 +441,8 @@ class SalesListSearchBar extends StatelessWidget {
                     child: CustomButton(
                       text: "Sıfırla",
                       onPressed: () {
-                        day1Controller.clear();
-                        month1Controller.clear();
-                        year1Controller.clear();
-                        day2Controller.clear();
-                        month2Controller.clear();
-                        year2Controller.clear();
-                        minAmountController.clear();
-                        maxAmountController.clear();
-                        minPriceController.clear();
-                        maxPriceController.clear();
-                        listedSales = DatabaseService()
-                            .getSales(null, null, null, null, null, null, null);
+                        clearAll();
+                        getAll();
                         notifyParent();
                       },
                       height: 50,

@@ -784,6 +784,7 @@ class DatabaseService {
   }
 
   getSales(
+    bool getCount,
     String? id,
     String? date1,
     String? date2,
@@ -791,24 +792,36 @@ class DatabaseService {
     double? maxPrice,
     int? minAmount,
     int? maxAmount,
+    int? limit,
+    int? offset,
   ) {
-    String query = """
-        SELECT
-        ${Sale().tableName}.${Sale().id},
-        ${Sale().tableName}.${Sale().price},
-        ${Sale().tableName}.${Sale().amount},
-        ${Sale().tableName}.${Sale().productID},
-        ${Product().tableName}.${Product().name} AS ${Sale().productName},
-        ${Product().tableName}.${Product().brand},
-        ${Product().tableName}.${Product().color},
-        ${Product().tableName}.${Product().size},
-        ${Product().tableName}.${Product().sizeType},
-        ${Sale().tableName}.${Sale().date},
-        STRFTIME('%d.%m.%Y', ${Sale().tableName}.${Sale().date})
-        AS ${Sale().formattedDate}
-        FROM ${Sale().tableName}, ${Product().tableName}
-        WHERE ${Sale().tableName}.${Sale().productID}==${Product().tableName}.${Product().id}
-        """;
+    String query;
+    if (getCount) {
+      query = '''
+      SELECT COUNT(*)
+      ''';
+    } else {
+      query = '''
+      SELECT
+      ${Sale().tableName}.${Sale().id},
+      ${Sale().tableName}.${Sale().price},
+      ${Sale().tableName}.${Sale().amount},
+      ${Sale().tableName}.${Sale().productID},
+      ${Product().tableName}.${Product().name} AS ${Sale().productName},
+      ${Product().tableName}.${Product().brand},
+      ${Product().tableName}.${Product().color},
+      ${Product().tableName}.${Product().size},
+      ${Product().tableName}.${Product().sizeType},
+      ${Sale().tableName}.${Sale().date},
+      STRFTIME('%d.%m.%Y', ${Sale().tableName}.${Sale().date})
+      AS ${Sale().formattedDate}
+      ''';
+    }
+
+    query += '''
+    FROM ${Sale().tableName}, ${Product().tableName}
+    WHERE ${Sale().tableName}.${Sale().productID}==${Product().tableName}.${Product().id}
+    ''';
 
     if (id != null) {
       query += ' AND ${Sale().tableName}.${Sale().id}="$id"';
@@ -832,11 +845,22 @@ class DatabaseService {
       query += ' AND ${Sale().tableName}.${Sale().amount}<=$maxAmount';
     }
 
+    if (limit != null) {
+      query += ' LIMIT $limit';
+    }
+    if (offset != null) {
+      query += ' OFFSET $offset';
+    }
+
     Database database = openDatabase(dbName);
     var sales = database.select(query);
     database.dispose();
 
-    return sales;
+    if (getCount) {
+      return sales[0][0];
+    } else {
+      return sales;
+    }
   }
 
   insertSale(Map<dynamic, dynamic> sale) {
