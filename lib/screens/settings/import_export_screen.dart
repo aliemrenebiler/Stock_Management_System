@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:yildiz_motor_v2/widgets/custom_pop_up.dart';
+import 'package:yildiz_motor_v2/widgets/custom_snack_bar.dart';
 
 import '../../backend/methods.dart';
 import '../../backend/theme.dart';
@@ -51,8 +53,44 @@ class _ImportExportScreenState extends State<ImportExportScreen> {
                           padding: const EdgeInsets.all(5),
                           child: CustomButton(
                             text: "Dışa Aktar",
-                            onPressed: () =>
-                                ExcelService().exportExcel(excelExportName),
+                            onPressed: () async {
+                              showCustomPopUp(
+                                context,
+                                Container(
+                                  alignment: Alignment.center,
+                                  height: 50,
+                                  child: Text(
+                                    "Dışa aktarılıyor...",
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: YMSizes().fontSizeMedium,
+                                      color: YMColors().black,
+                                    ),
+                                  ),
+                                ),
+                              );
+                              bool exported =
+                                  await ExcelService().exportExcel();
+                              if (mounted) {
+                                Navigator.pop(context);
+                                if (exported) {
+                                  showCustomSnackBar(
+                                    context,
+                                    "Tamamlandı.",
+                                    YMColors().white,
+                                    YMColors().blue,
+                                  );
+                                } else {
+                                  showCustomSnackBar(
+                                    context,
+                                    "İşlem iptal edildi.",
+                                    YMColors().white,
+                                    YMColors().grey,
+                                  );
+                                }
+                              }
+                            },
                             bgColor: YMColors().blue,
                             textColor: YMColors().white,
                             height: 50,
