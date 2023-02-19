@@ -950,19 +950,50 @@ class DatabaseService {
 
 class ExcelService {
   importExcel() async {
-    FilePickerResult? pickedFile = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['xlsx'],
-    );
-    if (pickedFile != null && pickedFile.files.single.path != null) {
-      String path = pickedFile.files.single.path!;
-      var bytes = File(path).readAsBytesSync();
-      var excel = Excel.decodeBytes(bytes);
+    try {
+      FilePickerResult? pickedFile = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['xlsx'],
+      );
+      if (pickedFile != null && pickedFile.files.single.path != null) {
+        String path = pickedFile.files.single.path!;
+        var bytes = File(path).readAsBytesSync();
+        var excel = Excel.decodeBytes(bytes);
 
-      // TODO: Get every data from the file
-      // print(excel);
-      // print(excel.sheets.keys);
-      // print(excel.sheets);
+        // TODO: Get every data from the file
+
+        // Check if all sheets are valid
+        if (!excel.sheets.keys.contains(Category().tableName) ||
+            !excel.sheets.keys.contains(Product().tableName) ||
+            !excel.sheets.keys.contains(Supplier().tableName) ||
+            !excel.sheets.keys.contains(Purchase().tableName) ||
+            !excel.sheets.keys.contains(Sale().tableName)) {
+          throw Error();
+        }
+
+        Sheet sheet;
+        int i;
+
+        sheet = excel.sheets[Category().tableName]!;
+        i = 2;
+        while (sheet.cell(CellIndex.indexByString('A$i')).value != null ||
+            sheet.cell(CellIndex.indexByString('B$i')).value != null) {
+          DatabaseService().insertCategory(
+            {
+              Category().id: sheet.cell(CellIndex.indexByString('A$i')).value,
+              Category().name: sheet.cell(CellIndex.indexByString('B$i')).value,
+            },
+          );
+          i++;
+        }
+
+        // print(excel);
+        // print(excel.sheets.keys);
+        // print(excel.sheets);
+      }
+      return true;
+    } catch (_) {
+      return false;
     }
   }
 
@@ -972,203 +1003,203 @@ class ExcelService {
 
       if (path == null) {
         throw Error();
-      } else {
-        // Create excel
-        var excel = Excel.createExcel();
-        Sheet sheet;
-        int count;
-        Map<dynamic, dynamic> item;
-
-        // Create categories sheet
-        sheet = excel[Category().tableName];
-        sheet.cell(CellIndex.indexByString('A1')).value = Category().id;
-        sheet.cell(CellIndex.indexByString('B1')).value = Category().name;
-        count = DatabaseService().getCategories(true, null, null, null, null);
-        for (int i = 0; i < count; i++) {
-          item = DatabaseService().getCategories(false, null, null, 1, i)[0];
-          if (item[Category().id] != null) {
-            sheet.cell(CellIndex.indexByString('A${i + 2}')).value =
-                item[Category().id];
-          }
-          if (item[Category().id] != null) {
-            sheet.cell(CellIndex.indexByString('B${i + 2}')).value =
-                item[Category().name];
-          }
-        }
-
-        // Create products sheet
-        sheet = excel[Product().tableName];
-        sheet.cell(CellIndex.indexByString('A1')).value = Product().id;
-        sheet.cell(CellIndex.indexByString('B1')).value = Product().name;
-        sheet.cell(CellIndex.indexByString('C1')).value = Product().categoryID;
-        sheet.cell(CellIndex.indexByString('D1')).value = Product().brand;
-        sheet.cell(CellIndex.indexByString('E1')).value = Product().color;
-        sheet.cell(CellIndex.indexByString('F1')).value = Product().size;
-        sheet.cell(CellIndex.indexByString('G1')).value = Product().sizeType;
-        sheet.cell(CellIndex.indexByString('H1')).value = Product().price;
-        sheet.cell(CellIndex.indexByString('I1')).value = Product().amount;
-        sheet.cell(CellIndex.indexByString('J1')).value = Product().visible;
-        count = DatabaseService().getProducts(
-            true, null, null, null, null, null, null, null, null, null, null);
-        for (int i = 0; i < count; i++) {
-          item = DatabaseService().getProducts(
-              false, null, null, null, null, null, null, null, null, 1, i)[0];
-          if (item[Product().id] != null) {
-            sheet.cell(CellIndex.indexByString('A${i + 2}')).value =
-                item[Product().id];
-          }
-          if (item[Product().name] != null) {
-            sheet.cell(CellIndex.indexByString('B${i + 2}')).value =
-                item[Product().name];
-          }
-          if (item[Product().categoryID] != null) {
-            sheet.cell(CellIndex.indexByString('C${i + 2}')).value =
-                item[Product().categoryID];
-          }
-          if (item[Product().brand] != null) {
-            sheet.cell(CellIndex.indexByString('D${i + 2}')).value =
-                item[Product().brand];
-          }
-          if (item[Product().color] != null) {
-            sheet.cell(CellIndex.indexByString('E${i + 2}')).value =
-                item[Product().color];
-          }
-          if (item[Product().size] != null) {
-            sheet.cell(CellIndex.indexByString('F${i + 2}')).value =
-                item[Product().size];
-          }
-          if (item[Product().sizeType] != null) {
-            sheet.cell(CellIndex.indexByString('G${i + 2}')).value =
-                item[Product().sizeType];
-          }
-          if (item[Product().price] != null) {
-            sheet.cell(CellIndex.indexByString('H${i + 2}')).value =
-                item[Product().price];
-          }
-          if (item[Product().amount] != null) {
-            sheet.cell(CellIndex.indexByString('I${i + 2}')).value =
-                item[Product().amount];
-          }
-          if (item[Product().visible] != null) {
-            sheet.cell(CellIndex.indexByString('J${i + 2}')).value =
-                item[Product().visible];
-          }
-        }
-
-        // Create suppliers sheet
-        sheet = excel[Supplier().tableName];
-        sheet.cell(CellIndex.indexByString('A1')).value = Supplier().id;
-        sheet.cell(CellIndex.indexByString('B1')).value = Supplier().name;
-        sheet.cell(CellIndex.indexByString('C1')).value = Supplier().phone;
-        sheet.cell(CellIndex.indexByString('D1')).value = Supplier().address;
-        count = DatabaseService().getSuppliers(true, null, null, null, null);
-        for (int i = 0; i < count; i++) {
-          item = DatabaseService().getSuppliers(false, null, null, 1, i)[0];
-          if (item[Supplier().id] != null) {
-            sheet.cell(CellIndex.indexByString('A${i + 2}')).value =
-                item[Supplier().id];
-          }
-          if (item[Supplier().name] != null) {
-            sheet.cell(CellIndex.indexByString('B${i + 2}')).value =
-                item[Supplier().name];
-          }
-          if (item[Supplier().phone] != null) {
-            sheet.cell(CellIndex.indexByString('C${i + 2}')).value =
-                item[Supplier().phone];
-          }
-          if (item[Supplier().address] != null) {
-            sheet.cell(CellIndex.indexByString('D${i + 2}')).value =
-                item[Supplier().address];
-          }
-        }
-
-        // Create purchases sheet
-        sheet = excel[Purchase().tableName];
-        sheet.cell(CellIndex.indexByString('A1')).value = Purchase().id;
-        sheet.cell(CellIndex.indexByString('B1')).value = Purchase().productID;
-        sheet.cell(CellIndex.indexByString('C1')).value = Purchase().supplierID;
-        sheet.cell(CellIndex.indexByString('D1')).value = Purchase().date;
-        sheet.cell(CellIndex.indexByString('E1')).value = Purchase().price;
-        sheet.cell(CellIndex.indexByString('F1')).value = Purchase().amount;
-        count = DatabaseService().getPurchases(
-            true, null, null, null, null, null, null, null, null, null);
-        for (int i = 0; i < count; i++) {
-          item = DatabaseService().getPurchases(
-              false, null, null, null, null, null, null, null, 1, i)[0];
-          if (item[Purchase().id] != null) {
-            sheet.cell(CellIndex.indexByString('A${i + 2}')).value =
-                item[Purchase().id];
-          }
-          if (item[Purchase().productID] != null) {
-            sheet.cell(CellIndex.indexByString('B${i + 2}')).value =
-                item[Purchase().productID];
-          }
-          if (item[Purchase().supplierID] != null) {
-            sheet.cell(CellIndex.indexByString('C${i + 2}')).value =
-                item[Purchase().supplierID];
-          }
-          if (item[Purchase().date] != null) {
-            sheet.cell(CellIndex.indexByString('D${i + 2}')).value =
-                item[Purchase().date];
-          }
-          if (item[Purchase().price] != null) {
-            sheet.cell(CellIndex.indexByString('E${i + 2}')).value =
-                item[Purchase().price];
-          }
-          if (item[Purchase().amount] != null) {
-            sheet.cell(CellIndex.indexByString('F${i + 2}')).value =
-                item[Purchase().amount];
-          }
-        }
-
-        // Create sales sheet
-        sheet = excel[Sale().tableName];
-        sheet.cell(CellIndex.indexByString('A1')).value = Sale().id;
-        sheet.cell(CellIndex.indexByString('B1')).value = Sale().productID;
-        sheet.cell(CellIndex.indexByString('C1')).value = Sale().date;
-        sheet.cell(CellIndex.indexByString('D1')).value = Sale().price;
-        sheet.cell(CellIndex.indexByString('E1')).value = Sale().amount;
-        count = DatabaseService().getSales(
-            true, null, null, null, null, null, null, null, null, null);
-        for (int i = 0; i < count; i++) {
-          item = DatabaseService().getSales(
-              false, null, null, null, null, null, null, null, 1, i)[0];
-          if (item[Sale().id] != null) {
-            sheet.cell(CellIndex.indexByString('A${i + 2}')).value =
-                item[Sale().id];
-          }
-          if (item[Sale().productID] != null) {
-            sheet.cell(CellIndex.indexByString('B${i + 2}')).value =
-                item[Sale().productID];
-          }
-          if (item[Sale().date] != null) {
-            sheet.cell(CellIndex.indexByString('C${i + 2}')).value =
-                item[Sale().date];
-          }
-          if (item[Sale().price] != null) {
-            sheet.cell(CellIndex.indexByString('D${i + 2}')).value =
-                item[Sale().price];
-          }
-          if (item[Sale().amount] != null) {
-            sheet.cell(CellIndex.indexByString('E${i + 2}')).value =
-                item[Sale().amount];
-          }
-        }
-
-        // Delete default sheet
-        excel.delete("Sheet1");
-
-        // Save excel as a file
-        DateTime now = DateTime.now();
-        String fileName =
-            "db_export_${now.year}-${now.month}-${now.day}_${now.hour}-${now.minute}-${now.second}.xlsx";
-        var bytes = excel.save(fileName: fileName);
-        File("$path/$fileName")
-          ..createSync(recursive: true)
-          ..writeAsBytesSync(bytes!);
-
-        return true;
       }
+
+      // Create excel
+      var excel = Excel.createExcel();
+      Sheet sheet;
+      int count;
+      Map<dynamic, dynamic> item;
+
+      // Create categories sheet
+      sheet = excel[Category().tableName];
+      sheet.cell(CellIndex.indexByString('A1')).value = Category().id;
+      sheet.cell(CellIndex.indexByString('B1')).value = Category().name;
+      count = DatabaseService().getCategories(true, null, null, null, null);
+      for (int i = 0; i < count; i++) {
+        item = DatabaseService().getCategories(false, null, null, 1, i)[0];
+        if (item[Category().id] != null) {
+          sheet.cell(CellIndex.indexByString('A${i + 2}')).value =
+              item[Category().id];
+        }
+        if (item[Category().id] != null) {
+          sheet.cell(CellIndex.indexByString('B${i + 2}')).value =
+              item[Category().name];
+        }
+      }
+
+      // Create products sheet
+      sheet = excel[Product().tableName];
+      sheet.cell(CellIndex.indexByString('A1')).value = Product().id;
+      sheet.cell(CellIndex.indexByString('B1')).value = Product().name;
+      sheet.cell(CellIndex.indexByString('C1')).value = Product().categoryID;
+      sheet.cell(CellIndex.indexByString('D1')).value = Product().brand;
+      sheet.cell(CellIndex.indexByString('E1')).value = Product().color;
+      sheet.cell(CellIndex.indexByString('F1')).value = Product().size;
+      sheet.cell(CellIndex.indexByString('G1')).value = Product().sizeType;
+      sheet.cell(CellIndex.indexByString('H1')).value = Product().price;
+      sheet.cell(CellIndex.indexByString('I1')).value = Product().amount;
+      sheet.cell(CellIndex.indexByString('J1')).value = Product().visible;
+      count = DatabaseService().getProducts(
+          true, null, null, null, null, null, null, null, null, null, null);
+      for (int i = 0; i < count; i++) {
+        item = DatabaseService().getProducts(
+            false, null, null, null, null, null, null, null, null, 1, i)[0];
+        if (item[Product().id] != null) {
+          sheet.cell(CellIndex.indexByString('A${i + 2}')).value =
+              item[Product().id];
+        }
+        if (item[Product().name] != null) {
+          sheet.cell(CellIndex.indexByString('B${i + 2}')).value =
+              item[Product().name];
+        }
+        if (item[Product().categoryID] != null) {
+          sheet.cell(CellIndex.indexByString('C${i + 2}')).value =
+              item[Product().categoryID];
+        }
+        if (item[Product().brand] != null) {
+          sheet.cell(CellIndex.indexByString('D${i + 2}')).value =
+              item[Product().brand];
+        }
+        if (item[Product().color] != null) {
+          sheet.cell(CellIndex.indexByString('E${i + 2}')).value =
+              item[Product().color];
+        }
+        if (item[Product().size] != null) {
+          sheet.cell(CellIndex.indexByString('F${i + 2}')).value =
+              item[Product().size];
+        }
+        if (item[Product().sizeType] != null) {
+          sheet.cell(CellIndex.indexByString('G${i + 2}')).value =
+              item[Product().sizeType];
+        }
+        if (item[Product().price] != null) {
+          sheet.cell(CellIndex.indexByString('H${i + 2}')).value =
+              item[Product().price];
+        }
+        if (item[Product().amount] != null) {
+          sheet.cell(CellIndex.indexByString('I${i + 2}')).value =
+              item[Product().amount];
+        }
+        if (item[Product().visible] != null) {
+          sheet.cell(CellIndex.indexByString('J${i + 2}')).value =
+              item[Product().visible];
+        }
+      }
+
+      // Create suppliers sheet
+      sheet = excel[Supplier().tableName];
+      sheet.cell(CellIndex.indexByString('A1')).value = Supplier().id;
+      sheet.cell(CellIndex.indexByString('B1')).value = Supplier().name;
+      sheet.cell(CellIndex.indexByString('C1')).value = Supplier().phone;
+      sheet.cell(CellIndex.indexByString('D1')).value = Supplier().address;
+      count = DatabaseService().getSuppliers(true, null, null, null, null);
+      for (int i = 0; i < count; i++) {
+        item = DatabaseService().getSuppliers(false, null, null, 1, i)[0];
+        if (item[Supplier().id] != null) {
+          sheet.cell(CellIndex.indexByString('A${i + 2}')).value =
+              item[Supplier().id];
+        }
+        if (item[Supplier().name] != null) {
+          sheet.cell(CellIndex.indexByString('B${i + 2}')).value =
+              item[Supplier().name];
+        }
+        if (item[Supplier().phone] != null) {
+          sheet.cell(CellIndex.indexByString('C${i + 2}')).value =
+              item[Supplier().phone];
+        }
+        if (item[Supplier().address] != null) {
+          sheet.cell(CellIndex.indexByString('D${i + 2}')).value =
+              item[Supplier().address];
+        }
+      }
+
+      // Create purchases sheet
+      sheet = excel[Purchase().tableName];
+      sheet.cell(CellIndex.indexByString('A1')).value = Purchase().id;
+      sheet.cell(CellIndex.indexByString('B1')).value = Purchase().productID;
+      sheet.cell(CellIndex.indexByString('C1')).value = Purchase().supplierID;
+      sheet.cell(CellIndex.indexByString('D1')).value = Purchase().date;
+      sheet.cell(CellIndex.indexByString('E1')).value = Purchase().price;
+      sheet.cell(CellIndex.indexByString('F1')).value = Purchase().amount;
+      count = DatabaseService().getPurchases(
+          true, null, null, null, null, null, null, null, null, null);
+      for (int i = 0; i < count; i++) {
+        item = DatabaseService().getPurchases(
+            false, null, null, null, null, null, null, null, 1, i)[0];
+        if (item[Purchase().id] != null) {
+          sheet.cell(CellIndex.indexByString('A${i + 2}')).value =
+              item[Purchase().id];
+        }
+        if (item[Purchase().productID] != null) {
+          sheet.cell(CellIndex.indexByString('B${i + 2}')).value =
+              item[Purchase().productID];
+        }
+        if (item[Purchase().supplierID] != null) {
+          sheet.cell(CellIndex.indexByString('C${i + 2}')).value =
+              item[Purchase().supplierID];
+        }
+        if (item[Purchase().date] != null) {
+          sheet.cell(CellIndex.indexByString('D${i + 2}')).value =
+              item[Purchase().date];
+        }
+        if (item[Purchase().price] != null) {
+          sheet.cell(CellIndex.indexByString('E${i + 2}')).value =
+              item[Purchase().price];
+        }
+        if (item[Purchase().amount] != null) {
+          sheet.cell(CellIndex.indexByString('F${i + 2}')).value =
+              item[Purchase().amount];
+        }
+      }
+
+      // Create sales sheet
+      sheet = excel[Sale().tableName];
+      sheet.cell(CellIndex.indexByString('A1')).value = Sale().id;
+      sheet.cell(CellIndex.indexByString('B1')).value = Sale().productID;
+      sheet.cell(CellIndex.indexByString('C1')).value = Sale().date;
+      sheet.cell(CellIndex.indexByString('D1')).value = Sale().price;
+      sheet.cell(CellIndex.indexByString('E1')).value = Sale().amount;
+      count = DatabaseService()
+          .getSales(true, null, null, null, null, null, null, null, null, null);
+      for (int i = 0; i < count; i++) {
+        item = DatabaseService()
+            .getSales(false, null, null, null, null, null, null, null, 1, i)[0];
+        if (item[Sale().id] != null) {
+          sheet.cell(CellIndex.indexByString('A${i + 2}')).value =
+              item[Sale().id];
+        }
+        if (item[Sale().productID] != null) {
+          sheet.cell(CellIndex.indexByString('B${i + 2}')).value =
+              item[Sale().productID];
+        }
+        if (item[Sale().date] != null) {
+          sheet.cell(CellIndex.indexByString('C${i + 2}')).value =
+              item[Sale().date];
+        }
+        if (item[Sale().price] != null) {
+          sheet.cell(CellIndex.indexByString('D${i + 2}')).value =
+              item[Sale().price];
+        }
+        if (item[Sale().amount] != null) {
+          sheet.cell(CellIndex.indexByString('E${i + 2}')).value =
+              item[Sale().amount];
+        }
+      }
+
+      // Delete default sheet
+      excel.delete("Sheet1");
+
+      // Save excel as a file
+      DateTime now = DateTime.now();
+      String fileName =
+          "db_export_${now.year}-${now.month}-${now.day}_${now.hour}-${now.minute}-${now.second}.xlsx";
+      var bytes = excel.save(fileName: fileName);
+      File("$path/$fileName")
+        ..createSync(recursive: true)
+        ..writeAsBytesSync(bytes!);
+
+      return true;
     } catch (_) {
       return false;
     }
