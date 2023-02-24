@@ -1,0 +1,39 @@
+name: stock_management_system
+description: A stock management desktop app developed with Flutter.
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ">=2.19.0 <3.0.0"
+
+dependencies:
+  excel: ^2.0.1
+  file_picker: ^5.2.5
+  flutter:
+    sdk: flutter
+  page_transition: ^2.0.9
+  shared_preferences: ^2.0.18
+  sqlite3: ^1.9.1
+  window_size:
+    git:
+      url: https://github.com/google/flutter-desktop-embedding.git
+      path: plugins/window_size
+      ref: 6c66ad23ee79749f30a8eece542cf54eaf157ed8
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+assets:
+  - assets/images/
+
+fonts:
+  - family: Roboto
+    fonts:
+      - asset: assets/fonts/Roboto-Regular.ttf
+      - asset: assets/fonts/Roboto-Bold.ttf
+        weight: 700
