@@ -340,8 +340,8 @@ class CategoriesListItem extends StatelessWidget {
                 SizedBox(
                   width: 60,
                   child: Text(
-                    (category[Category().id] != null)
-                        ? category[Category().id].toString()
+                    (category[Category.id["database"]] != null)
+                        ? category[Category.id["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -358,8 +358,8 @@ class CategoriesListItem extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Text(
-                    (category[Category().name] != null)
-                        ? category[Category().name].toString()
+                    (category[Category.name["database"]] != null)
+                        ? category[Category.name["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,

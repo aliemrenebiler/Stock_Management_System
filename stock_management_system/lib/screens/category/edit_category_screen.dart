@@ -20,7 +20,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
   TextEditingController nameController = TextEditingController();
   @override
   void initState() {
-    nameController.text = editedItem[Category().name];
+    nameController.text = editedItem[Category.name["database"]];
     super.initState();
   }
 
@@ -148,9 +148,9 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
                                                       onPressed: () {
                                                         DatabaseService()
                                                             .deleteCategory(
-                                                                editedItem[
-                                                                    Category()
-                                                                        .id]);
+                                                                editedItem[Category
+                                                                        .id[
+                                                                    "database"]]);
                                                         Navigator
                                                             .pushReplacementNamed(
                                                                 context,
@@ -196,9 +196,9 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
                                     } else {
                                       DatabaseService().updateCategory(
                                         {
-                                          Category().id:
-                                              editedItem[Category().id],
-                                          Category().name:
+                                          Category.id["database"]: editedItem[
+                                              Category.id["database"]],
+                                          Category.name["database"]:
                                               (nameController.text.isEmpty)
                                                   ? null
                                                   : nameController.text,

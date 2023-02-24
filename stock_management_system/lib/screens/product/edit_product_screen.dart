@@ -130,11 +130,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
                                           child: CustomSelectionField(
-                                            selectionText:
-                                                (selectedItem == null)
-                                                    ? null
-                                                    : selectedItem![
-                                                        Category().name],
+                                            selectionText: (selectedItem ==
+                                                    null)
+                                                ? null
+                                                : selectedItem![
+                                                    Category.name["database"]],
                                             onPressed: () {
                                               editedItem[Product().name] =
                                                   nameController.text;
@@ -468,8 +468,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                               (brandController.text.isEmpty)
                                                   ? null
                                                   : brandController.text,
-                                          Product().categoryID:
-                                              selectedItem![Category().id],
+                                          Product().categoryID: selectedItem![
+                                              Category.id["database"]],
                                           Product().color:
                                               (colorController.text.isEmpty)
                                                   ? null

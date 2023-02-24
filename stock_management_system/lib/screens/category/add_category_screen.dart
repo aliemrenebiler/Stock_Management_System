@@ -117,8 +117,9 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                                     } else {
                                       DatabaseService().insertCategory(
                                         {
-                                          Category().id: null,
-                                          Category().name: nameController.text,
+                                          Category.id["database"]: null,
+                                          Category.name["database"]:
+                                              nameController.text,
                                         },
                                       );
                                       showCustomSnackBar(

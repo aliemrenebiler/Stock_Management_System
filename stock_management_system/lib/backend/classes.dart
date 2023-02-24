@@ -1,8 +1,23 @@
 class Category {
-  String tableName = "categories";
-  String id = "id";
-  String name = "name";
+  Category._();
+  static const Map<dynamic, dynamic> tableName = {
+    "database": "categories",
+    "en": "Categories",
+    "tr": "Kategoriler"
+  };
+  static const Map<dynamic, dynamic> id = {
+    "database": "id",
+    "en": "ID",
+    "tr": "ID"
+  };
+  static const Map<dynamic, dynamic> name = {
+    "database": "name",
+    "en": "Name",
+    "tr": "İsim"
+  };
 }
+
+// TODO: Change other classes too
 
 class Product {
   String tableName = "products";
@@ -52,8 +67,8 @@ class Sale {
 }
 
 Map<dynamic, dynamic> emptyCategory = {
-  Category().id: null,
-  Category().name: null,
+  Category.id["database"]: null,
+  Category.name["database"]: null,
 };
 
 Map<dynamic, dynamic> emptyProduct = {

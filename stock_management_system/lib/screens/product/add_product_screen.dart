@@ -196,8 +196,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                               selectionText:
                                                   (selectedItem == null)
                                                       ? null
-                                                      : selectedItem![
-                                                          Category().name],
+                                                      : selectedItem![Category
+                                                          .name["database"]],
                                               onPressed: () {
                                                 editedItem[Product().name] =
                                                     nameController.text;
@@ -462,8 +462,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                             (brandController.text.isEmpty)
                                                 ? null
                                                 : brandController.text,
-                                        Product().categoryID:
-                                            selectedItem![Category().id],
+                                        Product().categoryID: selectedItem![
+                                            Category.id["database"]],
                                         Product().color:
                                             (colorController.text.isEmpty)
                                                 ? null

@@ -80,9 +80,9 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      CREATE TABLE IF NOT EXISTS ${Category().tableName}(
-      ${Category().id} INTEGER PRIMARY KEY,
-      ${Category().name} TEXT not null
+      CREATE TABLE IF NOT EXISTS ${Category.tableName["database"]}(
+      ${Category.id["database"]} INTEGER PRIMARY KEY,
+      ${Category.name["database"]} TEXT not null
       )
       ''',
     );
@@ -93,7 +93,7 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      DROP TABLE IF EXISTS ${Category().tableName}
+      DROP TABLE IF EXISTS ${Category.tableName["database"]}
       ''',
     );
     database.dispose();
@@ -115,7 +115,7 @@ class DatabaseService {
       ${Product().price} REAL not null,
       ${Product().visible} INTEGER not null,
       FOREIGN KEY (${Product().categoryID})
-      REFERENCES ${Category().tableName}(${Category().id})
+      REFERENCES ${Category.tableName["database"]}(${Category.id["database"]})
       ON DELETE CASCADE
       )
       ''',
@@ -227,16 +227,16 @@ class DatabaseService {
   ) {
     String query;
     if (getCount) {
-      query = 'SELECT COUNT(*) FROM ${Category().tableName}';
+      query = 'SELECT COUNT(*) FROM ${Category.tableName["database"]}';
     } else {
-      query = 'SELECT * FROM ${Category().tableName}';
+      query = 'SELECT * FROM ${Category.tableName["database"]}';
     }
 
     bool isSearching = false;
 
     if (id != null) {
       isSearching = true;
-      query += ' WHERE ${Category().id}=$id';
+      query += ' WHERE ${Category.id["database"]}=$id';
     }
     if (name != null) {
       if (!isSearching) {
@@ -245,7 +245,7 @@ class DatabaseService {
       } else {
         query += ' AND';
       }
-      query += ' ${Category().name} LIKE "%$name%"';
+      query += ' ${Category.name["database"]} LIKE "%$name%"';
     }
 
     if (limit != null) {
@@ -270,14 +270,14 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      INSERT INTO ${Category().tableName}(
+      INSERT INTO ${Category.tableName["database"]}(
       ${Product().id},
       ${Product().name}
       ) VALUES(?,?)
       ''',
       [
-        category[Category().id] as int,
-        category[Category().name] as String,
+        category[Category.id["database"]] as int,
+        category[Category.name["database"]] as String,
       ],
     );
     database.dispose();
@@ -287,13 +287,13 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      UPDATE ${Category().tableName} SET
-      ${Category().name}=?
-      WHERE ${Category().id}=?
+      UPDATE ${Category.tableName["database"]} SET
+      ${Category.name["database"]}=?
+      WHERE ${Category.id["database"]}=?
       ''',
       [
-        category[Category().name] as String,
-        category[Category().id] as int,
+        category[Category.name["database"]] as String,
+        category[Category.id["database"]] as int,
       ],
     );
     database.dispose();
@@ -303,8 +303,8 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      DELETE FROM ${Category().tableName}
-      WHERE ${Category().id}=$id
+      DELETE FROM ${Category.tableName["database"]}
+      WHERE ${Category.id["database"]}=$id
       ''',
     );
     database.dispose();
@@ -332,7 +332,7 @@ class DatabaseService {
       query = '''
       SELECT ${Product().tableName}.${Product().id},
       ${Product().tableName}.${Product().categoryID},
-      ${Category().tableName}.${Category().name} AS ${Product().categoryName},
+      ${Category.tableName["database"]}.${Category.name["database"]} AS ${Product().categoryName},
       ${Product().tableName}.${Product().name},
       ${Product().tableName}.${Product().brand},
       ${Product().tableName}.${Product().color},
@@ -345,8 +345,8 @@ class DatabaseService {
     }
 
     query += '''
-      FROM ${Product().tableName}, ${Category().tableName}
-      WHERE ${Product().tableName}.${Product().categoryID}==${Category().tableName}.${Category().id}
+      FROM ${Product().tableName}, ${Category.tableName["database"]}
+      WHERE ${Product().tableName}.${Product().categoryID}==${Category.tableName["database"]}.${Category.id["database"]}
       ''';
 
     if (id != null) {
@@ -963,7 +963,7 @@ class ExcelService {
         // TODO: Get every data from the file
 
         // Check if all sheets are valid
-        if (!excel.sheets.keys.contains(Category().tableName) ||
+        if (!excel.sheets.keys.contains(Category.tableName["database"]) ||
             !excel.sheets.keys.contains(Product().tableName) ||
             !excel.sheets.keys.contains(Supplier().tableName) ||
             !excel.sheets.keys.contains(Purchase().tableName) ||
@@ -974,14 +974,16 @@ class ExcelService {
         Sheet sheet;
         int i;
 
-        sheet = excel.sheets[Category().tableName]!;
+        sheet = excel.sheets[Category.tableName["database"]]!;
         i = 2;
         while (sheet.cell(CellIndex.indexByString('A$i')).value != null ||
             sheet.cell(CellIndex.indexByString('B$i')).value != null) {
           DatabaseService().insertCategory(
             {
-              Category().id: sheet.cell(CellIndex.indexByString('A$i')).value,
-              Category().name: sheet.cell(CellIndex.indexByString('B$i')).value,
+              Category.id["database"]:
+                  sheet.cell(CellIndex.indexByString('A$i')).value,
+              Category.name["database"]:
+                  sheet.cell(CellIndex.indexByString('B$i')).value,
             },
           );
           i++;
@@ -1012,19 +1014,20 @@ class ExcelService {
       Map<dynamic, dynamic> item;
 
       // Create categories sheet
-      sheet = excel[Category().tableName];
-      sheet.cell(CellIndex.indexByString('A1')).value = Category().id;
-      sheet.cell(CellIndex.indexByString('B1')).value = Category().name;
+      sheet = excel[Category.tableName["database"]];
+      sheet.cell(CellIndex.indexByString('A1')).value = Category.id["database"];
+      sheet.cell(CellIndex.indexByString('B1')).value =
+          Category.name["database"];
       count = DatabaseService().getCategories(true, null, null, null, null);
       for (int i = 0; i < count; i++) {
         item = DatabaseService().getCategories(false, null, null, 1, i)[0];
-        if (item[Category().id] != null) {
+        if (item[Category.id["database"]] != null) {
           sheet.cell(CellIndex.indexByString('A${i + 2}')).value =
-              item[Category().id];
+              item[Category.id["database"]];
         }
-        if (item[Category().id] != null) {
+        if (item[Category.id["database"]] != null) {
           sheet.cell(CellIndex.indexByString('B${i + 2}')).value =
-              item[Category().name];
+              item[Category.name["database"]];
         }
       }
 
