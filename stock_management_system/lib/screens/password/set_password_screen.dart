@@ -9,7 +9,10 @@ import '../../widgets/custom_top_bar.dart';
 
 class SetPasswordScreen extends StatelessWidget {
   final Function() notifyParent;
-  const SetPasswordScreen({super.key, required this.notifyParent});
+  const SetPasswordScreen({
+    super.key,
+    required this.notifyParent,
+  });
 
   @override
   Widget build(BuildContext context) {

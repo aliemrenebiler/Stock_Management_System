@@ -83,7 +83,7 @@ getAll() {
 }
 
 class ListSalesScreen extends StatefulWidget {
-  const ListSalesScreen({Key? key}) : super(key: key);
+  const ListSalesScreen({super.key});
 
   @override
   State<ListSalesScreen> createState() => _ListSalesScreenState();
@@ -166,7 +166,10 @@ class _ListSalesScreenState extends State<ListSalesScreen> {
 
 class SalesListSearchBar extends StatelessWidget {
   final Function() notifyParent;
-  const SalesListSearchBar({super.key, required this.notifyParent});
+  const SalesListSearchBar({
+    super.key,
+    required this.notifyParent,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -74,7 +74,10 @@ getAll(bool listVisibleItems) {
 
 class ListProductsScreen extends StatefulWidget {
   final bool listVisibleItems;
-  const ListProductsScreen({super.key, required this.listVisibleItems});
+  const ListProductsScreen({
+    super.key,
+    required this.listVisibleItems,
+  });
 
   @override
   State<ListProductsScreen> createState() => _ListProductsScreenState();
@@ -375,7 +378,10 @@ class ProductsListSearchBar extends StatelessWidget {
 
 class ProductsListTitlesBar extends StatelessWidget {
   final bool listVisibleItems;
-  const ProductsListTitlesBar({super.key, required this.listVisibleItems});
+  const ProductsListTitlesBar({
+    super.key,
+    required this.listVisibleItems,
+  });
 
   @override
   Widget build(BuildContext context) {
