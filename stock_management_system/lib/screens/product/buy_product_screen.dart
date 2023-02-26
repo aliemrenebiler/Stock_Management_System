@@ -100,7 +100,7 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                           child: CustomStableField(
                                             height: 50,
                                             selectionText:
-                                                "[${stableItem[Product().id]}] ${stableItem[Product().name]}",
+                                                "[${stableItem[Product.id["database"]]}] ${stableItem[Product.name["database"]]}",
                                           ),
                                         ),
                                       ),
@@ -129,8 +129,8 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                           padding: const EdgeInsets.all(5),
                                           child: CustomStableField(
                                             height: 50,
-                                            selectionText:
-                                                stableItem[Product().brand],
+                                            selectionText: stableItem[
+                                                Product.brand["database"]],
                                           ),
                                         ),
                                       ),
@@ -159,8 +159,8 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                           padding: const EdgeInsets.all(5),
                                           child: CustomStableField(
                                             height: 50,
-                                            selectionText: stableItem[
-                                                Product().categoryName],
+                                            selectionText: stableItem[Product
+                                                .categoryName["database"]],
                                           ),
                                         ),
                                       ),
@@ -189,8 +189,8 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                           padding: const EdgeInsets.all(5),
                                           child: CustomStableField(
                                             height: 50,
-                                            selectionText:
-                                                stableItem[Product().color],
+                                            selectionText: stableItem[
+                                                Product.color["database"]],
                                           ),
                                         ),
                                       ),
@@ -219,15 +219,16 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                           padding: const EdgeInsets.all(5),
                                           child: CustomStableField(
                                             height: 50,
-                                            selectionText: (stableItem[
-                                                        Product().size] ==
+                                            selectionText: (stableItem[Product
+                                                        .size["database"]] ==
                                                     null)
                                                 ? null
-                                                : (stableItem[Product()
-                                                            .sizeType] ==
+                                                : (stableItem[Product.sizeUnit[
+                                                            "database"]] ==
                                                         null)
-                                                    ? stableItem[Product().size]
-                                                    : "${stableItem[Product().size]} (${stableItem[Product().sizeType]})",
+                                                    ? stableItem[Product
+                                                        .size["database"]]
+                                                    : "${stableItem[Product.size["database"]]} (${stableItem[Product.sizeUnit["database"]]})",
                                           ),
                                         ),
                                       ),
@@ -473,8 +474,8 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                               (selectedItem != null)
                                                   ? selectedItem![Supplier().id]
                                                   : null,
-                                          Purchase().productID:
-                                              stableItem[Product().id],
+                                          Purchase().productID: stableItem[
+                                              Product.id["database"]],
                                           Purchase().price: double.parse(
                                               priceController.text),
                                           Purchase().amount:
@@ -484,27 +485,31 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                       );
                                       DatabaseService().updateProduct(
                                         {
-                                          Product().id:
-                                              stableItem[Product().id],
-                                          Product().name:
-                                              stableItem[Product().name],
-                                          Product().brand:
-                                              stableItem[Product().brand],
-                                          Product().categoryID:
-                                              stableItem[Product().categoryID],
-                                          Product().color:
-                                              stableItem[Product().color],
-                                          Product().size:
-                                              stableItem[Product().size],
-                                          Product().sizeType:
-                                              stableItem[Product().sizeType],
-                                          Product().price:
-                                              stableItem[Product().price],
-                                          Product().amount: stableItem[
-                                                  Product().amount] +
+                                          Product.id["database"]: stableItem[
+                                              Product.id["database"]],
+                                          Product.name["database"]: stableItem[
+                                              Product.name["database"]],
+                                          Product.brand["database"]: stableItem[
+                                              Product.brand["database"]],
+                                          Product.categoryID["database"]:
+                                              stableItem[Product
+                                                  .categoryID["database"]],
+                                          Product.color["database"]: stableItem[
+                                              Product.color["database"]],
+                                          Product.size["database"]: stableItem[
+                                              Product.size["database"]],
+                                          Product.sizeUnit["database"]:
+                                              stableItem[
+                                                  Product.sizeUnit["database"]],
+                                          Product.price["database"]: stableItem[
+                                              Product.price["database"]],
+                                          Product
+                                              .amount["database"]: stableItem[
+                                                  Product.amount["database"]] +
                                               int.parse(amountController.text),
-                                          Product().visible:
-                                              stableItem[Product().visible],
+                                          Product.visible["database"]:
+                                              stableItem[
+                                                  Product.visible["database"]],
                                         },
                                       );
                                       showCustomSnackBar(

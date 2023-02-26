@@ -760,8 +760,8 @@ class PurchasesListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (purchase[Product().brand] != null)
-                        ? purchase[Product().brand].toString()
+                    (purchase[Product.brand["database"]] != null)
+                        ? purchase[Product.brand["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -778,8 +778,8 @@ class PurchasesListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (purchase[Product().color] != null)
-                        ? purchase[Product().color].toString()
+                    (purchase[Product.color["database"]] != null)
+                        ? purchase[Product.color["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -796,11 +796,11 @@ class PurchasesListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (purchase[Product().size] == null)
+                    (purchase[Product.size["database"]] == null)
                         ? "-"
-                        : (purchase[Product().sizeType] == null)
-                            ? purchase[Product().size]
-                            : "${purchase[Product().size]} (${purchase[Product().sizeType]})",
+                        : (purchase[Product.sizeUnit["database"]] == null)
+                            ? purchase[Product.size["database"]]
+                            : "${purchase[Product.size["database"]]} (${purchase[Product.sizeUnit["database"]]})",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(

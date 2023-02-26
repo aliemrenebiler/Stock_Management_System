@@ -61,7 +61,7 @@ class DatabaseService {
       FROM sqlite_master
       WHERE type="table"
       AND (
-      name="${Product().tableName}"
+      name="${Product.tableName["database"]}"
       OR name="${Supplier().tableName}"
       OR name="${Purchase().tableName}"
       OR name="${Sale().tableName}"
@@ -103,18 +103,18 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      CREATE TABLE IF NOT EXISTS ${Product().tableName}(
-      ${Product().id} INTEGER PRIMARY KEY,
-      ${Product().categoryID} INTEGER not null,
-      ${Product().name} TEXT not null,
-      ${Product().brand} TEXT,
-      ${Product().color} TEXT,
-      ${Product().size} TEXT,
-      ${Product().sizeType} TEXT,
-      ${Product().amount} INTEGER not null,
-      ${Product().price} REAL not null,
-      ${Product().visible} INTEGER not null,
-      FOREIGN KEY (${Product().categoryID})
+      CREATE TABLE IF NOT EXISTS ${Product.tableName["database"]}(
+      ${Product.id["database"]} INTEGER PRIMARY KEY,
+      ${Product.categoryID["database"]} INTEGER not null,
+      ${Product.name["database"]} TEXT not null,
+      ${Product.brand["database"]} TEXT,
+      ${Product.color["database"]} TEXT,
+      ${Product.size["database"]} TEXT,
+      ${Product.sizeUnit["database"]} TEXT,
+      ${Product.amount["database"]} INTEGER not null,
+      ${Product.price["database"]} REAL not null,
+      ${Product.visible["database"]} INTEGER not null,
+      FOREIGN KEY (${Product.categoryID["database"]})
       REFERENCES ${Category.tableName["database"]}(${Category.id["database"]})
       ON DELETE CASCADE
       )
@@ -127,7 +127,7 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      DROP TABLE IF EXISTS ${Product().tableName}
+      DROP TABLE IF EXISTS ${Product.tableName["database"]}
       ''',
     );
     database.dispose();
@@ -173,7 +173,7 @@ class DatabaseService {
       REFERENCES ${Supplier().tableName}(${Supplier().id})
       ON DELETE CASCADE,
       FOREIGN KEY (${Purchase().productID})
-      REFERENCES ${Product().tableName}(${Product().id})
+      REFERENCES ${Product.tableName["database"]}(${Product.id["database"]})
       ON DELETE CASCADE
       )
       ''',
@@ -200,7 +200,7 @@ class DatabaseService {
       ${Sale().price} REAL not null,
       ${Sale().date} DATE not null,
       FOREIGN KEY (${Sale().productID})
-      REFERENCES ${Product().tableName}(${Product().id})
+      REFERENCES ${Product.tableName["database"]}(${Product.id["database"]})
       ON DELETE CASCADE
       )
       ''',
@@ -271,8 +271,8 @@ class DatabaseService {
     database.execute(
       '''
       INSERT INTO ${Category.tableName["database"]}(
-      ${Product().id},
-      ${Product().name}
+      ${Product.id["database"]},
+      ${Product.name["database"]}
       ) VALUES(?,?)
       ''',
       [
@@ -330,54 +330,54 @@ class DatabaseService {
       ''';
     } else {
       query = '''
-      SELECT ${Product().tableName}.${Product().id},
-      ${Product().tableName}.${Product().categoryID},
-      ${Category.tableName["database"]}.${Category.name["database"]} AS ${Product().categoryName},
-      ${Product().tableName}.${Product().name},
-      ${Product().tableName}.${Product().brand},
-      ${Product().tableName}.${Product().color},
-      ${Product().tableName}.${Product().size},
-      ${Product().tableName}.${Product().sizeType},
-      ${Product().tableName}.${Product().price},
-      ${Product().tableName}.${Product().amount},
-      ${Product().tableName}.${Product().visible}
+      SELECT ${Product.tableName["database"]}.${Product.id["database"]},
+      ${Product.tableName["database"]}.${Product.categoryID["database"]},
+      ${Category.tableName["database"]}.${Category.name["database"]} AS ${Product.categoryName["database"]},
+      ${Product.tableName["database"]}.${Product.name["database"]},
+      ${Product.tableName["database"]}.${Product.brand["database"]},
+      ${Product.tableName["database"]}.${Product.color["database"]},
+      ${Product.tableName["database"]}.${Product.size["database"]},
+      ${Product.tableName["database"]}.${Product.sizeUnit["database"]},
+      ${Product.tableName["database"]}.${Product.price["database"]},
+      ${Product.tableName["database"]}.${Product.amount["database"]},
+      ${Product.tableName["database"]}.${Product.visible["database"]}
       ''';
     }
 
     query += '''
-      FROM ${Product().tableName}, ${Category.tableName["database"]}
-      WHERE ${Product().tableName}.${Product().categoryID}==${Category.tableName["database"]}.${Category.id["database"]}
+      FROM ${Product.tableName["database"]}, ${Category.tableName["database"]}
+      WHERE ${Product.tableName["database"]}.${Product.categoryID["database"]}==${Category.tableName["database"]}.${Category.id["database"]}
       ''';
 
     if (id != null) {
-      query += ' AND ${Product().id}=$id';
+      query += ' AND ${Product.id["database"]}=$id';
     }
     if (name != null) {
-      query += ' AND ${Product().name} LIKE "%$name%"';
+      query += ' AND ${Product.name["database"]} LIKE "%$name%"';
     }
     if (spec != null) {
-      query += ''' AND (${Product().brand} LIKE "%$spec%"
-          OR ${Product().categoryName} LIKE "%$spec%"
-          OR ${Product().color} LIKE "%$spec%"
-          OR ${Product().size} LIKE "%$spec%"
-          OR ${Product().sizeType} LIKE "%$spec%"
+      query += ''' AND (${Product.brand["database"]} LIKE "%$spec%"
+          OR ${Product.categoryName["database"]} LIKE "%$spec%"
+          OR ${Product.color["database"]} LIKE "%$spec%"
+          OR ${Product.size["database"]} LIKE "%$spec%"
+          OR ${Product.sizeUnit["database"]} LIKE "%$spec%"
           )
           ''';
     }
     if (minPrice != null) {
-      query += ' AND ${Product().price}>=$minPrice';
+      query += ' AND ${Product.price["database"]}>=$minPrice';
     }
     if (maxPrice != null) {
-      query += ' AND ${Product().price}<=$maxPrice';
+      query += ' AND ${Product.price["database"]}<=$maxPrice';
     }
     if (minAmount != null) {
-      query += ' AND ${Product().amount}>=$minAmount';
+      query += ' AND ${Product.amount["database"]}>=$minAmount';
     }
     if (maxAmount != null) {
-      query += ' AND ${Product().amount}<=$maxAmount';
+      query += ' AND ${Product.amount["database"]}<=$maxAmount';
     }
     if (visible != null) {
-      query += ' AND ${Product().visible}==$visible';
+      query += ' AND ${Product.visible["database"]}==$visible';
     }
 
     if (limit != null) {
@@ -402,30 +402,30 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      INSERT INTO ${Product().tableName}(
-      ${Product().id},
-      ${Product().name},
-      ${Product().brand},
-      ${Product().categoryID},
-      ${Product().color},
-      ${Product().size},
-      ${Product().sizeType},
-      ${Product().amount},
-      ${Product().price},
-      ${Product().visible}
+      INSERT INTO ${Product.tableName["database"]}(
+      ${Product.id["database"]},
+      ${Product.name["database"]},
+      ${Product.brand["database"]},
+      ${Product.categoryID["database"]},
+      ${Product.color["database"]},
+      ${Product.size["database"]},
+      ${Product.sizeUnit["database"]},
+      ${Product.amount["database"]},
+      ${Product.price["database"]},
+      ${Product.visible["database"]}
       ) VALUES(?,?,?,?,?,?,?,?,?,?)
       ''',
       [
-        product[Product().id] as int,
-        product[Product().name] as String,
-        product[Product().brand] as String,
-        product[Product().categoryID] as int,
-        product[Product().color] as String,
-        product[Product().size] as String,
-        product[Product().sizeType] as String,
-        product[Product().amount] as int,
-        product[Product().price] as double,
-        product[Product().visible] as int,
+        product[Product.id["database"]] as int,
+        product[Product.name["database"]] as String,
+        product[Product.brand["database"]] as String,
+        product[Product.categoryID["database"]] as int,
+        product[Product.color["database"]] as String,
+        product[Product.size["database"]] as String,
+        product[Product.sizeUnit["database"]] as String,
+        product[Product.amount["database"]] as int,
+        product[Product.price["database"]] as double,
+        product[Product.visible["database"]] as int,
       ],
     );
     database.dispose();
@@ -435,29 +435,29 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      UPDATE ${Product().tableName} SET
-      ${Product().name}=?,
-      ${Product().brand}=?,
-      ${Product().categoryID}=?,
-      ${Product().color}=?,
-      ${Product().size}=?,
-      ${Product().sizeType}=?,
-      ${Product().amount}=?,
-      ${Product().price}=?,
-      ${Product().visible}=?
-      WHERE ${Product().id}=?
+      UPDATE ${Product.tableName["database"]} SET
+      ${Product.name["database"]}=?,
+      ${Product.brand["database"]}=?,
+      ${Product.categoryID["database"]}=?,
+      ${Product.color["database"]}=?,
+      ${Product.size["database"]}=?,
+      ${Product.sizeUnit["database"]}=?,
+      ${Product.amount["database"]}=?,
+      ${Product.price["database"]}=?,
+      ${Product.visible["database"]}=?
+      WHERE ${Product.id["database"]}=?
       ''',
       [
-        product[Product().name] as String,
-        product[Product().brand] as String,
-        product[Product().categoryID] as int,
-        product[Product().color] as String,
-        product[Product().size] as String,
-        product[Product().sizeType] as String,
-        product[Product().amount] as int,
-        product[Product().price] as double,
-        product[Product().visible] as int,
-        product[Product().id] as int,
+        product[Product.name["database"]] as String,
+        product[Product.brand["database"]] as String,
+        product[Product.categoryID["database"]] as int,
+        product[Product.color["database"]] as String,
+        product[Product.size["database"]] as String,
+        product[Product.sizeUnit["database"]] as String,
+        product[Product.amount["database"]] as int,
+        product[Product.price["database"]] as double,
+        product[Product.visible["database"]] as int,
+        product[Product.id["database"]] as int,
       ],
     );
     database.dispose();
@@ -467,8 +467,8 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      DELETE FROM ${Product().tableName}
-      WHERE ${Product().id}=$id
+      DELETE FROM ${Product.tableName["database"]}
+      WHERE ${Product.id["database"]}=$id
       ''',
     );
     database.dispose();
@@ -478,9 +478,9 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      UPDATE ${Product().tableName} SET
-      ${Product().visible}=?
-      WHERE ${Product().id}=?
+      UPDATE ${Product.tableName["database"]} SET
+      ${Product.visible["database"]}=?
+      WHERE ${Product.id["database"]}=?
       ''',
       [
         visible ? 1 : 0,
@@ -619,14 +619,14 @@ class DatabaseService {
         ${Purchase().tableName}.${Purchase().date},
         STRFTIME('%d.%m.%Y', ${Purchase().tableName}.${Purchase().date})
         AS ${Purchase().formattedDate},
-        ${Product().tableName}.${Product().name} AS ${Purchase().productName},
-        ${Product().tableName}.${Product().brand},
-        ${Product().tableName}.${Product().color},
-        ${Product().tableName}.${Product().size},
-        ${Product().tableName}.${Product().sizeType},
+        ${Product.tableName["database"]}.${Product.name["database"]} AS ${Purchase().productName},
+        ${Product.tableName["database"]}.${Product.brand["database"]},
+        ${Product.tableName["database"]}.${Product.color["database"]},
+        ${Product.tableName["database"]}.${Product.size["database"]},
+        ${Product.tableName["database"]}.${Product.sizeUnit["database"]},
         NULL AS ${Purchase().supplierName}
-        FROM ${Purchase().tableName}, ${Product().tableName}
-        WHERE ${Purchase().tableName}.${Purchase().productID}==${Product().tableName}.${Product().id}
+        FROM ${Purchase().tableName}, ${Product.tableName["database"]}
+        WHERE ${Purchase().tableName}.${Purchase().productID}==${Product.tableName["database"]}.${Product.id["database"]}
         AND ${Purchase().tableName}.${Purchase().supplierID} IS NULL
         """;
 
@@ -640,14 +640,14 @@ class DatabaseService {
         ${Purchase().tableName}.${Purchase().date},
         STRFTIME('%d.%m.%Y', ${Purchase().tableName}.${Purchase().date})
         AS ${Purchase().formattedDate},
-        ${Product().tableName}.${Product().name} AS ${Purchase().productName},
-        ${Product().tableName}.${Product().brand},
-        ${Product().tableName}.${Product().color},
-        ${Product().tableName}.${Product().size},
-        ${Product().tableName}.${Product().sizeType},
+        ${Product.tableName["database"]}.${Product.name["database"]} AS ${Purchase().productName},
+        ${Product.tableName["database"]}.${Product.brand["database"]},
+        ${Product.tableName["database"]}.${Product.color["database"]},
+        ${Product.tableName["database"]}.${Product.size["database"]},
+        ${Product.tableName["database"]}.${Product.sizeUnit["database"]},
         ${Supplier().tableName}.${Supplier().name} AS ${Purchase().supplierName}
-        FROM ${Purchase().tableName}, ${Product().tableName}, ${Supplier().tableName}
-        WHERE ${Purchase().tableName}.${Purchase().productID}==${Product().tableName}.${Product().id}
+        FROM ${Purchase().tableName}, ${Product.tableName["database"]}, ${Supplier().tableName}
+        WHERE ${Purchase().tableName}.${Purchase().productID}==${Product.tableName["database"]}.${Product.id["database"]}
         AND ${Purchase().tableName}.${Purchase().supplierID}==${Supplier().tableName}.${Supplier().id}
         """;
 
@@ -835,11 +835,11 @@ class DatabaseService {
       ${Sale().tableName}.${Sale().price},
       ${Sale().tableName}.${Sale().amount},
       ${Sale().tableName}.${Sale().productID},
-      ${Product().tableName}.${Product().name} AS ${Sale().productName},
-      ${Product().tableName}.${Product().brand},
-      ${Product().tableName}.${Product().color},
-      ${Product().tableName}.${Product().size},
-      ${Product().tableName}.${Product().sizeType},
+      ${Product.tableName["database"]}.${Product.name["database"]} AS ${Sale().productName},
+      ${Product.tableName["database"]}.${Product.brand["database"]},
+      ${Product.tableName["database"]}.${Product.color["database"]},
+      ${Product.tableName["database"]}.${Product.size["database"]},
+      ${Product.tableName["database"]}.${Product.sizeUnit["database"]},
       ${Sale().tableName}.${Sale().date},
       STRFTIME('%d.%m.%Y', ${Sale().tableName}.${Sale().date})
       AS ${Sale().formattedDate}
@@ -847,8 +847,8 @@ class DatabaseService {
     }
 
     query += '''
-    FROM ${Sale().tableName}, ${Product().tableName}
-    WHERE ${Sale().tableName}.${Sale().productID}==${Product().tableName}.${Product().id}
+    FROM ${Sale().tableName}, ${Product.tableName["database"]}
+    WHERE ${Sale().tableName}.${Sale().productID}==${Product.tableName["database"]}.${Product.id["database"]}
     ''';
 
     if (id != null) {
@@ -964,7 +964,7 @@ class ExcelService {
 
         // Check if all sheets are valid
         if (!excel.sheets.keys.contains(Category.tableName["database"]) ||
-            !excel.sheets.keys.contains(Product().tableName) ||
+            !excel.sheets.keys.contains(Product.tableName["database"]) ||
             !excel.sheets.keys.contains(Supplier().tableName) ||
             !excel.sheets.keys.contains(Purchase().tableName) ||
             !excel.sheets.keys.contains(Sale().tableName)) {
@@ -1032,61 +1032,70 @@ class ExcelService {
       }
 
       // Create products sheet
-      sheet = excel[Product().tableName];
-      sheet.cell(CellIndex.indexByString('A1')).value = Product().id;
-      sheet.cell(CellIndex.indexByString('B1')).value = Product().name;
-      sheet.cell(CellIndex.indexByString('C1')).value = Product().categoryID;
-      sheet.cell(CellIndex.indexByString('D1')).value = Product().brand;
-      sheet.cell(CellIndex.indexByString('E1')).value = Product().color;
-      sheet.cell(CellIndex.indexByString('F1')).value = Product().size;
-      sheet.cell(CellIndex.indexByString('G1')).value = Product().sizeType;
-      sheet.cell(CellIndex.indexByString('H1')).value = Product().price;
-      sheet.cell(CellIndex.indexByString('I1')).value = Product().amount;
-      sheet.cell(CellIndex.indexByString('J1')).value = Product().visible;
+      sheet = excel[Product.tableName["database"]];
+      sheet.cell(CellIndex.indexByString('A1')).value = Product.id["database"];
+      sheet.cell(CellIndex.indexByString('B1')).value =
+          Product.name["database"];
+      sheet.cell(CellIndex.indexByString('C1')).value =
+          Product.categoryID["database"];
+      sheet.cell(CellIndex.indexByString('D1')).value =
+          Product.brand["database"];
+      sheet.cell(CellIndex.indexByString('E1')).value =
+          Product.color["database"];
+      sheet.cell(CellIndex.indexByString('F1')).value =
+          Product.size["database"];
+      sheet.cell(CellIndex.indexByString('G1')).value =
+          Product.sizeUnit["database"];
+      sheet.cell(CellIndex.indexByString('H1')).value =
+          Product.price["database"];
+      sheet.cell(CellIndex.indexByString('I1')).value =
+          Product.amount["database"];
+      sheet.cell(CellIndex.indexByString('J1')).value =
+          Product.visible["database"];
       count = DatabaseService().getProducts(
           true, null, null, null, null, null, null, null, null, null, null);
       for (int i = 0; i < count; i++) {
         item = DatabaseService().getProducts(
             false, null, null, null, null, null, null, null, null, 1, i)[0];
-        if (item[Product().id] != null) {
+        if (item[Product.id["database"]] != null) {
           sheet.cell(CellIndex.indexByString('A${i + 2}')).value =
-              item[Product().id];
+              item[Product.id["database"]];
         }
-        if (item[Product().name] != null) {
+        if (item[Product.name["database"]] != null) {
           sheet.cell(CellIndex.indexByString('B${i + 2}')).value =
-              item[Product().name];
+              item[Product.name["database"]];
         }
-        if (item[Product().categoryID] != null) {
+        if (item[Product.categoryID["database"]] != null) {
           sheet.cell(CellIndex.indexByString('C${i + 2}')).value =
-              item[Product().categoryID];
+              item[Product.categoryID["database"]];
         }
-        if (item[Product().brand] != null) {
+        if (item[Product.brand["database"]] != null) {
           sheet.cell(CellIndex.indexByString('D${i + 2}')).value =
-              item[Product().brand];
+              item[Product.brand["database"]];
         }
-        if (item[Product().color] != null) {
+        if (item[Product.color["database"]] != null) {
           sheet.cell(CellIndex.indexByString('E${i + 2}')).value =
-              item[Product().color];
+              item[Product.color["database"]];
         }
-        if (item[Product().size] != null) {
+        if (item[Product.size["database"]] != null) {
           sheet.cell(CellIndex.indexByString('F${i + 2}')).value =
-              item[Product().size];
+              item[Product.size["database"]];
         }
-        if (item[Product().sizeType] != null) {
+        if (item[Product.sizeUnit["database"]] != null) {
           sheet.cell(CellIndex.indexByString('G${i + 2}')).value =
-              item[Product().sizeType];
+              item[Product.sizeUnit["database"]];
         }
-        if (item[Product().price] != null) {
+        if (item[Product.price["database"]] != null) {
           sheet.cell(CellIndex.indexByString('H${i + 2}')).value =
-              item[Product().price];
+              item[Product.price["database"]];
         }
-        if (item[Product().amount] != null) {
+        if (item[Product.amount["database"]] != null) {
           sheet.cell(CellIndex.indexByString('I${i + 2}')).value =
-              item[Product().amount];
+              item[Product.amount["database"]];
         }
-        if (item[Product().visible] != null) {
+        if (item[Product.visible["database"]] != null) {
           sheet.cell(CellIndex.indexByString('J${i + 2}')).value =
-              item[Product().visible];
+              item[Product.visible["database"]];
         }
       }
 
@@ -1237,10 +1246,10 @@ validDate(String day, String month, String year) {
 
 autoFill(String name) {
   Map<dynamic, dynamic> product = {
-    Product().brand: null,
-    Product().color: null,
-    Product().size: null,
-    Product().sizeType: null,
+    Product.brand["database"]: null,
+    Product.color["database"]: null,
+    Product.size["database"]: null,
+    Product.sizeUnit["database"]: null,
   };
 
   RegExp brandExp = RegExp(
@@ -1264,22 +1273,22 @@ autoFill(String name) {
   if (match != null) {
     String brand = match[0]!.trim();
     brand = brand.split(" ")[0];
-    product[Product().brand] = brand;
+    product[Product.brand["database"]] = brand;
   }
 
   match = colorExp.firstMatch(name);
   if (match != null) {
     String color = match[0]!.trim();
     color = color.split(" ")[0];
-    product[Product().color] = color;
+    product[Product.color["database"]] = color;
   }
 
   match = sizeExp.firstMatch(name);
   if (match != null) {
     String fullSize = match[0]!.trim();
     List<String> splittedSize = fullSize.split(" ");
-    product[Product().size] = splittedSize[0];
-    product[Product().sizeType] = splittedSize[1];
+    product[Product.size["database"]] = splittedSize[0];
+    product[Product.sizeUnit["database"]] = splittedSize[1];
   }
 
   return product;

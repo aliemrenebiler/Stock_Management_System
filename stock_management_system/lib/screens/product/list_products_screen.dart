@@ -603,8 +603,8 @@ class ProductsListItem extends StatelessWidget {
                 SizedBox(
                   width: 60,
                   child: Text(
-                    (product[Product().id] != null)
-                        ? product[Product().id].toString()
+                    (product[Product.id["database"]] != null)
+                        ? product[Product.id["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -621,8 +621,8 @@ class ProductsListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (product[Product().name] != null)
-                        ? product[Product().name].toString()
+                    (product[Product.name["database"]] != null)
+                        ? product[Product.name["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -639,8 +639,8 @@ class ProductsListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (product[Product().categoryName] != null)
-                        ? product[Product().categoryName].toString()
+                    (product[Product.categoryName["database"]] != null)
+                        ? product[Product.categoryName["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -657,8 +657,8 @@ class ProductsListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (product[Product().brand] != null)
-                        ? product[Product().brand].toString()
+                    (product[Product.brand["database"]] != null)
+                        ? product[Product.brand["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -675,8 +675,8 @@ class ProductsListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (product[Product().color] != null)
-                        ? product[Product().color].toString()
+                    (product[Product.color["database"]] != null)
+                        ? product[Product.color["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -693,11 +693,11 @@ class ProductsListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (product[Product().size] == null)
+                    (product[Product.size["database"]] == null)
                         ? "-"
-                        : (product[Product().sizeType] == null)
-                            ? product[Product().size]
-                            : "${product[Product().size]} (${product[Product().sizeType]})",
+                        : (product[Product.sizeUnit["database"]] == null)
+                            ? product[Product.size["database"]]
+                            : "${product[Product.size["database"]]} (${product[Product.sizeUnit["database"]]})",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -713,8 +713,8 @@ class ProductsListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (product[Product().price] != null)
-                        ? product[Product().price].toString()
+                    (product[Product.price["database"]] != null)
+                        ? product[Product.price["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -731,8 +731,8 @@ class ProductsListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (product[Product().amount] != null)
-                        ? product[Product().amount].toString()
+                    (product[Product.amount["database"]] != null)
+                        ? product[Product.amount["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -762,7 +762,7 @@ class ProductsListItem extends StatelessWidget {
                                   selectedItem =
                                       DatabaseService().getCategories(
                                     false,
-                                    editedItem[Product().categoryID],
+                                    editedItem[Product.categoryID["database"]],
                                     null,
                                     null,
                                     null,
@@ -872,7 +872,8 @@ class ProductsListItem extends StatelessWidget {
                                                     onPressed: () {
                                                       DatabaseService()
                                                           .deleteProduct(
-                                                        product[Product().id],
+                                                        product[Product
+                                                            .id["database"]],
                                                       );
                                                       currentPage = 1;
                                                       getAll(listVisibleItems);
@@ -952,7 +953,8 @@ class ProductsListItem extends StatelessWidget {
                                                     onPressed: () {
                                                       DatabaseService()
                                                           .changeProductVisibility(
-                                                        product[Product().id],
+                                                        product[Product
+                                                            .id["database"]],
                                                         true,
                                                       );
                                                       currentPage = 1;

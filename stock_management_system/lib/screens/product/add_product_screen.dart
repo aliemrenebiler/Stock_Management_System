@@ -31,13 +31,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   @override
   void initState() {
-    nameController.text = editedItem[Product().name];
-    brandController.text = editedItem[Product().brand];
-    colorController.text = editedItem[Product().color];
-    sizeController.text = editedItem[Product().size];
-    sizeTypeController.text = editedItem[Product().sizeType];
-    priceController.text = editedItem[Product().price];
-    amountController.text = editedItem[Product().amount];
+    nameController.text = editedItem[Product.name["database"]];
+    brandController.text = editedItem[Product.brand["database"]];
+    colorController.text = editedItem[Product.color["database"]];
+    sizeController.text = editedItem[Product.size["database"]];
+    sizeTypeController.text = editedItem[Product.sizeUnit["database"]];
+    priceController.text = editedItem[Product.price["database"]];
+    amountController.text = editedItem[Product.amount["database"]];
     super.initState();
   }
 
@@ -106,36 +106,38 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                     autoProduct = autoFill(
                                                         nameController.text);
 
-                                                if (autoProduct[
-                                                        Product().brand] !=
+                                                if (autoProduct[Product
+                                                        .brand["database"]] !=
                                                     null) {
                                                   brandController.text =
-                                                      autoProduct[
-                                                          Product().brand];
+                                                      autoProduct[Product
+                                                          .brand["database"]];
                                                 }
 
-                                                if (autoProduct[
-                                                        Product().color] !=
+                                                if (autoProduct[Product
+                                                        .color["database"]] !=
                                                     null) {
                                                   colorController.text =
-                                                      autoProduct[
-                                                          Product().color];
+                                                      autoProduct[Product
+                                                          .color["database"]];
                                                 }
 
-                                                if (autoProduct[
-                                                        Product().size] !=
+                                                if (autoProduct[Product
+                                                        .size["database"]] !=
                                                     null) {
                                                   sizeController.text =
-                                                      autoProduct[
-                                                          Product().size];
+                                                      autoProduct[Product
+                                                          .size["database"]];
                                                 }
 
                                                 if (autoProduct[
-                                                        Product().sizeType] !=
+                                                        Product.sizeUnit[
+                                                            "database"]] !=
                                                     null) {
                                                   sizeTypeController.text =
                                                       autoProduct[
-                                                          Product().sizeType];
+                                                          Product.sizeUnit[
+                                                              "database"]];
                                                 }
                                               },
                                               bgColor: YMColors().red,
@@ -199,19 +201,26 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                       : selectedItem![Category
                                                           .name["database"]],
                                               onPressed: () {
-                                                editedItem[Product().name] =
+                                                editedItem[Product
+                                                        .name["database"]] =
                                                     nameController.text;
-                                                editedItem[Product().brand] =
+                                                editedItem[Product
+                                                        .brand["database"]] =
                                                     brandController.text;
-                                                editedItem[Product().color] =
+                                                editedItem[Product
+                                                        .color["database"]] =
                                                     colorController.text;
-                                                editedItem[Product().size] =
+                                                editedItem[Product
+                                                        .size["database"]] =
                                                     sizeController.text;
-                                                editedItem[Product().sizeType] =
+                                                editedItem[Product
+                                                        .sizeUnit["database"]] =
                                                     sizeTypeController.text;
-                                                editedItem[Product().price] =
+                                                editedItem[Product
+                                                        .price["database"]] =
                                                     priceController.text;
-                                                editedItem[Product().amount] =
+                                                editedItem[Product
+                                                        .amount["database"]] =
                                                     amountController.text;
                                                 routeStack.add("/add_product");
                                                 Navigator.pushReplacementNamed(
@@ -456,31 +465,33 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                       );
                                     } else {
                                       DatabaseService().insertProduct({
-                                        Product().id: null,
-                                        Product().name: nameController.text,
-                                        Product().brand:
+                                        Product.id["database"]: null,
+                                        Product.name["database"]:
+                                            nameController.text,
+                                        Product.brand["database"]:
                                             (brandController.text.isEmpty)
                                                 ? null
                                                 : brandController.text,
-                                        Product().categoryID: selectedItem![
-                                            Category.id["database"]],
-                                        Product().color:
+                                        Product.categoryID["database"]:
+                                            selectedItem![
+                                                Category.id["database"]],
+                                        Product.color["database"]:
                                             (colorController.text.isEmpty)
                                                 ? null
                                                 : colorController.text,
-                                        Product().size:
+                                        Product.size["database"]:
                                             (sizeController.text.isEmpty)
                                                 ? null
                                                 : sizeController.text,
-                                        Product().sizeType:
+                                        Product.sizeUnit["database"]:
                                             (sizeTypeController.text.isEmpty)
                                                 ? null
                                                 : sizeTypeController.text,
-                                        Product().price:
+                                        Product.price["database"]:
                                             double.parse(priceController.text),
-                                        Product().amount:
+                                        Product.amount["database"]:
                                             int.parse(amountController.text),
-                                        Product().visible: 1,
+                                        Product.visible["database"]: 1,
                                       });
                                       showCustomSnackBar(
                                         context,

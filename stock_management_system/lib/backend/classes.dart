@@ -3,36 +3,85 @@ class Category {
   static const Map<dynamic, dynamic> tableName = {
     "database": "categories",
     "en": "Categories",
-    "tr": "Kategoriler"
+    "tr": "Kategoriler",
   };
   static const Map<dynamic, dynamic> id = {
     "database": "id",
     "en": "ID",
-    "tr": "ID"
+    "tr": "ID",
   };
   static const Map<dynamic, dynamic> name = {
     "database": "name",
     "en": "Name",
-    "tr": "İsim"
+    "tr": "İsim",
+  };
+}
+
+class Product {
+  Product._();
+  static const Map<dynamic, dynamic> tableName = {
+    "database": "products",
+    "en": "Products",
+    "tr": "Ürünler",
+  };
+  static const Map<dynamic, dynamic> id = {
+    "database": "id",
+    "en": "ID",
+    "tr": "ID",
+  };
+  static const Map<dynamic, dynamic> name = {
+    "database": "name",
+    "en": "Name",
+    "tr": "İsim",
+  };
+  static const Map<dynamic, dynamic> categoryID = {
+    "database": "categoryID",
+    "en": "Category ID",
+    "tr": "Kategori ID",
+  };
+  static const Map<dynamic, dynamic> categoryName = {
+    "database": "categoryName",
+    "en": "Category",
+    "tr": "Kategori",
+  };
+  static const Map<dynamic, dynamic> brand = {
+    "database": "brand",
+    "en": "Brand",
+    "tr": "Marka",
+  };
+  static const Map<dynamic, dynamic> color = {
+    "database": "color",
+    "en": "Color",
+    "tr": "Renk",
+  };
+  static const Map<dynamic, dynamic> size = {
+    "database": "size",
+    "en": "Size",
+    "tr": "Boyut",
+  };
+  static const Map<dynamic, dynamic> sizeUnit = {
+    "database": "unit",
+    "en": "Unit",
+    "tr": "Birim",
+  };
+  static const Map<dynamic, dynamic> amount = {
+    "database": "amount",
+    "en": "Amount",
+    "tr": "Adet",
+  };
+  static const Map<dynamic, dynamic> price = {
+    "database": "price",
+    "en": "Price",
+    "tr": "Fiyat",
+  };
+  static const Map<dynamic, dynamic> visible = {
+    "database": "visible",
+    "en": "Visible",
+    "tr": "Görünür",
   };
 }
 
 // TODO: Change other classes too
-
-class Product {
-  String tableName = "products";
-  String id = "id";
-  String name = "name";
-  String categoryID = "categoryID";
-  String categoryName = "categoryName";
-  String brand = "brand";
-  String color = "color";
-  String size = "size";
-  String sizeType = "sizeType";
-  String amount = "amount";
-  String price = "price";
-  String visible = "visible";
-}
 
 class Supplier {
   String tableName = "suppliers";
@@ -72,16 +121,16 @@ Map<dynamic, dynamic> emptyCategory = {
 };
 
 Map<dynamic, dynamic> emptyProduct = {
-  Product().id: null,
-  Product().name: null,
-  Product().categoryID: null,
-  Product().brand: null,
-  Product().color: null,
-  Product().size: null,
-  Product().sizeType: null,
-  Product().amount: null,
-  Product().price: null,
-  Product().visible: null,
+  Product.id["database"]: null,
+  Product.name["database"]: null,
+  Product.categoryID["database"]: null,
+  Product.brand["database"]: null,
+  Product.color["database"]: null,
+  Product.size["database"]: null,
+  Product.sizeUnit["database"]: null,
+  Product.amount["database"]: null,
+  Product.price["database"]: null,
+  Product.visible["database"]: null,
 };
 
 Map<dynamic, dynamic> emptySupplier = {

@@ -31,13 +31,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   @override
   void initState() {
-    nameController.text = editedItem[Product().name];
-    brandController.text = editedItem[Product().brand];
-    colorController.text = editedItem[Product().color];
-    sizeController.text = editedItem[Product().size];
-    sizeTypeController.text = editedItem[Product().sizeType];
-    priceController.text = editedItem[Product().price].toString();
-    amountController.text = editedItem[Product().amount].toString();
+    nameController.text = editedItem[Product.name["database"]];
+    brandController.text = editedItem[Product.brand["database"]];
+    colorController.text = editedItem[Product.color["database"]];
+    sizeController.text = editedItem[Product.size["database"]];
+    sizeTypeController.text = editedItem[Product.sizeUnit["database"]];
+    priceController.text = editedItem[Product.price["database"]].toString();
+    amountController.text = editedItem[Product.amount["database"]].toString();
     super.initState();
   }
 
@@ -136,19 +136,26 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                                 : selectedItem![
                                                     Category.name["database"]],
                                             onPressed: () {
-                                              editedItem[Product().name] =
+                                              editedItem[Product
+                                                      .name["database"]] =
                                                   nameController.text;
-                                              editedItem[Product().brand] =
+                                              editedItem[Product
+                                                      .brand["database"]] =
                                                   brandController.text;
-                                              editedItem[Product().color] =
+                                              editedItem[Product
+                                                      .color["database"]] =
                                                   colorController.text;
-                                              editedItem[Product().size] =
+                                              editedItem[Product
+                                                      .size["database"]] =
                                                   sizeController.text;
-                                              editedItem[Product().sizeType] =
+                                              editedItem[Product
+                                                      .sizeUnit["database"]] =
                                                   sizeTypeController.text;
-                                              editedItem[Product().price] =
+                                              editedItem[Product
+                                                      .price["database"]] =
                                                   priceController.text;
-                                              editedItem[Product().amount] =
+                                              editedItem[Product
+                                                      .amount["database"]] =
                                                   amountController.text;
                                               routeStack.add("/edit_product");
                                               Navigator.pushReplacementNamed(
@@ -406,8 +413,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                                       onPressed: () {
                                                         DatabaseService()
                                                             .changeProductVisibility(
-                                                          editedItem[
-                                                              Product().id],
+                                                          editedItem[Product
+                                                              .id["database"]],
                                                           false,
                                                         );
                                                         Navigator
@@ -458,42 +465,44 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                     } else {
                                       DatabaseService().updateProduct(
                                         {
-                                          Product().id:
-                                              editedItem[Product().id],
-                                          Product().name:
+                                          Product.id["database"]: editedItem[
+                                              Product.id["database"]],
+                                          Product.name["database"]:
                                               (nameController.text.isEmpty)
                                                   ? null
                                                   : nameController.text,
-                                          Product().brand:
+                                          Product.brand["database"]:
                                               (brandController.text.isEmpty)
                                                   ? null
                                                   : brandController.text,
-                                          Product().categoryID: selectedItem![
-                                              Category.id["database"]],
-                                          Product().color:
+                                          Product.categoryID["database"]:
+                                              selectedItem![
+                                                  Category.id["database"]],
+                                          Product.color["database"]:
                                               (colorController.text.isEmpty)
                                                   ? null
                                                   : colorController.text,
-                                          Product().size:
+                                          Product.size["database"]:
                                               (sizeController.text.isEmpty)
                                                   ? null
                                                   : sizeController.text,
-                                          Product().sizeType:
+                                          Product.sizeUnit["database"]:
                                               (sizeTypeController.text.isEmpty)
                                                   ? null
                                                   : sizeTypeController.text,
-                                          Product().price:
+                                          Product.price["database"]:
                                               (priceController.text.isEmpty)
                                                   ? null
                                                   : double.parse(
                                                       priceController.text),
-                                          Product().amount:
+                                          Product.amount["database"]:
                                               (amountController.text.isEmpty)
                                                   ? null
                                                   : int.parse(
                                                       amountController.text),
-                                          Product().visible:
-                                              editedItem[Product().visible],
+                                          Product.visible["database"]:
+                                              editedItem[
+                                                  Product.visible["database"]],
                                         },
                                       );
                                       showCustomSnackBar(

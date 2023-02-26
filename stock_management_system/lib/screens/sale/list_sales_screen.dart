@@ -717,8 +717,8 @@ class SalesListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (sale[Product().brand] != null)
-                        ? sale[Product().brand].toString()
+                    (sale[Product.brand["database"]] != null)
+                        ? sale[Product.brand["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -735,8 +735,8 @@ class SalesListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (sale[Product().color] != null)
-                        ? sale[Product().color].toString()
+                    (sale[Product.color["database"]] != null)
+                        ? sale[Product.color["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -753,11 +753,11 @@ class SalesListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (sale[Product().size] == null)
+                    (sale[Product.size["database"]] == null)
                         ? "-"
-                        : (sale[Product().sizeType] == null)
-                            ? sale[Product().size]
-                            : "${sale[Product().size]} (${sale[Product().sizeType]})",
+                        : (sale[Product.sizeUnit["database"]] == null)
+                            ? sale[Product.size["database"]]
+                            : "${sale[Product.size["database"]]} (${sale[Product.sizeUnit["database"]]})",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(

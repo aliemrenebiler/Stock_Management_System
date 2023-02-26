@@ -125,8 +125,8 @@ class _EditSaleScreenState extends State<EditSaleScreen> {
                                           padding: const EdgeInsets.all(5),
                                           child: CustomStableField(
                                             height: 50,
-                                            selectionText:
-                                                editedItem[Product().brand],
+                                            selectionText: editedItem[
+                                                Product.brand["database"]],
                                           ),
                                         ),
                                       ),
@@ -155,8 +155,8 @@ class _EditSaleScreenState extends State<EditSaleScreen> {
                                           padding: const EdgeInsets.all(5),
                                           child: CustomStableField(
                                             height: 50,
-                                            selectionText:
-                                                editedItem[Product().color],
+                                            selectionText: editedItem[
+                                                Product.color["database"]],
                                           ),
                                         ),
                                       ),
@@ -185,15 +185,16 @@ class _EditSaleScreenState extends State<EditSaleScreen> {
                                           padding: const EdgeInsets.all(5),
                                           child: CustomStableField(
                                             height: 50,
-                                            selectionText: (editedItem[
-                                                        Product().size] ==
+                                            selectionText: (editedItem[Product
+                                                        .size["database"]] ==
                                                     null)
                                                 ? null
-                                                : (editedItem[Product()
-                                                            .sizeType] ==
+                                                : (editedItem[Product.sizeUnit[
+                                                            "database"]] ==
                                                         null)
-                                                    ? editedItem[Product().size]
-                                                    : "${editedItem[Product().size]} (${editedItem[Product().sizeType]})",
+                                                    ? editedItem[Product
+                                                        .size["database"]]
+                                                    : "${editedItem[Product.size["database"]]} (${editedItem[Product.sizeUnit["database"]]})",
                                           ),
                                         ),
                                       ),
