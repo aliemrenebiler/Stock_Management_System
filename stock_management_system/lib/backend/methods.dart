@@ -62,9 +62,9 @@ class DatabaseService {
       WHERE type="table"
       AND (
       name="${Product.tableName["database"]}"
-      OR name="${Supplier().tableName}"
-      OR name="${Purchase().tableName}"
-      OR name="${Sale().tableName}"
+      OR name="${Supplier.tableName["database"]}"
+      OR name="${Purchase.tableName["database"]}"
+      OR name="${Sale.tableName["database"]}"
       )
       ''',
     )[0][0];
@@ -137,11 +137,11 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      CREATE TABLE IF NOT EXISTS ${Supplier().tableName}(
-      ${Supplier().id} INTEGER PRIMARY KEY,
-      ${Supplier().name} TEXT not null,
-      ${Supplier().phone} TEXT,
-      ${Supplier().address} TEXT
+      CREATE TABLE IF NOT EXISTS ${Supplier.tableName["database"]}(
+      ${Supplier.id["database"]} INTEGER PRIMARY KEY,
+      ${Supplier.name["database"]} TEXT not null,
+      ${Supplier.phone["database"]} TEXT,
+      ${Supplier.address["database"]} TEXT
       )
       ''',
     );
@@ -152,7 +152,7 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      DROP TABLE IF EXISTS ${Supplier().tableName}
+      DROP TABLE IF EXISTS ${Supplier.tableName["database"]}
       ''',
     );
     database.dispose();
@@ -162,17 +162,17 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      CREATE TABLE IF NOT EXISTS ${Purchase().tableName}(
-      ${Purchase().id} INTEGER PRIMARY KEY,
-      ${Purchase().supplierID} INTEGER,
-      ${Purchase().productID} INTEGER not null,
-      ${Purchase().amount} INTEGER not null,
-      ${Purchase().price} REAL not null,
-      ${Purchase().date} DATE not null,
-      FOREIGN KEY (${Purchase().supplierID})
-      REFERENCES ${Supplier().tableName}(${Supplier().id})
+      CREATE TABLE IF NOT EXISTS ${Purchase.tableName["database"]}(
+      ${Purchase.id["database"]} INTEGER PRIMARY KEY,
+      ${Purchase.supplierID["database"]} INTEGER,
+      ${Purchase.productID["database"]} INTEGER not null,
+      ${Purchase.amount["database"]} INTEGER not null,
+      ${Purchase.price["database"]} REAL not null,
+      ${Purchase.date["database"]} DATE not null,
+      FOREIGN KEY (${Purchase.supplierID["database"]})
+      REFERENCES ${Supplier.tableName["database"]}(${Supplier.id["database"]})
       ON DELETE CASCADE,
-      FOREIGN KEY (${Purchase().productID})
+      FOREIGN KEY (${Purchase.productID["database"]})
       REFERENCES ${Product.tableName["database"]}(${Product.id["database"]})
       ON DELETE CASCADE
       )
@@ -184,7 +184,7 @@ class DatabaseService {
   deletePurchasesTable() {
     Database database = openDatabase(dbName);
     database.execute(
-      'DROP TABLE IF EXISTS ${Purchase().tableName}',
+      'DROP TABLE IF EXISTS ${Purchase.tableName["database"]}',
     );
     database.dispose();
   }
@@ -193,13 +193,13 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      CREATE TABLE IF NOT EXISTS ${Sale().tableName}(
-      ${Sale().id} INTEGER PRIMARY KEY,
-      ${Sale().productID} INTEGER not null,
-      ${Sale().amount} INTEGER not null,
-      ${Sale().price} REAL not null,
-      ${Sale().date} DATE not null,
-      FOREIGN KEY (${Sale().productID})
+      CREATE TABLE IF NOT EXISTS ${Sale.tableName["database"]}(
+      ${Sale.id["database"]} INTEGER PRIMARY KEY,
+      ${Sale.productID["database"]} INTEGER not null,
+      ${Sale.amount["database"]} INTEGER not null,
+      ${Sale.price["database"]} REAL not null,
+      ${Sale.date["database"]} DATE not null,
+      FOREIGN KEY (${Sale.productID["database"]})
       REFERENCES ${Product.tableName["database"]}(${Product.id["database"]})
       ON DELETE CASCADE
       )
@@ -212,7 +212,7 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      DROP TABLE IF EXISTS ${Sale().tableName}
+      DROP TABLE IF EXISTS ${Sale.tableName["database"]}
       ''',
     );
     database.dispose();
@@ -508,13 +508,13 @@ class DatabaseService {
       ''';
     }
 
-    query += 'FROM ${Supplier().tableName}';
+    query += 'FROM ${Supplier.tableName["database"]}';
 
     bool isSearching = false;
 
     if (id != null) {
       isSearching = true;
-      query += ' WHERE ${Supplier().id}=$id';
+      query += ' WHERE ${Supplier.id["database"]}=$id';
     }
     if (info != null) {
       if (!isSearching) {
@@ -524,7 +524,7 @@ class DatabaseService {
         query += ' AND';
       }
       query +=
-          ' (${Supplier().name} LIKE "%$info%" OR ${Supplier().phone} LIKE "%$info%" OR ${Supplier().address} LIKE "%$info%")';
+          ' (${Supplier.name["database"]} LIKE "%$info%" OR ${Supplier.phone["database"]} LIKE "%$info%" OR ${Supplier.address["database"]} LIKE "%$info%")';
     }
 
     if (limit != null) {
@@ -549,18 +549,18 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      INSERT INTO ${Supplier().tableName}(
-      ${Supplier().id},
-      ${Supplier().name},
-      ${Supplier().phone},
-      ${Supplier().address}
+      INSERT INTO ${Supplier.tableName["database"]}(
+      ${Supplier.id["database"]},
+      ${Supplier.name["database"]},
+      ${Supplier.phone["database"]},
+      ${Supplier.address["database"]}
       ) VALUES(?,?,?,?)
       ''',
       [
-        supplier[Supplier().id],
-        supplier[Supplier().name],
-        supplier[Supplier().phone],
-        supplier[Supplier().address],
+        supplier[Supplier.id["database"]],
+        supplier[Supplier.name["database"]],
+        supplier[Supplier.phone["database"]],
+        supplier[Supplier.address["database"]],
       ],
     );
     database.dispose();
@@ -570,17 +570,17 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      UPDATE ${Supplier().tableName} SET
-      ${Supplier().name}=?,
-      ${Supplier().phone}=?,
-      ${Supplier().address}=?
-      WHERE ${Supplier().id}=?
+      UPDATE ${Supplier.tableName["database"]} SET
+      ${Supplier.name["database"]}=?,
+      ${Supplier.phone["database"]}=?,
+      ${Supplier.address["database"]}=?
+      WHERE ${Supplier.id["database"]}=?
       ''',
       [
-        supplier[Supplier().name],
-        supplier[Supplier().phone],
-        supplier[Supplier().address],
-        supplier[Supplier().id],
+        supplier[Supplier.name["database"]],
+        supplier[Supplier.phone["database"]],
+        supplier[Supplier.address["database"]],
+        supplier[Supplier.id["database"]],
       ],
     );
     database.dispose();
@@ -590,8 +590,8 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      DELETE FROM ${Supplier().tableName}
-      WHERE ${Supplier().id}=$id
+      DELETE FROM ${Supplier.tableName["database"]}
+      WHERE ${Supplier.id["database"]}=$id
       ''',
     );
     database.dispose();
@@ -611,44 +611,44 @@ class DatabaseService {
   ) {
     String query1 = """
         SELECT
-        ${Purchase().tableName}.${Purchase().id},
-        ${Purchase().tableName}.${Purchase().productID},
-        ${Purchase().tableName}.${Purchase().supplierID},
-        ${Purchase().tableName}.${Purchase().price},
-        ${Purchase().tableName}.${Purchase().amount},
-        ${Purchase().tableName}.${Purchase().date},
-        STRFTIME('%d.%m.%Y', ${Purchase().tableName}.${Purchase().date})
-        AS ${Purchase().formattedDate},
-        ${Product.tableName["database"]}.${Product.name["database"]} AS ${Purchase().productName},
+        ${Purchase.tableName["database"]}.${Purchase.id["database"]},
+        ${Purchase.tableName["database"]}.${Purchase.productID["database"]},
+        ${Purchase.tableName["database"]}.${Purchase.supplierID["database"]},
+        ${Purchase.tableName["database"]}.${Purchase.price["database"]},
+        ${Purchase.tableName["database"]}.${Purchase.amount["database"]},
+        ${Purchase.tableName["database"]}.${Purchase.date["database"]},
+        STRFTIME('%d.%m.%Y', ${Purchase.tableName["database"]}.${Purchase.date["database"]})
+        AS ${Purchase.formattedDate["database"]},
+        ${Product.tableName["database"]}.${Product.name["database"]} AS ${Purchase.productName["database"]},
         ${Product.tableName["database"]}.${Product.brand["database"]},
         ${Product.tableName["database"]}.${Product.color["database"]},
         ${Product.tableName["database"]}.${Product.size["database"]},
         ${Product.tableName["database"]}.${Product.sizeUnit["database"]},
-        NULL AS ${Purchase().supplierName}
-        FROM ${Purchase().tableName}, ${Product.tableName["database"]}
-        WHERE ${Purchase().tableName}.${Purchase().productID}==${Product.tableName["database"]}.${Product.id["database"]}
-        AND ${Purchase().tableName}.${Purchase().supplierID} IS NULL
+        NULL AS ${Purchase.supplierName["database"]}
+        FROM ${Purchase.tableName["database"]}, ${Product.tableName["database"]}
+        WHERE ${Purchase.tableName["database"]}.${Purchase.productID["database"]}==${Product.tableName["database"]}.${Product.id["database"]}
+        AND ${Purchase.tableName["database"]}.${Purchase.supplierID["database"]} IS NULL
         """;
 
     String query2 = """
         SELECT
-        ${Purchase().tableName}.${Purchase().id},
-        ${Purchase().tableName}.${Purchase().productID},
-        ${Purchase().tableName}.${Purchase().supplierID},
-        ${Purchase().tableName}.${Purchase().price},
-        ${Purchase().tableName}.${Purchase().amount},
-        ${Purchase().tableName}.${Purchase().date},
-        STRFTIME('%d.%m.%Y', ${Purchase().tableName}.${Purchase().date})
-        AS ${Purchase().formattedDate},
-        ${Product.tableName["database"]}.${Product.name["database"]} AS ${Purchase().productName},
+        ${Purchase.tableName["database"]}.${Purchase.id["database"]},
+        ${Purchase.tableName["database"]}.${Purchase.productID["database"]},
+        ${Purchase.tableName["database"]}.${Purchase.supplierID["database"]},
+        ${Purchase.tableName["database"]}.${Purchase.price["database"]},
+        ${Purchase.tableName["database"]}.${Purchase.amount["database"]},
+        ${Purchase.tableName["database"]}.${Purchase.date["database"]},
+        STRFTIME('%d.%m.%Y', ${Purchase.tableName["database"]}.${Purchase.date["database"]})
+        AS ${Purchase.formattedDate["database"]},
+        ${Product.tableName["database"]}.${Product.name["database"]} AS ${Purchase.productName["database"]},
         ${Product.tableName["database"]}.${Product.brand["database"]},
         ${Product.tableName["database"]}.${Product.color["database"]},
         ${Product.tableName["database"]}.${Product.size["database"]},
         ${Product.tableName["database"]}.${Product.sizeUnit["database"]},
-        ${Supplier().tableName}.${Supplier().name} AS ${Purchase().supplierName}
-        FROM ${Purchase().tableName}, ${Product.tableName["database"]}, ${Supplier().tableName}
-        WHERE ${Purchase().tableName}.${Purchase().productID}==${Product.tableName["database"]}.${Product.id["database"]}
-        AND ${Purchase().tableName}.${Purchase().supplierID}==${Supplier().tableName}.${Supplier().id}
+        ${Supplier.tableName["database"]}.${Supplier.name["database"]} AS ${Purchase.supplierName["database"]}
+        FROM ${Purchase.tableName["database"]}, ${Product.tableName["database"]}, ${Supplier.tableName["database"]}
+        WHERE ${Purchase.tableName["database"]}.${Purchase.productID["database"]}==${Product.tableName["database"]}.${Product.id["database"]}
+        AND ${Purchase.tableName["database"]}.${Purchase.supplierID["database"]}==${Supplier.tableName["database"]}.${Supplier.id["database"]}
         """;
 
     String query;
@@ -676,7 +676,7 @@ class DatabaseService {
 
     if (id != null) {
       isSearching = true;
-      query += ' WHERE ${Purchase().id}="$id"';
+      query += ' WHERE ${Purchase.id["database"]}="$id"';
     }
     if (date1 != null) {
       if (!isSearching) {
@@ -685,7 +685,7 @@ class DatabaseService {
       } else {
         query += ' AND';
       }
-      query += ' ${Purchase().date}>="$date1"';
+      query += ' ${Purchase.date["database"]}>="$date1"';
     }
     if (date2 != null) {
       if (!isSearching) {
@@ -694,7 +694,7 @@ class DatabaseService {
       } else {
         query += ' AND';
       }
-      query += ' ${Purchase().date}<="$date2"';
+      query += ' ${Purchase.date["database"]}<="$date2"';
     }
     if (minPrice != null) {
       if (!isSearching) {
@@ -703,7 +703,7 @@ class DatabaseService {
       } else {
         query += ' AND';
       }
-      query += ' ${Purchase().price}>=$minPrice';
+      query += ' ${Purchase.price["database"]}>=$minPrice';
     }
     if (maxPrice != null) {
       if (!isSearching) {
@@ -712,7 +712,7 @@ class DatabaseService {
       } else {
         query += ' AND';
       }
-      query += ' ${Purchase().price}<=$maxPrice';
+      query += ' ${Purchase.price["database"]}<=$maxPrice';
     }
     if (minAmount != null) {
       if (!isSearching) {
@@ -721,7 +721,7 @@ class DatabaseService {
       } else {
         query += ' AND';
       }
-      query += ' ${Purchase().amount}>=$minAmount';
+      query += ' ${Purchase.amount["database"]}>=$minAmount';
     }
     if (maxAmount != null) {
       if (!isSearching) {
@@ -730,7 +730,7 @@ class DatabaseService {
       } else {
         query += ' AND';
       }
-      query += ' ${Purchase().amount}<=$maxAmount';
+      query += ' ${Purchase.amount["database"]}<=$maxAmount';
     }
 
     if (limit != null) {
@@ -755,22 +755,22 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      INSERT INTO ${Purchase().tableName}(
-      ${Purchase().id},
-      ${Purchase().supplierID},
-      ${Purchase().productID},
-      ${Purchase().amount},
-      ${Purchase().price},
-      ${Purchase().date}
+      INSERT INTO ${Purchase.tableName["database"]}(
+      ${Purchase.id["database"]},
+      ${Purchase.supplierID["database"]},
+      ${Purchase.productID["database"]},
+      ${Purchase.amount["database"]},
+      ${Purchase.price["database"]},
+      ${Purchase.date["database"]}
       ) VALUES(?,?,?,?,?,?)
       ''',
       [
-        purchase[Purchase().id],
-        purchase[Purchase().supplierID],
-        purchase[Purchase().productID],
-        purchase[Purchase().amount],
-        purchase[Purchase().price],
-        purchase[Purchase().date],
+        purchase[Purchase.id["database"]],
+        purchase[Purchase.supplierID["database"]],
+        purchase[Purchase.productID["database"]],
+        purchase[Purchase.amount["database"]],
+        purchase[Purchase.price["database"]],
+        purchase[Purchase.date["database"]],
       ],
     );
     database.dispose();
@@ -780,21 +780,21 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      UPDATE ${Purchase().tableName} SET
-      ${Purchase().supplierID}=?,
-      ${Purchase().productID}=?,
-      ${Purchase().amount}=?,
-      ${Purchase().price}=?,
-      ${Purchase().date}=?
-      WHERE ${Purchase().id}=?
+      UPDATE ${Purchase.tableName["database"]} SET
+      ${Purchase.supplierID["database"]}=?,
+      ${Purchase.productID["database"]}=?,
+      ${Purchase.amount["database"]}=?,
+      ${Purchase.price["database"]}=?,
+      ${Purchase.date["database"]}=?
+      WHERE ${Purchase.id["database"]}=?
       ''',
       [
-        purchase[Purchase().supplierID],
-        purchase[Purchase().productID],
-        purchase[Purchase().amount],
-        purchase[Purchase().price],
-        purchase[Purchase().date],
-        purchase[Purchase().id],
+        purchase[Purchase.supplierID["database"]],
+        purchase[Purchase.productID["database"]],
+        purchase[Purchase.amount["database"]],
+        purchase[Purchase.price["database"]],
+        purchase[Purchase.date["database"]],
+        purchase[Purchase.id["database"]],
       ],
     );
     database.dispose();
@@ -804,8 +804,8 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      DELETE FROM ${Purchase().tableName}
-      WHERE ${Purchase().id}=$id
+      DELETE FROM ${Purchase.tableName["database"]}
+      WHERE ${Purchase.id["database"]}=$id
       ''',
     );
     database.dispose();
@@ -831,46 +831,53 @@ class DatabaseService {
     } else {
       query = '''
       SELECT
-      ${Sale().tableName}.${Sale().id},
-      ${Sale().tableName}.${Sale().price},
-      ${Sale().tableName}.${Sale().amount},
-      ${Sale().tableName}.${Sale().productID},
-      ${Product.tableName["database"]}.${Product.name["database"]} AS ${Sale().productName},
+      ${Sale.tableName["database"]}.${Sale.id["database"]},
+      ${Sale.tableName["database"]}.${Sale.price["database"]},
+      ${Sale.tableName["database"]}.${Sale.amount["database"]},
+      ${Sale.tableName["database"]}.${Sale.productID["database"]},
+      ${Product.tableName["database"]}.${Product.name["database"]} AS ${Sale.productName["database"]},
       ${Product.tableName["database"]}.${Product.brand["database"]},
       ${Product.tableName["database"]}.${Product.color["database"]},
       ${Product.tableName["database"]}.${Product.size["database"]},
       ${Product.tableName["database"]}.${Product.sizeUnit["database"]},
-      ${Sale().tableName}.${Sale().date},
-      STRFTIME('%d.%m.%Y', ${Sale().tableName}.${Sale().date})
-      AS ${Sale().formattedDate}
+      ${Sale.tableName["database"]}.${Sale.date["database"]},
+      STRFTIME('%d.%m.%Y', ${Sale.tableName["database"]}.${Sale.date["database"]})
+      AS ${Sale.formattedDate["database"]}
       ''';
     }
 
     query += '''
-    FROM ${Sale().tableName}, ${Product.tableName["database"]}
-    WHERE ${Sale().tableName}.${Sale().productID}==${Product.tableName["database"]}.${Product.id["database"]}
+    FROM ${Sale.tableName["database"]}, ${Product.tableName["database"]}
+    WHERE ${Sale.tableName["database"]}.${Sale.productID["database"]}==${Product.tableName["database"]}.${Product.id["database"]}
     ''';
 
     if (id != null) {
-      query += ' AND ${Sale().tableName}.${Sale().id}="$id"';
+      query +=
+          ' AND ${Sale.tableName["database"]}.${Sale.id["database"]}="$id"';
     }
     if (date1 != null) {
-      query += ' AND ${Sale().tableName}.${Sale().date}>="$date1"';
+      query +=
+          ' AND ${Sale.tableName["database"]}.${Sale.date["database"]}>="$date1"';
     }
     if (date2 != null) {
-      query += ' AND ${Sale().tableName}.${Sale().date}<="$date2"';
+      query +=
+          ' AND ${Sale.tableName["database"]}.${Sale.date["database"]}<="$date2"';
     }
     if (minPrice != null) {
-      query += ' AND ${Sale().tableName}.${Sale().price}>=$minPrice';
+      query +=
+          ' AND ${Sale.tableName["database"]}.${Sale.price["database"]}>=$minPrice';
     }
     if (maxPrice != null) {
-      query += ' AND ${Sale().tableName}.${Sale().price}<=$maxPrice';
+      query +=
+          ' AND ${Sale.tableName["database"]}.${Sale.price["database"]}<=$maxPrice';
     }
     if (minAmount != null) {
-      query += ' AND ${Sale().tableName}.${Sale().amount}>=$minAmount';
+      query +=
+          ' AND ${Sale.tableName["database"]}.${Sale.amount["database"]}>=$minAmount';
     }
     if (maxAmount != null) {
-      query += ' AND ${Sale().tableName}.${Sale().amount}<=$maxAmount';
+      query +=
+          ' AND ${Sale.tableName["database"]}.${Sale.amount["database"]}<=$maxAmount';
     }
 
     if (limit != null) {
@@ -895,20 +902,20 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      INSERT INTO ${Sale().tableName}(
-      ${Sale().id},
-      ${Sale().productID},
-      ${Sale().amount},
-      ${Sale().price},
-      ${Sale().date}
+      INSERT INTO ${Sale.tableName["database"]}(
+      ${Sale.id["database"]},
+      ${Sale.productID["database"]},
+      ${Sale.amount["database"]},
+      ${Sale.price["database"]},
+      ${Sale.date["database"]}
       ) VALUES(?,?,?,?,?)
       ''',
       [
-        sale[Sale().id],
-        sale[Sale().productID],
-        sale[Sale().amount],
-        sale[Sale().price],
-        sale[Sale().date],
+        sale[Sale.id["database"]],
+        sale[Sale.productID["database"]],
+        sale[Sale.amount["database"]],
+        sale[Sale.price["database"]],
+        sale[Sale.date["database"]],
       ],
     );
     database.dispose();
@@ -918,19 +925,19 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      UPDATE ${Sale().tableName} SET
-      ${Sale().productID}=?,
-      ${Sale().amount}=?,
-      ${Sale().price}=?,
-      ${Sale().date}=?
-      WHERE ${Sale().id}=?
+      UPDATE ${Sale.tableName["database"]} SET
+      ${Sale.productID["database"]}=?,
+      ${Sale.amount["database"]}=?,
+      ${Sale.price["database"]}=?,
+      ${Sale.date["database"]}=?
+      WHERE ${Sale.id["database"]}=?
       ''',
       [
-        sale[Sale().productID],
-        sale[Sale().amount],
-        sale[Sale().price],
-        sale[Sale().date],
-        sale[Sale().id],
+        sale[Sale.productID["database"]],
+        sale[Sale.amount["database"]],
+        sale[Sale.price["database"]],
+        sale[Sale.date["database"]],
+        sale[Sale.id["database"]],
       ],
     );
     database.dispose();
@@ -940,8 +947,8 @@ class DatabaseService {
     Database database = openDatabase(dbName);
     database.execute(
       '''
-      DELETE FROM ${Sale().tableName}
-      WHERE ${Sale().id}=$id
+      DELETE FROM ${Sale.tableName["database"]}
+      WHERE ${Sale.id["database"]}=$id
       ''',
     );
     database.dispose();
@@ -965,9 +972,9 @@ class ExcelService {
         // Check if all sheets are valid
         if (!excel.sheets.keys.contains(Category.tableName["database"]) ||
             !excel.sheets.keys.contains(Product.tableName["database"]) ||
-            !excel.sheets.keys.contains(Supplier().tableName) ||
-            !excel.sheets.keys.contains(Purchase().tableName) ||
-            !excel.sheets.keys.contains(Sale().tableName)) {
+            !excel.sheets.keys.contains(Supplier.tableName["database"]) ||
+            !excel.sheets.keys.contains(Purchase.tableName["database"]) ||
+            !excel.sheets.keys.contains(Sale.tableName["database"])) {
           throw Error();
         }
 
@@ -1100,102 +1107,111 @@ class ExcelService {
       }
 
       // Create suppliers sheet
-      sheet = excel[Supplier().tableName];
-      sheet.cell(CellIndex.indexByString('A1')).value = Supplier().id;
-      sheet.cell(CellIndex.indexByString('B1')).value = Supplier().name;
-      sheet.cell(CellIndex.indexByString('C1')).value = Supplier().phone;
-      sheet.cell(CellIndex.indexByString('D1')).value = Supplier().address;
+      sheet = excel[Supplier.tableName["database"]];
+      sheet.cell(CellIndex.indexByString('A1')).value = Supplier.id["database"];
+      sheet.cell(CellIndex.indexByString('B1')).value =
+          Supplier.name["database"];
+      sheet.cell(CellIndex.indexByString('C1')).value =
+          Supplier.phone["database"];
+      sheet.cell(CellIndex.indexByString('D1')).value =
+          Supplier.address["database"];
       count = DatabaseService().getSuppliers(true, null, null, null, null);
       for (int i = 0; i < count; i++) {
         item = DatabaseService().getSuppliers(false, null, null, 1, i)[0];
-        if (item[Supplier().id] != null) {
+        if (item[Supplier.id["database"]] != null) {
           sheet.cell(CellIndex.indexByString('A${i + 2}')).value =
-              item[Supplier().id];
+              item[Supplier.id["database"]];
         }
-        if (item[Supplier().name] != null) {
+        if (item[Supplier.name["database"]] != null) {
           sheet.cell(CellIndex.indexByString('B${i + 2}')).value =
-              item[Supplier().name];
+              item[Supplier.name["database"]];
         }
-        if (item[Supplier().phone] != null) {
+        if (item[Supplier.phone["database"]] != null) {
           sheet.cell(CellIndex.indexByString('C${i + 2}')).value =
-              item[Supplier().phone];
+              item[Supplier.phone["database"]];
         }
-        if (item[Supplier().address] != null) {
+        if (item[Supplier.address["database"]] != null) {
           sheet.cell(CellIndex.indexByString('D${i + 2}')).value =
-              item[Supplier().address];
+              item[Supplier.address["database"]];
         }
       }
 
       // Create purchases sheet
-      sheet = excel[Purchase().tableName];
-      sheet.cell(CellIndex.indexByString('A1')).value = Purchase().id;
-      sheet.cell(CellIndex.indexByString('B1')).value = Purchase().productID;
-      sheet.cell(CellIndex.indexByString('C1')).value = Purchase().supplierID;
-      sheet.cell(CellIndex.indexByString('D1')).value = Purchase().date;
-      sheet.cell(CellIndex.indexByString('E1')).value = Purchase().price;
-      sheet.cell(CellIndex.indexByString('F1')).value = Purchase().amount;
+      sheet = excel[Purchase.tableName["database"]];
+      sheet.cell(CellIndex.indexByString('A1')).value = Purchase.id["database"];
+      sheet.cell(CellIndex.indexByString('B1')).value =
+          Purchase.productID["database"];
+      sheet.cell(CellIndex.indexByString('C1')).value =
+          Purchase.supplierID["database"];
+      sheet.cell(CellIndex.indexByString('D1')).value =
+          Purchase.date["database"];
+      sheet.cell(CellIndex.indexByString('E1')).value =
+          Purchase.price["database"];
+      sheet.cell(CellIndex.indexByString('F1')).value =
+          Purchase.amount["database"];
       count = DatabaseService().getPurchases(
           true, null, null, null, null, null, null, null, null, null);
       for (int i = 0; i < count; i++) {
         item = DatabaseService().getPurchases(
             false, null, null, null, null, null, null, null, 1, i)[0];
-        if (item[Purchase().id] != null) {
+        if (item[Purchase.id["database"]] != null) {
           sheet.cell(CellIndex.indexByString('A${i + 2}')).value =
-              item[Purchase().id];
+              item[Purchase.id["database"]];
         }
-        if (item[Purchase().productID] != null) {
+        if (item[Purchase.productID["database"]] != null) {
           sheet.cell(CellIndex.indexByString('B${i + 2}')).value =
-              item[Purchase().productID];
+              item[Purchase.productID["database"]];
         }
-        if (item[Purchase().supplierID] != null) {
+        if (item[Purchase.supplierID["database"]] != null) {
           sheet.cell(CellIndex.indexByString('C${i + 2}')).value =
-              item[Purchase().supplierID];
+              item[Purchase.supplierID["database"]];
         }
-        if (item[Purchase().date] != null) {
+        if (item[Purchase.date["database"]] != null) {
           sheet.cell(CellIndex.indexByString('D${i + 2}')).value =
-              item[Purchase().date];
+              item[Purchase.date["database"]];
         }
-        if (item[Purchase().price] != null) {
+        if (item[Purchase.price["database"]] != null) {
           sheet.cell(CellIndex.indexByString('E${i + 2}')).value =
-              item[Purchase().price];
+              item[Purchase.price["database"]];
         }
-        if (item[Purchase().amount] != null) {
+        if (item[Purchase.amount["database"]] != null) {
           sheet.cell(CellIndex.indexByString('F${i + 2}')).value =
-              item[Purchase().amount];
+              item[Purchase.amount["database"]];
         }
       }
 
       // Create sales sheet
-      sheet = excel[Sale().tableName];
-      sheet.cell(CellIndex.indexByString('A1')).value = Sale().id;
-      sheet.cell(CellIndex.indexByString('B1')).value = Sale().productID;
-      sheet.cell(CellIndex.indexByString('C1')).value = Sale().date;
-      sheet.cell(CellIndex.indexByString('D1')).value = Sale().price;
-      sheet.cell(CellIndex.indexByString('E1')).value = Sale().amount;
+      sheet = excel[Sale.tableName["database"]];
+      sheet.cell(CellIndex.indexByString('A1')).value = Sale.id["database"];
+      sheet.cell(CellIndex.indexByString('B1')).value =
+          Sale.productID["database"];
+      sheet.cell(CellIndex.indexByString('C1')).value = Sale.date["database"];
+      sheet.cell(CellIndex.indexByString('D1')).value = Sale.price["database"];
+      sheet.cell(CellIndex.indexByString('E1')).value = Sale.amount["database"];
       count = DatabaseService()
           .getSales(true, null, null, null, null, null, null, null, null, null);
       for (int i = 0; i < count; i++) {
         item = DatabaseService()
             .getSales(false, null, null, null, null, null, null, null, 1, i)[0];
-        if (item[Sale().id] != null) {
+        if (item[Sale.id["database"]] != null) {
           sheet.cell(CellIndex.indexByString('A${i + 2}')).value =
-              item[Sale().id];
+              item[Sale.id["database"]];
         }
-        if (item[Sale().productID] != null) {
+        if (item[Sale.productID["database"]] != null) {
           sheet.cell(CellIndex.indexByString('B${i + 2}')).value =
-              item[Sale().productID];
+              item[Sale.productID["database"]];
         }
-        if (item[Sale().date] != null) {
+        if (item[Sale.date["database"]] != null) {
           sheet.cell(CellIndex.indexByString('C${i + 2}')).value =
-              item[Sale().date];
+              item[Sale.date["database"]];
         }
-        if (item[Sale().price] != null) {
+        if (item[Sale.price["database"]] != null) {
           sheet.cell(CellIndex.indexByString('D${i + 2}')).value =
-              item[Sale().price];
+              item[Sale.price["database"]];
         }
-        if (item[Sale().amount] != null) {
+        if (item[Sale.amount["database"]] != null) {
           sheet.cell(CellIndex.indexByString('E${i + 2}')).value =
-              item[Sale().amount];
+              item[Sale.amount["database"]];
         }
       }
 

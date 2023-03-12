@@ -381,8 +381,8 @@ class SuppliersListItem extends StatelessWidget {
                 SizedBox(
                   width: 60,
                   child: Text(
-                    (supplier[Supplier().id] != null)
-                        ? supplier[Supplier().id].toString()
+                    (supplier[Supplier.id["database"]] != null)
+                        ? supplier[Supplier.id["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -399,8 +399,8 @@ class SuppliersListItem extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Text(
-                    (supplier[Supplier().name] != null)
-                        ? supplier[Supplier().name].toString()
+                    (supplier[Supplier.name["database"]] != null)
+                        ? supplier[Supplier.name["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -417,8 +417,8 @@ class SuppliersListItem extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Text(
-                    (supplier[Supplier().phone] != null)
-                        ? supplier[Supplier().phone].toString()
+                    (supplier[Supplier.phone["database"]] != null)
+                        ? supplier[Supplier.phone["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -435,8 +435,8 @@ class SuppliersListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (supplier[Supplier().address] != null)
-                        ? supplier[Supplier().address].toString()
+                    (supplier[Supplier.address["database"]] != null)
+                        ? supplier[Supplier.address["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,

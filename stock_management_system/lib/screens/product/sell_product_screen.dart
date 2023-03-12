@@ -432,14 +432,15 @@ class _SellProductScreenState extends State<SellProductScreen> {
                                           "${yearController.text}-${monthController.text.padLeft(2, "0")}-${dayController.text.padLeft(2, "0")}";
                                       DatabaseService().insertSale(
                                         {
-                                          Sale().id: null,
-                                          Sale().productID: stableItem[
-                                              Product.id["database"]],
-                                          Sale().price: double.parse(
+                                          Sale.id["database"]: null,
+                                          Sale.productID["database"]:
+                                              stableItem[
+                                                  Product.id["database"]],
+                                          Sale.price["database"]: double.parse(
                                               priceController.text),
-                                          Sale().amount:
+                                          Sale.amount["database"]:
                                               int.parse(amountController.text),
-                                          Sale().date: date,
+                                          Sale.date["database"]: date,
                                         },
                                       );
                                       DatabaseService().updateProduct(

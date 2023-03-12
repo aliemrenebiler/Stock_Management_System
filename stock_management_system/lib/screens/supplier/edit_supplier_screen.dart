@@ -22,9 +22,9 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
   TextEditingController addressController = TextEditingController();
   @override
   void initState() {
-    nameController.text = editedItem[Supplier().name];
-    phoneController.text = editedItem[Supplier().phone];
-    addressController.text = editedItem[Supplier().address];
+    nameController.text = editedItem[Supplier.name["database"]];
+    phoneController.text = editedItem[Supplier.phone["database"]];
+    addressController.text = editedItem[Supplier.address["database"]];
     super.initState();
   }
 
@@ -264,17 +264,17 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                                     } else {
                                       DatabaseService().updateSupplier(
                                         {
-                                          Supplier().id:
-                                              editedItem[Supplier().id],
-                                          Supplier().name:
+                                          Supplier.id["database"]: editedItem[
+                                              Supplier.id["database"]],
+                                          Supplier.name["database"]:
                                               (nameController.text.isEmpty)
                                                   ? null
                                                   : nameController.text,
-                                          Supplier().phone:
+                                          Supplier.phone["database"]:
                                               (phoneController.text.isEmpty)
                                                   ? null
                                                   : phoneController.text,
-                                          Supplier().address:
+                                          Supplier.address["database"]:
                                               (addressController.text.isEmpty)
                                                   ? null
                                                   : addressController.text,

@@ -681,8 +681,8 @@ class SalesListItem extends StatelessWidget {
                 SizedBox(
                   width: 60,
                   child: Text(
-                    (sale[Sale().id] != null)
-                        ? sale[Sale().id].toString()
+                    (sale[Sale.id["database"]] != null)
+                        ? sale[Sale.id["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -699,8 +699,8 @@ class SalesListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (sale[Sale().productName] != null)
-                        ? sale[Sale().productName].toString()
+                    (sale[Sale.productName["database"]] != null)
+                        ? sale[Sale.productName["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -773,8 +773,8 @@ class SalesListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (sale[Sale().price] != null)
-                        ? sale[Sale().price].toString()
+                    (sale[Sale.price["database"]] != null)
+                        ? sale[Sale.price["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -791,8 +791,8 @@ class SalesListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (sale[Sale().amount] != null)
-                        ? sale[Sale().amount].toString()
+                    (sale[Sale.amount["database"]] != null)
+                        ? sale[Sale.amount["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -809,8 +809,8 @@ class SalesListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (sale[Sale().formattedDate] != null)
-                        ? sale[Sale().formattedDate].toString()
+                    (sale[Sale.formattedDate["database"]] != null)
+                        ? sale[Sale.formattedDate["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,

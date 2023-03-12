@@ -706,8 +706,8 @@ class PurchasesListItem extends StatelessWidget {
                 SizedBox(
                   width: 60,
                   child: Text(
-                    (purchase[Purchase().id] != null)
-                        ? purchase[Purchase().id].toString()
+                    (purchase[Purchase.id["database"]] != null)
+                        ? purchase[Purchase.id["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -724,8 +724,8 @@ class PurchasesListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (purchase[Purchase().supplierName] != null)
-                        ? purchase[Purchase().supplierName].toString()
+                    (purchase[Purchase.supplierName["database"]] != null)
+                        ? purchase[Purchase.supplierName["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -742,8 +742,8 @@ class PurchasesListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (purchase[Purchase().productName] != null)
-                        ? purchase[Purchase().productName].toString()
+                    (purchase[Purchase.productName["database"]] != null)
+                        ? purchase[Purchase.productName["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -816,8 +816,8 @@ class PurchasesListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (purchase[Purchase().price] != null)
-                        ? purchase[Purchase().price].toString()
+                    (purchase[Purchase.price["database"]] != null)
+                        ? purchase[Purchase.price["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -834,8 +834,8 @@ class PurchasesListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (purchase[Purchase().amount] != null)
-                        ? purchase[Purchase().amount].toString()
+                    (purchase[Purchase.amount["database"]] != null)
+                        ? purchase[Purchase.amount["database"]].toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -852,8 +852,9 @@ class PurchasesListItem extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    (purchase[Purchase().formattedDate] != null)
-                        ? purchase[Purchase().formattedDate].toString()
+                    (purchase[Purchase.formattedDate["database"]] != null)
+                        ? purchase[Purchase.formattedDate["database"]]
+                            .toString()
                         : "-",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
@@ -875,10 +876,10 @@ class PurchasesListItem extends StatelessWidget {
                     textColor: YMColors().white,
                     onPressed: () {
                       editedItem = Map.from(purchase);
-                      if (editedItem[Purchase().supplierID] != null) {
+                      if (editedItem[Purchase.supplierID["database"]] != null) {
                         selectedItem = DatabaseService().getSuppliers(
                           false,
-                          editedItem[Purchase().supplierID],
+                          editedItem[Purchase.supplierID["database"]],
                           null,
                           null,
                           null,

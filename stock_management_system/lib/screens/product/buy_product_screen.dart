@@ -30,13 +30,13 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
 
   @override
   void initState() {
-    priceController.text = editedItem[Purchase().price];
-    amountController.text = editedItem[Purchase().amount];
-    dayController.text = editedItem[Purchase().date].split("-")[2];
+    priceController.text = editedItem[Purchase.price["database"]];
+    amountController.text = editedItem[Purchase.amount["database"]];
+    dayController.text = editedItem[Purchase.date["database"]].split("-")[2];
     monthController.text =
-        editedItem[Purchase().date].split("-")[1].padLeft(2, "0");
+        editedItem[Purchase.date["database"]].split("-")[1].padLeft(2, "0");
     yearController.text =
-        editedItem[Purchase().date].split("-")[0].padLeft(2, "0");
+        editedItem[Purchase.date["database"]].split("-")[0].padLeft(2, "0");
     super.initState();
   }
 
@@ -256,17 +256,20 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
                                           child: CustomSelectionField(
-                                            selectionText:
-                                                (selectedItem == null)
-                                                    ? null
-                                                    : selectedItem![
-                                                        Supplier().name],
+                                            selectionText: (selectedItem ==
+                                                    null)
+                                                ? null
+                                                : selectedItem![
+                                                    Supplier.name["database"]],
                                             onPressed: () {
-                                              editedItem[Purchase().price] =
+                                              editedItem[Purchase
+                                                      .price["database"]] =
                                                   priceController.text;
-                                              editedItem[Purchase().amount] =
+                                              editedItem[Purchase
+                                                      .amount["database"]] =
                                                   amountController.text;
-                                              editedItem[Purchase().date] =
+                                              editedItem[Purchase
+                                                      .date["database"]] =
                                                   "${yearController.text}-${monthController.text}-${dayController.text}";
                                               routeStack.add('/buy_product');
                                               Navigator.pushReplacementNamed(
@@ -469,18 +472,21 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
                                           "${yearController.text}-${monthController.text.padLeft(2, "0")}-${dayController.text.padLeft(2, "0")}";
                                       DatabaseService().insertPurchase(
                                         {
-                                          Purchase().id: null,
-                                          Purchase().supplierID:
+                                          Purchase.id["database"]: null,
+                                          Purchase.supplierID["database"]:
                                               (selectedItem != null)
-                                                  ? selectedItem![Supplier().id]
+                                                  ? selectedItem![
+                                                      Supplier.id["database"]]
                                                   : null,
-                                          Purchase().productID: stableItem[
-                                              Product.id["database"]],
-                                          Purchase().price: double.parse(
-                                              priceController.text),
-                                          Purchase().amount:
+                                          Purchase.productID["database"]:
+                                              stableItem[
+                                                  Product.id["database"]],
+                                          Purchase.price["database"]:
+                                              double.parse(
+                                                  priceController.text),
+                                          Purchase.amount["database"]:
                                               int.parse(amountController.text),
-                                          Purchase().date: date,
+                                          Purchase.date["database"]: date,
                                         },
                                       );
                                       DatabaseService().updateProduct(

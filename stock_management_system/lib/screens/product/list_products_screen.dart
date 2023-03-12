@@ -785,7 +785,7 @@ class ProductsListItem extends StatelessWidget {
                                   stableItem = product;
                                   editedItem = Map.from(emptyPurchase);
                                   DateTime today = DateTime.now();
-                                  editedItem[Purchase().date] =
+                                  editedItem[Purchase.date["database"]] =
                                       "${today.year}-${today.month}-${today.day}";
                                   selectedItem = null;
                                   routeStack.add('/list_products');

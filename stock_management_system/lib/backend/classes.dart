@@ -81,38 +81,131 @@ class Product {
   };
 }
 
-// TODO: Change other classes too
-
 class Supplier {
-  String tableName = "suppliers";
-  String id = "id";
-  String name = "name";
-  String phone = "phone";
-  String address = "address";
+  Supplier._();
+  static const Map<dynamic, dynamic> tableName = {
+    "database": "suppliers",
+    "en": "Suppliers",
+    "tr": "Tedarikçiler",
+  };
+  static const Map<dynamic, dynamic> id = {
+    "database": "id",
+    "en": "ID",
+    "tr": "ID",
+  };
+  static const Map<dynamic, dynamic> name = {
+    "database": "name",
+    "en": "Name",
+    "tr": "İsim",
+  };
+  static const Map<dynamic, dynamic> phone = {
+    "database": "phone",
+    "en": "Phone",
+    "tr": "Telefon",
+  };
+  static const Map<dynamic, dynamic> address = {
+    "database": "address",
+    "en": "Address",
+    "tr": "Adres",
+  };
 }
 
 class Purchase {
-  String tableName = "purchases";
-  String id = "id";
-  String supplierID = "supplierID";
-  String supplierName = "supplierName";
-  String productID = "productID";
-  String productName = "productName";
-  String amount = "amount";
-  String price = "price";
-  String date = "date";
-  String formattedDate = "formattedDate";
+  Purchase._();
+  static const Map<dynamic, dynamic> tableName = {
+    "database": "purchases",
+    "en": "Purchases",
+    "tr": "Satın Alımlar",
+  };
+  static const Map<dynamic, dynamic> id = {
+    "database": "id",
+    "en": "ID",
+    "tr": "ID",
+  };
+  static const Map<dynamic, dynamic> supplierID = {
+    "database": "supplierID",
+    "en": "Supplier ID",
+    "tr": "Tedarikçi ID",
+  };
+  static const Map<dynamic, dynamic> supplierName = {
+    "database": "supplierName",
+    "en": "Supplier Name",
+    "tr": "Tedarikçi İsmi",
+  };
+  static const Map<dynamic, dynamic> productID = {
+    "database": "productID",
+    "en": "Product ID",
+    "tr": "Ürün ID",
+  };
+  static const Map<dynamic, dynamic> productName = {
+    "database": "productName",
+    "en": "Product Name",
+    "tr": "Ürün İsmi",
+  };
+  static const Map<dynamic, dynamic> amount = {
+    "database": "amount",
+    "en": "Amount",
+    "tr": "Adet",
+  };
+  static const Map<dynamic, dynamic> price = {
+    "database": "price",
+    "en": "Price",
+    "tr": "Fiyat",
+  };
+  static const Map<dynamic, dynamic> date = {
+    "database": "date",
+    "en": "Date",
+    "tr": "Tarih",
+  };
+  static const Map<dynamic, dynamic> formattedDate = {
+    "database": "formattedDate",
+    "en": "Date",
+    "tr": "Tarih",
+  };
 }
 
 class Sale {
-  String tableName = "sales";
-  String id = "id";
-  String productID = "productID";
-  String productName = "productName";
-  String amount = "amount";
-  String price = "price";
-  String date = "date";
-  String formattedDate = "formattedDate";
+  Sale._();
+  static const Map<dynamic, dynamic> tableName = {
+    "database": "sales",
+    "en": "Sales",
+    "tr": "Satışlar",
+  };
+  static const Map<dynamic, dynamic> id = {
+    "database": "id",
+    "en": "ID",
+    "tr": "ID",
+  };
+  static const Map<dynamic, dynamic> productID = {
+    "database": "productID",
+    "en": "Product ID",
+    "tr": "Ürün ID",
+  };
+  static const Map<dynamic, dynamic> productName = {
+    "database": "productName",
+    "en": "Product Name",
+    "tr": "Ürün İsmi",
+  };
+  static const Map<dynamic, dynamic> amount = {
+    "database": "amount",
+    "en": "Amount",
+    "tr": "Adet",
+  };
+  static const Map<dynamic, dynamic> price = {
+    "database": "price",
+    "en": "Price",
+    "tr": "Fiyat",
+  };
+  static const Map<dynamic, dynamic> date = {
+    "database": "date",
+    "en": "Date",
+    "tr": "Tarih",
+  };
+  static const Map<dynamic, dynamic> formattedDate = {
+    "database": "formattedDate",
+    "en": "Date",
+    "tr": "Tarih",
+  };
 }
 
 Map<dynamic, dynamic> emptyCategory = {
@@ -134,25 +227,25 @@ Map<dynamic, dynamic> emptyProduct = {
 };
 
 Map<dynamic, dynamic> emptySupplier = {
-  Supplier().id: null,
-  Supplier().name: null,
-  Supplier().phone: null,
-  Supplier().address: null,
+  Supplier.id["database"]: null,
+  Supplier.name["database"]: null,
+  Supplier.phone["database"]: null,
+  Supplier.address["database"]: null,
 };
 
 Map<dynamic, dynamic> emptyPurchase = {
-  Purchase().id: null,
-  Purchase().supplierID: null,
-  Purchase().productID: null,
-  Purchase().amount: null,
-  Purchase().price: null,
-  Purchase().date: null,
+  Purchase.id["database"]: null,
+  Purchase.supplierID["database"]: null,
+  Purchase.productID["database"]: null,
+  Purchase.amount["database"]: null,
+  Purchase.price["database"]: null,
+  Purchase.date["database"]: null,
 };
 
 Map<dynamic, dynamic> emptySale = {
-  Sale().id: null,
-  Sale().productID: null,
-  Sale().amount: null,
-  Sale().price: null,
-  Sale().date: null,
+  Sale.id["database"]: null,
+  Sale.productID["database"]: null,
+  Sale.amount["database"]: null,
+  Sale.price["database"]: null,
+  Sale.date["database"]: null,
 };

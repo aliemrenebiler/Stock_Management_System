@@ -26,10 +26,11 @@ class _EditSaleScreenState extends State<EditSaleScreen> {
 
   @override
   void initState() {
-    List<String> dateList = editedItem[Purchase().date].toString().split("-");
-    productController.text = editedItem[Sale().productID].toString();
-    priceController.text = editedItem[Sale().price].toString();
-    amountController.text = editedItem[Sale().amount].toString();
+    List<String> dateList =
+        editedItem[Purchase.date["database"]].toString().split("-");
+    productController.text = editedItem[Sale.productID["database"]].toString();
+    priceController.text = editedItem[Sale.price["database"]].toString();
+    amountController.text = editedItem[Sale.amount["database"]].toString();
     dayController.text = dateList[2];
     monthController.text = dateList[1];
     yearController.text = dateList[0];
@@ -96,7 +97,7 @@ class _EditSaleScreenState extends State<EditSaleScreen> {
                                           child: CustomStableField(
                                             height: 50,
                                             selectionText:
-                                                "[${editedItem[Sale().productID]}] ${editedItem[Sale().productName]}",
+                                                "[${editedItem[Sale.productID["database"]]}] ${editedItem[Sale.productName["database"]]}",
                                           ),
                                         ),
                                       ),
@@ -394,8 +395,9 @@ class _EditSaleScreenState extends State<EditSaleScreen> {
                                                       onPressed: () {
                                                         DatabaseService()
                                                             .deleteSale(
-                                                                editedItem[
-                                                                    Sale().id]);
+                                                                editedItem[Sale
+                                                                        .id[
+                                                                    "database"]]);
                                                         Navigator
                                                             .pushReplacementNamed(
                                                                 context,
@@ -459,13 +461,15 @@ class _EditSaleScreenState extends State<EditSaleScreen> {
                                           "${yearController.text}-${monthController.text.padLeft(2, "0")}-${dayController.text.padLeft(2, "0")}";
                                       DatabaseService().updateSale(
                                         {
-                                          Sale().id: editedItem[Sale().id],
-                                          Sale().productID:
-                                              editedItem[Sale().productID],
-                                          Sale().date: date,
-                                          Sale().price: double.parse(
+                                          Sale.id["database"]:
+                                              editedItem[Sale.id["database"]],
+                                          Sale.productID["database"]:
+                                              editedItem[
+                                                  Sale.productID["database"]],
+                                          Sale.date["database"]: date,
+                                          Sale.price["database"]: double.parse(
                                               priceController.text),
-                                          Sale().amount:
+                                          Sale.amount["database"]:
                                               int.parse(amountController.text),
                                         },
                                       );

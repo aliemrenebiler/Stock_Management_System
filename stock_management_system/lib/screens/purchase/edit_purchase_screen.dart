@@ -30,13 +30,13 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
 
   @override
   void initState() {
-    priceController.text = editedItem[Purchase().price].toString();
-    amountController.text = editedItem[Purchase().amount].toString();
-    dayController.text = editedItem[Purchase().date].split("-")[2];
+    priceController.text = editedItem[Purchase.price["database"]].toString();
+    amountController.text = editedItem[Purchase.amount["database"]].toString();
+    dayController.text = editedItem[Purchase.date["database"]].split("-")[2];
     monthController.text =
-        editedItem[Purchase().date].split("-")[1].padLeft(2, "0");
+        editedItem[Purchase.date["database"]].split("-")[1].padLeft(2, "0");
     yearController.text =
-        editedItem[Purchase().date].split("-")[0].padLeft(2, "0");
+        editedItem[Purchase.date["database"]].split("-")[0].padLeft(2, "0");
     super.initState();
   }
 
@@ -100,7 +100,7 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                                           child: CustomStableField(
                                             height: 50,
                                             selectionText:
-                                                "[${editedItem[Purchase().productID]}] ${editedItem[Purchase().productName]}",
+                                                "[${editedItem[Purchase.productID["database"]]}] ${editedItem[Purchase.productName["database"]]}",
                                           ),
                                         ),
                                       ),
@@ -226,17 +226,20 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(5),
                                           child: CustomSelectionField(
-                                            selectionText:
-                                                (selectedItem == null)
-                                                    ? null
-                                                    : selectedItem![
-                                                        Supplier().name],
+                                            selectionText: (selectedItem ==
+                                                    null)
+                                                ? null
+                                                : selectedItem![
+                                                    Supplier.name["database"]],
                                             onPressed: () {
-                                              editedItem[Purchase().price] =
+                                              editedItem[Purchase
+                                                      .price["database"]] =
                                                   priceController.text;
-                                              editedItem[Purchase().amount] =
+                                              editedItem[Purchase
+                                                      .amount["database"]] =
                                                   amountController.text;
-                                              editedItem[Purchase().date] =
+                                              editedItem[Purchase
+                                                      .date["database"]] =
                                                   "${yearController.text}-${monthController.text}-${dayController.text}";
                                               routeStack.add("/edit_purchase");
                                               Navigator.pushReplacementNamed(
@@ -442,9 +445,9 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                                                       onPressed: () {
                                                         DatabaseService()
                                                             .deletePurchase(
-                                                                editedItem[
-                                                                    Purchase()
-                                                                        .id]);
+                                                                editedItem[Purchase
+                                                                        .id[
+                                                                    "database"]]);
                                                         Navigator
                                                             .pushReplacementNamed(
                                                                 context,
@@ -506,18 +509,20 @@ class _EditPurchaseScreenState extends State<EditPurchaseScreen> {
                                       String date =
                                           "${yearController.text}-${monthController.text.padLeft(2, "0")}-${dayController.text.padLeft(2, "0")}";
                                       DatabaseService().updatePurchase({
-                                        Purchase().id:
-                                            editedItem[Purchase().id],
-                                        Purchase().supplierID:
+                                        Purchase.id["database"]:
+                                            editedItem[Purchase.id["database"]],
+                                        Purchase.supplierID["database"]:
                                             (selectedItem == null)
                                                 ? null
-                                                : selectedItem![Supplier().id],
-                                        Purchase().productID:
-                                            editedItem[Purchase().productID],
-                                        Purchase().date: date,
-                                        Purchase().price:
+                                                : selectedItem![
+                                                    Supplier.id["database"]],
+                                        Purchase.productID["database"]:
+                                            editedItem[
+                                                Purchase.productID["database"]],
+                                        Purchase.date["database"]: date,
+                                        Purchase.price["database"]:
                                             double.parse(priceController.text),
-                                        Purchase().amount:
+                                        Purchase.amount["database"]:
                                             int.parse(amountController.text),
                                       });
                                       Navigator.pushReplacementNamed(

@@ -186,13 +186,14 @@ class _AddSupplierScreenState extends State<AddSupplierScreen> {
                                     } else {
                                       DatabaseService().insertSupplier(
                                         {
-                                          Supplier().id: null,
-                                          Supplier().name: nameController.text,
-                                          Supplier().phone:
+                                          Supplier.id["database"]: null,
+                                          Supplier.name["database"]:
+                                              nameController.text,
+                                          Supplier.phone["database"]:
                                               (phoneController.text.isEmpty)
                                                   ? null
                                                   : phoneController.text,
-                                          Supplier().address:
+                                          Supplier.address["database"]:
                                               (addressController.text.isEmpty)
                                                   ? null
                                                   : addressController.text,
