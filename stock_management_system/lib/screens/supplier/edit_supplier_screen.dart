@@ -216,9 +216,9 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
                                                       onPressed: () {
                                                         DatabaseService()
                                                             .deleteSupplier(
-                                                                editedItem[
-                                                                    Supplier()
-                                                                        .id]);
+                                                                editedItem[Supplier
+                                                                        .id[
+                                                                    "database"]]);
                                                         Navigator
                                                             .pushReplacementNamed(
                                                                 context,
