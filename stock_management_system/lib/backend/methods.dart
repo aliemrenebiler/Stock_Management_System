@@ -271,12 +271,10 @@ class DatabaseService {
     database.execute(
       '''
       INSERT INTO ${Category.tableName["database"]}(
-      ${Product.id["database"]},
       ${Product.name["database"]}
-      ) VALUES(?,?)
+      ) VALUES(?)
       ''',
       [
-        category[Category.id["database"]] as int,
         category[Category.name["database"]] as String,
       ],
     );
@@ -411,7 +409,6 @@ class DatabaseService {
     database.execute(
       '''
       INSERT INTO ${Product.tableName["database"]}(
-      ${Product.id["database"]},
       ${Product.name["database"]},
       ${Product.brand["database"]},
       ${Product.categoryID["database"]},
@@ -421,10 +418,9 @@ class DatabaseService {
       ${Product.amount["database"]},
       ${Product.price["database"]},
       ${Product.visible["database"]}
-      ) VALUES(?,?,?,?,?,?,?,?,?,?)
+      ) VALUES(?,?,?,?,?,?,?,?,?)
       ''',
       [
-        product[Product.id["database"]] as int,
         product[Product.name["database"]] as String,
         product[Product.brand["database"]] as String,
         product[Product.categoryID["database"]] as int,
@@ -558,14 +554,12 @@ class DatabaseService {
     database.execute(
       '''
       INSERT INTO ${Supplier.tableName["database"]}(
-      ${Supplier.id["database"]},
       ${Supplier.name["database"]},
       ${Supplier.phone["database"]},
       ${Supplier.address["database"]}
-      ) VALUES(?,?,?,?)
+      ) VALUES(?,?,?)
       ''',
       [
-        supplier[Supplier.id["database"]],
         supplier[Supplier.name["database"]],
         supplier[Supplier.phone["database"]],
         supplier[Supplier.address["database"]],
@@ -771,16 +765,14 @@ class DatabaseService {
     database.execute(
       '''
       INSERT INTO ${Purchase.tableName["database"]}(
-      ${Purchase.id["database"]},
       ${Purchase.supplierID["database"]},
       ${Purchase.productID["database"]},
       ${Purchase.amount["database"]},
       ${Purchase.price["database"]},
       ${Purchase.date["database"]}
-      ) VALUES(?,?,?,?,?,?)
+      ) VALUES(?,?,?,?,?)
       ''',
       [
-        purchase[Purchase.id["database"]],
         purchase[Purchase.supplierID["database"]],
         purchase[Purchase.productID["database"]],
         purchase[Purchase.amount["database"]],
@@ -918,15 +910,13 @@ class DatabaseService {
     database.execute(
       '''
       INSERT INTO ${Sale.tableName["database"]}(
-      ${Sale.id["database"]},
       ${Sale.productID["database"]},
       ${Sale.amount["database"]},
       ${Sale.price["database"]},
       ${Sale.date["database"]}
-      ) VALUES(?,?,?,?,?)
+      ) VALUES(?,?,?,?)
       ''',
       [
-        sale[Sale.id["database"]],
         sale[Sale.productID["database"]],
         sale[Sale.amount["database"]],
         sale[Sale.price["database"]],
