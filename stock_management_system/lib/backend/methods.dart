@@ -360,7 +360,7 @@ class DatabaseService {
     if (spec != null) {
       query +=
           ''' AND (${Product.tableName["database"]}.${Product.brand["database"]} LIKE "%$spec%"
-          OR ${Product.categoryName["database"]} LIKE "%$spec%"
+          OR ${Category.tableName["database"]}.${Category.name["database"]} LIKE "%$spec%"
           OR ${Product.tableName["database"]}.${Product.color["database"]} LIKE "%$spec%"
           OR ${Product.tableName["database"]}.${Product.size["database"]} LIKE "%$spec%"
           OR ${Product.tableName["database"]}.${Product.sizeUnit["database"]} LIKE "%$spec%"
