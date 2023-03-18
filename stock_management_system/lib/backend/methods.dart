@@ -350,34 +350,42 @@ class DatabaseService {
       ''';
 
     if (id != null) {
-      query += ' AND ${Product.id["database"]}=$id';
+      query +=
+          ' AND ${Product.tableName["database"]}.${Product.id["database"]}=$id';
     }
     if (name != null) {
-      query += ' AND ${Product.name["database"]} LIKE "%$name%"';
+      query +=
+          ' AND ${Product.tableName["database"]}.${Product.name["database"]} LIKE "%$name%"';
     }
     if (spec != null) {
-      query += ''' AND (${Product.brand["database"]} LIKE "%$spec%"
-          OR ${Product.categoryName["database"]} LIKE "%$spec%"
-          OR ${Product.color["database"]} LIKE "%$spec%"
-          OR ${Product.size["database"]} LIKE "%$spec%"
-          OR ${Product.sizeUnit["database"]} LIKE "%$spec%"
+      query +=
+          ''' AND (${Product.tableName["database"]}.${Product.brand["database"]} LIKE "%$spec%"
+          OR ${Product.tableName["database"]}.${Product.categoryName["database"]} LIKE "%$spec%"
+          OR ${Product.tableName["database"]}.${Product.color["database"]} LIKE "%$spec%"
+          OR ${Product.tableName["database"]}.${Product.size["database"]} LIKE "%$spec%"
+          OR ${Product.tableName["database"]}.${Product.sizeUnit["database"]} LIKE "%$spec%"
           )
           ''';
     }
     if (minPrice != null) {
-      query += ' AND ${Product.price["database"]}>=$minPrice';
+      query +=
+          ' AND ${Product.tableName["database"]}.${Product.price["database"]}>=$minPrice';
     }
     if (maxPrice != null) {
-      query += ' AND ${Product.price["database"]}<=$maxPrice';
+      query +=
+          ' AND ${Product.tableName["database"]}.${Product.price["database"]}<=$maxPrice';
     }
     if (minAmount != null) {
-      query += ' AND ${Product.amount["database"]}>=$minAmount';
+      query +=
+          ' AND ${Product.tableName["database"]}.${Product.amount["database"]}>=$minAmount';
     }
     if (maxAmount != null) {
-      query += ' AND ${Product.amount["database"]}<=$maxAmount';
+      query +=
+          ' AND ${Product.tableName["database"]}.${Product.amount["database"]}<=$maxAmount';
     }
     if (visible != null) {
-      query += ' AND ${Product.visible["database"]}==$visible';
+      query +=
+          ' AND ${Product.tableName["database"]}.${Product.visible["database"]}==$visible';
     }
 
     if (limit != null) {
@@ -676,7 +684,8 @@ class DatabaseService {
 
     if (id != null) {
       isSearching = true;
-      query += ' WHERE ${Purchase.id["database"]}="$id"';
+      query +=
+          ' WHERE ${Purchase.tableName["database"]}.${Purchase.id["database"]}="$id"';
     }
     if (date1 != null) {
       if (!isSearching) {
@@ -685,7 +694,8 @@ class DatabaseService {
       } else {
         query += ' AND';
       }
-      query += ' ${Purchase.date["database"]}>="$date1"';
+      query +=
+          ' ${Purchase.tableName["database"]}.${Purchase.date["database"]}>="$date1"';
     }
     if (date2 != null) {
       if (!isSearching) {
@@ -694,7 +704,8 @@ class DatabaseService {
       } else {
         query += ' AND';
       }
-      query += ' ${Purchase.date["database"]}<="$date2"';
+      query +=
+          ' ${Purchase.tableName["database"]}.${Purchase.date["database"]}<="$date2"';
     }
     if (minPrice != null) {
       if (!isSearching) {
@@ -703,7 +714,8 @@ class DatabaseService {
       } else {
         query += ' AND';
       }
-      query += ' ${Purchase.price["database"]}>=$minPrice';
+      query +=
+          ' ${Purchase.tableName["database"]}.${Purchase.price["database"]}>=$minPrice';
     }
     if (maxPrice != null) {
       if (!isSearching) {
@@ -712,7 +724,8 @@ class DatabaseService {
       } else {
         query += ' AND';
       }
-      query += ' ${Purchase.price["database"]}<=$maxPrice';
+      query +=
+          ' ${Purchase.tableName["database"]}.${Purchase.price["database"]}<=$maxPrice';
     }
     if (minAmount != null) {
       if (!isSearching) {
@@ -721,7 +734,8 @@ class DatabaseService {
       } else {
         query += ' AND';
       }
-      query += ' ${Purchase.amount["database"]}>=$minAmount';
+      query +=
+          ' ${Purchase.tableName["database"]}.${Purchase.amount["database"]}>=$minAmount';
     }
     if (maxAmount != null) {
       if (!isSearching) {
@@ -730,7 +744,8 @@ class DatabaseService {
       } else {
         query += ' AND';
       }
-      query += ' ${Purchase.amount["database"]}<=$maxAmount';
+      query +=
+          ' ${Purchase.tableName["database"]}.${Purchase.amount["database"]}<=$maxAmount';
     }
 
     if (limit != null) {
