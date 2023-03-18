@@ -31,11 +31,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   @override
   void initState() {
-    nameController.text = editedItem[Product.name["database"]];
-    brandController.text = editedItem[Product.brand["database"]];
-    colorController.text = editedItem[Product.color["database"]];
-    sizeController.text = editedItem[Product.size["database"]];
-    sizeTypeController.text = editedItem[Product.sizeUnit["database"]];
+    nameController.text = editedItem[Product.name["database"]] ?? "";
+    brandController.text = editedItem[Product.brand["database"]] ?? "";
+    colorController.text = editedItem[Product.color["database"]] ?? "";
+    sizeController.text = editedItem[Product.size["database"]] ?? "";
+    sizeTypeController.text = editedItem[Product.sizeUnit["database"]] ?? "";
     priceController.text = editedItem[Product.price["database"]].toString();
     amountController.text = editedItem[Product.amount["database"]].toString();
     super.initState();

@@ -20,7 +20,7 @@ class _EditCategoryScreenState extends State<EditCategoryScreen> {
   TextEditingController nameController = TextEditingController();
   @override
   void initState() {
-    nameController.text = editedItem[Category.name["database"]];
+    nameController.text = editedItem[Category.name["database"]] ?? "";
     super.initState();
   }
 

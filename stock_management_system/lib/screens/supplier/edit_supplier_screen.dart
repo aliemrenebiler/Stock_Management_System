@@ -22,9 +22,9 @@ class _EditSupplierScreenState extends State<EditSupplierScreen> {
   TextEditingController addressController = TextEditingController();
   @override
   void initState() {
-    nameController.text = editedItem[Supplier.name["database"]];
-    phoneController.text = editedItem[Supplier.phone["database"]];
-    addressController.text = editedItem[Supplier.address["database"]];
+    nameController.text = editedItem[Supplier.name["database"]] ?? "";
+    phoneController.text = editedItem[Supplier.phone["database"]] ?? "";
+    addressController.text = editedItem[Supplier.address["database"]] ?? "";
     super.initState();
   }
 

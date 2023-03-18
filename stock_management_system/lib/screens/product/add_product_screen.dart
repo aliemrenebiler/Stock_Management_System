@@ -31,13 +31,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   @override
   void initState() {
-    nameController.text = editedItem[Product.name["database"]];
-    brandController.text = editedItem[Product.brand["database"]];
-    colorController.text = editedItem[Product.color["database"]];
-    sizeController.text = editedItem[Product.size["database"]];
-    sizeTypeController.text = editedItem[Product.sizeUnit["database"]];
-    priceController.text = editedItem[Product.price["database"]];
-    amountController.text = editedItem[Product.amount["database"]];
+    nameController.text = editedItem[Product.name["database"]] ?? "";
+    brandController.text = editedItem[Product.brand["database"]] ?? "";
+    colorController.text = editedItem[Product.color["database"]] ?? "";
+    sizeController.text = editedItem[Product.size["database"]] ?? "";
+    sizeTypeController.text = editedItem[Product.sizeUnit["database"]] ?? "";
+    priceController.text = editedItem[Product.price["database"]] ?? "";
+    amountController.text = editedItem[Product.amount["database"]] ?? "";
     super.initState();
   }
 

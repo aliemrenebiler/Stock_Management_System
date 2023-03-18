@@ -30,8 +30,8 @@ class _BuyProductScreenState extends State<BuyProductScreen> {
 
   @override
   void initState() {
-    priceController.text = editedItem[Purchase.price["database"]];
-    amountController.text = editedItem[Purchase.amount["database"]];
+    priceController.text = editedItem[Purchase.price["database"]] ?? "";
+    amountController.text = editedItem[Purchase.amount["database"]] ?? "";
     dayController.text = editedItem[Purchase.date["database"]].split("-")[2];
     monthController.text =
         editedItem[Purchase.date["database"]].split("-")[1].padLeft(2, "0");
